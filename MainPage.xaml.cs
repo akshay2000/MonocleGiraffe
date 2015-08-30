@@ -1,4 +1,5 @@
-﻿using SharpImgur.Helpers;
+﻿using SharpImgur.APIWrappers;
+using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,8 @@ namespace MonocleGiraffe
         private async void GoButton_Click(object sender, RoutedEventArgs e)
         {
             string relativeUrl = UrlTextBox.Text;
-            ResponseTextBlock.Text = await NetworkHelper.ExecuteRequest(relativeUrl);
+            ResponseTextBlock.Text = (await NetworkHelper.ExecuteRequest(relativeUrl)).ToString();
+            var gallery = await Gallery.GetGallery();
         }
     }
 }
