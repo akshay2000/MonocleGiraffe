@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpImgur.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace MonocleGiraffe
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void GoButton_Click(object sender, RoutedEventArgs e)
+        {
+            string relativeUrl = UrlTextBox.Text;
+            ResponseTextBlock.Text = await NetworkHelper.ExecuteRequest(relativeUrl);
         }
     }
 }

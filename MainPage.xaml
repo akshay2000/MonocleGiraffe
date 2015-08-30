@@ -8,6 +8,17 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBox x:Name="UrlTextBox" PlaceholderText="Enter URL" Margin="10" Text="gallery/r/funny"/>
+        <Button x:Name="GoButton" Grid.Row="0" Grid.Column="1" Content="Go" Margin="10" Click="GoButton_Click"/>
+        <TextBlock x:Name="ResponseTextBlock" Grid.Row="1" Grid.ColumnSpan="2"  Text="Loading..." Margin="10"/>
     </Grid>
 </Page>
