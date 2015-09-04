@@ -1,5 +1,6 @@
 ﻿using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
+using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,9 +32,26 @@ namespace MonocleGiraffe
 
         private async void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            string relativeUrl = UrlTextBox.Text;
-            ResponseTextBlock.Text = (await NetworkHelper.ExecuteRequest(relativeUrl)).ToString();
-            var gallery = await Gallery.GetGallery();
+            //string relativeUrl = UrlTextBox.Text;
+            //ResponseTextBlock.Text = (await NetworkHelper.ExecuteRequest(relativeUrl)).ToString();
+            //var gallery = await Gallery.GetGallery();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            List<SharpImgur.Models.Image> gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
+            ImagesGridView.ItemsSource = gallery;
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainSplitView.IsPaneOpen = !MainSplitView.IsPaneOpen;
+        }
+
+        private void HomeMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

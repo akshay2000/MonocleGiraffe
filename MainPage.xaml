@@ -6,19 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        
-        <TextBox x:Name="UrlTextBox" PlaceholderText="Enter URL" Margin="10" Text="gallery/r/funny"/>
-        <Button x:Name="GoButton" Grid.Row="0" Grid.Column="1" Content="Go" Margin="10" Click="GoButton_Click"/>
-        <TextBlock x:Name="ResponseTextBlock" Grid.Row="1" Grid.ColumnSpan="2"  Text="Loading..." Margin="10"/>
-    </Grid>
+    
+    <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150">
+        <SplitView.Pane>
+            <StackPanel Background="LightGray">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Background="Transparent" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="HomeMenuButton" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" Width="50" Height="50" Background="Transparent" Click="HomeMenuButton_Click"/>
+                    <TextBlock Text="Home" FontSize="18" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid RequestedTheme="Dark" Background="#FF2C2C2C">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>                    
+                </Grid.RowDefinitions>
+                <TextBlock Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10"/>
+                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="None">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="ThumbnailWrapper" Margin="5">
+                                <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding Converter={StaticResource ImageToThumbnailConverter}, ConverterParameter=b}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
 </Page>
