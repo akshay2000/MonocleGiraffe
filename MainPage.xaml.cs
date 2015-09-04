@@ -3,9 +3,11 @@ using SharpImgur.Helpers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,23 +27,19 @@ namespace MonocleGiraffe
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ObservableCollection<string> thumbnails;
         public MainPage()
         {
             this.InitializeComponent();
-        }
-
-        private async void GoButton_Click(object sender, RoutedEventArgs e)
-        {
-            //string relativeUrl = UrlTextBox.Text;
-            //ResponseTextBlock.Text = (await NetworkHelper.ExecuteRequest(relativeUrl)).ToString();
-            //var gallery = await Gallery.GetGallery();
+            thumbnails = new ObservableCollection<string>();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             List<SharpImgur.Models.Image> gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
-            ImagesGridView.ItemsSource = gallery;
+            AddThumbnails(gallery, "b");
+            ImagesGridView.ItemsSource = thumbnails;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -52,6 +50,25 @@ namespace MonocleGiraffe
         private void HomeMenuButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void AddThumbnails(List<SharpImgur.Models.Image> images, string sizeSuffix = "s")
+        {
+            string baseUrl = "http://i.imgur.com/";
+            foreach (var image in images)
+            {
+                if (image.IsAlbum)
+                {
+                    var albumImages = await Album.GetImages(image.Id);
+                    string url = baseUrl + albumImages[0].Id + sizeSuffix + ".jpg";
+                    thumbnails.Add(url);
+                }
+                else
+                {
+                    string url = baseUrl + image.Id + sizeSuffix + ".jpg";
+                    thumbnails.Add(url);
+                }
+            }           
         }
     }
 }

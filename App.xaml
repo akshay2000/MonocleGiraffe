@@ -8,7 +8,6 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <converters:ImageToThumbnailConverter x:Key="ImageToThumbnailConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 
