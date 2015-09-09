@@ -1,4 +1,6 @@
-﻿using SharpImgur.APIWrappers;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Pages;
+using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
 using SharpImgur.Models;
 using System;
@@ -28,6 +30,8 @@ namespace MonocleGiraffe
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<string> thumbnails;
+        private List<SharpImgur.Models.Image> gallery;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -37,7 +41,7 @@ namespace MonocleGiraffe
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            List<SharpImgur.Models.Image> gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
+            gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
             AddThumbnails(gallery, "b");
             ImagesGridView.ItemsSource = thumbnails;
         }
@@ -69,6 +73,12 @@ namespace MonocleGiraffe
                     thumbnails.Add(url);
                 }
             }           
+        }
+
+        private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StateHelper.CurrentAlbum = new ObservableCollection<SharpImgur.Models.Image>(gallery);
+            Frame.Navigate(typeof(FlipViewPage));
         }
     }
 }
