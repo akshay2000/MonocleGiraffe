@@ -1,4 +1,5 @@
-﻿using SharpImgur.Models;
+﻿using MonocleGiraffe.Models;
+using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,6 @@ namespace MonocleGiraffe.Helpers
 {
     public static class StateHelper
     {
-        public static ObservableCollection<Image> CurrentAlbum { get; set; }
+        public static ObservableCollection<GalleryItem> CurrentGallery { get; set; }
     }
 }

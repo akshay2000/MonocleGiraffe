@@ -24,11 +24,11 @@
                     <RowDefinition Height="*"/>                    
                 </Grid.RowDefinitions>
                 <TextBlock Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10"/>
-                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="None" HorizontalAlignment="Center">
+                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Center">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped">
-                                <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding}"/>
+                                <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding BigThumbnail}"/>
                             </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>

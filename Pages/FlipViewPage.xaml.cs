@@ -31,7 +31,8 @@ namespace MonocleGiraffe.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            MainFlipView.ItemsSource = StateHelper.CurrentAlbum;
+            MainFlipView.ItemsSource = StateHelper.CurrentGallery;
+            MainFlipView.SelectedIndex = (int)e.Parameter;
         }
     }
 }

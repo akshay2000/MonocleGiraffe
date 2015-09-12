@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
@@ -29,21 +30,21 @@ namespace MonocleGiraffe
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ObservableCollection<string> thumbnails;
-        private List<SharpImgur.Models.Image> gallery;
-
         public MainPage()
         {
             this.InitializeComponent();
-            thumbnails = new ObservableCollection<string>();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
-            AddThumbnails(gallery, "b");
-            ImagesGridView.ItemsSource = thumbnails;
+            var gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
+            StateHelper.CurrentGallery = new ObservableCollection<GalleryItem>();
+            ImagesGridView.ItemsSource = StateHelper.CurrentGallery;
+            foreach (var image in gallery)
+            {
+                StateHelper.CurrentGallery.Add(await GalleryItem.New(image));
+            }            
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -56,29 +57,9 @@ namespace MonocleGiraffe
 
         }
 
-        private async void AddThumbnails(List<SharpImgur.Models.Image> images, string sizeSuffix = "s")
-        {
-            string baseUrl = "http://i.imgur.com/";
-            foreach (var image in images)
-            {
-                if (image.IsAlbum)
-                {
-                    var albumImages = await Album.GetImages(image.Id);
-                    string url = baseUrl + albumImages[0].Id + sizeSuffix + ".jpg";
-                    thumbnails.Add(url);
-                }
-                else
-                {
-                    string url = baseUrl + image.Id + sizeSuffix + ".jpg";
-                    thumbnails.Add(url);
-                }
-            }           
-        }
-
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            StateHelper.CurrentAlbum = new ObservableCollection<SharpImgur.Models.Image>(gallery);
-            Frame.Navigate(typeof(FlipViewPage));
+            Frame.Navigate(typeof(FlipViewPage), ImagesGridView.SelectedIndex);
         }
     }
 }
