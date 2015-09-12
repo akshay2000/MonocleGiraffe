@@ -64,16 +64,29 @@ namespace MonocleGiraffe.Models
             }
         }
 
-        //public GalleryItemType Type
-        //{
-        //    get
-        //    {
-        //        switch (image.Type)
-        //        {
-        //            case 
-        //        }
-        //    }
-        //}
+        public GalleryItemType Type
+        {
+            get
+            {
+                return GetImageType();
+            }
+        }
+
+        private GalleryItemType GetImageType()
+        {
+            if (image.IsAlbum)
+            {
+                return GalleryItemType.Album;
+            }
+            else if (image.Animated)
+            {
+                return GalleryItemType.Animation;
+            }
+            else
+            {
+                return GalleryItemType.Image;
+            }
+        }
 
         private async Task SetThumbnailId()
         {

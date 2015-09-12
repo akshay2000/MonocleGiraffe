@@ -11,6 +11,8 @@ namespace MonocleGiraffe.Helpers
 {
     public static class StateHelper
     {
-        public static ObservableCollection<GalleryItem> CurrentGallery { get; set; }
+        public static ObservableCollection<GalleryItem> CurrentGallery { get; set; } = new ObservableCollection<GalleryItem>();
+
+        public static int CurrentGalleryItemIndex { get; set; } = 0;
     }
 }

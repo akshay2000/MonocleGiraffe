@@ -32,19 +32,33 @@ namespace MonocleGiraffe
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            ImagesGridView.SelectedIndex = -1;
+
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                ImagesGridView.ItemsSource = StateHelper.CurrentGallery;
+                LoadGallery();
+            }
+            else if (e.NavigationMode == NavigationMode.Back)
+            {
+                ImagesGridView.ScrollIntoView(StateHelper.CurrentGallery[StateHelper.CurrentGalleryItemIndex]);
+            }
+        }
+
+        private async void LoadGallery()
+        {
             var gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
-            StateHelper.CurrentGallery = new ObservableCollection<GalleryItem>();
-            ImagesGridView.ItemsSource = StateHelper.CurrentGallery;
             foreach (var image in gallery)
             {
                 StateHelper.CurrentGallery.Add(await GalleryItem.New(image));
-            }            
+            }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -59,7 +73,8 @@ namespace MonocleGiraffe
 
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(FlipViewPage), ImagesGridView.SelectedIndex);
+            StateHelper.CurrentGalleryItemIndex = ImagesGridView.SelectedIndex;
+            Frame.Navigate(typeof(FlipViewPage));
         }
     }
 }

@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <FlipView x:Name="MainFlipView">
+        <FlipView x:Name="MainFlipView" SelectionChanged="MainFlipView_SelectionChanged">
             <FlipView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

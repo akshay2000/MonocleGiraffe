@@ -32,7 +32,15 @@ namespace MonocleGiraffe.Pages
         {
             base.OnNavigatedTo(e);
             MainFlipView.ItemsSource = StateHelper.CurrentGallery;
-            MainFlipView.SelectedIndex = (int)e.Parameter;
+            MainFlipView.SelectedIndex = StateHelper.CurrentGalleryItemIndex;
+        }
+
+        private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MainFlipView.SelectedIndex > 0)
+            {
+                StateHelper.CurrentGalleryItemIndex = MainFlipView.SelectedIndex;
+            }
         }
     }
 }
