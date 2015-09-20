@@ -2,23 +2,9 @@
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -34,6 +20,7 @@ namespace MonocleGiraffe
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            DataContext = StateHelper.ViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -43,21 +30,23 @@ namespace MonocleGiraffe
 
             if (e.NavigationMode == NavigationMode.New)
             {
-                ImagesGridView.ItemsSource = StateHelper.CurrentGallery;
                 LoadGallery();
             }
             else if (e.NavigationMode == NavigationMode.Back)
             {
-                ImagesGridView.ScrollIntoView(StateHelper.CurrentGallery[StateHelper.CurrentGalleryItemIndex]);
+                ImagesGridView.ScrollIntoView(StateHelper.ViewModel.ImageItems[StateHelper.ViewModel.SelectedIndex]);
             }
         }
 
         private async void LoadGallery()
         {
+            StateHelper.ViewModel.ImageItems.Clear();
             var gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
+            int i = 0;
             foreach (var image in gallery)
             {
-                StateHelper.CurrentGallery.Add(await GalleryItem.New(image));
+                i++;
+                StateHelper.ViewModel.ImageItems.Add(await GalleryItem.New(image));
             }
         }
 
@@ -73,7 +62,7 @@ namespace MonocleGiraffe
 
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            StateHelper.CurrentGalleryItemIndex = ImagesGridView.SelectedIndex;
+            StateHelper.ViewModel.SelectedIndex = ImagesGridView.SelectedIndex;
             Frame.Navigate(typeof(FlipViewPage));
         }
     }

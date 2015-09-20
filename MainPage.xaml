@@ -24,7 +24,7 @@
                     <RowDefinition Height="*"/>                    
                 </Grid.RowDefinitions>
                 <TextBlock Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10"/>
-                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Center">
+                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Center" ItemsSource="{Binding ImageItems}">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped">

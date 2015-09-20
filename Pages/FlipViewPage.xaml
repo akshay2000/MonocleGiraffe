@@ -5,10 +5,34 @@
     xmlns:local="using:MonocleGiraffe.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Name="FlipPage">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <FlipView x:Name="MainFlipView" SelectionChanged="MainFlipView_SelectionChanged">
+    <Page.Resources>
+        <!--<DataTemplate x:Key="ImageDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding Title}" Grid.Row="0"/>
+                <TextBlock Text="{Binding Type}" Grid.Row="1"/>
+                <Viewbox x:Name="ImageWrapper" StretchDirection="DownOnly" Grid.Row="1" DoubleTapped="ImageWrapper_DoubleTapped">
+                    <Image Source="{Binding Link}" Stretch="None"/>
+                </Viewbox>
+            </Grid>
+        </DataTemplate>-->
+        <!--<DataTemplate x:Key="ZoomedImageDataTemplate">
+            <Grid x:Name="ScrollViewerWrapper" SizeChanged="ScrollViewerWrapper_SizeChanged">
+                <ScrollViewer x:Name="ZoomedImageWrapper" DoubleTapped="ZoomedImageWrapper_DoubleTapped" HorizontalScrollBarVisibility="Auto" ZoomMode="Enabled" MaxZoomFactor="1">
+                    <Image Source="{Binding Link}" MaxWidth="{Binding DataContext.PageWidth, ElementName=FlipViewPage}" MaxHeight="{Binding DataContext.PageHeight, ElementName=FlipViewPage}"/>
+                </ScrollViewer>
+            </Grid>
+        </DataTemplate>-->
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
             <FlipView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -18,7 +42,11 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding Title}" Grid.Row="0"/>
                         <TextBlock Text="{Binding Type}" Grid.Row="1"/>
-                        <Image Source="{Binding Link}" Grid.Row="1"/>
+                        <Grid x:Name="ScrollViewerWrapper" SizeChanged="ScrollViewerWrapper_SizeChanged" Grid.Row="1">
+                            <ScrollViewer x:Name="ZoomedImageWrapper" DoubleTapped="ZoomedImageWrapper_DoubleTapped" Loaded="ZoomedImageWrapper_Loaded" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" ZoomMode="Enabled" MinZoomFactor="{Binding DataContext.ZoomFactor, ElementName=FlipPage}" MaxZoomFactor="1">
+                                <Image Source="{Binding Link}" Stretch="None" ImageOpened="Image_ImageOpened"/> <!--MaxWidth="{Binding DataContext.ViewPortWidth, ElementName=FlipPage}" MaxHeight="{Binding DataContext.ViewPortHeight, ElementName=FlipPage}"/>-->
+                            </ScrollViewer>
+                        </Grid>
                     </Grid>
                 </DataTemplate>
             </FlipView.ItemTemplate>

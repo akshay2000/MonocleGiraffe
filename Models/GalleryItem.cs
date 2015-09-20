@@ -72,6 +72,22 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        public int Width
+        {
+            get
+            {
+                return image.Width;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return image.Height;
+            }
+        }
+
         private GalleryItemType GetImageType()
         {
             if (image.IsAlbum)
@@ -104,7 +120,6 @@ namespace MonocleGiraffe.Models
         public static async Task<GalleryItem> New(Image image)
         {
             GalleryItem item = new GalleryItem(image);
-            Debug.WriteLine(image.Type);
             await item.SetThumbnailId();
             return item;
         }
