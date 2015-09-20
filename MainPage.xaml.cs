@@ -42,10 +42,8 @@ namespace MonocleGiraffe
         {
             StateHelper.ViewModel.ImageItems.Clear();
             var gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
-            int i = 0;
             foreach (var image in gallery)
             {
-                i++;
                 StateHelper.ViewModel.ImageItems.Add(await GalleryItem.New(image));
             }
         }

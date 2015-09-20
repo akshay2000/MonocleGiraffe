@@ -38,10 +38,9 @@ namespace MonocleGiraffe.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //MainFlipView.SelectedIndex = StateHelper.CurrentGalleryItemIndex;
         }
 
-        private async void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (isViewRendered)
                 ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
@@ -119,8 +118,11 @@ namespace MonocleGiraffe.Pages
 
         private void Image_ImageOpened(object sender, RoutedEventArgs e)
         {
-            ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
-            isViewRendered = true;
+            if (!isViewRendered)
+            {
+                ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
+                isViewRendered = true; 
+            }
         }
     }
 }
