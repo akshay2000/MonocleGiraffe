@@ -7,14 +7,43 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     
-    <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150">
+    <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250">
         <SplitView.Pane>
             <StackPanel Background="LightGray">
                 <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Background="Transparent" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="HomeMenuButton" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" Width="50" Height="50" Background="Transparent" Click="HomeMenuButton_Click"/>
-                    <TextBlock Text="Home" FontSize="18" VerticalAlignment="Center"/>
-                </StackPanel>
+                <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click">
+                    <Button.Content>
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                            <TextBlock Text="Home" Grid.Column="1" Margin="10,0,0,0"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click">
+                    <Button.Content>
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                            <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <ListView x:Name="SubredditsListView" Background="DarkGray">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
+                                <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>                
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
@@ -23,7 +52,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>                    
                 </Grid.RowDefinitions>
-                <TextBlock Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10"/>
+                <TextBlock x:Name="PageHeaderTextBox" Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10"/>
                 <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Center" ItemsSource="{Binding ImageItems}">
                     <GridView.ItemTemplate>
                         <DataTemplate>
