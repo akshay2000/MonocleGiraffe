@@ -3,6 +3,7 @@ using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -114,6 +115,30 @@ namespace MonocleGiraffe.Models
             else
             {
                 thumbnailId = image.Id;
+            }
+        }
+
+        private ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
+        public ObservableCollection<Comment> Comments
+        {
+            get
+            {
+                if (comments.Count == 0)
+                    LoadComments(image.Id);
+                return comments;
+            }
+        }
+
+        private async void LoadComments(string imageId)
+        {
+            if (imageId == null)
+            {
+                return;
+            }
+            var commentsList = await Gallery.GetComments(imageId);
+            foreach (var comment in commentsList)
+            {
+                comments.Add(comment);
             }
         }
 
