@@ -7,7 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="FlipPage">
-
+    <Page.TopAppBar>
+        <CommandBar x:Name="TopCommandBar">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="ShareButton" Icon="ReShare" Label="Share"/>
+                <AppBarButton x:Name="SaveButton" Icon="Save" Label="Save" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
     <Page.Resources>
         <!--<DataTemplate x:Key="ImageDataTemplate">
             <Grid>
@@ -31,7 +38,7 @@
         </DataTemplate>-->
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="LayoutRoot" Background="DimGray">
         <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
             <FlipView.ItemTemplate>
                 <DataTemplate>
