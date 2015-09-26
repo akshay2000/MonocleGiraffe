@@ -42,28 +42,28 @@ namespace MonocleGiraffe.Pages
 
         private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (isViewRendered)
-                ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);            
+            //if (isViewRendered)
+            //    ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);            
         }
 
         private void ZoomedImageWrapper_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            var imageScrollViewer = sender as ScrollViewer;
-            if (imageScrollViewer.ZoomFactor > 0.99)
-            {
-                ChangeView(imageScrollViewer, dataContext.ZoomFactor);
-            }
-            else
-            {
-                ChangeView(imageScrollViewer, 1);
-            }
+            //var imageScrollViewer = sender as ScrollViewer;
+            //if (imageScrollViewer.ZoomFactor > 0.99)
+            //{
+            //    ChangeView(imageScrollViewer, dataContext.ZoomFactor);
+            //}
+            //else
+            //{
+            //    ChangeView(imageScrollViewer, 1);
+            //}
         }        
 
         private void ScrollViewerWrapper_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var grid = sender as Grid;
-            dataContext.ViewPortWidth = e.NewSize.Width;
-            dataContext.ViewPortHeight = e.NewSize.Height;
+            //var grid = sender as Grid;
+            //dataContext.ViewPortWidth = e.NewSize.Width;
+            //dataContext.ViewPortHeight = e.NewSize.Height;
         }
 
         #region Helpers
@@ -114,8 +114,8 @@ namespace MonocleGiraffe.Pages
         {
             if (!isViewRendered)
             {
-                ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
-                isViewRendered = true; 
+                //ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
+                //isViewRendered = true; 
             }
         }
     }

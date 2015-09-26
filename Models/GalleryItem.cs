@@ -1,4 +1,5 @@
 ﻿
+using MonocleGiraffe.Helpers;
 using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
@@ -13,16 +14,16 @@ namespace MonocleGiraffe.Models
 {
     public enum GalleryItemType { Image, Album, Animation }
 
-    public class GalleryItem
+    public class GalleryItem : NotifyBase
     {
         private Image image;
-        private string thumbnailId;
             
         private const string baseUrl = "http://i.imgur.com/";
 
-        private GalleryItem(Image image)
+        public GalleryItem(Image image)
         {
             this.image = image;
+            SetThumbnails();
         }
 
         public string Title
@@ -49,46 +50,40 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        private string smallThumbnail;
         public string SmallThumbnail
         {
             get
             {
-                return baseUrl + thumbnailId + "s.jpg";
+                return smallThumbnail;
+            }
+            set
+            {
+                if (smallThumbnail != value)
+                {
+                    smallThumbnail = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 
+        private string bigThumbnail;
         public string BigThumbnail
         {
             get
             {
-                return baseUrl + thumbnailId + "b.jpg";
+                return bigThumbnail;
             }
-        }
-
-        public GalleryItemType Type
-        {
-            get
+            set
             {
-                return GetImageType();
+                if (bigThumbnail != value)
+                {
+                    bigThumbnail = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
-
-        public int Width
-        {
-            get
-            {
-                return image.Width;
-            }
-        }
-
-        public int Height
-        {
-            get
-            {
-                return image.Height;
-            }
-        }
-
+               
         private GalleryItemType GetImageType()
         {
             if (image.IsAlbum)
@@ -103,20 +98,7 @@ namespace MonocleGiraffe.Models
             {
                 return GalleryItemType.Image;
             }
-        }
-
-        private async Task SetThumbnailId()
-        {
-            if (image.IsAlbum)
-            {
-                var album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
-                thumbnailId = album.Cover;
-            }
-            else
-            {
-                thumbnailId = image.Id;
-            }
-        }
+        }        
 
         private ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
         public ObservableCollection<Comment> Comments
@@ -129,24 +111,56 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        private ObservableCollection<ImageItem> imageItems = new ObservableCollection<ImageItem>();
+        public ObservableCollection<ImageItem> ImageItems
+        {
+            get
+            {
+                if (imageItems.Count == 0)
+                    LoadImageItems();
+                return imageItems;
+            }
+        }
+
+        private async void LoadImageItems()
+        {
+            if (image.IsAlbum)
+            {
+                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
+                foreach (var image in album.Images)
+                {
+                    imageItems.Add(new ImageItem(image));
+                }
+            }
+            else
+            {
+                imageItems.Add(new ImageItem(image));
+            }
+        }
+
+        private async void SetThumbnails()
+        {
+            string thumbnailId;
+            if (image.IsAlbum)
+            {
+                var album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
+                thumbnailId = album.Cover;
+            }
+            else
+            {
+                thumbnailId = image.Id;
+            }
+            SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
+            BigThumbnail = baseUrl + thumbnailId + "b.jpg";
+        }
+
         private async void LoadComments(string imageId)
         {
-            if (imageId == null)
-            {
-                return;
-            }
             var commentsList = await Gallery.GetComments(imageId);
             foreach (var comment in commentsList)
             {
                 comments.Add(comment);
             }
-        }
-
-        public static async Task<GalleryItem> New(Image image)
-        {
-            GalleryItem item = new GalleryItem(image);
-            await item.SetThumbnailId();
-            return item;
-        }
+        }        
     }
 }

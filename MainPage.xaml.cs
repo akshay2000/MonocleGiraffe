@@ -52,7 +52,7 @@ namespace MonocleGiraffe
             var gallery = await Gallery.GetGallery();
             foreach (var image in gallery)
             {
-                StateHelper.ViewModel.ImageItems.Add(await GalleryItem.New(image));
+                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
             }
         }
 
@@ -63,7 +63,7 @@ namespace MonocleGiraffe
             var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
             foreach (var image in subredditGallery)
             {
-                StateHelper.ViewModel.ImageItems.Add(await GalleryItem.New(image));
+                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
             }
         }
 

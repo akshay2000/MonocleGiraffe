@@ -22,7 +22,57 @@
         </CommandBar>
     </Page.TopAppBar>
     <Page.Resources>
-        <DataTemplate x:Key="ImageDataTemplate">
+        <Style x:Key="CenteredListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid x:Name="LayoutRoot" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <Grid.Resources>
+                                <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
+                                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+                                    <Setter Property="TextLineBounds" Value="Full"/>
+                                    <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+                                </Style>
+                                <Style x:Key="BodyContentPresenterStyle" BasedOn="{StaticResource BaseContentPresenterStyle}" TargetType="ContentPresenter">
+                                    <Setter Property="FontWeight" Value="Normal"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </Style>
+                            </Grid.Resources>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Selected"/>                                        
+                                    <VisualState x:Name="SelectedUnfocused"/>                                      
+                                    <VisualState x:Name="SelectedPointerOver"/>                                      
+                                    <VisualState x:Name="SelectedPressed"/>                                       
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="PressedBackground" Fill="Transparent" Control.IsTemplateFocusTarget="True"/>
+                            <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Style="{StaticResource BodyContentPresenterStyle}" TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="GalleryItemDataTemplate">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -33,19 +83,28 @@
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Title}" Grid.Row="0"/>
-                <TextBlock Text="{Binding Type}" Grid.Row="1"/>
-                <Grid x:Name="ScrollViewerWrapper" SizeChanged="ScrollViewerWrapper_SizeChanged" Grid.Row="1">
+                <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ImageItems}" ItemContainerStyle="{StaticResource CenteredListBoxItemStyle}" VerticalAlignment="Center">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Viewbox StretchDirection="DownOnly">
+                                <Image Source="{Binding Link}"/>
+                            </Viewbox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!--<Grid x:Name="ScrollViewerWrapper" SizeChanged="ScrollViewerWrapper_SizeChanged" Grid.Row="1">
                     <ScrollViewer x:Name="ZoomedImageWrapper" DoubleTapped="ZoomedImageWrapper_DoubleTapped" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" ZoomMode="Enabled" MinZoomFactor="{Binding DataContext.ZoomFactor, ElementName=FlipPage}" MaxZoomFactor="1">
                         <Image Source="{Binding Link}" Stretch="None" ImageOpened="Image_ImageOpened"/>
                     </ScrollViewer>
-                </Grid>
-                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.Row="1"/>
+                </Grid>-->
+                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplate="{StaticResource ImageDataTemplate}">
+        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplate="{StaticResource GalleryItemDataTemplate}">
             
         </FlipView>
     </Grid>
