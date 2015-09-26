@@ -43,7 +43,7 @@ namespace MonocleGiraffe.Pages
         private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (isViewRendered)
-                ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
+                ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);            
         }
 
         private void ZoomedImageWrapper_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -109,12 +109,6 @@ namespace MonocleGiraffe.Pages
         }
 
         #endregion
-
-        private void ZoomedImageWrapper_Loaded(object sender, RoutedEventArgs e)
-        {
-            //await Task.Delay(1000);
-            //ChangeView(GetScrollViewer(), dataContext.ZoomFactor);
-        }
 
         private void Image_ImageOpened(object sender, RoutedEventArgs e)
         {

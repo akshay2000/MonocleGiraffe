@@ -16,6 +16,6 @@ namespace MonocleGiraffe.Helpers
 
         //public static int CurrentGalleryItemIndex { get; set; } = 0;
 
-        public static MainViewModel ViewModel { get; set; } = new MainViewModel(new ObservableCollection<GalleryItem>());
+        public static MainViewModel ViewModel { get; set; } = new MainViewModel();
     }
 }

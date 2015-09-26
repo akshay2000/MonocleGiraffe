@@ -21,6 +21,7 @@ namespace MonocleGiraffe
     {
         ObservableCollection<string> subreddits = new ObservableCollection<string>();
         List<string> subredditsList = new List<string>() { "EarthPorn", "Aww", "Funny", "Pics", "GIFs" };
+
         public MainPage()
         {
             InitializeComponent();
@@ -46,8 +47,9 @@ namespace MonocleGiraffe
 
         private async void LoadGallery()
         {
-            StateHelper.ViewModel.ImageItems.Clear();
-            var gallery = await Gallery.GetGallery(Gallery.Section.Hot, Gallery.Sort.Viral, Gallery.Window.Day, true, 0);
+            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
+            StateHelper.ViewModel.GalleryTitle = "Gallery";
+            var gallery = await Gallery.GetGallery();
             foreach (var image in gallery)
             {
                 StateHelper.ViewModel.ImageItems.Add(await GalleryItem.New(image));
@@ -56,7 +58,8 @@ namespace MonocleGiraffe
 
         private async void LoadSubreddit(string subreddit)
         {
-            StateHelper.ViewModel.ImageItems.Clear();
+            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
+            StateHelper.ViewModel.GalleryTitle = subreddit;
             var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
             foreach (var image in subredditGallery)
             {

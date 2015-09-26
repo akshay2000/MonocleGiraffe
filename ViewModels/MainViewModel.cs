@@ -12,14 +12,25 @@ using System.Threading.Tasks;
 namespace MonocleGiraffe.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
-    {
-        public MainViewModel(ObservableCollection<GalleryItem> images)
+    {        
+        private string galleryTitle;
+        public string GalleryTitle
         {
-            ImageItems = images;
+            get
+            {
+                return galleryTitle;
+            }
+            set
+            {
+                if (galleryTitle != value)
+                {
+                    galleryTitle = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         private int selectedIndex;
-
         public int SelectedIndex
         {
             get { return selectedIndex; }
@@ -35,7 +46,6 @@ namespace MonocleGiraffe.ViewModels
         }
 
         private float zoomFactor;
-
         public float ZoomFactor
         {
             get
@@ -50,7 +60,6 @@ namespace MonocleGiraffe.ViewModels
                 {
                     zoomFactor = value;
                     NotifyPropertyChanged();
-                    Debug.WriteLine("Zoomfactor changed to: " + value);
                 }
             }
         }
@@ -66,7 +75,6 @@ namespace MonocleGiraffe.ViewModels
         }
         
         private double viewPortWidth;
-
         public double ViewPortWidth
         {
             get { return viewPortWidth; }
@@ -82,7 +90,6 @@ namespace MonocleGiraffe.ViewModels
         }
 
         private double viewPortHeight;
-
         public double ViewPortHeight
         {
             get { return viewPortHeight; }
@@ -97,7 +104,22 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        public ObservableCollection<GalleryItem> ImageItems { get; private set; }
+        private ObservableCollection<GalleryItem> imageItems;
+        public ObservableCollection<GalleryItem> ImageItems
+        {
+            get
+            {
+                return imageItems;
+            }
+            set
+            {
+                if (imageItems != value)
+                {
+                    imageItems = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

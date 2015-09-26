@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="MonocleGiraffe.UserControls.CommentsUserControl"
+    x:Class="MonocleGiraffe.Controls.CommentsUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MonocleGiraffe.UserControls"
@@ -153,12 +153,12 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid x:Name="grid" Background="White" d:DataContext="{d:DesignData /SampleData/CommentSampleData.xaml}">
+    <Grid x:Name="grid" d:DataContext="{d:DesignData /SampleData/CommentSampleData.xaml}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Comments"/>
+        <!--<TextBlock Text="Comments"/>-->
         <ListView x:Name="listView" ItemsSource="{Binding}" Grid.Row="1" ItemTemplate="{StaticResource CT0}" SelectionMode="None"/>
         
     </Grid>
