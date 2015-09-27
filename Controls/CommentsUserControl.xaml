@@ -2,7 +2,7 @@
     x:Class="MonocleGiraffe.Controls.CommentsUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MonocleGiraffe.UserControls"
+    xmlns:local="using:MonocleGiraffe.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -13,6 +13,7 @@
         <Style x:Key="CommentsListViewStyle" TargetType="ListView">
             <Setter Property="SelectionMode" Value="None"/>
             <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource MinimalListViewItemStyle}"/>
         </Style>
 
         <Style x:Key="CommentsGridStyle" TargetType="Grid">
@@ -43,7 +44,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid DoubleTapped="CommentWrapper_DoubleTapped">
+                <Grid Tapped="CommentWrapper_Tapped">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -66,7 +67,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid DoubleTapped="CommentWrapper_DoubleTapped">
+                <Grid Tapped="CommentWrapper_Tapped">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -89,7 +90,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid DoubleTapped="CommentWrapper_DoubleTapped">
+                <Grid Tapped="CommentWrapper_Tapped">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -112,7 +113,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid DoubleTapped="CommentWrapper_DoubleTapped">
+                <Grid Tapped="CommentWrapper_Tapped">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -135,7 +136,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid x:Name="CommentWrapper" DoubleTapped="CommentWrapper_DoubleTapped">
+                <Grid x:Name="CommentWrapper" Tapped="CommentWrapper_Tapped">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -159,7 +160,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--<TextBlock Text="Comments"/>-->
-        <ListView x:Name="listView" ItemsSource="{Binding}" Grid.Row="1" ItemTemplate="{StaticResource CT0}" SelectionMode="None"/>
+        <ListView x:Name="listView" ItemsSource="{Binding}" Grid.Row="1" ItemTemplate="{StaticResource CT0}" Style="{StaticResource CommentsListViewStyle}" Visibility="Visible"/>
         
     </Grid>
 </UserControl>

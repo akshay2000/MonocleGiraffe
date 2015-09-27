@@ -134,6 +134,7 @@ namespace MonocleGiraffe.Models
             }
             else
             {
+                image.Title = String.Empty;
                 imageItems.Add(new ImageItem(image));
             }
         }

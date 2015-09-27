@@ -40,5 +40,21 @@ namespace MonocleGiraffe.Models
                 return image.Link;
             }
         }
+
+        public string Title
+        {
+            get
+            {
+                return image.Title;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return image.Description;
+            }
+        }
     }
 }

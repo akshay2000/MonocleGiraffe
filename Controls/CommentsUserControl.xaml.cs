@@ -22,27 +22,19 @@ namespace MonocleGiraffe.Controls
         public CommentsUserControl()
         {
             this.InitializeComponent();
+        }          
+
+        private void CommentWrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ExpandComments(sender);
         }
 
-        private void CommentWrapper_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private void ExpandComments(object sender)
         {
             Grid grid = sender as Grid;
             var children = (grid.Parent as Grid).Children;
             var moreItem = children[1];
             moreItem.Visibility = moreItem.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        private List<Control> AllChildren(DependencyObject parent)
-        {
-            var _List = new List<Control>();
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-            {
-                var _Child = VisualTreeHelper.GetChild(parent, i);
-                if (_Child is Control)
-                    _List.Add(_Child as Control);
-                _List.AddRange(AllChildren(_Child));
-            }
-            return _List;
         }
     }
 }
