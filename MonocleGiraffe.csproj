@@ -105,7 +105,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\GalleryItem.cs" />
-    <Compile Include="Models\ImageItem.cs" />
     <Compile Include="Pages\FlipViewPage.xaml.cs">
       <DependentUpon>FlipViewPage.xaml</DependentUpon>
     </Compile>
@@ -113,6 +112,7 @@
     <Compile Include="Controls\CommentsUserControl.xaml.cs">
       <DependentUpon>CommentsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

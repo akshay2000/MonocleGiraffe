@@ -9,8 +9,8 @@
    
     <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250">
         <SplitView.Pane>
-            <StackPanel Background="LightGray">
-                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Background="Transparent" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click"/>
+            <StackPanel>
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click"/>
                 <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click">
                     <Button.Content>
                         <Grid HorizontalAlignment="Left">
@@ -35,7 +35,7 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                <ListView x:Name="SubredditsListView" Background="DarkGray">
+                <ListView x:Name="SubredditsListView" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
@@ -47,7 +47,7 @@
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Grid RequestedTheme="Dark" Background="#FF2C2C2C">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>                    

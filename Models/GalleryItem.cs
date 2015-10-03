@@ -83,7 +83,13 @@ namespace MonocleGiraffe.Models
                 }
             }
         }
-               
+       
+        public GalleryItemType ItemType
+        {
+            get { return GetImageType(); }
+        }
+
+
         private GalleryItemType GetImageType()
         {
             if (image.IsAlbum)
@@ -109,35 +115,7 @@ namespace MonocleGiraffe.Models
                     LoadComments(image.Id);
                 return comments;
             }
-        }
-
-        private ObservableCollection<ImageItem> imageItems = new ObservableCollection<ImageItem>();
-        public ObservableCollection<ImageItem> ImageItems
-        {
-            get
-            {
-                if (imageItems.Count == 0)
-                    LoadImageItems();
-                return imageItems;
-            }
-        }
-
-        private async void LoadImageItems()
-        {
-            if (image.IsAlbum)
-            {
-                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
-                foreach (var image in album.Images)
-                {
-                    imageItems.Add(new ImageItem(image));
-                }
-            }
-            else
-            {
-                image.Title = String.Empty;
-                imageItems.Add(new ImageItem(image));
-            }
-        }
+        }        
 
         private async void SetThumbnails()
         {

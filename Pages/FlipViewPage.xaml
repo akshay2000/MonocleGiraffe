@@ -5,11 +5,12 @@
     xmlns:local="using:MonocleGiraffe.Pages"
     xmlns:c="using:MonocleGiraffe.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="FlipPage">
     <Page.TopAppBar>
-        <CommandBar x:Name="TopCommandBar" RequestedTheme="Dark">
+        <CommandBar x:Name="TopCommandBar">
             <CommandBar.Content>
                 <Grid Margin="10,10,0,0">
                     <TextBlock x:Name="PageHeaderTextBlock" Text="{Binding GalleryTitle}" FontSize="24"/>
@@ -21,59 +22,19 @@
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
+    
     <Page.Resources>
-
         <DataTemplate x:Key="ImageItemTemplate">
-            <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12" RequestedTheme="Dark" Background="#FF272727">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}"/>
-                <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center" Margin="12,0">
-                    <Image Source="{Binding Link}"/>
-                </Viewbox>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-            </StackPanel>
-        </DataTemplate>
-        <Style x:Key="ImageListViewStyle" TargetType="ListView">
-            <Setter Property="IsTabStop" Value="False"/>
-            <Setter Property="TabNavigation" Value="Once"/>
-            <Setter Property="IsSwipeEnabled" Value="True"/>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
-            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False"/>
-            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled"/>
-            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True"/>
-            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
-            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
-            <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
-            <Setter Property="ItemContainerTransitions">
-                <Setter.Value>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                        <ContentThemeTransition/>
-                        <ReorderThemeTransition/>
-                        <EntranceThemeTransition IsStaggeringEnabled="False"/>
-                    </TransitionCollection>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListView">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}" FooterTemplate="{TemplateBinding FooterTemplate}" Footer="{TemplateBinding Footer}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}" HorizontalAlignment="Center"/>
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}"/>
+                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                        <Image Source="{Binding Link}"/>
+                    </Viewbox>
+                    <TextBlock Text="{Binding Description}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </DataTemplate>      
 
         <DataTemplate x:Key="GalleryItemDataTemplate">
             <Grid>
@@ -96,12 +57,56 @@
             </Grid>
         </DataTemplate>
 
+        <DataTemplate x:Key="ImageItemDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White"/>
+                <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12">
+                        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                            <Image Source="{Binding Link}"/>
+                        </Viewbox>
+                        <TextBlock Text="{Binding Description}" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="White"/>
+                    </StackPanel>
+                </ScrollViewer>
+                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AlbumItemDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White"/>
+                <TextBlock Grid.Row="1" Text="ALBUM" Foreground="White"/>
+                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
+            </Grid>
+        </DataTemplate>
+
+        <selectors:ImageTemplateSelector x:Key="LargeTemplateSelector" ImageTemplate="{StaticResource ImageItemDataTemplate}" AlbumTemplate="{StaticResource AlbumItemDataTemplate}">
+            
+        </selectors:ImageTemplateSelector>
+        
 
 
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplate="{StaticResource GalleryItemDataTemplate}">
+        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplateSelector="{StaticResource LargeTemplateSelector}">
 
         </FlipView>
     </Grid>
