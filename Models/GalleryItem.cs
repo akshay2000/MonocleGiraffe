@@ -89,6 +89,28 @@ namespace MonocleGiraffe.Models
             get { return GetImageType(); }
         }
 
+        private ObservableCollection<GalleryItem> albumImages= new ObservableCollection<GalleryItem>();
+        public ObservableCollection<GalleryItem> AlbumImages
+        {
+            get
+            {
+                if (albumImages.Count == 0)
+                    LoadAlbumImages();
+                return albumImages;
+            }
+        }
+
+        private async void LoadAlbumImages()
+        {
+            if (image.IsAlbum)
+            {
+                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
+                foreach (var image in album.Images)
+                {
+                    albumImages.Add(new GalleryItem(image));
+                }
+            }            
+        }
 
         private GalleryItemType GetImageType()
         {

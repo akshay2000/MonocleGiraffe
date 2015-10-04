@@ -144,7 +144,9 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
+            <ItemsPanelTemplate x:Key="CenteredItemsPanelTemplate">
+                <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center"/>
+            </ItemsPanelTemplate>
         </ResourceDictionary>
     </Application.Resources>
 

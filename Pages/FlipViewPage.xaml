@@ -22,41 +22,8 @@
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
-    
+
     <Page.Resources>
-        <DataTemplate x:Key="ImageItemTemplate">
-            <ScrollViewer>
-                <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}"/>
-                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
-                        <Image Source="{Binding Link}"/>
-                    </Viewbox>
-                    <TextBlock Text="{Binding Description}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                </StackPanel>
-            </ScrollViewer>
-        </DataTemplate>      
-
-        <DataTemplate x:Key="GalleryItemDataTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Title}" Grid.Row="0"/>
-                <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ImageItems}" VerticalAlignment="Center" DataFetchSize="3" ItemContainerStyle="{StaticResource MinimalListViewItemStyle}" ItemTemplate="{StaticResource ImageItemTemplate}" Style="{StaticResource ImageListViewStyle}"/>
-                <!--<Grid x:Name="ScrollViewerWrapper" SizeChanged="ScrollViewerWrapper_SizeChanged" Grid.Row="1">
-                    <ScrollViewer x:Name="ZoomedImageWrapper" DoubleTapped="ZoomedImageWrapper_DoubleTapped" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" ZoomMode="Enabled" MinZoomFactor="{Binding DataContext.ZoomFactor, ElementName=FlipPage}" MaxZoomFactor="1">
-                        <Image Source="{Binding Link}" Stretch="None" ImageOpened="Image_ImageOpened"/>
-                    </ScrollViewer>
-                </Grid>-->
-                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
-            </Grid>
-        </DataTemplate>
-
         <DataTemplate x:Key="ImageItemDataTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -69,7 +36,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White"/>
                 <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
                     <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12">
                         <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
                             <Image Source="{Binding Link}"/>
@@ -79,7 +46,7 @@
                 </ScrollViewer>
                 <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
             </Grid>
-        </DataTemplate>
+        </DataTemplate>        
 
         <DataTemplate x:Key="AlbumItemDataTemplate">
             <Grid>
@@ -92,15 +59,24 @@
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White"/>
-                <TextBlock Grid.Row="1" Text="ALBUM" Foreground="White"/>
+                <!--<TextBlock Grid.Row="1" Text="ALBUM" Foreground="White"/>-->
+                <GridView Grid.Row="1" ItemsSource="{Binding AlbumImages}" ItemsPanel="{StaticResource CenteredItemsPanelTemplate}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="ThumbnailWrapper" Margin="5">
+                                <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding BigThumbnail}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
                 <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
             </Grid>
         </DataTemplate>
 
         <selectors:ImageTemplateSelector x:Key="LargeTemplateSelector" ImageTemplate="{StaticResource ImageItemDataTemplate}" AlbumTemplate="{StaticResource AlbumItemDataTemplate}">
-            
+
         </selectors:ImageTemplateSelector>
-        
+
 
 
     </Page.Resources>
