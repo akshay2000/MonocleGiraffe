@@ -118,5 +118,11 @@ namespace MonocleGiraffe.Pages
                 //isViewRendered = true; 
             }
         }
+
+        private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StateHelper.AlbumVM.AlbumItem = dataContext.ImageItems[dataContext.SelectedIndex];
+            Frame.Navigate(typeof(AlbumPage));
+        }
     }
 }

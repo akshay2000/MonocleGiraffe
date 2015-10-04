@@ -17,5 +17,7 @@ namespace MonocleGiraffe.Helpers
         //public static int CurrentGalleryItemIndex { get; set; } = 0;
 
         public static MainViewModel ViewModel { get; set; } = new MainViewModel();
+
+        public static AlbumViewModel AlbumVM { get; set; } = new AlbumViewModel();
     }
 }

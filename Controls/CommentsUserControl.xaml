@@ -18,7 +18,7 @@
 
         <Style x:Key="CommentsGridStyle" TargetType="Grid">
             <!--<Setter Property="MinHeight" Value="50"/>-->
-            <Setter Property="Margin" Value="4,6,0,0"/>
+            <Setter Property="Margin" Value="4,6,12,6"/>
         </Style>
 
         <Style x:Key="CommentTextStyle" TargetType="TextBlock">
