@@ -100,6 +100,11 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        public int Width
+        {
+            get { return image.Width; }
+        }
+
         private async void LoadAlbumImages()
         {
             if (image.IsAlbum)

@@ -25,26 +25,23 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ImageItemDataTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Grid>                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White"/>
-                <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
-                <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
-                    <StackPanel HorizontalAlignment="Stretch" Margin="36,0,36,12">
+                    
+                    <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
+                    <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
+                    <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
+                        <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,0,0,12"/>
                         <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
                             <Image Source="{Binding Link}"/>
                         </Viewbox>
-                        <TextBlock Text="{Binding Description}" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="White"/>
+                        <TextBlock Text="{Binding Description}" Foreground="White"/>
                     </StackPanel>
                 </ScrollViewer>
-                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
+                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>                
             </Grid>
         </DataTemplate>        
 
