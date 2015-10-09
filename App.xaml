@@ -144,10 +144,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <ItemsPanelTemplate x:Key="CenteredItemsPanelTemplate">
-                <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center"/>
-            </ItemsPanelTemplate>
-
+           
             <Style x:Key="BasicTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
@@ -158,7 +155,11 @@
             </Style>
 
             <Style x:Key="DescriptionTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BasicTextStyle}">
+                <Setter Property="FontWeight" Value="SemiLight"/>
             </Style>
+            <ItemsPanelTemplate x:Key="SpacedItemsPanelTemplate">
+                <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" Margin="16,0"/>
+            </ItemsPanelTemplate>
         </ResourceDictionary>
     </Application.Resources>
 
