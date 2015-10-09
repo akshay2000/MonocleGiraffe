@@ -25,25 +25,25 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ImageItemDataTemplate">
-            <Grid>                
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
-                    
-                    <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
-                    <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
+
+                <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
+                <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Hidden" Margin="12,0">
                     <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
-                        <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,0,0,12"/>
+                        <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,12"/>
                         <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
                             <Image Source="{Binding Link}"/>
                         </Viewbox>
-                        <TextBlock Text="{Binding Description}" Foreground="White"/>
+                        <TextBlock Text="{Binding Description}" Foreground="White" Style="{StaticResource DescriptionTextStyle}"/>
                     </StackPanel>
                 </ScrollViewer>
-                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>                
+                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
             </Grid>
-        </DataTemplate>        
+        </DataTemplate>
 
         <DataTemplate x:Key="AlbumItemDataTemplate">
             <Grid>
