@@ -18,18 +18,19 @@
 
         <Style x:Key="CommentsGridStyle" TargetType="Grid">
             <!--<Setter Property="MinHeight" Value="50"/>-->
-            <Setter Property="Margin" Value="4,6,12,6"/>
+            <Setter Property="Margin" Value="4,8,12,8"/>
         </Style>
 
-        <Style x:Key="CommentTextStyle" TargetType="TextBlock">
+        <Style x:Key="CommentTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BasicTextStyle}">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiLight"/>
         </Style>
 
         <Style x:Key="AuthorNameTextStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <!--<Setter Property="FontWeight" Value="SemiLight"/>-->
         </Style>
 
         <Style x:Key="RectangleStyle" TargetType="Rectangle">
