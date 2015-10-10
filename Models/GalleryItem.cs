@@ -42,6 +42,14 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        public string Mp4
+        {
+            get
+            {
+                return image.Mp4;
+            }
+        }
+
         public string Description
         {
             get
@@ -103,6 +111,11 @@ namespace MonocleGiraffe.Models
         public int Width
         {
             get { return image.Width; }
+        }
+
+        public int Height
+        {
+            get { return image.Height; }
         }
 
         private async void LoadAlbumImages()
