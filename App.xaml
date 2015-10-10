@@ -2,6 +2,7 @@
     x:Class="MonocleGiraffe.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:MonocleGiraffe.Converters"
     xmlns:local="using:MonocleGiraffe">
 
     <Application.Resources>
@@ -160,6 +161,9 @@
             <ItemsPanelTemplate x:Key="SpacedItemsPanelTemplate">
                 <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" Margin="16,0"/>
             </ItemsPanelTemplate>
+
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
         </ResourceDictionary>
     </Application.Resources>
 

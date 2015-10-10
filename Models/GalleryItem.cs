@@ -118,6 +118,11 @@ namespace MonocleGiraffe.Models
             get { return image.Height; }
         }
 
+        public bool IsAnimated
+        {
+            get { return image.Animated; }
+        }
+
         private async void LoadAlbumImages()
         {
             if (image.IsAlbum)

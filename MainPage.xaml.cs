@@ -74,7 +74,6 @@ namespace MonocleGiraffe
 
         private void HomeMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SamplePage));
         }
 
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
