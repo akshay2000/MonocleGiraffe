@@ -58,6 +58,14 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        public string UploaderName
+        {
+            get
+            {
+                return image.AccountUrl;
+            }
+        }
+
         private string smallThumbnail;
         public string SmallThumbnail
         {

@@ -11,25 +11,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>            
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding AlbumItem.Title}" Foreground="White" Style="{StaticResource TitleTextStyle}" Margin="12"/>
+        <StackPanel Margin="12">
+            <TextBlock Text="{Binding AlbumItem.Title}" Foreground="White" Style="{StaticResource TitleTextStyle}"/>
+            <TextBlock Text="{Binding AlbumItem.UploaderName}" Foreground="Gray" Style="{StaticResource BasicTextStyle}" />
+        </StackPanel>
         <FlipView ItemsSource="{Binding AlbumItem.AlbumImages}" Grid.Row="1">
             <FlipView.ItemTemplate>
                 <DataTemplate>
                     <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Hidden" Margin="12,0">
-                    <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
-                        <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,12"/>
-                        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
-                            <Image Source="{Binding Link}"/>
-                        </Viewbox>
-                        <TextBlock Text="{Binding Description}" Foreground="White" Style="{StaticResource DescriptionTextStyle}" Margin="0,12,0,0"/>
-                    </StackPanel>
-                </ScrollViewer>
+                        <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
+                            <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,12"/>
+                            <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                                <c:ImageUserControl/>
+                            </Viewbox>
+                            <TextBlock Text="{Binding Description}" Foreground="White" Style="{StaticResource DescriptionTextStyle}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </DataTemplate>
             </FlipView.ItemTemplate>
         </FlipView>
