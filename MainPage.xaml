@@ -6,63 +6,158 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-   
-    <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250">
-        <SplitView.Pane>
-            <StackPanel>
-                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click"/>
-                <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click">
-                    <Button.Content>
-                        <Grid HorizontalAlignment="Left">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
-                            <TextBlock Text="Home" Grid.Column="1" Margin="10,0,0,0"/>
+    <Page.Resources>
+        <Style x:Key="HamButtonStyle" TargetType="Button">
+            <!--<Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>-->
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <!--<Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>-->
+            <Setter Property="BorderBrush" Value="Transparent"/>            
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <!--<PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>-->
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <!--<PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>-->
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click">
-                    <Button.Content>
-                        <Grid HorizontalAlignment="Left">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
-                            <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <ListView x:Name="SubredditsListView" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
-                                <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="LayoutRoot">
+        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark">
+            <SplitView.Pane>
+                <StackPanel>
+                    <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click" Style="{StaticResource HamButtonStyle}"/>
+                    <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click" Style="{StaticResource HamButtonStyle}">
+                        <Button.Content>
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                <TextBlock Text="Home" Grid.Column="1" Margin="10,0,0,0"/>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>                
-            </StackPanel>
-        </SplitView.Pane>
-        <SplitView.Content>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>                    
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="PageHeaderTextBox" Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White"/>
-                <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Stretch" ItemsPanel="{StaticResource SpacedItemsPanelTemplate}" ItemsSource="{Binding ImageItems}">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped">
-                                <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding BigThumbnail}"/>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="ImgurButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="ImgurButton_Click" Style="{StaticResource HamButtonStyle}">
+                        <Button.Content>
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                <TextBlock Text="Topics" Grid.Column="1" Margin="10,0,0,0"/>
                             </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-            </Grid>
-        </SplitView.Content>
-    </SplitView>
+                        </Button.Content>
+                    </Button>
+                    <ListView x:Name="TopicsListView" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="TopicWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
+                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click" Style="{StaticResource HamButtonStyle}">
+                        <Button.Content>
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <ListView x:Name="SubredditsListView" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
+                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="PageHeaderTextBox" Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White"/>
+                    <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Stretch" ItemsPanel="{StaticResource SpacedItemsPanelTemplate}" ItemsSource="{Binding ImageItems}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped">
+                                    <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding BigThumbnail}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
 </Page>

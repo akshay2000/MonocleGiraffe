@@ -106,5 +106,10 @@ namespace MonocleGiraffe
             subreddits.Clear();
             MainSplitView.IsPaneOpen = false;
         }
+
+        private void ImgurButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
