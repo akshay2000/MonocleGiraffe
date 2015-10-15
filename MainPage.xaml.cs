@@ -37,7 +37,8 @@ namespace MonocleGiraffe
 
             if (e.NavigationMode == NavigationMode.New)
             {
-                LoadGallery();
+                //LoadGallery();
+                LoadTopic(23);
             }
             else if (e.NavigationMode == NavigationMode.Back)
             {
@@ -62,6 +63,17 @@ namespace MonocleGiraffe
             StateHelper.ViewModel.GalleryTitle = subreddit;
             var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
             foreach (var image in subredditGallery)
+            {
+                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
+            }
+        }
+
+        private async void LoadTopic(int topicId)
+        {
+            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
+            StateHelper.ViewModel.GalleryTitle = topicId.ToString();
+            var topicGallery = await Topic.GetTopicGallery(topicId);
+            foreach (var image in topicGallery)
             {
                 StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
             }
