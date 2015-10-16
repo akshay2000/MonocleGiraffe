@@ -129,7 +129,7 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        private ObservableCollection<SharpImgur.Models.Topic> topics = new ObservableCollection<SharpImgur.Models.Topic>();
+        private ObservableCollection<SharpImgur.Models.Topic> topics;// = new ObservableCollection<SharpImgur.Models.Topic>();
         public ObservableCollection<SharpImgur.Models.Topic> Topics
         {
             get
@@ -146,10 +146,63 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        private async void LoadTopics()
+        private ObservableCollection<string> subreddits;
+        public ObservableCollection<string> Subreddits
+        {
+            get { return subreddits; }
+            set
+            {
+                if (subreddits != value)
+                {
+                    subreddits = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        
+        public async void LoadTopics()
         {
             var topicsList = await Topic.GetDefaultTopics();
             Topics = new ObservableCollection<SharpImgur.Models.Topic>(topicsList);
+        }
+
+        public async void LoadSubreddits()
+        {
+            var subredditsList = new List<string>() { "EarthPorn", "Aww", "Funny", "Pics", "GIFs" };
+            Subreddits = new ObservableCollection<string>(subredditsList);
+        }
+
+        public async void LoadGallery()
+        {
+            ImageItems = new ObservableCollection<GalleryItem>();
+            GalleryTitle = "Gallery";
+            var gallery = await Gallery.GetGallery();
+            foreach (var image in gallery)
+            {
+                ImageItems.Add(new GalleryItem(image));
+            }
+        }
+
+        public async void LoadSubreddit(string subreddit)
+        {
+            ImageItems = new ObservableCollection<GalleryItem>();
+            GalleryTitle = subreddit;
+            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
+            foreach (var image in subredditGallery)
+            {
+                ImageItems.Add(new GalleryItem(image));
+            }
+        }
+
+        public async void LoadTopic(SharpImgur.Models.Topic topic)
+        {
+            ImageItems = new ObservableCollection<GalleryItem>();
+            GalleryTitle = topic.Name;
+            var topicGallery = await Topic.GetTopicGallery(topic.Id);
+            foreach (var image in topicGallery)
+            {
+                ImageItems.Add(new GalleryItem(image));
+            }
         }
     }
 }

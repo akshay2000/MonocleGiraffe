@@ -5,6 +5,7 @@
     xmlns:local="using:MonocleGiraffe"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:t10c="using:Template10.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="HamButtonStyle" TargetType="Button">
@@ -80,11 +81,28 @@
         </Style>
     </Page.Resources>
     <Grid x:Name="LayoutRoot">
-        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Stretch" Width="50" Content="&#xE700;" Click="HamburgerButton_Click" Style="{StaticResource HamButtonStyle}" RequestedTheme="Dark" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+        <!--<TextBlock x:Name="PageHeaderTextBox" Text="{Binding GalleryTitle}" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White" Grid.Column="1"/>-->
+        <t10c:PageHeader Text="{Binding GalleryTitle}" Grid.Column="1"/>
+
+        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark" Grid.Row="1" Grid.ColumnSpan="2">
             <SplitView.Pane>
-                <StackPanel>
-                    <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Height="50" Width="50" Content="&#xE700;" Click="HamburgerButton_Click" Style="{StaticResource HamButtonStyle}"/>
-                    <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click" Style="{StaticResource HamButtonStyle}">
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="HomeMenuButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="HomeMenuButton_Click" Style="{StaticResource HamButtonStyle}" Grid.Row="1">
                         <Button.Content>
                             <Grid HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
@@ -96,49 +114,54 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <Button x:Name="ImgurButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="ImgurButton_Click" Style="{StaticResource HamButtonStyle}">
-                        <Button.Content>
-                            <Grid HorizontalAlignment="Left">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
-                                <TextBlock Text="Topics" Grid.Column="1" Margin="10,0,0,0"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <ListView x:Name="TopicsListView" ItemsSource="{Binding Topics}" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="TopicWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
-                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding Name}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click" Style="{StaticResource HamButtonStyle}">
-                        <Button.Content>
-                            <Grid HorizontalAlignment="Left">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
-                                <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <ListView x:Name="SubredditsListView" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
-                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
+                        <StackPanel>
+                            <Button x:Name="ImgurButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="ImgurButton_Click" Style="{StaticResource HamButtonStyle}" >
+                                <Button.Content>
+                                    <Grid HorizontalAlignment="Left">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                        <TextBlock Text="Topics" Grid.Column="1" Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                            <ListView x:Name="TopicsListView" ItemsSource="{Binding Topics}" Visibility="Collapsed" Margin="40,0" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid x:Name="TopicWrapper" Height="50" Tapped="TopicWrapper_Tapped">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click" Style="{StaticResource HamButtonStyle}" >
+                                <Button.Content>
+                                    <Grid HorizontalAlignment="Left">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                        <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                            <ListView x:Name="SubredditsListView" ItemsSource="{Binding Subreddits}" Visibility="Collapsed" Margin="40,0" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <!--</ScrollViewer>-->
             </SplitView.Pane>
             <SplitView.Content>
                 <Grid>
@@ -146,7 +169,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="PageHeaderTextBox" Text="Gallery" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White"/>
+                    <!--<TextBlock x:Name="PageHeaderTextBox" Text="{Binding GalleryTitle}" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White"/>-->
                     <GridView x:Name="ImagesGridView" Grid.Row="1" SelectionMode="Single" HorizontalAlignment="Stretch" ItemsPanel="{StaticResource SpacedItemsPanelTemplate}" ItemsSource="{Binding ImageItems}">
                         <GridView.ItemTemplate>
                             <DataTemplate>

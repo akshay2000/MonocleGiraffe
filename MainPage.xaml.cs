@@ -1,6 +1,7 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
+using MonocleGiraffe.ViewModels;
 using SharpImgur.APIWrappers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,15 +20,13 @@ namespace MonocleGiraffe
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        ObservableCollection<string> subreddits = new ObservableCollection<string>();
-        List<string> subredditsList = new List<string>() { "EarthPorn", "Aww", "Funny", "Pics", "GIFs" };
+        MainViewModel mainVM = StateHelper.ViewModel;
 
         public MainPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            DataContext = StateHelper.ViewModel;
-            SubredditsListView.ItemsSource = subreddits;
+            DataContext = mainVM;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -37,8 +36,7 @@ namespace MonocleGiraffe
 
             if (e.NavigationMode == NavigationMode.New)
             {
-                LoadGallery();
-                //LoadTopic(23);
+                Init();
             }
             else if (e.NavigationMode == NavigationMode.Back)
             {
@@ -46,38 +44,13 @@ namespace MonocleGiraffe
             }
         }
 
-        private async void LoadGallery()
+        private async void Init()
         {
-            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
-            StateHelper.ViewModel.GalleryTitle = "Gallery";
-            var gallery = await Gallery.GetGallery();
-            foreach (var image in gallery)
-            {
-                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
-            }
-        }
-
-        private async void LoadSubreddit(string subreddit)
-        {
-            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
-            StateHelper.ViewModel.GalleryTitle = subreddit;
-            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
-            foreach (var image in subredditGallery)
-            {
-                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
-            }
-        }
-
-        private async void LoadTopic(int topicId)
-        {
-            StateHelper.ViewModel.ImageItems = new ObservableCollection<GalleryItem>();
-            StateHelper.ViewModel.GalleryTitle = topicId.ToString();
-            var topicGallery = await Topic.GetTopicGallery(topicId);
-            foreach (var image in topicGallery)
-            {
-                StateHelper.ViewModel.ImageItems.Add(new GalleryItem(image));
-            }
-        }
+            mainVM.LoadGallery();
+            mainVM.LoadSubreddits();
+            await Task.Delay(100);
+            mainVM.LoadTopics();
+        }        
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -86,6 +59,7 @@ namespace MonocleGiraffe
 
         private void HomeMenuButton_Click(object sender, RoutedEventArgs e)
         {
+            mainVM.LoadGallery();
         }
 
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
@@ -96,32 +70,26 @@ namespace MonocleGiraffe
 
         private async void SubredditsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (subreddits.Count > 0)
-            {
-                subreddits.Clear();
-            }
-            else
-            {
-                foreach(string subreddit in subredditsList)
-                {
-                    subreddits.Add(subreddit);
-                    await Task.Delay(50);
-                }
-            }
+            SubredditsListView.Visibility = SubredditsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
             string subredditName = (sender as Grid).DataContext as string;
-            PageHeaderTextBox.Text = subredditName;
-            LoadSubreddit(subredditName.ToLower());
-            subreddits.Clear();
+            mainVM.LoadSubreddit(subredditName.ToLower());
             MainSplitView.IsPaneOpen = false;
         }
 
         private void ImgurButton_Click(object sender, RoutedEventArgs e)
         {
+            TopicsListView.Visibility = TopicsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        }
 
+        private void TopicWrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SharpImgur.Models.Topic topic = (sender as FrameworkElement).DataContext as SharpImgur.Models.Topic;
+            mainVM.LoadTopic(topic);
+            MainSplitView.IsPaneOpen = false;
         }
     }
 }
