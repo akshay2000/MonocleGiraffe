@@ -108,11 +108,11 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <ListView x:Name="TopicsListView" >
+                    <ListView x:Name="TopicsListView" ItemsSource="{Binding Topics}" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="TopicWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
-                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding}"/>
+                                    <TextBlock VerticalAlignment="Center" Margin="50,0,0,0" Text="{Binding Name}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

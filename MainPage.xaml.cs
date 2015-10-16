@@ -37,8 +37,8 @@ namespace MonocleGiraffe
 
             if (e.NavigationMode == NavigationMode.New)
             {
-                //LoadGallery();
-                LoadTopic(23);
+                LoadGallery();
+                //LoadTopic(23);
             }
             else if (e.NavigationMode == NavigationMode.Back)
             {

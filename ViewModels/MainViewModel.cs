@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using SharpImgur.APIWrappers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,13 @@ using System.Threading.Tasks;
 namespace MonocleGiraffe.ViewModels
 {
     public class MainViewModel : NotifyBase
-    {        
+    {
+
+        public MainViewModel()
+        {
+            //LoadTopics();
+        }
+
         private string galleryTitle;
         public string GalleryTitle
         {
@@ -120,6 +127,29 @@ namespace MonocleGiraffe.ViewModels
                     NotifyPropertyChanged();
                 }
             }
+        }
+
+        private ObservableCollection<SharpImgur.Models.Topic> topics = new ObservableCollection<SharpImgur.Models.Topic>();
+        public ObservableCollection<SharpImgur.Models.Topic> Topics
+        {
+            get
+            {                
+                return topics;
+            }
+            set
+            {
+                if (topics != value)
+                {
+                    topics = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private async void LoadTopics()
+        {
+            var topicsList = await Topic.GetDefaultTopics();
+            Topics = new ObservableCollection<SharpImgur.Models.Topic>(topicsList);
         }
     }
 }
