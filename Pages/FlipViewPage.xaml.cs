@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,8 +34,19 @@ namespace MonocleGiraffe.Pages
             this.InitializeComponent();
             dataContext = StateHelper.ViewModel;
             DataContext = dataContext;
+
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
-          
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            var currentImage = dataContext.ImageItems[dataContext.SelectedIndex];
+            request.Data.Properties.Title = currentImage.Title;
+            request.Data.SetWebLink(new Uri(currentImage.Link));
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -123,6 +135,11 @@ namespace MonocleGiraffe.Pages
         {
             StateHelper.AlbumVM.AlbumItem = dataContext.ImageItems[dataContext.SelectedIndex];
             Frame.Navigate(typeof(AlbumPage));
+        }
+
+        private void ShareButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
         }
     }
 }

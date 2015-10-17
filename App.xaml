@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:MonocleGiraffe.Converters"
-    xmlns:local="using:MonocleGiraffe">
+    xmlns:local="using:MonocleGiraffe"
+    RequestedTheme="Dark">
 
     <Application.Resources>
         <ResourceDictionary>
