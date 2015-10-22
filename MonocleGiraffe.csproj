@@ -105,11 +105,13 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
+    <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\GalleryItem.cs" />
+    <Compile Include="Models\Subreddit.cs" />
     <Compile Include="Pages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>

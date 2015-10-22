@@ -153,7 +153,7 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">
-                                            <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding FriendlyName}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

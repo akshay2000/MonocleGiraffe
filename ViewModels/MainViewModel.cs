@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using Newtonsoft.Json.Linq;
 using SharpImgur.APIWrappers;
 using System;
 using System.Collections.Generic;
@@ -146,8 +147,8 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        private ObservableCollection<string> subreddits;
-        public ObservableCollection<string> Subreddits
+        private ObservableCollection<Subreddit> subreddits;
+        public ObservableCollection<Subreddit> Subreddits
         {
             get { return subreddits; }
             set
@@ -168,8 +169,19 @@ namespace MonocleGiraffe.ViewModels
 
         public async void LoadSubreddits()
         {
-            var subredditsList = new List<string>() { "EarthPorn", "Aww", "Funny", "Pics", "GIFs" };
-            Subreddits = new ObservableCollection<string>(subredditsList);
+            string jsonString = await RoamingDataHelper.GetText("subreddits.json");
+            var subredditsList = JArray.Parse(jsonString).ToObject<List<Subreddit>>();
+            if (subredditsList.Count == 0)
+            {
+                subredditsList = new List<Subreddit>() {
+                    new Subreddit("earthporn", "EarthPorn"),
+                    new Subreddit("funny", "Funny"),
+                    new Subreddit("pics", "Pics"),
+                    new Subreddit("gifs", "GIFs"),
+                    new Subreddit("aww", "AWW")
+                };
+            }
+            Subreddits = new ObservableCollection<Subreddit>(subredditsList);
         }
 
         public async void LoadGallery()
