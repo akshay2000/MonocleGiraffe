@@ -64,7 +64,7 @@
                     <GridView Grid.Row="1" ItemsSource="{Binding AlbumImages}" ItemsPanel="{StaticResource SpacedItemsPanelTemplate}">
                         <GridView.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped">
+                                <Grid x:Name="ThumbnailWrapper" Margin="5" Tapped="ThumbnailWrapper_Tapped" Background="DarkGray">
                                     <Image Height="150" Width="150" Stretch="UniformToFill" Source="{Binding BigThumbnail}"/>
                                 </Grid>
                             </DataTemplate>
@@ -84,7 +84,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplateSelector="{StaticResource LargeTemplateSelector}">
+        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectionChanged="MainFlipView_SelectionChanged" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplateSelector="{StaticResource LargeTemplateSelector}" Background="Transparent">
 
         </FlipView>
     </Grid>

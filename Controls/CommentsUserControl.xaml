@@ -18,12 +18,12 @@
 
         <Style x:Key="CommentsGridStyle" TargetType="Grid">
             <!--<Setter Property="MinHeight" Value="50"/>-->
-            <Setter Property="Margin" Value="4,8,12,8"/>
+            <Setter Property="Margin" Value="8,8,12,8"/>
         </Style>
 
         <Style x:Key="CommentTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BasicTextStyle}">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="White"/>
+            <!--<Setter Property="Foreground" Value="White"/>-->
             <Setter Property="FontWeight" Value="SemiLight"/>
         </Style>
 
@@ -34,9 +34,10 @@
         </Style>
 
         <Style x:Key="RectangleStyle" TargetType="Rectangle">
-            <Setter Property="Fill" Value="Green"/>
+            <Setter Property="Fill" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
             <Setter Property="Margin" Value="0,-2"/>
             <Setter Property="Width" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         
         <SolidColorBrush x:Key="CommentsColorBrush" Color="Cyan"/>
@@ -157,7 +158,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid x:Name="grid" d:DataContext="{d:DesignData /SampleData/CommentSampleData.xaml}">
+    <Grid x:Name="grid" d:DataContext="{d:DesignData /SampleData/CommentSampleData.xaml}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>

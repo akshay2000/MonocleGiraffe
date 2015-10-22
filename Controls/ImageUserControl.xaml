@@ -14,8 +14,8 @@
         <converters:UrlToHtmlConverter x:Key="UrlToHtmlConverter"/>
     </UserControl.Resources>
 
-    <Grid>
-        <WebView DefaultBackgroundColor="Blue" x:Name="MainWebView" MinHeight="{Binding Height}" MinWidth="{Binding Width}" local:WebViewExtensions.HtmlString="{Binding Mp4, Converter={StaticResource UrlToHtmlConverter}}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}"/>
+    <Grid Background="DarkGray">
+        <WebView x:Name="MainWebView" MinHeight="{Binding Height}" MinWidth="{Binding Width}" local:WebViewExtensions.HtmlString="{Binding Mp4, Converter={StaticResource UrlToHtmlConverter}}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}"/>
         <Image Source="{Binding Link}" Height="{Binding Height}" Width="{Binding Width}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
     </Grid>
 </UserControl>
