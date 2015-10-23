@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpImgur.APIWrappers;
 using System;
@@ -16,6 +17,7 @@ namespace MonocleGiraffe.ViewModels
 {
     public class MainViewModel : NotifyBase
     {
+        private const string subredditsFileName = "subreddits.json";
 
         public MainViewModel()
         {
@@ -169,7 +171,7 @@ namespace MonocleGiraffe.ViewModels
 
         public async void LoadSubreddits()
         {
-            string jsonString = await RoamingDataHelper.GetText("subreddits.json");
+            string jsonString = await RoamingDataHelper.GetText(subredditsFileName);
             var subredditsList = JArray.Parse(jsonString).ToObject<List<Subreddit>>();
             if (subredditsList.Count == 0)
             {
@@ -182,6 +184,13 @@ namespace MonocleGiraffe.ViewModels
                 };
             }
             Subreddits = new ObservableCollection<Subreddit>(subredditsList);
+        }
+
+        public async void AddSubReddit(Subreddit subreddit)
+        {
+            Subreddits.Insert(0, subreddit);
+            string text = JsonConvert.SerializeObject(Subreddits);
+            await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
 
         public async void LoadGallery()

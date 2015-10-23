@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Helpers;
+﻿using MonocleGiraffe.Controls;
+using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using MonocleGiraffe.ViewModels;
@@ -68,15 +69,15 @@ namespace MonocleGiraffe
             Frame.Navigate(typeof(FlipViewPage));
         }
 
-        private async void SubredditsButton_Click(object sender, RoutedEventArgs e)
+        private void SubredditsButton_Click(object sender, RoutedEventArgs e)
         {
-            SubredditsListView.Visibility = SubredditsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            SubredditsWrapper.Visibility = SubredditsWrapper.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            string subredditName = (sender as Grid).DataContext as string;
-            mainVM.LoadSubreddit(subredditName.ToLower());
+            Subreddit subreddit = (sender as Grid).DataContext as Subreddit;
+            mainVM.LoadSubreddit(subreddit.Name.ToLower());
             MainSplitView.IsPaneOpen = false;
         }
 
@@ -90,6 +91,12 @@ namespace MonocleGiraffe
             SharpImgur.Models.Topic topic = (sender as FrameworkElement).DataContext as SharpImgur.Models.Topic;
             mainVM.LoadTopic(topic);
             MainSplitView.IsPaneOpen = false;
+        }
+
+        private void AddNewSubredditButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new AddSubredditContentDialog();
+            dialog.ShowAsync();
         }
     }
 }
