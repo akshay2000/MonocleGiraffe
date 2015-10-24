@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MonocleGiraffe.Controls;
+using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
+using MonocleGiraffe.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +26,46 @@ namespace MonocleGiraffe.Pages
     /// </summary>
     public sealed partial class ManageSubredditsPage : Page
     {
+        private bool isNavigatingForward = false;
         public ManageSubredditsPage()
         {
             this.InitializeComponent();
+            DataContext = StateHelper.ViewModel;
+            SubredditsListView.SelectedIndex = 0;
+        }
+
+        private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (!isNavigatingForward)
+            {
+                StateHelper.ViewModel.SaveSubreddits();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = SubredditsListView.SelectedItem as Subreddit;
+            StateHelper.ViewModel.RemoveSubreddit(item);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = SubredditsListView.SelectedItem as Subreddit;
+            item.Name = NameTextBox.Text;
+            item.FriendlyName = FriendlyNameTextBox.Text;
+            StateHelper.ViewModel.SaveSubreddits();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddSubredditContentDialog dialog = new AddSubredditContentDialog();
+            dialog.ShowAsync();
         }
     }
 }

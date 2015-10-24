@@ -77,7 +77,7 @@ namespace MonocleGiraffe
         private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Subreddit subreddit = (sender as Grid).DataContext as Subreddit;
-            mainVM.LoadSubreddit(subreddit.Name.ToLower());
+            mainVM.LoadSubreddit(subreddit);
             MainSplitView.IsPaneOpen = false;
         }
 
@@ -95,8 +95,9 @@ namespace MonocleGiraffe
 
         private void AddNewSubredditButton_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new AddSubredditContentDialog();
-            dialog.ShowAsync();
+            //ContentDialog dialog = new AddSubredditContentDialog();
+            //dialog.ShowAsync();
+            Frame.Navigate(typeof(ManageSubredditsPage));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MonocleGiraffe.Models
 {
-    public class Subreddit
+    public class Subreddit : NotifyBase
     {
         public Subreddit(string name, string friendlyName)
         {
@@ -14,8 +15,35 @@ namespace MonocleGiraffe.Models
             FriendlyName = friendlyName;
         }
 
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
-        public string FriendlyName { get; set; }       
+        private string friendlyName;
+        public string FriendlyName
+        {
+            get
+            {
+                return friendlyName;
+            }
+            set
+            {
+                if (friendlyName != value)
+                {
+                    friendlyName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
     }
 }

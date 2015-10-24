@@ -7,7 +7,70 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--<Page.TopAppBar>
+        --><!--<CommandBar x:Name="TopCommandBar">
+            <CommandBar.Content>
+                <Grid Margin="10,10,0,0">
+                    <TextBlock x:Name="PageHeaderTextBlock" Text="Subreddits" FontSize="24"/>
+                </Grid>
+            </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="DeleteButton" Icon="Delete" Label="Delete" Click="DeleteButton_Click"/>
+                <AppBarButton x:Name="SaveButton" Icon="Save" Label="Save" Click="SaveButton_Click"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>--><!--
+    </Page.TopAppBar>-->
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <CommandBar x:Name="LeftCommandBar">
+            <CommandBar.Content>
+                <Grid Margin="10,10,0,0">
+                    <TextBlock x:Name="PageHeaderTextBlock" Text="Subreddits" FontSize="24"/>
+                </Grid>
+            </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="AddButton" Icon="Add" Label="Add" Click="AddButton_Click"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+        <ListView x:Name="SubredditsListView" ItemsSource="{Binding Subreddits}" CanReorderItems="True" CanDragItems="True" AllowDrop="True" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="SubredditWrapper" Tapped="SubredditWrapper_Tapped" Height="50">
+                        <TextBlock Text="{Binding FriendlyName}" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <CommandBar x:Name="RightCommandBar" Grid.Column="1">            
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="DeleteButton" Icon="Delete" Label="Delete" Click="DeleteButton_Click"/>
+                <AppBarButton x:Name="SaveButton" Icon="Save" Label="Save" Click="SaveButton_Click"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+        <Grid
+            x:Name="DetailContentPresenter"
+            Grid.Column="1"
+            Grid.Row="1"
+            BorderThickness="1,0,0,0"
+            Padding="24,0"
+            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            DataContext="{x:Bind SubredditsListView.SelectedItem, Mode=OneWay}">          
+
+            <StackPanel>
+                <TextBox x:Name="NameTextBox" Text="{Binding Name}" Header="Name" Margin="0,12"/>
+                <TextBox x:Name="FriendlyNameTextBox" Text="{Binding FriendlyName}" Header="Friendly Name" Margin="0,12"/>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Page>

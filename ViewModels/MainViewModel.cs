@@ -54,7 +54,7 @@ namespace MonocleGiraffe.ViewModels
                     //CalculateZoomFactor();
                 }
             }
-        }
+        }        
 
         //private float zoomFactor;
         //public float ZoomFactor
@@ -84,7 +84,7 @@ namespace MonocleGiraffe.ViewModels
         //    float newZoomFactor = (float)Math.Min(ViewPortWidth / item.Width, ViewPortHeight / item.Height);
         //    ZoomFactor = Math.Min(1.0F, newZoomFactor);
         //}
-        
+
         //private double viewPortWidth;
         //public double ViewPortWidth
         //{
@@ -186,16 +186,24 @@ namespace MonocleGiraffe.ViewModels
             Subreddits = new ObservableCollection<Subreddit>(subredditsList);
         }
 
-        public async void AddSubreddit(Subreddit subreddit)
+        public void AddSubreddit(Subreddit subreddit)
         {
             Subreddits.Insert(0, subreddit);
-            string text = JsonConvert.SerializeObject(Subreddits);
-            await RoamingDataHelper.StoreText(text, subredditsFileName);
+            SaveSubreddits();
         }
 
-        public async void RemoveSubreddit(Subreddit subreddit)
+        public void RemoveSubreddit(Subreddit subreddit)
         {
             Subreddits.Remove(subreddit);
+            SaveSubreddits();
+            if(subreddit.FriendlyName == GalleryTitle)
+            {
+                LoadGallery();
+            }
+        }
+
+        internal async void SaveSubreddits()
+        {
             string text = JsonConvert.SerializeObject(Subreddits);
             await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
@@ -211,11 +219,11 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        public async void LoadSubreddit(string subreddit)
+        public async void LoadSubreddit(Subreddit subreddit)
         {
             ImageItems = new ObservableCollection<GalleryItem>();
-            GalleryTitle = subreddit;
-            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit);
+            GalleryTitle = subreddit.FriendlyName;
+            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit.Name);
             foreach (var image in subredditGallery)
             {
                 ImageItems.Add(new GalleryItem(image));
