@@ -121,6 +121,9 @@
     <Compile Include="Pages\FlipViewPage.xaml.cs">
       <DependentUpon>FlipViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManageSubredditsPage.xaml.cs">
+      <DependentUpon>ManageSubredditsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SlideShowPage.xaml.cs">
       <DependentUpon>SlideShowPage.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Controls\CommentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManageSubredditsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

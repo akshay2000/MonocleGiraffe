@@ -128,7 +128,7 @@
                                     </Grid>
                                 </Button.Content>
                             </Button>
-                            <ListView x:Name="TopicsListView" ItemsSource="{Binding Topics}" Visibility="Collapsed" Margin="40,0" >
+                            <ListView x:Name="TopicsListView" ItemsSource="{Binding Topics}" Visibility="Collapsed" Margin="40,0" ItemContainerStyle="{StaticResource TappableListViewItemStyle}" SelectionMode="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid x:Name="TopicWrapper" Height="50" Tapped="TopicWrapper_Tapped">
@@ -151,7 +151,7 @@
                             </Button>
                             <StackPanel x:Name="SubredditsWrapper" Visibility="Collapsed">
                                 <Button x:Name="AddNewSubredditButton" Content="Add New" Click="AddNewSubredditButton_Click" Margin="40,0"/>
-                                <ListView x:Name="SubredditsListView" ItemsSource="{Binding Subreddits}" Margin="40,0" >
+                                <ListView x:Name="SubredditsListView" ItemsSource="{Binding Subreddits}" Margin="40,0" ItemContainerStyle="{StaticResource TappableListViewItemStyle}" SelectionMode="None">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid x:Name="SubredditWrapper" Height="50" Tapped="SubredditWrapper_Tapped">

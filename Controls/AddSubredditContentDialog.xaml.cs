@@ -42,7 +42,7 @@ namespace MonocleGiraffe.Controls
         {
             string name = NameTextBox.Text;
             string friendlyName = FriendlyNameTextBox.Text.Length > 0 ? FriendlyNameTextBox.Text : name;
-            StateHelper.ViewModel.AddSubReddit(new Subreddit(name, friendlyName));
+            StateHelper.ViewModel.AddSubreddit(new Subreddit(name, friendlyName));
         }
     }
 }

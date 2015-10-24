@@ -186,9 +186,16 @@ namespace MonocleGiraffe.ViewModels
             Subreddits = new ObservableCollection<Subreddit>(subredditsList);
         }
 
-        public async void AddSubReddit(Subreddit subreddit)
+        public async void AddSubreddit(Subreddit subreddit)
         {
             Subreddits.Insert(0, subreddit);
+            string text = JsonConvert.SerializeObject(Subreddits);
+            await RoamingDataHelper.StoreText(text, subredditsFileName);
+        }
+
+        public async void RemoveSubreddit(Subreddit subreddit)
+        {
+            Subreddits.Remove(subreddit);
             string text = JsonConvert.SerializeObject(Subreddits);
             await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
