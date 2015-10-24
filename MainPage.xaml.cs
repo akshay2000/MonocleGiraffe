@@ -71,7 +71,7 @@ namespace MonocleGiraffe
 
         private void SubredditsButton_Click(object sender, RoutedEventArgs e)
         {
-            SubredditsWrapper.Visibility = SubredditsWrapper.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            SubredditsListView.Visibility = SubredditsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
@@ -92,11 +92,9 @@ namespace MonocleGiraffe
             mainVM.LoadTopic(topic);
             MainSplitView.IsPaneOpen = false;
         }
-
-        private void AddNewSubredditButton_Click(object sender, RoutedEventArgs e)
+      
+        private void EditSubredditsButton_Click(object sender, RoutedEventArgs e)
         {
-            //ContentDialog dialog = new AddSubredditContentDialog();
-            //dialog.ShowAsync();
             Frame.Navigate(typeof(ManageSubredditsPage));
         }
     }
