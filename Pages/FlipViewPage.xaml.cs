@@ -28,7 +28,6 @@ namespace MonocleGiraffe.Pages
     public sealed partial class FlipViewPage : Page
     {
         MainViewModel dataContext;
-        bool isViewRendered = false;
         public FlipViewPage()
         {
             this.InitializeComponent();
