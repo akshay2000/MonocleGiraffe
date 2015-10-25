@@ -61,6 +61,7 @@ namespace MonocleGiraffe
         private void HomeMenuButton_Click(object sender, RoutedEventArgs e)
         {
             mainVM.LoadGallery();
+            MainSplitView.IsPaneOpen = false;
         }
 
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
@@ -71,6 +72,7 @@ namespace MonocleGiraffe
 
         private void SubredditsButton_Click(object sender, RoutedEventArgs e)
         {
+            MainSplitView.IsPaneOpen = true;
             SubredditsListView.Visibility = SubredditsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
@@ -83,6 +85,7 @@ namespace MonocleGiraffe
 
         private void ImgurButton_Click(object sender, RoutedEventArgs e)
         {
+            MainSplitView.IsPaneOpen = true;
             TopicsListView.Visibility = TopicsListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 

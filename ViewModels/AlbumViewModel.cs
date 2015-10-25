@@ -25,5 +25,18 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
+        private int selectedIndex;
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set
+            {
+                if (selectedIndex != value)
+                {
+                    selectedIndex = value;
+                }
+            }
+        }
+
     }
 }

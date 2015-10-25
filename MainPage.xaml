@@ -91,9 +91,9 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Stretch" Width="50" Content="&#xE700;" Click="HamburgerButton_Click" Style="{StaticResource HamButtonStyle}" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
         <!--<TextBlock x:Name="PageHeaderTextBox" Text="{Binding GalleryTitle}" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White" Grid.Column="1"/>-->
-        <t10c:PageHeader Text="{Binding GalleryTitle}" Grid.Column="1"/>
+        <t10c:PageHeader Text="{Binding GalleryTitle}" Grid.Column="1" />
 
-        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="True" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark" Grid.Row="1" Grid.ColumnSpan="2">
+        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark" Grid.Row="1" Grid.ColumnSpan="2">
             <SplitView.Pane>
                 <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
                 <Grid>
@@ -142,7 +142,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click" Style="{StaticResource HamButtonStyle}" >
+                                <Button x:Name="SubredditsButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Height="50" Click="SubredditsButton_Click" Style="{StaticResource HamButtonStyle}" Grid.ColumnSpan="2">
                                     <Button.Content>
                                         <Grid HorizontalAlignment="Left">
                                             <Grid.ColumnDefinitions>

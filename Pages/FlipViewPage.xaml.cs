@@ -47,99 +47,16 @@ namespace MonocleGiraffe.Pages
             request.Data.SetWebLink(new Uri(currentImage.Link));
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-        }
-
-        private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (isViewRendered)
-            //    ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);            
-        }
-
-        private void ZoomedImageWrapper_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-        {
-            //var imageScrollViewer = sender as ScrollViewer;
-            //if (imageScrollViewer.ZoomFactor > 0.99)
-            //{
-            //    ChangeView(imageScrollViewer, dataContext.ZoomFactor);
-            //}
-            //else
-            //{
-            //    ChangeView(imageScrollViewer, 1);
-            //}
-        }        
-
-        private void ScrollViewerWrapper_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //var grid = sender as Grid;
-            //dataContext.ViewPortWidth = e.NewSize.Width;
-            //dataContext.ViewPortHeight = e.NewSize.Height;
-        }
-
-        #region Helpers
-        private void ChangeView(ScrollViewer scrollViewer, float zoomFactor, bool disableAnimation = false)
-        {
-            if (scrollViewer == null)
-            {
-                Debug.WriteLine("---Scrollviewer was null!");
-                return;
-            }
-
-            var period = TimeSpan.FromMilliseconds(10);
-            Windows.System.Threading.ThreadPoolTimer.CreateTimer(async (source) =>
-            {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                {
-                    var Succes = scrollViewer.ChangeView(null, null, zoomFactor, disableAnimation);
-                });
-            }, period);
-        }
-
-        private List<Control> AllChildren(DependencyObject parent)
-        {
-            var _List = new List<Control>();
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-            {
-                var _Child = VisualTreeHelper.GetChild(parent, i);
-                if (_Child is Control)
-                    _List.Add(_Child as Control);
-                _List.AddRange(AllChildren(_Child));
-            }
-            return _List;
-        }
-
-        private ScrollViewer GetScrollViewer()
-        {
-            if (MainFlipView.SelectedItem == null)
-                return null;
-            var _Container = MainFlipView.ContainerFromItem(MainFlipView.SelectedItem);
-            var _Children = AllChildren(_Container);
-            var scrollViewer = _Children.OfType<ScrollViewer>().First();
-            return scrollViewer;
-        }
-
-        #endregion
-
-        private void Image_ImageOpened(object sender, RoutedEventArgs e)
-        {
-            if (!isViewRendered)
-            {
-                //ChangeView(GetScrollViewer(), dataContext.ZoomFactor, true);
-                //isViewRendered = true; 
-            }
-        }
-
-        private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            StateHelper.AlbumVM.AlbumItem = dataContext.ImageItems[dataContext.SelectedIndex];
-            Frame.Navigate(typeof(AlbumPage));
-        }
-
         private void ShareButton_Click(object sender, RoutedEventArgs e)
         {
             DataTransferManager.ShowShareUI();
+        }
+       
+        private void AlbumGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            StateHelper.AlbumVM.AlbumItem = dataContext.ImageItems[dataContext.SelectedIndex];
+            StateHelper.AlbumVM.SelectedIndex = (sender as GridView).SelectedIndex;
+            Frame.Navigate(typeof(AlbumPage));
         }
     }
 }
