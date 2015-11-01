@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -44,18 +45,50 @@ namespace MonocleGiraffe.Pages
             var currentImage = dataContext.ImageItems[dataContext.SelectedIndex];
             request.Data.Properties.Title = currentImage.Title;
             request.Data.SetWebLink(new Uri(currentImage.Link));
-        }
-
-        private void ShareButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataTransferManager.ShowShareUI();
-        }
+        }      
        
         private void AlbumGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StateHelper.AlbumVM.AlbumItem = dataContext.ImageItems[dataContext.SelectedIndex];
             StateHelper.AlbumVM.SelectedIndex = (sender as GridView).SelectedIndex;
             Frame.Navigate(typeof(AlbumPage));
+        }
+
+        private void ShareMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            string clickedTag = (string)(sender as FrameworkElement).Tag;
+            switch (clickedTag)
+            {
+                case "CopyLink":
+                    CopyLink();
+                    break;
+                case "OpenBrowser":
+                    OpenBrowser();
+                    break;
+                case "OtherApps":
+                default:
+                    DataTransferManager.ShowShareUI();
+                    break;
+            }
+        }
+        
+        private void CopyLink()
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(GetLinkToShare());
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private async void OpenBrowser()
+        {
+            Uri uriToLaunch = new Uri(GetLinkToShare());
+            await Launcher.LaunchUriAsync(uriToLaunch);
+        }
+
+        private string GetLinkToShare()
+        {
+            return dataContext.ImageItems[dataContext.SelectedIndex].Link;
         }
     }
 }
