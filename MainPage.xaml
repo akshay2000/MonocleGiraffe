@@ -93,7 +93,7 @@
         <!--<TextBlock x:Name="PageHeaderTextBox" Text="{Binding GalleryTitle}" Style="{StaticResource HeaderTextBlockStyle}" Margin="10,0,0,10" Foreground="White" Grid.Column="1"/>-->
         <t10c:PageHeader Text="{Binding GalleryTitle}" Grid.Column="1" />
 
-        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark" Grid.Row="1" Grid.ColumnSpan="2">
+        <SplitView x:Name="MainSplitView" DisplayMode="CompactOverlay" IsPaneOpen="True" CompactPaneLength="50" OpenPaneLength="250" RequestedTheme="Dark" Grid.Row="1" Grid.ColumnSpan="2">
             <SplitView.Pane>
                 <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
                 <Grid>
@@ -123,7 +123,7 @@
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8A9;" HorizontalAlignment="Center" Margin="0,4,0,0"/>
                                         <TextBlock Text="Topics" Grid.Column="1" Margin="10,0,0,0"/>
                                     </Grid>
                                 </Button.Content>
@@ -149,7 +149,7 @@
                                                 <ColumnDefinition Width="30"/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE010;" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" FontSize="18" Text="&#xf100;" HorizontalAlignment="Center" Margin="0,0,0,0"/>
                                             <TextBlock Text="Subreddits" Grid.Column="1" Margin="10,0,0,0"/>
                                         </Grid>
                                     </Button.Content>
