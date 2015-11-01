@@ -8,6 +8,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.TopAppBar>
+        <CommandBar x:Name="TopCommandBar">            
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="ShareButton" Label="Share">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE72D;"/>
+                    </AppBarButton.Icon>
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="ShareMenuFlyout">
+                            <MenuFlyoutItem Tag="CopyLink" Text="Copy Link" Click="ShareMenuFlyoutItem_Click"/>
+                            <MenuFlyoutItem Tag="OpenBrowser" Text="Open Browser" Click="ShareMenuFlyoutItem_Click"/>
+                            <MenuFlyoutItem Tag="OtherApps" Text="Other Apps" Click="ShareMenuFlyoutItem_Click"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Name="SaveButton" Icon="Save" Label="Save"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
+
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
