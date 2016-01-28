@@ -61,7 +61,7 @@
                     <TextBlock Text="{Binding Author}" Style="{StaticResource AuthorNameTextStyle}" Grid.Column="1"/>
                     <TextBlock Text="{Binding CommentText}" Style="{StaticResource CommentTextStyle}" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
-                <TextBlock Grid.Row="1" Text="View more comments..." FontSize="7"/>
+                <Grid/>
             </Grid>
         </DataTemplate>
 

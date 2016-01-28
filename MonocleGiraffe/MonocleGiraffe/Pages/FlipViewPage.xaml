@@ -9,6 +9,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="FlipPage">
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="WidthStates">
+            <VisualState x:Name="NarrowView">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="TopCommandBar.Visibility" Value="Collapsed"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="WideView">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="720" />
+                </VisualState.StateTriggers>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
     <Page.TopAppBar>
         <CommandBar x:Name="TopCommandBar">
             <CommandBar.Content>
@@ -33,16 +52,17 @@
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
+    
 
     <Page.Resources>
         <DataTemplate x:Key="ImageItemDataTemplate">
-            <Grid>
+            <!--<Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
 
-                <!--<TextBlock Text="IMAGE" Foreground="White"/>-->
+                --><!--<TextBlock Text="IMAGE" Foreground="White"/>--><!--
                 <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" Margin="12,0">
                     <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
                         <TextBlock Text="{Binding Title}" Foreground="White" Style="{StaticResource TitleTextStyle}" />
@@ -54,7 +74,8 @@
                     </StackPanel>
                 </ScrollViewer>
                 <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
-            </Grid>
+            </Grid>-->
+            <c:ImageItemPanel/>
         </DataTemplate>
 
         <DataTemplate x:Key="AlbumItemDataTemplate">
@@ -86,9 +107,9 @@
             </Grid>
         </DataTemplate>
 
-        <selectors:ImageTemplateSelector x:Key="LargeTemplateSelector" ImageTemplate="{StaticResource ImageItemDataTemplate}" AlbumTemplate="{StaticResource AlbumItemDataTemplate}">
+        <selectors:ImageTemplateSelector x:Key="LargeTemplateSelector" ImageTemplate="{StaticResource ImageItemDataTemplate}" AlbumTemplate="{StaticResource AlbumItemDataTemplate}"/>
 
-        </selectors:ImageTemplateSelector>
+
 
 
 

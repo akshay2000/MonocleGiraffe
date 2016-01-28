@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{8C2B23EF-BD90-4549-A2BB-824EF5172079}</ProjectGuid>
+    <ProjectGuid>{A557CECD-E821-40FF-B05A-AE7453A31F9C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MonocleGiraffe</RootNamespace>
@@ -103,6 +103,9 @@
     <Compile Include="Controls\AddSubredditContentDialog.xaml.cs">
       <DependentUpon>AddSubredditContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageItemPanel.xaml.cs">
+      <DependentUpon>ImageItemPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ImageItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ImageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,12 +202,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpImgur\SharpImgur.csproj">
+    <ProjectReference Include="..\..\..\sharpimgur\SharpImgur.csproj">
       <Project>{20ad996c-d3b1-4335-82a0-a6bdb973eb68}</Project>
       <Name>SharpImgur</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
