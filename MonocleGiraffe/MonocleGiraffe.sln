@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonocleGiraffe", "MonocleGiraffe\MonocleGiraffe.csproj", "{A557CECD-E821-40FF-B05A-AE7453A31F9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpImgur", "..\..\sharpimgur\SharpImgur.csproj", "{20AD996C-D3B1-4335-82A0-A6BDB973EB68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpImgur", "SharpImgur\SharpImgur.csproj", "{20AD996C-D3B1-4335-82A0-A6BDB973EB68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
