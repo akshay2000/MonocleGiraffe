@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace MonocleGiraffe.Pages
         public FrontPage()
         {
             this.InitializeComponent();
+            var vm = new MainViewModel();
+            this.DataContext = vm;
+            vm.LoadGallery();
         }
     }
 }

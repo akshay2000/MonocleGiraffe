@@ -183,7 +183,7 @@ namespace MonocleGiraffe.Models
                 thumbnailId = image.Id;
             }
             SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
-            BigThumbnail = baseUrl + thumbnailId + "b.jpg";
+            BigThumbnail = baseUrl + thumbnailId + "l.jpg";
         }
 
         private async void LoadComments(string imageId)
