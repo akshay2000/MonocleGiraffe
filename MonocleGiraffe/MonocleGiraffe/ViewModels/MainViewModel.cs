@@ -212,7 +212,7 @@ namespace MonocleGiraffe.ViewModels
         {
             ImageItems = new ObservableCollection<GalleryItem>();
             GalleryTitle = "Gallery";
-            var gallery = await Gallery.GetGallery();
+            var gallery = await Gallery.GetGallery( Enums.Section.Top);
             foreach (var image in gallery)
             {
                 ImageItems.Add(new GalleryItem(image));

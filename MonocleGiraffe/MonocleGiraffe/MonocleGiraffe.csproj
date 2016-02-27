@@ -109,6 +109,9 @@
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TabHeader.xaml.cs">
+      <DependentUpon>TabHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
@@ -124,6 +127,9 @@
     </Compile>
     <Compile Include="Pages\FlipViewPage.xaml.cs">
       <DependentUpon>FlipViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FrontPage.xaml.cs">
+      <DependentUpon>FrontPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ManageSubredditsPage.xaml.cs">
       <DependentUpon>ManageSubredditsPage.xaml</DependentUpon>
@@ -172,6 +178,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TabHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +199,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Controls\CommentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FrontPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
