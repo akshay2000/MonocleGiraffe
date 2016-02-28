@@ -20,6 +20,11 @@ namespace MonocleGiraffe.Models
             
         private const string baseUrl = "http://i.imgur.com/";
 
+        public GalleryItem()
+        {
+
+        }
+
         public GalleryItem(Image image)
         {
             this.image = image;
@@ -105,7 +110,7 @@ namespace MonocleGiraffe.Models
             get { return GetImageType(); }
         }
 
-        private ObservableCollection<GalleryItem> albumImages= new ObservableCollection<GalleryItem>();
+        private ObservableCollection<GalleryItem> albumImages = new ObservableCollection<GalleryItem>();
         public ObservableCollection<GalleryItem> AlbumImages
         {
             get
@@ -140,7 +145,7 @@ namespace MonocleGiraffe.Models
                 {
                     albumImages.Add(new GalleryItem(image));
                 }
-            }            
+            }
         }
 
         private GalleryItemType GetImageType()
@@ -157,7 +162,7 @@ namespace MonocleGiraffe.Models
             {
                 return GalleryItemType.Image;
             }
-        }        
+        }
 
         private ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
         public ObservableCollection<Comment> Comments
@@ -168,7 +173,7 @@ namespace MonocleGiraffe.Models
                     LoadComments(image.Id);
                 return comments;
             }
-        }        
+        }
 
         private async void SetThumbnails()
         {
@@ -193,6 +198,6 @@ namespace MonocleGiraffe.Models
             {
                 comments.Add(comment);
             }
-        }        
+        }
     }
 }

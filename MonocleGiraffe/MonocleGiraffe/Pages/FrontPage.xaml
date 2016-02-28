@@ -5,7 +5,8 @@
     xmlns:local="using:MonocleGiraffe"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:controls="using:MonocleGiraffe.Controls"
+    mc:Ignorable="d" d:DataContext="{d:DesignData /SampleData/MainVMSample.xaml}">
     <Page.Resources>
         <!--<Style x:Key="TabbedPivotStyle" TargetType="Pivot">
             <Setter Property="Margin" Value="0"/>
@@ -352,6 +353,9 @@
                 </Setter.Value>
             </Setter>
         </Style>-->
+        <ItemsPanelTemplate x:Key="ColumnItemsPanelTemplate">
+            <controls:ColumnPanel />
+        </ItemsPanelTemplate>
     </Page.Resources>
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
@@ -370,17 +374,17 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <FontIcon Glyph="&#xE700;" Margin="12"/>
-                            <TextBlock Text="MOST VIRAL" Grid.Column="1" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
+                            <TextBlock Text="{Binding GalleryTitle}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
                             <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Margin="12">
                                 <Grid>
                                     <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
                         </Grid>
-                        <GridView Grid.Row="1" ItemsSource="{Binding ImageItems}">
+                        <GridView Grid.Row="1" ItemsSource="{Binding ImageItems}" ItemsPanel="{StaticResource ColumnItemsPanelTemplate}" >
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Width="150" Stretch="Uniform" Source="{Binding BigThumbnail}"/>
+                                    <Image Width="124" Stretch="Uniform" Source="{Binding BigThumbnail}"/>
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
@@ -397,7 +401,7 @@
                     <TextBlock Text="HEY!3"/>
                 </PivotItem.Content>
             </PivotItem>
-            <PivotItem Header="ACCOUNT"/>            
+            <PivotItem Header="ACCOUNT"/>
         </Pivot>
     </Grid>
     <Page.BottomAppBar>

@@ -103,6 +103,7 @@
     <Compile Include="Controls\AddSubredditContentDialog.xaml.cs">
       <DependentUpon>AddSubredditContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColumnPanel.cs" />
     <Compile Include="Controls\ImageItemPanel.xaml.cs">
       <DependentUpon>ImageItemPanel.xaml</DependentUpon>
     </Compile>
@@ -211,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SlideShowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SampleData\MainVMSample.XAML">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -215,7 +215,8 @@ namespace MonocleGiraffe.ViewModels
             var gallery = await Gallery.GetGallery( Enums.Section.Top);
             foreach (var image in gallery)
             {
-                ImageItems.Add(new GalleryItem(image));
+                var gItem = new GalleryItem(image);
+                ImageItems.Add(gItem);
             }
         }
 
