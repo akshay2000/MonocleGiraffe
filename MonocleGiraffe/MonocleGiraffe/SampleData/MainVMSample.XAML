@@ -1,6 +1,6 @@
 ﻿<ViewModels:MainViewModel xmlns:ViewModels="using:MonocleGiraffe.ViewModels" xmlns:Models="using:MonocleGiraffe.Models" xmlns:Models1="using:SharpImgur.Models" xmlns:System="using:System" GalleryTitle="Aaberg, Jesper" SelectedIndex="98">
     <ViewModels:MainViewModel.ImageItems>
-        <Models:GalleryItem BigThumbnail="http://i.imgur.com/2WvGwssl.jpg"/>
+        <Models:GalleryItem BigThumbnail="http://i.imgur.com/eLi9lVIl.jpg"/>
         <Models:GalleryItem BigThumbnail="http://i.imgur.com/62hfoA8l.jpg"/>
         <Models:GalleryItem BigThumbnail="http://i.imgur.com/uVgeEkOl.jpg"/>
         <Models:GalleryItem BigThumbnail="http://i.imgur.com/XgVmnVzl.jpg"/>

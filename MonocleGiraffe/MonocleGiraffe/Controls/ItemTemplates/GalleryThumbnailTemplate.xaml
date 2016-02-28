@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="MonocleGiraffe.Controls.ItemTemplates.GalleryThumbnailTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Controls.ItemTemplates"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" 
+    d:DesignHeight="200">
+
+    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" >
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidhStateGroup">
+                <VisualState x:Name="SmallPhoneState">
+                    <VisualState.Setters>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="136"/>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="136"/>                        
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="200"/>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="200"/>                        
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="432"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="TabletState">
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="148"/>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="148"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Background="#FFE6E6E6" MaxHeight="200">
+            <Image x:Name="Thumbnail" Source="{Binding BigThumbnail}" Width="150" Stretch="Fill"/>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="40" Margin="4"/>
+    </Grid>
+</UserControl>
