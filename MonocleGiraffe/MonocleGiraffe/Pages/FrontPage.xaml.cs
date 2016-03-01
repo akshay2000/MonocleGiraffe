@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.ViewModels;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,12 +24,22 @@ namespace MonocleGiraffe.Pages
     /// </summary>
     public sealed partial class FrontPage : Page
     {
+        MainViewModel mainVM = StateHelper.ViewModel;
         public FrontPage()
         {
             this.InitializeComponent();
-            var vm = new MainViewModel();
-            this.DataContext = vm;
-            vm.LoadGallery();
+            this.DataContext = mainVM;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            mainVM.LoadGallery();
+        }
+
+        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ImagesGridView.SelectedIndex > -1)
+            {
+                StateHelper.ViewModel.SelectedIndex = ImagesGridView.SelectedIndex;
+                Frame.Navigate(typeof(FlipViewPage));
+            }
         }
     }
 }

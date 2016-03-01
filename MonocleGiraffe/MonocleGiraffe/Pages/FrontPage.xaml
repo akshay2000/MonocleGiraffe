@@ -422,7 +422,7 @@
                                 </Grid>
                             </Border>
                         </Grid>
-                        <GridView Grid.Row="1" ItemsSource="{Binding ImageItems}" Style="{StaticResource CenteredGridViewStyle}" >
+                        <GridView x:Name="ImagesGridView" Grid.Row="1" ItemsSource="{Binding ImageItems}" Style="{StaticResource CenteredGridViewStyle}" SelectionChanged="GridView_SelectionChanged" >
                             <GridView.ItemTemplate>
                                 <DataTemplate>
                                     <templates:GalleryThumbnailTemplate/>
