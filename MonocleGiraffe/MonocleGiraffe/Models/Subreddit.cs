@@ -9,21 +9,26 @@ namespace MonocleGiraffe.Models
 {
     public class Subreddit : NotifyBase
     {
+        public Subreddit()
+        {
+
+        }
+
         public Subreddit(string name, string friendlyName)
         {
-            Name = name;
+            ActualName = name;
             FriendlyName = friendlyName;
         }
 
-        private string name;
-        public string Name
+        private string actualName;
+        public string ActualName
         {
-            get { return name; }
+            get { return actualName; }
             set
             {
-                if (name != value)
+                if (actualName != value)
                 {
-                    name = value;
+                    actualName = value;
                     NotifyPropertyChanged();
                 }
             }

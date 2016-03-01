@@ -57,7 +57,7 @@ namespace MonocleGiraffe.Pages
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var item = SubredditsListView.SelectedItem as Subreddit;
-            item.Name = NameTextBox.Text;
+            item.ActualName = NameTextBox.Text;
             item.FriendlyName = FriendlyNameTextBox.Text;
             StateHelper.ViewModel.SaveSubreddits();
         }

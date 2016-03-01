@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MonocleGiraffe.Controls"
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
-    mc:Ignorable="d" d:DataContext="{d:DesignData /SampleData/MainVMSample.xaml}">
+    mc:Ignorable="d" >
     <Page.Resources>
         <!--<Style x:Key="TabbedPivotStyle" TargetType="Pivot">
             <Setter Property="Margin" Value="0"/>
@@ -403,7 +403,7 @@
         <Pivot >
             <PivotItem Header="HOME">
                 <PivotItem.Content>
-                    <Grid>
+                    <Grid d:DataContext="{d:DesignData /SampleData/MainVMSample.xaml}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
@@ -434,7 +434,23 @@
             </PivotItem>
             <PivotItem Header="REDDIT">
                 <PivotItem.Content>
-                    <TextBlock Text="HEY2!"/>
+                    <Grid d:DataContext="{d:DesignData /SampleData/SubredditsVMSample.xaml}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="SUBREDDITS" FontSize="24" FontWeight="Bold"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding Subreddits}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FriendlyName}"/>
+                                        <TextBlock Text="{Binding ActualName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
                 </PivotItem.Content>
             </PivotItem>
             <PivotItem Header="SEARCH">

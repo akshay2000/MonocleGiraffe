@@ -224,7 +224,7 @@ namespace MonocleGiraffe.ViewModels
         {
             ImageItems = new ObservableCollection<GalleryItem>();
             GalleryTitle = subreddit.FriendlyName;
-            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit.Name);
+            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit.ActualName);
             foreach (var image in subredditGallery)
             {
                 ImageItems.Add(new GalleryItem(image));
