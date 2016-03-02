@@ -147,6 +147,8 @@
     </Compile>
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\FrontPageViewModel.cs" />
+    <Compile Include="ViewModels\FrontPage\GalleryViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>

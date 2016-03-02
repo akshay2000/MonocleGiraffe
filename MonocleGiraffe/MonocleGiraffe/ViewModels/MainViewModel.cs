@@ -216,6 +216,12 @@ namespace MonocleGiraffe.ViewModels
             foreach (var image in gallery)
             {
                 var gItem = new GalleryItem(image);
+                Debug.Write("Title = \"" + gItem.Title + "\", ");
+                //Debug.Write(gItem.Description + ",");
+                Debug.Write("IsAnimated = \"" + gItem.IsAnimated + "\", ");
+                Debug.Write("Link = \"" + gItem.Link + "\", ");
+                Debug.Write("UploaderName = \"" + gItem.UploaderName + "\", ");
+                Debug.WriteLine("Mp4 = \"" + gItem.Mp4 + "\"");
                 ImageItems.Add(gItem);
             }
         }

@@ -27,10 +27,8 @@ namespace MonocleGiraffe.Pages
         MainViewModel mainVM = StateHelper.ViewModel;
         public FrontPage()
         {
-            this.InitializeComponent();
-            this.DataContext = mainVM;
+            this.InitializeComponent();           
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            mainVM.LoadGallery();
         }
 
         private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
