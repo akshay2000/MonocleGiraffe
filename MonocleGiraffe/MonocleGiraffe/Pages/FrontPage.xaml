@@ -439,13 +439,16 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="SUBREDDITS" FontSize="24" FontWeight="Bold"/>
-                        <ListView Grid.Row="1" ItemsSource="{Binding Subreddits}">
+                        <TextBlock Text="POPULAR SUBREDDITS" FontSize="15" FontWeight="Bold"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding Subreddits}" Margin="-10,18,0,0">                            
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding FriendlyName}"/>
-                                        <TextBlock Text="{Binding ActualName}"/>
+                                    <StackPanel Margin="0,0,0,8">
+                                        <TextBlock Text="{Binding FriendlyName}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                        <TextBlock FontSize="14" Opacity="0.8">
+                                            <Run FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xf100;"/>
+                                            <Run Text="{Binding ActualName}"/>
+                                        </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
