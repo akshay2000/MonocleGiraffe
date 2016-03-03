@@ -1,4 +1,7 @@
-﻿using MonocleGiraffe.Models;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,9 +18,19 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public SubredditsViewModel()
         {
             if (DesignMode.DesignModeEnabled)
-                LoadSubredditsDesignTime();
+                InitDesignTime();
             else
-                LoadSubreddits();
+                Init();
+        }
+
+        private void Init()
+        {
+            LoadSubreddits();
+        }
+
+        private void InitDesignTime()
+        {
+            LoadSubredditsDesignTime();
         }
 
         private ObservableCollection<Subreddit> subreddits;
@@ -27,21 +40,53 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref subreddits, value); }
         }
 
-        private void LoadSubreddits()
+        private const string subredditsFileName = "subreddits.json";
+        public async void LoadSubreddits()
         {
-            LoadSubredditsDesignTime();
+            string jsonString = await RoamingDataHelper.GetText(subredditsFileName);
+            var subredditsList = JArray.Parse(jsonString).ToObject<List<Subreddit>>();
+            if (subredditsList.Count == 0)
+            {
+                subredditsList = new List<Subreddit>() {
+                    new Subreddit("earthporn", "EarthPorn"),
+                    new Subreddit("funny", "Funny"),
+                    new Subreddit("pics", "Picures"),
+                    new Subreddit("cats", "Cats"),
+                    new Subreddit("aww", "The cutest things on the internet"),
+                    new Subreddit("adviceanimals", "Dank Memes")
+                };
+            }
+            Subreddits = new ObservableCollection<Subreddit>(subredditsList);
+        }
+
+        public void AddSubreddit(Subreddit subreddit)
+        {
+            Subreddits.Insert(0, subreddit);
+            SaveSubreddits();
+        }
+
+        public void RemoveSubreddit(Subreddit subreddit)
+        {
+            Subreddits.Remove(subreddit);
+            SaveSubreddits();            
+        }
+
+        internal async void SaveSubreddits()
+        {
+            string text = JsonConvert.SerializeObject(Subreddits);
+            await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
 
         private void LoadSubredditsDesignTime()
         {
             Subreddits = new ObservableCollection<Subreddit>();
-            Subreddits.Add(new Subreddit { FriendlyName = "Funny", ActualName = "/r/funny" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Pictures", ActualName = "/r/pics" });
-            Subreddits.Add(new Subreddit { FriendlyName = "WTF?!", ActualName = "/r/funny" });
-            Subreddits.Add(new Subreddit { FriendlyName = "The cutest things on the internet", ActualName = "/r/aww" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Cats", ActualName = "/r/cats" });
-            Subreddits.Add(new Subreddit { FriendlyName = "EarthPorn", ActualName = "/r/earthporn" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Dank Memes", ActualName = "/r/adviceanimals" });
+            Subreddits.Add(new Subreddit { FriendlyName = "Funny", ActualName = "funny" });
+            Subreddits.Add(new Subreddit { FriendlyName = "Pictures", ActualName = "pics" });
+            Subreddits.Add(new Subreddit { FriendlyName = "WTF?!", ActualName = "funny" });
+            Subreddits.Add(new Subreddit { FriendlyName = "The cutest things on the internet", ActualName = "aww" });
+            Subreddits.Add(new Subreddit { FriendlyName = "Cats", ActualName = "cats" });
+            Subreddits.Add(new Subreddit { FriendlyName = "EarthPorn", ActualName = "earthporn" });
+            Subreddits.Add(new Subreddit { FriendlyName = "Dank Memes", ActualName = "adviceanimals" });
         }
     }
 }

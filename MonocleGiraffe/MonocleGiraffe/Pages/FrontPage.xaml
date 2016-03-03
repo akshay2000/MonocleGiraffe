@@ -407,7 +407,7 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <Pivot >
+        <Pivot>
             <PivotItem Header="HOME">
                 <PivotItem.Content>
                     <Grid DataContext="{Binding GalleryVM}">
@@ -454,6 +454,7 @@
                                         <TextBlock Text="{Binding FriendlyName}" Style="{StaticResource SubtitleTextBlockStyle}"/>
                                         <TextBlock FontSize="14" Opacity="0.8">
                                             <Run FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xf100;"/>
+                                            <Run Text="/r/"/>
                                             <Run Text="{Binding ActualName}"/>
                                         </TextBlock>
                                     </StackPanel>
