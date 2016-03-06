@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 
@@ -36,6 +38,15 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref images, value); }
         }
 
+        private int selectedIndex;
+
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set { Set(ref selectedIndex, value); }
+        }
+
+
         private async void Init()
         {
             Images = new ObservableCollection<GalleryItem>();
@@ -46,6 +57,17 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 var gItem = new GalleryItem(image);
                 Images.Add(gItem);
             }
+        }
+
+        public void ImageTapped(object sender, object parameter)
+        {
+            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
+            var clickedItem = args.ClickedItem as GalleryItem;
+            SelectedIndex = Images.IndexOf(clickedItem);
+            string navigationParamName = "GalleryVM";
+            BootStrapper.Current.SessionState[navigationParamName] = this;
+            BootStrapper.Current.NavigationService.Navigate(typeof(FlipViewPage), navigationParamName);
+            return;           
         }
 
         private void InitDesignTime()

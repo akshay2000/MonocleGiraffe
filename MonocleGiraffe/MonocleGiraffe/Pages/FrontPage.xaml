@@ -1,5 +1,4 @@
 ﻿<Page
-    x:Class="MonocleGiraffe.Pages.FrontPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MonocleGiraffe"
@@ -8,13 +7,11 @@
     xmlns:controls="using:MonocleGiraffe.Controls"
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    x:Class="MonocleGiraffe.Pages.FrontPage"
     mc:Ignorable="d" >
 
-    <Page.DataContext>
-        <vm:FrontPageViewModel/>
-    </Page.DataContext>
-    
-    <Page.Resources>        
+    <Page.Resources>
         <Style x:Key="CenteredGridViewStyle" TargetType="GridView">
             <Setter Property="Padding" Value="0,0,0,10"/>
             <Setter Property="IsTabStop" Value="False"/>
@@ -58,84 +55,86 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
     </Page.Resources>
 
-    <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <Pivot>
-            <PivotItem Header="HOME">
-                <PivotItem.Content>
-                    <Grid DataContext="{Binding GalleryVM}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Glyph="&#xE700;" Margin="12"/>
-                            <TextBlock Text="{Binding Title}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
-                            <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Margin="12">
-                                <Grid>
-                                    <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <GridView x:Name="ImagesGridView" Grid.Row="1" ItemsSource="{Binding Images}" Style="{StaticResource CenteredGridViewStyle}" SelectionChanged="GridView_SelectionChanged" >
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <templates:GalleryThumbnailTemplate/>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
-                    </Grid>
-                </PivotItem.Content>
-            </PivotItem>
-            <PivotItem Header="REDDIT">
-                <PivotItem.Content>
-                    <Grid DataContext="{Binding SubredditsVM}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="POPULAR SUBREDDITS" FontSize="15" FontWeight="Bold"/>
-                        <ListView Grid.Row="1" ItemsSource="{Binding Subreddits}" Margin="-10,18,0,0">                            
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0,0,0,8">
-                                        <TextBlock Text="{Binding FriendlyName}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                        <TextBlock FontSize="14" Opacity="0.8">
-                                            <Run FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xf100;"/>
-                                            <Run Text="/r/"/>
-                                            <Run Text="{Binding ActualName}"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                </PivotItem.Content>
-            </PivotItem>
-            <PivotItem Header="SEARCH">
-                <PivotItem.Content>
-                    <TextBlock Text="HEY!3"/>
-                </PivotItem.Content>
-            </PivotItem>
-            <PivotItem Header="ACCOUNT"/>
-        </Pivot>
-    </Grid>
+    <Page.DataContext>
+        <vm:FrontPageViewModel/>
+    </Page.DataContext>
+
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.Content>
                 <AppBarButton Icon="Camera"/>
             </CommandBar.Content>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Sort" Label="Sort"/>
-                <AppBarButton Icon="Sync" Label="Refresh"/>
-            </CommandBar.PrimaryCommands>
+            <AppBarButton Icon="Sort" Label="Sort"/>
+            <AppBarButton Icon="Sync" Label="Refresh"/>
         </CommandBar>
     </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
+        <Pivot>
+            <PivotItem Header="HOME">
+                <Grid DataContext="{Binding GalleryVM}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE700;" Margin="12"/>
+                        <TextBlock Text="{Binding Title}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
+                        <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Margin="12">
+                            <Grid>
+                                <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" Style="{StaticResource CenteredGridViewStyle}" >
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <templates:GalleryThumbnailTemplate/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="ItemClick">
+                                <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </GridView>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="REDDIT">
+                <Grid DataContext="{Binding SubredditsVM}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="POPULAR SUBREDDITS" FontSize="15" FontWeight="Bold"/>
+                    <ListView Grid.Row="1" ItemsSource="{Binding Subreddits}" Margin="-10,18,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding FriendlyName}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                    <TextBlock FontSize="14" Opacity="0.8">
+										<Run FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xF100;"/>
+										<Run Text="/r/"/>
+										<Run Text="{Binding ActualName}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="SEARCH">
+                <TextBlock Text="HEY!3"/>
+            </PivotItem>
+            <PivotItem Header="ACCOUNT"/>
+        </Pivot>
+    </Grid>
 </Page>

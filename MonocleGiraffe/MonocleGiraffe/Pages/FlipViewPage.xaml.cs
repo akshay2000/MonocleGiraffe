@@ -32,8 +32,8 @@ namespace MonocleGiraffe.Pages
         public FlipViewPage()
         {
             this.InitializeComponent();
-            dataContext = StateHelper.ViewModel;
-            DataContext = dataContext;
+            //dataContext = StateHelper.ViewModel;
+            //DataContext = dataContext;
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;

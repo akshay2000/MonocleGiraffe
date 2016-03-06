@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\FlipViewPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\GalleryViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
@@ -159,6 +160,7 @@
     <None Include="MonocleGiraffe_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -229,10 +231,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="SampleData\MainVMSample.XAML">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <DesignData Include="SampleData\SubredditsVMSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

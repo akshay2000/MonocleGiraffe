@@ -20,11 +20,6 @@ namespace MonocleGiraffe.Models
             
         private const string baseUrl = "http://i.imgur.com/";
 
-        public GalleryItem()
-        {
-
-        }
-
         public GalleryItem(Image image)
         {
             this.image = image;

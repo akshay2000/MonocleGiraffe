@@ -7,7 +7,7 @@
     xmlns:t10common="using:Template10.Common"
     RequestedTheme="Dark">
 
-    <!--<Application.Resources>
+    <t10common:BootStrapper.Resources>
         <ResourceDictionary>
             <Style x:Key="MinimalListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
@@ -85,9 +85,9 @@
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Margin="{TemplateBinding Padding}"/>
                                 </Grid>
-                                --><!-- The 'Xg' text simulates the amount of space one line of text will occupy.
+                                <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                             In the DataPlaceholder state, the Content is not loaded yet so we
-                            approximate the size of the item using placeholder text. --><!--
+                            approximate the size of the item using placeholder text. -->
                                 <TextBlock x:Name="PlaceholderTextBlock"
                       Opacity="0"
                       Text="Xg"
@@ -187,6 +187,6 @@
             </Style>
 
         </ResourceDictionary>
-    </Application.Resources>-->
+    </t10common:BootStrapper.Resources>
 
 </t10common:BootStrapper>

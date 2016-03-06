@@ -29,15 +29,6 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();           
             NavigationCacheMode = NavigationCacheMode.Enabled;
-        }
-
-        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ImagesGridView.SelectedIndex > -1)
-            {
-                StateHelper.ViewModel.SelectedIndex = ImagesGridView.SelectedIndex;
-                Frame.Navigate(typeof(FlipViewPage));
-            }
-        }
+        }        
     }
 }

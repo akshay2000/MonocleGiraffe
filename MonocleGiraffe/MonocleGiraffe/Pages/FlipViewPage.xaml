@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MonocleGiraffe.ViewModels"
     mc:Ignorable="d"
     x:Name="FlipPage">
 
@@ -52,7 +53,10 @@
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
-    
+
+    <Page.DataContext>
+        <vm:FlipViewPageViewModel/>
+    </Page.DataContext>
 
     <Page.Resources>
         <DataTemplate x:Key="ImageItemDataTemplate">
@@ -116,7 +120,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <FlipView x:Name="MainFlipView" ItemsSource="{Binding ImageItems}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplateSelector="{StaticResource LargeTemplateSelector}" Background="Transparent">
+        <FlipView x:Name="MainFlipView" ItemsSource="{Binding Images}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemTemplateSelector="{StaticResource LargeTemplateSelector}" Background="Transparent">
 
         </FlipView>
     </Grid>
