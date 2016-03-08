@@ -10,6 +10,9 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        
+        
+        
         <Style x:Key="CommentsListViewStyle" TargetType="ListView">
             <Setter Property="SelectionMode" Value="None"/>
             <Setter Property="Visibility" Value="Collapsed"/>

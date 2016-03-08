@@ -59,31 +59,9 @@
     </Page.DataContext>
 
     <Page.Resources>
-        <DataTemplate x:Key="ImageItemDataTemplate">
-            <!--<Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
-
-                --><!--<TextBlock Text="IMAGE" Foreground="White"/>--><!--
-                <ScrollViewer Grid.Row="1" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" Margin="12,0">
-                    <StackPanel HorizontalAlignment="Center" MaxWidth="{Binding Width}" Margin="36,12">
-                        <TextBlock Text="{Binding Title}" Foreground="White" Style="{StaticResource TitleTextStyle}" />
-                        <TextBlock Text="{Binding UploaderName}" Foreground="Gray" Style="{StaticResource BasicTextStyle}" Margin="0,0,0,12"/>
-                        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
-                            <c:ImageUserControl/>
-                        </Viewbox>
-                        <TextBlock Text="{Binding Description}" Foreground="White" Style="{StaticResource DescriptionTextStyle}" Margin="0,12,0,0"/>
-                    </StackPanel>
-                </ScrollViewer>
-                <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
-            </Grid>-->
-            <c:ImageItemPanel/>
-        </DataTemplate>
-
+        
         <DataTemplate x:Key="AlbumItemDataTemplate">
-            <Grid>               
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="400"/>
@@ -93,11 +71,11 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="16,0,0,12">                        
+                    <StackPanel Margin="16,0,0,12">
                         <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" Style="{StaticResource TitleTextStyle}" />
                         <TextBlock Text="{Binding UploaderName}" Foreground="Gray" Style="{StaticResource BasicTextStyle}"/>
                     </StackPanel>
-                    <GridView x:Name="AlbumGridView" Grid.Row="1" ItemsSource="{Binding AlbumImages}" ItemsPanel="{StaticResource SpacedItemsPanelTemplate}" SelectionChanged="AlbumGridView_SelectionChanged">
+                    <GridView x:Name="AlbumGridView" Grid.Row="1" ItemsSource="{Binding AlbumImages}" >
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="ThumbnailWrapper" Margin="5" Background="DarkGray">
@@ -110,6 +88,13 @@
                 <c:CommentsUserControl DataContext="{Binding Comments}" Grid.Column="1" Grid.RowSpan="2"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="ImageItemDataTemplate">
+            <c:ImageItemPanel/>
+        </DataTemplate>
+
+        
+
+        
 
         <selectors:ImageTemplateSelector x:Key="LargeTemplateSelector" ImageTemplate="{StaticResource ImageItemDataTemplate}" AlbumTemplate="{StaticResource AlbumItemDataTemplate}"/>
 
