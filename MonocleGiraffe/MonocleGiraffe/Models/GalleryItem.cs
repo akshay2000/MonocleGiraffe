@@ -99,7 +99,18 @@ namespace MonocleGiraffe.Models
                 }
             }
         }
-       
+
+        public int? Ups
+        {
+            get { return image.Ups; }
+        }
+
+        public int? CommentCount
+        {
+            get { return image.CommentCount; }
+        }
+
+
         public GalleryItemType ItemType
         {
             get { return GetImageType(); }

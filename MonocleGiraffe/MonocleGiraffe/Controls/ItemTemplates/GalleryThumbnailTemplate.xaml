@@ -7,7 +7,17 @@
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="MonocleGiraffe.Controls.ItemTemplates.GalleryThumbnailTemplate"
     mc:Ignorable="d" 
-    d:DesignHeight="200">
+    d:DesignHeight="200" d:DesignWidth="162">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="UpVote" TargetType="ContentControl">
+            <Path Data="M 7,0 L 0,7 4,7 4,12 10,12 10,7 14,7 7,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="Comment" TargetType="ContentControl">
+            <Path Data="F 1 M 0,0 L 0,12 12,12 16,16 16,0 0,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform"/>
+        </ControlTemplate>
+        
+    </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" >
         <VisualStateManager.VisualStateGroups>
@@ -21,13 +31,13 @@
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:Name="VisualState">
+                <VisualState x:Name="PhoneState">
                     <VisualState.Setters>
-                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="200"/>
-                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="200"/>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="162"/>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="162"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="432"/>
+                        <AdaptiveTrigger MinWindowWidth="360"/>
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="TabletState">
@@ -47,7 +57,7 @@
         </Grid.RowDefinitions>
         <Rectangle x:Name="PlaceHolder" Height="{Binding ElementName=Thumbnail, Path=Width}" Fill="#FFE6E6E6"/>
         <StackPanel Background="#FFE6E6E6" MaxHeight="200">
-            <Image x:Name="Thumbnail" Source="{Binding BigThumbnail}" Width="150" Stretch="Fill">
+            <Image x:Name="Thumbnail" Source="{Binding BigThumbnail}" Width="162" Stretch="Fill">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="ImageOpened">
                         <Core:ChangePropertyAction TargetObject="{Binding ElementName=PlaceHolder}" PropertyName="Visibility" Value="Collapsed"/>
@@ -55,6 +65,25 @@
                 </Interactivity:Interaction.Behaviors>
             </Image>
         </StackPanel>
-        <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="40" Margin="4"/>
+
+        <Grid Grid.Row="1" Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Title}" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="40" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,0,6"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <ContentControl Template="{StaticResource UpVote}" Foreground="#FF959595" Height="10"/>
+                <TextBlock Text="{Binding Ups}" FontSize="11" Foreground="#FF959595" Margin="4,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <ContentControl Template="{StaticResource Comment}" Foreground="#FF959595" Height="10"/>
+                <TextBlock Text="{Binding CommentCount}" FontSize="11" Foreground="#FF959595" Margin="4,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
