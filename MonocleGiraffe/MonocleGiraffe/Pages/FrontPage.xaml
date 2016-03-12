@@ -65,7 +65,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.Content>
-                <AppBarButton Icon="Camera"/>
+                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
             </CommandBar.Content>
             <AppBarButton Icon="Sort" Label="Sort"/>
             <AppBarButton Icon="Sync" Label="Refresh"/>
@@ -75,38 +75,73 @@
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
         <Pivot>
             <PivotItem Header="HOME">
-                <Grid DataContext="{Binding GalleryVM}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <FontIcon Glyph="&#xE700;" Margin="12"/>
-                        <TextBlock Text="{Binding Title}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
-                        <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Margin="12">
+                <SplitView DisplayMode="Overlay" IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}" DataContext="{Binding GalleryVM}" PaneBackground="#EE000000" MinWidth="0" OpenPaneLength="250" >
+                    <SplitView.Pane>
+                        <Grid>
+                            <ListView ItemsSource="{Binding Topics}" IsItemClickEnabled="True">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction MethodName="TopicTapped" TargetObject="{Binding Mode=OneWay}"/>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="6">
+                                            <TextBlock Text="{Binding Name}" FontSize="15" FontWeight="ExtraBold"/>
+                                            <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#FF959595"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </SplitView.Pane>
+                    <SplitView.Content>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
                             <Grid>
-                                <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Glyph="&#xE700;" >
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:EventTriggerBehavior EventName="Tapped">
+                                            <Core:CallMethodAction MethodName="OpenPane" TargetObject="{Binding Mode=OneWay}"/>
+                                        </Core:EventTriggerBehavior>
+                                    </Interactivity:Interaction.Behaviors>
+                                </FontIcon>
+                                <TextBlock Text="{Binding Title}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
+                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3">
+                                    <Grid>
+                                        <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
                             </Grid>
-                        </Border>
-                    </Grid>
-                    <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" Style="{StaticResource CenteredGridViewStyle}" >
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <templates:GalleryThumbnailTemplate/>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                        <Interactivity:Interaction.Behaviors>
-                            <Core:EventTriggerBehavior EventName="ItemClick">
-                                <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
-                            </Core:EventTriggerBehavior>
-                        </Interactivity:Interaction.Behaviors>
-                    </GridView>
-                </Grid>
+                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" 
+Style="{StaticResource CenteredGridViewStyle}" >
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="0"/>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <templates:GalleryThumbnailTemplate/>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
+                            </GridView>
+                        </Grid>
+                    </SplitView.Content>
+                </SplitView>
             </PivotItem>
             <PivotItem Header="REDDIT">
                 <Grid DataContext="{Binding SubredditsVM}">

@@ -146,7 +146,7 @@ namespace MonocleGiraffe.Models
         {
             if (image.IsAlbum)
             {
-                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
+                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Albums.GetAlbum(image.Id);
                 foreach (var image in album.Images)
                 {
                     albumImages.Add(new GalleryItem(image));
@@ -186,7 +186,7 @@ namespace MonocleGiraffe.Models
             string thumbnailId;
             if (image.IsAlbum)
             {
-                var album = await SharpImgur.APIWrappers.Album.GetAlbum(image.Id);
+                var album = await SharpImgur.APIWrappers.Albums.GetAlbum(image.Id);
                 thumbnailId = album.Cover;
             }
             else

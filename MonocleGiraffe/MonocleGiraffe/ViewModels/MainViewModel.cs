@@ -165,7 +165,7 @@ namespace MonocleGiraffe.ViewModels
         
         public async void LoadTopics()
         {
-            var topicsList = await Topic.GetDefaultTopics();
+            var topicsList = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
             Topics = new ObservableCollection<SharpImgur.Models.Topic>(topicsList);
         }
 
@@ -241,7 +241,7 @@ namespace MonocleGiraffe.ViewModels
         {
             ImageItems = new ObservableCollection<GalleryItem>();
             GalleryTitle = topic.Name;
-            var topicGallery = await Topic.GetTopicGallery(topic.Id);
+            var topicGallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id);
             foreach (var image in topicGallery)
             {
                 ImageItems.Add(new GalleryItem(image));

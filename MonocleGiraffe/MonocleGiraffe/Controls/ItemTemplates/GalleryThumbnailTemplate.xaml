@@ -19,7 +19,7 @@
         
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" >
+    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" Margin="2" >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
                 <VisualState x:Name="SmallPhoneState">

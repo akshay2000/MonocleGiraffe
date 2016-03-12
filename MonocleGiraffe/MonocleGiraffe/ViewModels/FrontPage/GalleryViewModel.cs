@@ -22,35 +22,17 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 InitDesignTime();
             else
                 Init();
-        }        
-
-        private string title;
-        public string Title
-        {
-            get { return title; }
-            set { Set(ref title, value); }
         }
 
-        private ObservableCollection<GalleryItem> images;
-        public ObservableCollection<GalleryItem> Images
+        private void Init()
         {
-            get { return images; }
-            set { Set(ref images, value); }
+            Title = "MOST VIRAL";
+            LoadImages();
         }
 
-        private int selectedIndex;
-
-        public int SelectedIndex
-        {
-            get { return selectedIndex; }
-            set { Set(ref selectedIndex, value); }
-        }
-
-
-        private async void Init()
+        private async void LoadImages()
         {
             Images = new ObservableCollection<GalleryItem>();
-            Title = "MOST VIRAL";
             var gallery = await Gallery.GetGallery(Enums.Section.Top);
             foreach (var image in gallery)
             {
@@ -59,6 +41,33 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             }
         }
 
+        private async void LoadTopics()
+        {
+            var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
+            Topics = new ObservableCollection<Topic>(topics);
+        }
+
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set { Set(ref title, value); }
+        }
+        
+        private ObservableCollection<GalleryItem> images;
+        public ObservableCollection<GalleryItem> Images
+        {
+            get { return images; }
+            set { Set(ref images, value); }
+        }
+
+        private int selectedIndex;
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set { Set(ref selectedIndex, value); }
+        }        
+        
         public void ImageTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
@@ -68,6 +77,50 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             BootStrapper.Current.SessionState[navigationParamName] = this;
             BootStrapper.Current.NavigationService.Navigate(typeof(FlipViewPage), navigationParamName);
             return;           
+        }
+
+        private bool isPaneOpen;
+        public bool IsPaneOpen
+        {
+            get { return isPaneOpen; }
+            set { Set(ref isPaneOpen, value); }
+        }
+
+        public void OpenPane()
+        {
+            IsPaneOpen = true;
+        }
+
+        public void ClosePane()
+        {
+            IsPaneOpen = false;
+        }
+
+        private ObservableCollection<Topic> topics = new ObservableCollection<Topic>();
+        public ObservableCollection<Topic> Topics
+        {
+            get
+            {
+                if (topics.Count == 0)
+                    LoadTopics();
+                return topics;
+            }
+            set { Set(ref topics, value); }
+        }
+
+        public async void TopicTapped(object sender, object parameter)
+        {
+            Images = new ObservableCollection<GalleryItem>();
+            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
+            var clickedItem = args.ClickedItem as Topic;
+            Title = clickedItem.Name;
+            IsPaneOpen = false;
+            var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(clickedItem.Id);
+            foreach (var image in gallery)
+            {
+                var gItem = new GalleryItem(image);
+                Images.Add(gItem);
+            }
         }
 
         private void InitDesignTime()
@@ -89,6 +142,13 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Images.Add(new GalleryItem(new Image { Title = "Whaaat?", Animated = true, Link = "http://i.imgur.com/3c3OQJPh.gif", AccountUrl = "netrex", Mp4 = "http://i.imgur.com/3c3OQJP.mp4" }));
             Images.Add(new GalleryItem(new Image { Title = "Nap time is...OVER!", Animated = true, Link = "http://i.imgur.com/mnVpdzjh.gif", AccountUrl = "drbatookhan", Mp4 = "http://i.imgur.com/mnVpdzj.mp4" }));
             Images.Add(new GalleryItem(new Image { Title = "MRW I arrive at a stranger's house party, notice them bickering over what movie to watch, throw on my favorite Jim Carrey flick, and they suddenly demand to know who I am...", Animated = true, Link = "http://i.imgur.com/j57jAzI.gif", AccountUrl = "ForeveraKritik", Mp4 = "http://i.imgur.com/j57jAzI.mp4" }));
+
+            Topics = new ObservableCollection<Topic>();
+            Topics.Add(new Topic { Name = "Most Viral", Description = "today's most popular posts" });
+            Topics.Add(new Topic { Name = "User Submitted", Description = "brand new posts shared in real time" });
+            Topics.Add(new Topic { Name = "Random", Description = "a mix from the imgur archives" });
+            Topics.Add(new Topic { Name = "Staff Picks", Description = "great posts picked by imgur staff" });
+            Topics.Add(new Topic { Name = "Funny", Description = "if it makes you laugh, you'll find it here" });
         }
     }
 }
