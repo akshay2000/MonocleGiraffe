@@ -44,7 +44,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private async void LoadTopics()
         {
             var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
+            topics.Insert(0, new Topic { Name = "Most Viral", Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
+            TopicSelectedIndex = 1;
+            TopicSelectedIndex = 0;
         }
 
         private string title;
@@ -61,18 +64,17 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref images, value); }
         }
 
-        private int selectedIndex;
-        public int SelectedIndex
+        private int imageSelectedIndex;
+        public int ImageSelectedIndex
         {
-            get { return selectedIndex; }
-            set { Set(ref selectedIndex, value); }
+            get { return imageSelectedIndex; }
+            set { Set(ref imageSelectedIndex, value); }
         }        
         
         public void ImageTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as GalleryItem;
-            SelectedIndex = Images.IndexOf(clickedItem);
             string navigationParamName = "GalleryVM";
             BootStrapper.Current.SessionState[navigationParamName] = this;
             BootStrapper.Current.NavigationService.Navigate(typeof(FlipViewPage), navigationParamName);
@@ -108,14 +110,25 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref topics, value); }
         }
 
+        private int topicSelectedIndex;
+        public int TopicSelectedIndex
+        {
+            get { return topicSelectedIndex; }
+            set { Set(ref topicSelectedIndex, value); }
+        }
+
         public async void TopicTapped(object sender, object parameter)
         {
             Images = new ObservableCollection<GalleryItem>();
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as Topic;
             Title = clickedItem.Name;
-            IsPaneOpen = false;
-            var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(clickedItem.Id);
+            ClosePane();
+            List<Image> gallery;
+            if (clickedItem.Name == "Most Viral")
+                gallery = await Gallery.GetGallery(Enums.Section.Hot);
+            else
+                gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(clickedItem.Id);
             foreach (var image in gallery)
             {
                 var gItem = new GalleryItem(image);

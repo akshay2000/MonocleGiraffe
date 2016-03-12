@@ -113,10 +113,14 @@
     <Compile Include="Controls\ItemTemplates\GalleryThumbnailTemplate.xaml.cs">
       <DependentUpon>GalleryThumbnailTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\TopicTemplate.xaml.cs">
+      <DependentUpon>TopicTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
@@ -188,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTemplates\GalleryThumbnailTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\TopicTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

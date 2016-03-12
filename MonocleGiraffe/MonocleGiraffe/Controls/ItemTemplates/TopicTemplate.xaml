@@ -1,0 +1,51 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Controls.ItemTemplates"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    x:Class="MonocleGiraffe.Controls.ItemTemplates.TopicTemplate"
+    mc:Ignorable="d"   
+    x:Name="UCRoot"
+    d:DesignHeight="90"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="CheckMark" TargetType="ContentControl">
+            <Path Data="F 1 M 37.316,80.48 L 0,43.164 17.798,25.366 37.316,44.885 82.202,0 100,17.798 37.316,80.48 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform"/>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Grid Margin="0,6">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal"/>
+                <VisualState x:Name="Selected">
+                    <VisualState.Setters>
+                        <Setter Target="CheckMark.(UIElement.Opacity)" Value="1"/>
+                        <Setter Target="NameTextBlock.(TextBlock.Foreground)" Value="{StaticResource AppThemeBrush}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="True">
+                <Core:GoToStateAction StateName="Selected"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="False">
+                <Core:GoToStateAction StateName="Normal"/>
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ContentControl x:Name="CheckMark" Template="{StaticResource CheckMark}" Foreground="{StaticResource AppThemeBrush}" Width="16" Margin="2,0,12,0" VerticalAlignment="Center" Opacity="0"/>
+        <TextBlock x:Name="NameTextBlock" Text="{Binding Name, ConverterParameter=u, Converter={StaticResource CaseConverter}}" FontSize="15" FontWeight="ExtraBold" Grid.Column="1" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#FF959595" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"/>
+    </Grid>
+</UserControl>

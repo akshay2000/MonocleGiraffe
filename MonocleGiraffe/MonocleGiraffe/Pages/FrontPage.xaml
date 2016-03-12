@@ -55,7 +55,29 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <Style x:Key="TopicsListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="12,0,12,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListLowBrush}" SelectionCheckMarkVisualEnabled="True" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Tag="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="CheckMark" TargetType="ContentControl">
+            <Path Data="F 1 M 37.316,80.48 L 0,43.164 17.798,25.366 37.316,44.885 82.202,0 100,17.798 37.316,80.48 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform"/>
+        </ControlTemplate>
     </Page.Resources>
 
     <Page.DataContext>
@@ -75,10 +97,10 @@
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
         <Pivot>
             <PivotItem Header="HOME">
-                <SplitView DisplayMode="Overlay" IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}" DataContext="{Binding GalleryVM}" PaneBackground="#EE000000" MinWidth="0" OpenPaneLength="250" >
+                <SplitView DisplayMode="Overlay" IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}" DataContext="{Binding GalleryVM}" PaneBackground="#EE000000" MinWidth="0" OpenPaneLength="296" >
                     <SplitView.Pane>
                         <Grid>
-                            <ListView ItemsSource="{Binding Topics}" IsItemClickEnabled="True">
+                            <ListView ItemsSource="{Binding Topics}" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource TopicsListViewItemStyle}" SelectedIndex="{Binding TopicSelectedIndex, Mode=TwoWay}">
                                 <Interactivity:Interaction.Behaviors>
                                     <Core:EventTriggerBehavior EventName="ItemClick">
                                         <Core:CallMethodAction MethodName="TopicTapped" TargetObject="{Binding Mode=OneWay}"/>
@@ -86,10 +108,7 @@
                                 </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="6">
-                                            <TextBlock Text="{Binding Name}" FontSize="15" FontWeight="ExtraBold"/>
-                                            <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#FF959595"/>
-                                        </StackPanel>
+                                        <templates:TopicTemplate Tag="{Binding Path=Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -114,14 +133,14 @@
                                         </Core:EventTriggerBehavior>
                                     </Interactivity:Interaction.Behaviors>
                                 </FontIcon>
-                                <TextBlock Text="{Binding Title}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
+                                <TextBlock Text="{Binding Title, Converter={StaticResource CaseConverter}, ConverterParameter=u}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
                                 <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3">
                                     <Grid>
                                         <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
                                     </Grid>
                                 </Border>
                             </Grid>
-                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" 
+                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex, Mode=TwoWay}"
 Style="{StaticResource CenteredGridViewStyle}" >
                                 <GridView.ItemContainerStyle>
                                     <Style TargetType="GridViewItem">

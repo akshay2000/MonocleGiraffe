@@ -12,6 +12,7 @@
 
 
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:CaseConverter x:Key="CaseConverter"/>
 
             <Style x:Key="BasicTextStyle" TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>

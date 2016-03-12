@@ -32,7 +32,7 @@ namespace MonocleGiraffe.ViewModels
         {
             var param = (GalleryViewModel)BootStrapper.Current.SessionState[(string)parameter];
             Images = param.Images;
-            SelectedIndex = param.SelectedIndex;
+            SelectedIndex = param.ImageSelectedIndex;
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
     }
