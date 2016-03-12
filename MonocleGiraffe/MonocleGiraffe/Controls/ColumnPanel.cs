@@ -78,6 +78,7 @@ namespace MonocleGiraffe.Controls
                         child.Arrange(new Rect(new Point(currentX, currentY), child.DesiredSize));
                         count++;
                         currentX += child.DesiredSize.Width;
+                        columnHeights[0] += child.DesiredSize.Height;
                         isFirstRow = false;
                     }
                 }
