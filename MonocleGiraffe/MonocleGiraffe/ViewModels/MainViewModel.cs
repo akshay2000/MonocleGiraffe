@@ -176,11 +176,11 @@ namespace MonocleGiraffe.ViewModels
             if (subredditsList.Count == 0)
             {
                 subredditsList = new List<Subreddit>() {
-                    new Subreddit("earthporn", "EarthPorn"),
-                    new Subreddit("funny", "Funny"),
-                    new Subreddit("pics", "Pics"),
-                    new Subreddit("gifs", "GIFs"),
-                    new Subreddit("aww", "AWW")
+                    //new Subreddit("earthporn", "EarthPorn"),
+                    //new Subreddit("funny", "Funny"),
+                    //new Subreddit("pics", "Pics"),
+                    //new Subreddit("gifs", "GIFs"),
+                    //new Subreddit("aww", "AWW")
                 };
             }
             Subreddits = new ObservableCollection<Subreddit>(subredditsList);

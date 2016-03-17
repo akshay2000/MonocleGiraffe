@@ -1,7 +1,9 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.ViewModels;
+using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -29,6 +31,12 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();           
             NavigationCacheMode = NavigationCacheMode.Enabled;
-        }        
+        }
+
+        private async void Border_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Debug.WriteLine(await SecretsHelper.GetAccessToken());
+            Debug.WriteLine(await SecretsHelper.GetRefreshToken());
+        }
     }
 }

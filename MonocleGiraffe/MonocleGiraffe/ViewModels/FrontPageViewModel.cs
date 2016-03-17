@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.ViewModels.FrontPage;
+using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace MonocleGiraffe.ViewModels
     {
         public GalleryViewModel GalleryVM { get; set; } = new GalleryViewModel();
         public SubredditsViewModel SubredditsVM { get; set; } = new SubredditsViewModel();
+        public AccountViewModel AccountVM { get; set; } = new AccountViewModel();
     }
 }

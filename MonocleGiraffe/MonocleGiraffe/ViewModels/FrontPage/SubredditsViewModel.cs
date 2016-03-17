@@ -13,7 +13,7 @@ using Windows.ApplicationModel;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
-    public class SubredditsViewModel : ViewModelBase
+    public class SubredditsViewModel : BindableBase
     {
         public SubredditsViewModel()
         {
@@ -48,13 +48,14 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             if (subredditsList.Count == 0)
             {
                 subredditsList = new List<Subreddit>() {
-                    new Subreddit("earthporn", "EarthPorn"),
-                    new Subreddit("funny", "Funny"),
-                    new Subreddit("pics", "Picures"),
-                    new Subreddit("cats", "Cats"),
-                    new Subreddit("aww", "The cutest things on the internet"),
-                    new Subreddit("adviceanimals", "Dank Memes")
-                };
+                    new Subreddit { FriendlyName = "Funny", ActualName = "funny" },
+                    new Subreddit { FriendlyName = "Pictures", ActualName = "pics" },
+                    new Subreddit { FriendlyName = "WTF?!", ActualName = "funny" },
+                    new Subreddit { FriendlyName = "The cutest things on the internet", ActualName = "aww" },
+                    new Subreddit { FriendlyName = "Cats", ActualName = "cats" },
+                    new Subreddit { FriendlyName = "EarthPorn", ActualName = "earthporn" },
+                    new Subreddit { FriendlyName = "Dank Memes", ActualName = "adviceanimals" }
+                };            
             }
             Subreddits = new ObservableCollection<Subreddit>(subredditsList);
         }

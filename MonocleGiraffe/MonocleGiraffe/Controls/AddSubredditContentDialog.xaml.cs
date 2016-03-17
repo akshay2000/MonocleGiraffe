@@ -40,9 +40,9 @@ namespace MonocleGiraffe.Controls
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            string name = NameTextBox.Text;
-            string friendlyName = FriendlyNameTextBox.Text.Length > 0 ? FriendlyNameTextBox.Text : name;
-            StateHelper.ViewModel.AddSubreddit(new Subreddit(name, friendlyName));
+            //string name = NameTextBox.Text;
+            //string friendlyName = FriendlyNameTextBox.Text.Length > 0 ? FriendlyNameTextBox.Text : name;
+            //StateHelper.ViewModel.AddSubreddit(new Subreddit(name, friendlyName));
         }
     }
 }

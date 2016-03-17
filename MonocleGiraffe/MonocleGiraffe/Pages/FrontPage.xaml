@@ -134,7 +134,7 @@
                                     </Interactivity:Interaction.Behaviors>
                                 </FontIcon>
                                 <TextBlock Text="{Binding Title, Converter={StaticResource CaseConverter}, ConverterParameter=u}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
-                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3">
+                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Tapped="Border_Tapped">
                                     <Grid>
                                         <TextBlock Text="Popular" Margin="12,4" VerticalAlignment="Center"/>
                                     </Grid>
@@ -188,7 +188,30 @@ Style="{StaticResource CenteredGridViewStyle}" >
             <PivotItem Header="SEARCH">
                 <TextBlock Text="HEY!3"/>
             </PivotItem>
-            <PivotItem Header="ACCOUNT"/>
+            <PivotItem Header="ACCOUNT">
+                <ScrollViewer DataContext="{Binding AccountVM}">
+                    <StackPanel>
+                        <TextBlock Text="HELLO"/>
+                        <TextBlock Text="{Binding UserName}"/>
+                        <TextBlock Text="{Binding Points}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,4">
+                            <TextBlock Text="TROPHIES" VerticalAlignment="Center"/>
+                            <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                <TextBlock Text="{Binding Trophies.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <GridView ItemsSource="{Binding Trophies}">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="Gray" Height="50" Width="50">
+                                        <Image Margin="4" Source="{Binding Image}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
         </Pivot>
     </Grid>
 </Page>

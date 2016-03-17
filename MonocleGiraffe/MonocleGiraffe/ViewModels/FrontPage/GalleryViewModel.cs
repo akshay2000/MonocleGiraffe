@@ -14,7 +14,7 @@ using Windows.ApplicationModel;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
-    public class GalleryViewModel : ViewModelBase
+    public class GalleryViewModel : BindableBase
     {
         public GalleryViewModel()
         {
