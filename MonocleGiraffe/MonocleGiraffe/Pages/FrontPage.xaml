@@ -209,7 +209,41 @@ Style="{StaticResource CenteredGridViewStyle}" >
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,4">
+                            <TextBlock Text="ALBUMS" VerticalAlignment="Center"/>
+                            <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                <TextBlock Text="{Binding Albums.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <GridView ItemsSource="{Binding Albums}">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="Gray" Height="50" Width="50">
+                                        <Image Source="{Binding Thumbnail}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,4">
+                            <TextBlock Text="Images" VerticalAlignment="Center"/>
+                            <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                <TextBlock Text="{Binding Images.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <GridView ItemsSource="{Binding Images}">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="Gray" Height="50" Width="50">
+                                        <Image Source="{Binding Thumbnail}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
                     </StackPanel>
+                    
+                    
                 </ScrollViewer>
             </PivotItem>
         </Pivot>

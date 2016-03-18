@@ -9,12 +9,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Mvvm;
 
 namespace MonocleGiraffe.Models
 {
     public enum GalleryItemType { Image, Album, Animation }
 
-    public class GalleryItem : NotifyBase
+    public class GalleryItem : BindableBase
     {
         private Image image;
             
@@ -73,14 +74,7 @@ namespace MonocleGiraffe.Models
             {
                 return smallThumbnail;
             }
-            set
-            {
-                if (smallThumbnail != value)
-                {
-                    smallThumbnail = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set { Set(ref smallThumbnail, value); }
         }
 
         private string bigThumbnail;
@@ -90,14 +84,7 @@ namespace MonocleGiraffe.Models
             {
                 return bigThumbnail;
             }
-            set
-            {
-                if (bigThumbnail != value)
-                {
-                    bigThumbnail = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set { Set(ref bigThumbnail, value); }
         }
 
         public int? Ups
@@ -181,6 +168,13 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        private string thumbnail;
+        public string Thumbnail
+        {
+            get { return thumbnail; }
+            set { Set(ref thumbnail, value); }
+        }
+
         private async void SetThumbnails()
         {
             string thumbnailId;
@@ -194,6 +188,7 @@ namespace MonocleGiraffe.Models
                 thumbnailId = image.Id;
             }
             SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
+            Thumbnail = baseUrl + thumbnailId + "b.jpg";
             BigThumbnail = baseUrl + thumbnailId + "l.jpg";
         }
 

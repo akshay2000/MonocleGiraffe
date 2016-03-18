@@ -1,4 +1,5 @@
-﻿using SharpImgur.APIWrappers;
+﻿using MonocleGiraffe.Models;
+using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,13 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Points = account.Reputation;
             GalleryProfile galleryProfile = await Accounts.GetGalleryProfile();
             Trophies = new ObservableCollection<Trophy>(galleryProfile.Trophies);
-        }        
+            await Task.Delay(500);
+            await LoadAlbums();
+            await Task.Delay(500);
+            await LoadImages();
+        }
+
+        #region User
 
         private string userName;
         public string UserName
@@ -45,12 +52,60 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { points = value; }
         }
 
+        #endregion
+
+        #region Trophies
+
         private ObservableCollection<Trophy> trophies;
         public ObservableCollection<Trophy> Trophies
         {
             get { return trophies; }
             set { Set(ref trophies, value); }
         }
+
+        #endregion
+
+        #region Albums
+
+        private ObservableCollection<AlbumItem> albums;
+        public ObservableCollection<AlbumItem> Albums
+        {
+            get { return albums; }
+            set { Set(ref albums, value); }
+        }
+
+        private async Task LoadAlbums()
+        {
+            Albums = new ObservableCollection<AlbumItem>();
+            var albums = await Accounts.GetAlbums();
+            foreach (var a in albums)
+            {
+                Albums.Add(new AlbumItem(a));
+            }
+        }
+
+        #endregion
+
+        #region Images
+
+        private ObservableCollection<GalleryItem> images;
+        public ObservableCollection<GalleryItem> Images
+        {
+            get { return images; }
+            set { Set(ref images, value); }
+        }
+
+        private async Task LoadImages()
+        {
+            Images = new ObservableCollection<GalleryItem>();
+            var images = await Accounts.GetImages();
+            foreach (var i in images)
+            {
+                Images.Add(new GalleryItem(i));
+            }
+        }
+
+        #endregion
 
         private void InitDesignTime()
         {
@@ -60,7 +115,18 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 new Trophy { Name = "Gone Mobile", Image = "http://s.imgur.com/images/trophies/3c4711.png" },
                 new Trophy { Name = "3 Years", Image = "http://s.imgur.com/images/trophies/f09d7a.png" }
                 };
-        }
+            Albums = new ObservableCollection<AlbumItem>();
+            Albums.Add(new AlbumItem(new Album { Cover = "vjpNYII" }));
+            Albums.Add(new AlbumItem(new Album { Cover = "eZBrROO" }));
+            Albums.Add(new AlbumItem(new Album { Cover = "FExPJrk" }));
+            Albums.Add(new AlbumItem(new Album { Cover = "nqpaOvc" }));
 
+            Images = new ObservableCollection<GalleryItem>();
+            Images.Add(new GalleryItem(new Image { Id = "vjpNYII" }));
+            Images.Add(new GalleryItem(new Image { Id = "eZBrROO" }));
+            Images.Add(new GalleryItem(new Image { Id = "FExPJrk" }));
+            Images.Add(new GalleryItem(new Image { Id = "nqpaOvc" }));
+            Images.Add(new GalleryItem(new Image { Id = "vjpNYII" }));
+        }
     }
 }
