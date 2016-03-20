@@ -90,12 +90,12 @@
                 <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
             </CommandBar.Content>
             <AppBarButton Icon="Sort" Label="Sort"/>
-            <AppBarButton Icon="Sync" Label="Refresh"/>
+            <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}"/>
         </CommandBar>
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <Pivot>
+        <Pivot SelectedIndex="{Binding PivotIndex}">
             <PivotItem Header="HOME">
                 <SplitView DisplayMode="Overlay" IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}" DataContext="{Binding GalleryVM}" PaneBackground="#EE000000" MinWidth="0" OpenPaneLength="296" >
                     <SplitView.Pane>

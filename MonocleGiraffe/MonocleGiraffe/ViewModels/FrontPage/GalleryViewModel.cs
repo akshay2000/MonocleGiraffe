@@ -30,6 +30,12 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             LoadImages();
         }
 
+        public async Task Reload()
+        {
+            Topic topic = Topics[TopicSelectedIndex];
+            await LoadTopicGallery(topic);
+        }
+
         private async void LoadImages()
         {
             Images = new ObservableCollection<GalleryItem>();
@@ -119,16 +125,21 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         public async void TopicTapped(object sender, object parameter)
         {
-            Images = new ObservableCollection<GalleryItem>();
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as Topic;
-            Title = clickedItem.Name;
             ClosePane();
+            await LoadTopicGallery(clickedItem);
+        }
+
+        private async Task LoadTopicGallery(Topic topic)
+        {
+            Images = new ObservableCollection<GalleryItem>();
+            Title = topic.Name;
             List<Image> gallery;
-            if (clickedItem.Name == "Most Viral")
+            if (topic.Name == "Most Viral")
                 gallery = await Gallery.GetGallery(Enums.Section.Hot);
             else
-                gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(clickedItem.Id);
+                gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id);
             foreach (var image in gallery)
             {
                 var gItem = new GalleryItem(image);

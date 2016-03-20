@@ -36,6 +36,11 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             await LoadImages();
         }
 
+        public async Task Reload()
+        {
+            return;
+        }
+
         #region User
 
         private string userName;
