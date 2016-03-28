@@ -37,6 +37,20 @@ namespace MonocleGiraffe.Controls
         {
             get { return GetValue(LabelProperty) as string; }
             set { SetValue(LabelProperty, value); }
-        }        
+        }
+
+
+
+        public Geometry IconPath
+        {
+            get { return (Geometry)GetValue(IconPathProperty); }
+            set { SetValue(IconPathProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IconPath.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconPathProperty =
+            DependencyProperty.Register("IconPath", typeof(Geometry), typeof(TabHeader), null);
+
+
     }
 }
