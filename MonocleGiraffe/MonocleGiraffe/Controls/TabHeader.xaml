@@ -6,14 +6,55 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Name="UCRoot"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     d:DesignWidth="100" d:DesignHeight="92">
 
-    <Grid Height="92">
-        <ContentControl x:Name="PathWrapper" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="28">
+    <Grid x:Name="LayoutRoot" Height="92" Width="80">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Unselected"/>
+                <VisualState x:Name="Selected">
+                    <VisualState.Setters>
+                        <Setter Target="UnderScore.(UIElement.Opacity)" Value="1"/>
+                        <Setter Target="PathWrapper.(Control.Foreground)" Value="{StaticResource AppThemeBrush}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="UnselectedPointerOver">
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.(Control.Background)" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SelectedPointerOver">
+                    <VisualState.Setters>
+                        <Setter Target="UnderScore.(UIElement.Opacity)" Value="1"/>
+                        <Setter Target="PathWrapper.(Control.Foreground)" Value="{StaticResource AppThemeBrush}"/>
+                        <Setter Target="LayoutRoot.(Control.Background)" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
+                    </VisualState.Setters>
+                </VisualState>                
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="Selected">
+                <Core:GoToStateAction StateName="Selected"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="Unselected">
+                <Core:GoToStateAction StateName="Unselected"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="SelectedPointerOver">
+                <Core:GoToStateAction StateName="SelectedPointerOver"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="UnselectedPointerOver">
+                <Core:GoToStateAction StateName="UnselectedPointerOver"/>
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+        <ContentControl x:Name="PathWrapper" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF9B9B9B" Width="28">
             <Path 
                 Data="{Binding IconPath}"
-                  Fill="{Binding ElementName=PathWrapper, Path=Foreground}" Stretch="Uniform"/>
+                Fill="{Binding ElementName=PathWrapper, Path=Foreground}"
+                Stretch="Uniform"/>
         </ContentControl>
-        <Border HorizontalAlignment="Center" Height="2" Width="28" Background="White" VerticalAlignment="Bottom"/>
+        <Border x:Name="UnderScore" HorizontalAlignment="Center" Height="2" Opacity="0" Width="28" Background="{StaticResource AppThemeBrush}" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

@@ -377,11 +377,12 @@
                                                 <Grid.RenderTransform>
                                                     <CompositeTransform x:Name="PivotLayoutElementTranslateTransform"/>
                                                 </Grid.RenderTransform>
+                                                <Border Background="#FF252525" Grid.ColumnSpan="3" />
                                                 <ContentPresenter x:Name="LeftHeaderPresenter" ContentTemplate="{TemplateBinding LeftHeaderTemplate}" Content="{TemplateBinding LeftHeader}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                                 <ContentControl x:Name="HeaderClipper" Grid.Column="1" HorizontalContentAlignment="Stretch" UseSystemFocusVisuals="True">
-                                                    <ContentControl.Clip>
+                                                    <!--<ContentControl.Clip>
                                                         <RectangleGeometry x:Name="HeaderClipperGeometry"/>
-                                                    </ContentControl.Clip>
+                                                    </ContentControl.Clip>-->
                                                     <Grid Background="Transparent">
                                                         <PivotHeaderPanel x:Name="StaticHeader" Visibility="Collapsed"/>
                                                         <PivotHeaderPanel x:Name="Header">
