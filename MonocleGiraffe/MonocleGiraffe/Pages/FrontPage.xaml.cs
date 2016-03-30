@@ -9,6 +9,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +34,21 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();           
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            ChageSystemTrayColor();
+        }
+
+        private void ChageSystemTrayColor()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = Color.FromArgb(1, 37, 37, 37);
+                }
+            }
         }
 
         private async void Border_Tapped(object sender, TappedRoutedEventArgs e)
