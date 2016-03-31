@@ -50,10 +50,5 @@ namespace MonocleGiraffe.Pages
                 }
             }
         }
-
-        //private void Border_Tapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        //}
     }
 }

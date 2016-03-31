@@ -91,7 +91,19 @@
             <CommandBar.Content>
                 <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
             </CommandBar.Content>
-            <AppBarButton Icon="Sort" Label="Sort"/>
+            <AppBarButton Icon="Sort" Label="Sort">
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Viral" Command="{Binding GalleryVM.SortCommand}" CommandParameter="Viral"/>
+                        <MenuFlyoutItem Text="Time" Command="{Binding GalleryVM.SortCommand}" CommandParameter="Time"/>
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="Tapped">
+                        <t10b:OpenFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </AppBarButton>
             <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}"/>
         </CommandBar>
     </Page.BottomAppBar>
