@@ -16,6 +16,12 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 {
     public class GalleryViewModel : BindableBase
     {
+        private const string VIRAL = "Viral";
+        private const string TIME = "Time";
+        private const string POPULAR = "Popular";
+        private const string TOP = "Top";
+        private const string MOST_VIRAL = "MOST VIRAL";
+
         public GalleryViewModel()
         {
             if (DesignMode.DesignModeEnabled)
@@ -26,20 +32,83 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         private void Init()
         {
-            Title = "MOST VIRAL";
-            LoadImages();
+            Title = MOST_VIRAL;
+            LoadGallery(POPULAR, VIRAL);
         }
 
         public async Task Reload()
         {
             Topic topic = Topics[TopicSelectedIndex];
-            await LoadTopicGallery(topic);
+            await LoadTopicGallery(topic, VIRAL);
         }
 
-        private async void LoadImages()
+        #region Section and Sorting
+
+        private Enums.Section ToSection(string sectionString)
         {
+            switch (sectionString)
+            {
+                case POPULAR:
+                    return Enums.Section.Hot;
+                case TOP:
+                    return Enums.Section.Top;
+                default:
+                    throw new NotImplementedException($"Section {sectionString} can not be handled");
+            }
+        }
+
+        private string section;
+        public string Section
+        {
+            get { return section; }
+            set { Set(ref section, value); }
+        }
+
+        private Enums.Sort ToSort(string sortString)
+        {
+            switch (sortString)
+            {
+                case VIRAL:
+                    return Enums.Sort.Viral;
+                case TIME:
+                    return Enums.Sort.Time;
+                default:
+                    throw new NotImplementedException($"Sort {sortString} cannot be handled");
+            }
+        }
+
+        private bool isSectionVisible;
+        public bool IsSectionVisible
+        {
+            get { return isSectionVisible; }
+            set { Set(ref isSectionVisible, value); }
+        }
+
+        DelegateCommand<string> sectionCommand;
+        public DelegateCommand<string> SectionCommand
+           => sectionCommand ?? (sectionCommand = new DelegateCommand<string>((string parameter) =>
+           {
+               LoadGallery(parameter, VIRAL);
+           }));
+
+        DelegateCommand<string> sortCommand;
+        public DelegateCommand<string> SortCommand
+           => sortCommand ?? (sortCommand = new DelegateCommand<string>(async (string parameter) =>
+           {
+               Topic topic = Topics[TopicSelectedIndex];
+               await LoadTopicGallery(topic, parameter);
+           }));
+
+        #endregion
+
+        private async void LoadGallery(string sectionString, string sortString)
+        {
+            Section = sectionString;
+            IsSectionVisible = true;
             Images = new ObservableCollection<GalleryItem>();
-            var gallery = await Gallery.GetGallery(Enums.Section.Top);
+            Enums.Section section = ToSection(sectionString);
+            Enums.Sort sort = ToSort(sortString);
+            var gallery = await Gallery.GetGallery(section, sort);
             foreach (var image in gallery)
             {
                 var gItem = new GalleryItem(image);
@@ -50,7 +119,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private async void LoadTopics()
         {
             var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
-            topics.Insert(0, new Topic { Name = "Most Viral", Description = "Today's most popular posts." });
+            topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
             TopicSelectedIndex = 1;
             TopicSelectedIndex = 0;
@@ -128,28 +197,31 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as Topic;
             ClosePane();
-            await LoadTopicGallery(clickedItem);
+            await LoadTopicGallery(clickedItem, VIRAL);
         }
 
-        private async Task LoadTopicGallery(Topic topic)
+        private async Task LoadTopicGallery(Topic topic, string sortString)
         {
             Images = new ObservableCollection<GalleryItem>();
             Title = topic.Name;
-            List<Image> gallery;
-            if (topic.Name == "Most Viral")
-                gallery = await Gallery.GetGallery(Enums.Section.Hot);
+            if (topic.Name == MOST_VIRAL)
+                LoadGallery(Section, sortString);
             else
-                gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id);
-            foreach (var image in gallery)
             {
-                var gItem = new GalleryItem(image);
-                Images.Add(gItem);
+                IsSectionVisible = false;                
+                var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id, ToSort(sortString));
+                foreach (var image in gallery)
+                {
+                    var gItem = new GalleryItem(image);
+                    Images.Add(gItem);
+                }
             }
         }
 
         private void InitDesignTime()
         {
-            Title = "MOST VIRAL";
+            Title = MOST_VIRAL;
+            Section = POPULAR;
             Images = new ObservableCollection<GalleryItem>();
             Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345 }));
             Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
@@ -168,7 +240,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Images.Add(new GalleryItem(new Image { Title = "MRW I arrive at a stranger's house party, notice them bickering over what movie to watch, throw on my favorite Jim Carrey flick, and they suddenly demand to know who I am...", Animated = true, Link = "http://i.imgur.com/j57jAzI.gif", AccountUrl = "ForeveraKritik", Mp4 = "http://i.imgur.com/j57jAzI.mp4" }));
 
             Topics = new ObservableCollection<Topic>();
-            Topics.Add(new Topic { Name = "Most Viral", Description = "today's most popular posts" });
+            Topics.Add(new Topic { Name = MOST_VIRAL, Description = "today's most popular posts" });
             Topics.Add(new Topic { Name = "User Submitted", Description = "brand new posts shared in real time" });
             Topics.Add(new Topic { Name = "Random", Description = "a mix from the imgur archives" });
             Topics.Add(new Topic { Name = "Staff Picks", Description = "great posts picked by imgur staff" });

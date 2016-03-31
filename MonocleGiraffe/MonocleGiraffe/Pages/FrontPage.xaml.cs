@@ -51,10 +51,9 @@ namespace MonocleGiraffe.Pages
             }
         }
 
-        private async void Border_Tapped(object sender, TappedRoutedEventArgs e)
-        {            
-            Debug.WriteLine(await SecretsHelper.GetAccessToken());
-            Debug.WriteLine(await SecretsHelper.GetRefreshToken());
-        }
+        //private void Border_Tapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        //}
     }
 }
