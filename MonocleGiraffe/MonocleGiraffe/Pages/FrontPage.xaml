@@ -50,7 +50,7 @@
                     <ControlTemplate TargetType="GridView">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}" FooterTemplate="{TemplateBinding FooterTemplate}" Footer="{TemplateBinding Footer}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}" HorizontalAlignment="Center"/>
+                                <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}" FooterTemplate="{TemplateBinding FooterTemplate}" Footer="{TemplateBinding Footer}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}" HorizontalAlignment="Left"/>
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
@@ -184,7 +184,7 @@
                     </Setter>
                 </Style>
             </Pivot.Resources>
-            <PivotItem>
+            <PivotItem Margin="12,0,0,0">
                 <PivotItem.Header>
                     <controls:TabHeaderContent IconPath="F 1 M 16,2.59375 L 15.2813,3.28125 2.28125,16.2813 3.71875,17.7188 5,16.4375 5,27 5,28 6,28 13,28 14,28 14,27 14,18 18,18 18,27 18,28 19,28 26,28 27,28 27,27 27,16.4375 28.2813,17.7188 29.7188,16.2813 16.7188,3.28125 16,2.59375 Z M 16,5.4375 L 25,14.4375 25,26 20,26 20,17 20,16 19,16 13,16 12,16 12,17 12,26 7,26 7,14.4375 16,5.4375 Z" Label="Home"/>
                 </PivotItem.Header>
@@ -225,7 +225,7 @@
                                     </Interactivity:Interaction.Behaviors>
                                 </FontIcon>
                                 <TextBlock Text="{Binding Title, Converter={StaticResource CaseConverter}, ConverterParameter=u}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
-                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Visibility="{Binding IsSectionVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Visibility="{Binding IsSectionVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0">
                                     <FlyoutBase.AttachedFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Text="Popular" Command="{Binding SectionCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"/>
@@ -246,7 +246,7 @@
 Style="{StaticResource CenteredGridViewStyle}" >
                                 <GridView.ItemContainerStyle>
                                     <Style TargetType="GridViewItem">
-                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="Margin" Value="0,0,12,12"/>
                                     </Style>
                                 </GridView.ItemContainerStyle>
                                 <GridView.ItemTemplate>

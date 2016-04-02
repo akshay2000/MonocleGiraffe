@@ -222,6 +222,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             Title = MOST_VIRAL;
             Section = POPULAR;
+            isSectionVisible = true;
             Images = new ObservableCollection<GalleryItem>();
             Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345 }));
             Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));

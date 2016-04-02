@@ -18,18 +18,32 @@
         </ControlTemplate>        
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" Margin="2" >
+    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D" Width="150" >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
+                <!-- 480p 4.3 inch 768p 4 inch -->
                 <VisualState x:Name="SmallPhoneState">
                     <VisualState.Setters>
-                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="136"/>
-                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="136"/>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="142"/>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="142"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                 </VisualState>
+                
+                <!-- 768p 4.5 inch -->
+                <VisualState x:Name="WidePhoneState">
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="152"/>
+                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="152"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="341"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                
+                <!-- 720p 5 inch -->
                 <VisualState x:Name="PhoneState">
                     <VisualState.Setters>
                         <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="162"/>
@@ -38,16 +52,8 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="360"/>
                     </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="TabletState">
-                    <VisualState.Setters>
-                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="148"/>
-                        <Setter Target="Thumbnail.(FrameworkElement.Width)" Value="148"/>
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640"/>
-                    </VisualState.StateTriggers>
-                </VisualState>
+                </VisualState>                
+                
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
