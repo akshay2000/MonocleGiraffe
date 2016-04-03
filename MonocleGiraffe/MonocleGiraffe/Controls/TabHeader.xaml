@@ -36,23 +36,23 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Interactivity:Interaction.Behaviors>
-            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="Selected">
+            <Core:DataTriggerBehavior Binding="{x:Bind UCRoot.Tag, Mode=OneWay}" Value="Selected">
                 <Core:GoToStateAction StateName="Selected"/>
             </Core:DataTriggerBehavior>
-            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="Unselected">
+            <Core:DataTriggerBehavior Binding="{x:Bind UCRoot.Tag, Mode=OneWay}" Value="Unselected">
                 <Core:GoToStateAction StateName="Unselected"/>
             </Core:DataTriggerBehavior>
-            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="SelectedPointerOver">
+            <Core:DataTriggerBehavior Binding="{x:Bind UCRoot.Tag, Mode=OneWay}" Value="SelectedPointerOver">
                 <Core:GoToStateAction StateName="SelectedPointerOver"/>
             </Core:DataTriggerBehavior>
-            <Core:DataTriggerBehavior Binding="{Binding ElementName=UCRoot, Path=Tag}" Value="UnselectedPointerOver">
+            <Core:DataTriggerBehavior Binding="{x:Bind UCRoot.Tag, Mode=OneWay}" Value="UnselectedPointerOver">
                 <Core:GoToStateAction StateName="UnselectedPointerOver"/>
             </Core:DataTriggerBehavior>
         </Interactivity:Interaction.Behaviors>
         <ContentControl x:Name="PathWrapper" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF9B9B9B" Width="28">
             <Path 
-                Data="{Binding IconPath}"
-                Fill="{Binding ElementName=PathWrapper, Path=Foreground}"
+                Data="{x:Bind IconPath}"
+                Fill="{x:Bind PathWrapper.Foreground, Mode=OneWay}"
                 Stretch="Uniform"/>
         </ContentControl>
         <Border x:Name="UnderScore" HorizontalAlignment="Center" Height="2" Opacity="0" Width="28" Background="{StaticResource AppThemeBrush}" VerticalAlignment="Bottom"/>

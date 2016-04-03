@@ -22,7 +22,7 @@ namespace MonocleGiraffe.Controls
         public TabHeader()
         {
             this.InitializeComponent();
-            this.DataContext = this;            
+            //this.DataContext = this;            
         }
 
         public static readonly DependencyProperty GlyphProperty = DependencyProperty.Register("Glyph", typeof(string), typeof(TabHeader), null);
