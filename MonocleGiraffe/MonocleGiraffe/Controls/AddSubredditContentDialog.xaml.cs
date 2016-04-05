@@ -28,7 +28,7 @@ namespace MonocleGiraffe.Controls
 
         private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (NameTextBox.Text.Length > 0)
+            if (NameTextBox.Text.Length > 0 && FriendlyNameTextBox.Text.Length > 0)
             {
                 IsPrimaryButtonEnabled = true;
             }

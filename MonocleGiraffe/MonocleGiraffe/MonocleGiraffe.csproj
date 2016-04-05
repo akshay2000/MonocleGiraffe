@@ -113,6 +113,9 @@
     <Compile Include="Controls\ItemTemplates\GalleryThumbnailTemplate.xaml.cs">
       <DependentUpon>GalleryThumbnailTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\RedditResultTemplate.xaml.cs">
+      <DependentUpon>RedditResultTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\TopicTemplate.xaml.cs">
       <DependentUpon>TopicTemplate.xaml</DependentUpon>
     </Compile>
@@ -130,7 +133,7 @@
     </Compile>
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
-    <Compile Include="Models\Subreddit.cs" />
+    <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Pages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,9 @@
     <Compile Include="Pages\SlideShowPage.xaml.cs">
       <DependentUpon>SlideShowPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SubGalleryPage.xaml.cs">
+      <DependentUpon>SubGalleryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\CommentsUserControl.xaml.cs">
       <DependentUpon>CommentsUserControl.xaml</DependentUpon>
@@ -159,6 +165,7 @@
     <Compile Include="ViewModels\FrontPage\SearchViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -195,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTemplates\GalleryThumbnailTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\RedditResultTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Pages\SubGalleryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpImgur\SharpImgur.csproj">

@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 
@@ -33,8 +35,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             LoadSubredditsDesignTime();
         }
 
-        private ObservableCollection<Subreddit> subreddits;
-        public ObservableCollection<Subreddit> Subreddits
+        private ObservableCollection<SubredditItem> subreddits;
+        public ObservableCollection<SubredditItem> Subreddits
         {
             get { return subreddits; }
             set { Set(ref subreddits, value); }
@@ -44,50 +46,72 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public async void LoadSubreddits()
         {
             string jsonString = await RoamingDataHelper.GetText(subredditsFileName);
-            var subredditsList = JArray.Parse(jsonString).ToObject<List<Subreddit>>();
+            var subredditsList = JArray.Parse(jsonString).ToObject<List<SubredditItem>>();
             if (subredditsList.Count == 0)
             {
-                subredditsList = new List<Subreddit>() {
-                    new Subreddit { FriendlyName = "Funny", ActualName = "funny" },
-                    new Subreddit { FriendlyName = "Pictures", ActualName = "pics" },
-                    new Subreddit { FriendlyName = "WTF?!", ActualName = "funny" },
-                    new Subreddit { FriendlyName = "The cutest things on the internet", ActualName = "aww" },
-                    new Subreddit { FriendlyName = "Cats", ActualName = "cats" },
-                    new Subreddit { FriendlyName = "EarthPorn", ActualName = "earthporn" },
-                    new Subreddit { FriendlyName = "Dank Memes", ActualName = "adviceanimals" }
+                subredditsList = new List<SubredditItem>() {
+                    new SubredditItem { Title = "Funny", Url = "funny" },
+                    new SubredditItem { Title = "Pictures", Url = "pics" },
+                    new SubredditItem { Title = "WTF?!", Url = "funny" },
+                    new SubredditItem { Title = "The cutest things on the internet", Url = "aww" },
+                    new SubredditItem { Title = "Cats", Url = "cats" },
+                    new SubredditItem { Title = "EarthPorn", Url = "earthporn" },
+                    new SubredditItem { Title = "Dank Memes", Url = "adviceanimals" }
                 };            
             }
-            Subreddits = new ObservableCollection<Subreddit>(subredditsList);
+            Subreddits = new ObservableCollection<SubredditItem>(subredditsList);
         }
 
-        public void AddSubreddit(Subreddit subreddit)
+        DelegateCommand<SubredditItem> toggleFavorite;
+        public DelegateCommand<SubredditItem> ToggleFavorite
+           => toggleFavorite ?? (toggleFavorite = new DelegateCommand<SubredditItem>(async (SubredditItem parameter) =>
+           {
+               if (parameter.IsFavorited)
+                   await RemoveSubreddit(parameter);
+               else
+                   await AddSubreddit(parameter);
+           }));
+
+        public async Task AddSubreddit(SubredditItem subreddit)
         {
+            subreddit.IsFavorited = true;
             Subreddits.Insert(0, subreddit);
-            SaveSubreddits();
+            await SaveSubreddits();
         }
 
-        public void RemoveSubreddit(Subreddit subreddit)
+        public async Task RemoveSubreddit(SubredditItem subreddit)
         {
-            Subreddits.Remove(subreddit);
-            SaveSubreddits();            
+            subreddit.IsFavorited = false;
+            Subreddits.Remove(Subreddits.Where(s => s.Url == subreddit.Url).First());
+            await SaveSubreddits();            
         }
 
-        internal async void SaveSubreddits()
+        private async Task SaveSubreddits()
         {
             string text = JsonConvert.SerializeObject(Subreddits);
             await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
 
+        public void SubredditTapped(object sender, object parameter)
+        {
+            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
+            var clickedItem = args.ClickedItem as SubredditItem;
+            string navigationParamName = "Subreddit";
+            BootStrapper.Current.SessionState[navigationParamName] = clickedItem;
+            BootStrapper.Current.NavigationService.Navigate(typeof(SubGalleryPage), navigationParamName);
+            return;           
+        }
+
         private void LoadSubredditsDesignTime()
         {
-            Subreddits = new ObservableCollection<Subreddit>();
-            Subreddits.Add(new Subreddit { FriendlyName = "Funny", ActualName = "funny" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Pictures", ActualName = "pics" });
-            Subreddits.Add(new Subreddit { FriendlyName = "WTF?!", ActualName = "funny" });
-            Subreddits.Add(new Subreddit { FriendlyName = "The cutest things on the internet", ActualName = "aww" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Cats", ActualName = "cats" });
-            Subreddits.Add(new Subreddit { FriendlyName = "EarthPorn", ActualName = "earthporn" });
-            Subreddits.Add(new Subreddit { FriendlyName = "Dank Memes", ActualName = "adviceanimals" });
+            Subreddits = new ObservableCollection<SubredditItem>();
+            Subreddits.Add(new SubredditItem { Title = "Funny", Url = "funny" });
+            Subreddits.Add(new SubredditItem { Title = "Pictures", Url = "pics" });
+            Subreddits.Add(new SubredditItem { Title = "WTF?!", Url = "funny" });
+            Subreddits.Add(new SubredditItem { Title = "The cutest things on the internet", Url = "aww" });
+            Subreddits.Add(new SubredditItem { Title = "Cats", Url = "cats" });
+            Subreddits.Add(new SubredditItem { Title = "EarthPorn", Url = "earthporn" });
+            Subreddits.Add(new SubredditItem { Title = "Dank Memes", Url = "adviceanimals" });
         }
     }
 }

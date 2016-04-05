@@ -78,7 +78,7 @@ namespace MonocleGiraffe
 
         private void SubredditWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Subreddit subreddit = (sender as Grid).DataContext as Subreddit;
+            SubredditItem subreddit = (sender as Grid).DataContext as SubredditItem;
             mainVM.LoadSubreddit(subreddit);
             MainSplitView.IsPaneOpen = false;
         }

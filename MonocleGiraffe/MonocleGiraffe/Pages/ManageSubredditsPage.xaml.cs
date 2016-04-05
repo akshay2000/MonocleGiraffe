@@ -50,15 +50,15 @@ namespace MonocleGiraffe.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = SubredditsListView.SelectedItem as Subreddit;
+            var item = SubredditsListView.SelectedItem as SubredditItem;
             StateHelper.ViewModel.RemoveSubreddit(item);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = SubredditsListView.SelectedItem as Subreddit;
-            item.ActualName = NameTextBox.Text;
-            item.FriendlyName = FriendlyNameTextBox.Text;
+            var item = SubredditsListView.SelectedItem as SubredditItem;
+            item.Url = NameTextBox.Text;
+            item.Title = FriendlyNameTextBox.Text;
             StateHelper.ViewModel.SaveSubreddits();
         }
 

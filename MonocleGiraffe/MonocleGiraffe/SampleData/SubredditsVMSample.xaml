@@ -1,10 +1,10 @@
 ﻿<FrontPage:SubredditsViewModel xmlns:FrontPage="using:MonocleGiraffe.ViewModels.FrontPage" xmlns:Models="using:MonocleGiraffe.Models">
     <FrontPage:SubredditsViewModel.Subreddits>
-        <Models:Subreddit FriendlyName="Funny" ActualName="/r/funny"/>
-        <Models:Subreddit FriendlyName="Pictures" ActualName="/r/pics"/>
-        <Models:Subreddit FriendlyName="WTF?!" ActualName="/r/WTF"/>
-        <Models:Subreddit FriendlyName="The cutest things on the internet" ActualName="/r/aww"/>
-        <Models:Subreddit FriendlyName="Cats" ActualName="/r/cats"/>
-        <Models:Subreddit FriendlyName="Funny" ActualName="/r/funny"/>
+        <Models:SubredditItem FriendlyName="Funny" ActualName="/r/funny"/>
+        <Models:SubredditItem FriendlyName="Pictures" ActualName="/r/pics"/>
+        <Models:SubredditItem FriendlyName="WTF?!" ActualName="/r/WTF"/>
+        <Models:SubredditItem FriendlyName="The cutest things on the internet" ActualName="/r/aww"/>
+        <Models:SubredditItem FriendlyName="Cats" ActualName="/r/cats"/>
+        <Models:SubredditItem FriendlyName="Funny" ActualName="/r/funny"/>
     </FrontPage:SubredditsViewModel.Subreddits>
 </FrontPage:SubredditsViewModel>

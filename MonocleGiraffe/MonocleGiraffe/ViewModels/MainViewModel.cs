@@ -149,8 +149,8 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        private ObservableCollection<Subreddit> subreddits;
-        public ObservableCollection<Subreddit> Subreddits
+        private ObservableCollection<SubredditItem> subreddits;
+        public ObservableCollection<SubredditItem> Subreddits
         {
             get { return subreddits; }
             set
@@ -172,10 +172,10 @@ namespace MonocleGiraffe.ViewModels
         public async void LoadSubreddits()
         {
             string jsonString = await RoamingDataHelper.GetText(subredditsFileName);
-            var subredditsList = JArray.Parse(jsonString).ToObject<List<Subreddit>>();
+            var subredditsList = JArray.Parse(jsonString).ToObject<List<SubredditItem>>();
             if (subredditsList.Count == 0)
             {
-                subredditsList = new List<Subreddit>() {
+                subredditsList = new List<SubredditItem>() {
                     //new Subreddit("earthporn", "EarthPorn"),
                     //new Subreddit("funny", "Funny"),
                     //new Subreddit("pics", "Pics"),
@@ -183,20 +183,20 @@ namespace MonocleGiraffe.ViewModels
                     //new Subreddit("aww", "AWW")
                 };
             }
-            Subreddits = new ObservableCollection<Subreddit>(subredditsList);
+            Subreddits = new ObservableCollection<SubredditItem>(subredditsList);
         }
 
-        public void AddSubreddit(Subreddit subreddit)
+        public void AddSubreddit(SubredditItem subreddit)
         {
             Subreddits.Insert(0, subreddit);
             SaveSubreddits();
         }
 
-        public void RemoveSubreddit(Subreddit subreddit)
+        public void RemoveSubreddit(SubredditItem subreddit)
         {
             Subreddits.Remove(subreddit);
             SaveSubreddits();
-            if(subreddit.FriendlyName == GalleryTitle)
+            if(subreddit.Title == GalleryTitle)
             {
                 LoadGallery();
             }
@@ -226,15 +226,15 @@ namespace MonocleGiraffe.ViewModels
             }
         }
 
-        public async void LoadSubreddit(Subreddit subreddit)
+        public async void LoadSubreddit(SubredditItem subreddit)
         {
-            ImageItems = new ObservableCollection<GalleryItem>();
-            GalleryTitle = subreddit.FriendlyName;
-            var subredditGallery = await Gallery.GetSubreddditGallery(subreddit.ActualName);
-            foreach (var image in subredditGallery)
-            {
-                ImageItems.Add(new GalleryItem(image));
-            }
+            //ImageItems = new ObservableCollection<GalleryItem>();
+            //GalleryTitle = subreddit.FriendlyName;
+            //var subredditGallery = await Gallery.GetSubreddditGallery(subreddit.ActualName);
+            //foreach (var image in subredditGallery)
+            //{
+            //    ImageItems.Add(new GalleryItem(image));
+            //}
         }
 
         public async void LoadTopic(SharpImgur.Models.Topic topic)

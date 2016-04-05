@@ -1,5 +1,7 @@
-﻿using MonocleGiraffe.Helpers;
+﻿using MonocleGiraffe.Controls;
+using MonocleGiraffe.Helpers;
 using MonocleGiraffe.ViewModels;
+using MonocleGiraffe.ViewModels.FrontPage;
 using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
@@ -32,8 +34,8 @@ namespace MonocleGiraffe.Pages
         MainViewModel mainVM = StateHelper.ViewModel;
         public FrontPage()
         {
-            this.InitializeComponent();           
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
             ChageSystemTrayColor();
         }
 
@@ -50,6 +52,11 @@ namespace MonocleGiraffe.Pages
                     ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
                 //}
             }
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            (sender.DataContext as SearchViewModel).SearchSubreddits(args.QueryText);
         }
     }
 }

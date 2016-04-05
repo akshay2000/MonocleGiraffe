@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -14,26 +15,47 @@ namespace MonocleGiraffe.ViewModels
     {
         public FrontPageViewModel()
         {
-            //if (!DesignMode.DesignModeEnabled)
-            //    SecretsHelper.RefreshSecrets();
+            if (!DesignMode.DesignModeEnabled)
+                Init();
+            else
+                InitDesignTime();
+
         }
-        public GalleryViewModel GalleryVM { get; set; } = new GalleryViewModel();
-        public SubredditsViewModel SubredditsVM { get; set; } = new SubredditsViewModel();
-        public AccountViewModel AccountVM { get; set; } = new AccountViewModel();
+
+        private void Init()
+        {
+            PivotIndex = 0;
+            GalleryVM = new GalleryViewModel();
+            SubredditsVM = new SubredditsViewModel();
+            SearchVM = new SearchViewModel(SubredditsVM);
+            AccountVM = new AccountViewModel();
+        }
+
+        public GalleryViewModel GalleryVM { get; set; }
+        public SubredditsViewModel SubredditsVM { get; set; }
+        public SearchViewModel SearchVM { get; set; } 
+        public AccountViewModel AccountVM { get; set; }
 
         private int pivotIndex;
         public int PivotIndex
         {
             get { return pivotIndex; }
-            set { Set(ref pivotIndex, value); }
+            set
+            {
+                Set(ref pivotIndex, value);
+                SetAppBarButtonVisibilities();
+            }
+                    
         }
-        
+
+        #region Command Bar
+
         DelegateCommand refreshCommand;
         public DelegateCommand RefreshCommand
            => refreshCommand ?? (refreshCommand = new DelegateCommand(async () =>
            {
                await Refresh();
-           }, () => true));
+           }));
 
         private async Task Refresh()
         {
@@ -47,5 +69,58 @@ namespace MonocleGiraffe.ViewModels
                     break;
             }
         }
+        
+        private void SetAppBarButtonVisibilities()
+        {
+            switch (PivotIndex)
+            {
+                case 0:
+                    SortVisibility = Visibility.Visible;
+                    RefreshVisibility = Visibility.Visible;
+                    AddVisibility = Visibility.Collapsed;
+                    break;
+                case 1:
+                    SortVisibility = Visibility.Collapsed;
+                    RefreshVisibility = Visibility.Collapsed;
+                    AddVisibility = Visibility.Visible;
+                    break;
+                case 2:
+                case 3:
+                    SortVisibility = Visibility.Collapsed;
+                    RefreshVisibility = Visibility.Visible;
+                    AddVisibility = Visibility.Collapsed;
+                    break;
+            }
+        }
+
+        Visibility refreshVisibility;
+        public Visibility RefreshVisibility
+        {
+            get { return refreshVisibility; }
+            set { Set(ref refreshVisibility, value); }
+        }
+
+        Visibility sortVisibility;
+        public Visibility SortVisibility
+        {
+            get { return sortVisibility; }
+            set { Set(ref sortVisibility, value); }
+        }
+
+        Visibility addVisibility;
+        public Visibility AddVisibility
+        {
+            get { return addVisibility; }
+            set { Set(ref addVisibility, value); }
+        }
+
+        #endregion
+
+        private void InitDesignTime()
+        {
+            PivotIndex = 0;
+        }
+
+     
     }
 }
