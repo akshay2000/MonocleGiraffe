@@ -57,6 +57,13 @@ namespace MonocleGiraffe.ViewModels
                await Refresh();
            }));
 
+        DelegateCommand addCommand;
+        public DelegateCommand AddCommand
+           => addCommand ?? (addCommand = new DelegateCommand(() =>
+           {
+               PivotIndex = 2;
+           }));
+
         private async Task Refresh()
         {
             switch (PivotIndex)

@@ -10,6 +10,7 @@
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:t10b="using:Template10.Behaviors"
+    xmlns:ext="using:MonocleGiraffe.Controls.Extensions"
     x:Class="MonocleGiraffe.Pages.FrontPage"
     x:Name="PageRoot"
     mc:Ignorable="d" >
@@ -273,7 +274,7 @@
                 </Interactivity:Interaction.Behaviors>
             </AppBarButton>
             <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}" Visibility="{Binding RefreshVisibility}"/>
-            <AppBarButton Icon="Add" Label="Add" Visibility="{Binding AddVisibility}"/>
+            <AppBarButton Icon="Add" Label="Add" Visibility="{Binding AddVisibility}" Command="{Binding AddCommand}"/>
         </CommandBar>
     </Page.BottomAppBar>
 
@@ -481,14 +482,13 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ToggleButton Content="REDDITS" Margin="6,12" Height="25" Style="{StaticResource SearchTabToggleButtonStyle}" />
-                        <ToggleButton Content="POSTS" Margin="6,12" Height="25" Grid.Column="1" Style="{StaticResource SearchTabToggleButtonStyle}" />
-                        <ToggleButton Content="USERS" Margin="6,12" Height="25" Grid.Column="2" Style="{StaticResource SearchTabToggleButtonStyle}" />
-                        <ToggleButton Content="GIFS" Margin="6,12" Height="25" Grid.Column="3" Style="{StaticResource SearchTabToggleButtonStyle}" />
+                        <ToggleButton Content="REDDITS" Margin="6,12" Height="25" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Reddits" ext:ToggleButtonExtensions.IsChecked="{Binding IsReddit}" />
+                        <ToggleButton Content="POSTS" Margin="6,12" Height="25" Grid.Column="1" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Posts" ext:ToggleButtonExtensions.IsChecked="{Binding IsPosts}" />
+                        <ToggleButton Content="GIFS" Margin="6,12" Height="25" Grid.Column="3" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Gifs" ext:ToggleButtonExtensions.IsChecked="{Binding IsGifs}" />
                     </Grid>
-                    <AutoSuggestBox Margin="12,0" QueryIcon="Find" Grid.Row="1" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
+                    <AutoSuggestBox Text="{Binding QueryText, Mode=TwoWay}" PlaceholderText="Search awesomeness" Margin="12,0" QueryIcon="Find" Grid.Row="1" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
                     <TextBlock Text="Search Results" FontSize="12" Foreground="#FF959595" Grid.Row="2" Margin="12" FontWeight="SemiBold"/>
-                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="3">
+                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="3" Visibility="{Binding IsReddit, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <templates:RedditResultTemplate ToggleFavoriteCommand="{Binding DataContext.SubredditsVM.ToggleFavorite, ElementName=PageRoot}"/>
@@ -500,6 +500,30 @@
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
+                    <GridView ItemsSource="{Binding Posts}" Grid.Row="3" Visibility="{Binding IsPosts, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource CenteredGridViewStyle}" Margin="12,0,0,0">
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="Margin" Value="0,0,12,12"/>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <templates:GalleryThumbnailTemplate/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                    <GridView ItemsSource="{Binding Gifs}" Grid.Row="3" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource CenteredGridViewStyle}" Margin="12,0,0,0">
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="Margin" Value="0,0,12,12"/>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <templates:GalleryThumbnailTemplate/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </Grid>
             </PivotItem>
             <PivotItem>

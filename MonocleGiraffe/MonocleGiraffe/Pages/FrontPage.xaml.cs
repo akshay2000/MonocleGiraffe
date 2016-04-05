@@ -56,7 +56,7 @@ namespace MonocleGiraffe.Pages
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            (sender.DataContext as SearchViewModel).SearchSubreddits(args.QueryText);
+            (sender.DataContext as SearchViewModel).SearchCommand.Execute("default");
         }
     }
 }

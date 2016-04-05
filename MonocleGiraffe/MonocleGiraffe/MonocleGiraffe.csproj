@@ -104,6 +104,7 @@
       <DependentUpon>AddSubredditContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnPanel.cs" />
+    <Compile Include="Controls\Extensions\ToggleButtonExtensions.cs" />
     <Compile Include="Controls\ImageItemPanel.xaml.cs">
       <DependentUpon>ImageItemPanel.xaml</DependentUpon>
     </Compile>
