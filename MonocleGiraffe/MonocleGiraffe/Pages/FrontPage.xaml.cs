@@ -44,13 +44,14 @@ namespace MonocleGiraffe.Pages
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
 
-                //var statusBar = StatusBar.GetForCurrentView();
-                //if (statusBar != null)
-                //{
-                    //statusBar.BackgroundOpacity = 1;
-                    //statusBar.BackgroundColor = Color.FromArgb(1, 37, 37, 37);
-                    ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-                //}
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = Color.FromArgb(1, 37, 37, 37);
+                }
+                LayoutRoot.Margin = new Thickness(0,-12,0,0);
+                //ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
             }
         }
 

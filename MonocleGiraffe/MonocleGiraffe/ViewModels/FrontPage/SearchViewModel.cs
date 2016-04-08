@@ -32,7 +32,6 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             this.subredditsVM = subredditsVM;
             IsReddit = true;
-            IsGifs = true;
         }
         
         bool isReddit = default(bool);
@@ -54,34 +53,38 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public DelegateCommand<string> SearchCommand
            => searchCommand ?? (searchCommand = new DelegateCommand<string>(async (string searchType) =>
            {
-               switch (searchType) {
-                   case "Reddits":
-                       IsPosts = IsGifs = IsReddit = false;
-                       IsReddit = true;
-                       await SearchSubreddits(QueryText);
-                       break;
-                   case "Posts":
-                       IsPosts = IsGifs = IsReddit = false;
-                       IsPosts = true;
-                       await SearchPosts(QueryText);
-                       break;
-                   case "Gifs":
-                       IsPosts = IsGifs = IsReddit = false;
-                       IsGifs = true;
-                       await SearchGifs(QueryText);
-                       break;
-                   default:
-                       if(IsReddit)
-                           await SearchSubreddits(QueryText);
-                       else if(IsPosts)
-                           await SearchPosts(QueryText);
-                       else if(isGifs)
-                           await SearchGifs(QueryText);
-                       break;
-               }
+               await Refresh(searchType);
            }));
 
-
+        public async Task Refresh(string searchType)
+        {
+            switch (searchType)
+            {
+                case "Reddits":
+                    IsPosts = IsGifs = IsReddit = false;
+                    IsReddit = true;
+                    await SearchSubreddits(QueryText);
+                    break;
+                case "Posts":
+                    IsPosts = IsGifs = IsReddit = false;
+                    IsPosts = true;
+                    await SearchPosts(QueryText);
+                    break;
+                case "Gifs":
+                    IsPosts = IsGifs = IsReddit = false;
+                    IsGifs = true;
+                    await SearchGifs(QueryText);
+                    break;
+                default:
+                    if (IsReddit)
+                        await SearchSubreddits(QueryText);
+                    else if (IsPosts)
+                        await SearchPosts(QueryText);
+                    else if (isGifs)
+                        await SearchGifs(QueryText);
+                    break;
+            }
+        }
 
         #region Reddit
 

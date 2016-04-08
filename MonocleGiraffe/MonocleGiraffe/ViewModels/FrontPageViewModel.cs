@@ -71,6 +71,9 @@ namespace MonocleGiraffe.ViewModels
                 case 0:
                     await GalleryVM.Reload();
                     break;
+                case 2:
+                    await SearchVM.Refresh("default");
+                    break;
                 case 3:
                     await AccountVM.Reload();
                     break;
@@ -92,6 +95,10 @@ namespace MonocleGiraffe.ViewModels
                     AddVisibility = Visibility.Visible;
                     break;
                 case 2:
+                    SortVisibility = Visibility.Collapsed;
+                    RefreshVisibility = Visibility.Visible;
+                    AddVisibility = Visibility.Collapsed;
+                    break;
                 case 3:
                     SortVisibility = Visibility.Collapsed;
                     RefreshVisibility = Visibility.Visible;

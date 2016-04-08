@@ -33,7 +33,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold"/>
-            <Border Width="12" Height="12" CornerRadius="6" Background="Red" Visibility="{Binding IsMature, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0" />
+            <Border Width="24" Height="15" BorderBrush="#FFDC3E3E" BorderThickness="1" Visibility="{Binding IsMature, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0">
+                <TextBlock Text="18+" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFDC3E3E"/>
+            </Border>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xF100;" Foreground="#FF959595"/>

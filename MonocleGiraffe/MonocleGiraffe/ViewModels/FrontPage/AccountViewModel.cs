@@ -33,7 +33,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             await Task.Delay(500);
             await LoadAlbums();
             await Task.Delay(500);
-            //await LoadImages();
+            await LoadImages();
         }
 
         public async Task Reload()
