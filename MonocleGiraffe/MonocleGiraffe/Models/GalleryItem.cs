@@ -189,7 +189,10 @@ namespace MonocleGiraffe.Models
             }
             SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
             Thumbnail = baseUrl + thumbnailId + "b.jpg";
-            BigThumbnail = baseUrl + thumbnailId + "l.jpg";
+            if (ItemType == GalleryItemType.Album || Height / (double)Width > 2.5)
+                BigThumbnail = baseUrl + thumbnailId + "b.jpg";
+            else
+                BigThumbnail = baseUrl + thumbnailId + "l.jpg";
         }
 
         private async void LoadComments(string imageId)

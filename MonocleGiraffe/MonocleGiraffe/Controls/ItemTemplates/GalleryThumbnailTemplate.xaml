@@ -4,7 +4,8 @@
     xmlns:local="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="MonocleGiraffe.Controls.ItemTemplates.GalleryThumbnailTemplate"
     mc:Ignorable="d" 
     d:DesignHeight="200" d:DesignWidth="162">
@@ -61,15 +62,13 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Rectangle x:Name="PlaceHolder" Height="{Binding ElementName=Thumbnail, Path=Width}" Fill="#FFE6E6E6"/>
-        <StackPanel Background="#FFE6E6E6" MaxHeight="200">
-            <Image x:Name="Thumbnail" Source="{Binding BigThumbnail}" Width="162" Stretch="Fill">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="ImageOpened">
-                        <Core:ChangePropertyAction TargetObject="{Binding ElementName=PlaceHolder}" PropertyName="Visibility" Value="Collapsed"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-            </Image>
-        </StackPanel>
+        <Image x:Name="Thumbnail" Source="{Binding BigThumbnail}" Width="162" Stretch="Fill">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ImageOpened">
+                    <Core:ChangePropertyAction TargetObject="{Binding ElementName=PlaceHolder}" PropertyName="Visibility" Value="Collapsed"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </Image>
 
         <Grid Grid.Row="1" Margin="12">
             <Grid.ColumnDefinitions>
