@@ -506,7 +506,7 @@
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
-                    <GridView ItemsSource="{Binding Gifs}" Grid.Row="3" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource CenteredGridViewStyle}" Margin="12,0,0,0">
+                    <GridView ItemsSource="{Binding Gifs}" Grid.Row="3" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0,0,0">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
                                 <Setter Property="Margin" Value="0,0,12,12"/>
@@ -514,7 +514,7 @@
                         </GridView.ItemContainerStyle>
                         <GridView.ItemTemplate>
                             <DataTemplate>
-                                <templates:GalleryThumbnailTemplate/>
+                                <templates:SquareThumbnailTemplate/>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>

@@ -117,6 +117,9 @@
     <Compile Include="Controls\ItemTemplates\RedditResultTemplate.xaml.cs">
       <DependentUpon>RedditResultTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml.cs">
+      <DependentUpon>SquareThumbnailTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\TopicTemplate.xaml.cs">
       <DependentUpon>TopicTemplate.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTemplates\RedditResultTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
