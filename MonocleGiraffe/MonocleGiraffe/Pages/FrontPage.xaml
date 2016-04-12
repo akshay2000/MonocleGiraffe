@@ -524,62 +524,65 @@
                 <PivotItem.Header>
                     <controls:TabHeaderContent IconPath="F 1 M 16,4 C 12.1459,4 9,7.14585 9,11 9,13.3931 10.2204,15.5178 12.0625,16.7813 8.48555,18.3029 6,21.8599 6,26 L 8,26 C 8,21.5333 11.5333,18 16,18 20.4667,18 24,21.5333 24,26 L 26,26 C 26,21.8599 23.5144,18.3029 19.9375,16.7813 21.7796,15.5178 23,13.3931 23,11 23,7.14585 19.8541,4 16,4 Z M 16,6 C 18.7733,6 21,8.22673 21,11 21,13.7733 18.7733,16 16,16 13.2267,16 11,13.7733 11,11 11,8.22673 13.2267,6 16,6 Z" Label="Account"/>
                 </PivotItem.Header>
-                <ScrollViewer DataContext="{Binding AccountVM}">
-                    <StackPanel>
-                        <TextBlock Text="HELLO"/>
-                        <TextBlock Text="{Binding UserName}"/>
-                        <TextBlock Text="{Binding Points}"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,4">
-                            <TextBlock Text="TROPHIES" VerticalAlignment="Center"/>
-                            <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                <TextBlock Text="{Binding Trophies.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
+                <Grid DataContext="{Binding AccountVM}">
+                    <ScrollViewer Visibility="{Binding IsAuth, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="HELLO"/>
+                            <TextBlock Text="{Binding UserName}"/>
+                            <TextBlock Text="{Binding Points}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <TextBlock Text="TROPHIES" VerticalAlignment="Center"/>
+                                <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                    <TextBlock Text="{Binding Trophies.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                            <GridView ItemsSource="{Binding Trophies}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Gray" Height="50" Width="50">
+                                            <Image Margin="4" Source="{Binding Image}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <TextBlock Text="ALBUMS" VerticalAlignment="Center"/>
+                                <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                    <TextBlock Text="{Binding Albums.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                            <GridView ItemsSource="{Binding Albums}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Gray" Height="50" Width="50">
+                                            <Image Source="{Binding Thumbnail}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <TextBlock Text="Images" VerticalAlignment="Center"/>
+                                <Border Background="SkyBlue" MinWidth="16" Height="16">
+                                    <TextBlock Text="{Binding Images.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                            <GridView ItemsSource="{Binding Images}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Gray" Height="50" Width="50">
+                                            <Image Source="{Binding Thumbnail}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
                         </StackPanel>
-                        <GridView ItemsSource="{Binding Trophies}">
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="Gray" Height="50" Width="50">
-                                        <Image Margin="4" Source="{Binding Image}"/>
-                                    </Border>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
-
-                        <StackPanel Orientation="Horizontal" Margin="0,4">
-                            <TextBlock Text="ALBUMS" VerticalAlignment="Center"/>
-                            <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                <TextBlock Text="{Binding Albums.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </StackPanel>
-                        <GridView ItemsSource="{Binding Albums}">
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="Gray" Height="50" Width="50">
-                                        <Image Source="{Binding Thumbnail}"/>
-                                    </Border>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
-
-                        <StackPanel Orientation="Horizontal" Margin="0,4">
-                            <TextBlock Text="Images" VerticalAlignment="Center"/>
-                            <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                <TextBlock Text="{Binding Images.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </StackPanel>
-                        <GridView ItemsSource="{Binding Images}">
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="Gray" Height="50" Width="50">
-                                        <Image Source="{Binding Thumbnail}"/>
-                                    </Border>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
-                    </StackPanel>
-
-
-                </ScrollViewer>
+                    </ScrollViewer>
+                    <Border Background="Black" Visibility="{Binding IsAuth, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}">
+                        <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>
+                    </Border>
+                </Grid>
             </PivotItem>
         </Pivot>
     </Grid>

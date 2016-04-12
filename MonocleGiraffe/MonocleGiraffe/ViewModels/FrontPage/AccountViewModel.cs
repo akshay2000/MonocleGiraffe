@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Models;
 using SharpImgur.APIWrappers;
+using SharpImgur.Helpers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,15 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         private async void Init()
         {
+            if (AuthenticationHelper.IsAuthIntended())
+            {
+                await LoadUserData();
+                IsAuth = true;
+            }
+        }
+
+        private async Task LoadUserData()
+        {
             await Task.Delay(1000);
             Account account = await Accounts.GetAccount();
             UserName = account.Url;
@@ -38,8 +48,20 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         public async Task Reload()
         {
-            return;
+            Init();
         }
+
+        bool isSigningIn = false;
+        DelegateCommand signInCommand;
+        public DelegateCommand SignInCommand
+           => signInCommand ?? (signInCommand = new DelegateCommand(async () =>
+           {
+               await LoadUserData();
+               IsAuth = true;
+           }, () => !isSigningIn));
+
+        bool isAuth = default(bool);
+        public bool IsAuth { get { return isAuth; } set { Set(ref isAuth, value); } }
 
         #region User
 
