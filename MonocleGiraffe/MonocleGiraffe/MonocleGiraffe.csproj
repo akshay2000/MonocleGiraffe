@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
+    <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Pages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>

@@ -150,8 +150,9 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as GalleryItem;
-            string navigationParamName = "GalleryVM";
-            BootStrapper.Current.SessionState[navigationParamName] = this;
+            ImageSelectedIndex = Images.IndexOf(clickedItem);
+            const string navigationParamName = "GalleryInfo";
+            BootStrapper.Current.SessionState[navigationParamName] = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
             BootStrapper.Current.NavigationService.Navigate(typeof(FlipViewPage), navigationParamName);
             return;           
         }

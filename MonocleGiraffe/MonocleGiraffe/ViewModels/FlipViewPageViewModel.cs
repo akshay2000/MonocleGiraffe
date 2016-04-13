@@ -30,9 +30,9 @@ namespace MonocleGiraffe.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            var param = (GalleryViewModel)BootStrapper.Current.SessionState[(string)parameter];
-            Images = param.Images;
-            SelectedIndex = param.ImageSelectedIndex;
+            var param = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
+            Images = param.Gallery;
+            SelectedIndex = param.SelectedIndex;
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
     }

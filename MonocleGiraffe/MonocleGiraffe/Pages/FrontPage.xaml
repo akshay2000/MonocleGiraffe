@@ -412,7 +412,7 @@
                                     </Grid>
                                 </Border>
                             </Grid>
-                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex, Mode=TwoWay}" Style="{StaticResource CenteredGridViewStyle}" >
+                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" >
                                 <GridView.ItemContainerStyle>
                                     <Style TargetType="GridViewItem">
                                         <Setter Property="Margin" Value="0,0,12,12"/>
