@@ -111,6 +111,9 @@
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\AlbumTemplate.xaml.cs">
+      <DependentUpon>AlbumTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\GalleryThumbnailTemplate.xaml.cs">
       <DependentUpon>GalleryThumbnailTemplate.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\AlbumTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

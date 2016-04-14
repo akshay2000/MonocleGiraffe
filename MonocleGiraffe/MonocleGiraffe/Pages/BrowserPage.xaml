@@ -7,6 +7,7 @@
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
+    xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -17,13 +18,21 @@
         <DataTemplate x:Key="ImageTemplate">
             <templates:ImageTemplate/>
         </DataTemplate>
+
+        <DataTemplate x:Key="AlbumTemplate">
+            <templates:AlbumTemplate/>
+        </DataTemplate>
+
+        <selectors:ImageTemplateSelector 
+            x:Key="Selector"
+            ImageTemplate="{StaticResource ImageTemplate}"
+            AlbumTemplate="{StaticResource AlbumTemplate}"/>
     </Page.Resources>
     
     <Grid Background="Black">
         <FlipView 
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
-            ItemTemplate="{StaticResource ImageTemplate}"/>
-
+            ItemTemplateSelector="{StaticResource Selector}"/>
     </Grid>
 </Page>
