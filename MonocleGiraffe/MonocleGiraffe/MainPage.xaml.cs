@@ -67,7 +67,7 @@ namespace MonocleGiraffe
         private void ThumbnailWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
             StateHelper.ViewModel.SelectedIndex = ImagesGridView.SelectedIndex;
-            Frame.Navigate(typeof(FlipViewPage));
+            Frame.Navigate(typeof(BrowserPage));
         }
 
         private void SubredditsButton_Click(object sender, RoutedEventArgs e)

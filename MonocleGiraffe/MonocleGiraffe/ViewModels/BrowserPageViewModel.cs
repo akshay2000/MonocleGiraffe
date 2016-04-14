@@ -1,0 +1,68 @@
+﻿using MonocleGiraffe.Models;
+using SharpImgur.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using Template10.Common;
+using Template10.Mvvm;
+using Template10.Services.NavigationService;
+using Template10.Utils;
+using Windows.UI;
+using Windows.UI.Xaml.Navigation;
+
+namespace MonocleGiraffe.ViewModels
+{
+
+    public class BrowserPageViewModel : ViewModelBase
+    {
+        public BrowserPageViewModel()
+        {
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            {
+                InitDesignTime();
+            }
+            else
+            {
+                Init();
+            }
+        }
+
+        private void Init()
+        {
+        }
+
+        private ObservableCollection<GalleryItem> images;
+        public ObservableCollection<GalleryItem> Images
+        {
+            get { return images; }
+            set { Set(ref images, value); }
+        }
+
+
+        int flipViewIndex;
+        public int FlipViewIndex {
+            get { return flipViewIndex; }
+            set { Set(ref flipViewIndex, value); }
+        }
+
+        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        {
+            var param = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
+            Images = param.Gallery;
+            FlipViewIndex = param.SelectedIndex;
+            return base.OnNavigatedToAsync(parameter, mode, state);
+        }
+
+        private void InitDesignTime()
+        {
+            Images = new ObservableCollection<GalleryItem>();
+            Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345, Description="Never made the front page before" }));
+            Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
+        }
+    }
+    
+}

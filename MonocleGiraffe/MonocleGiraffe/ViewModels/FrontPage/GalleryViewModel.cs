@@ -153,7 +153,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             ImageSelectedIndex = Images.IndexOf(clickedItem);
             const string navigationParamName = "GalleryInfo";
             BootStrapper.Current.SessionState[navigationParamName] = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
-            BootStrapper.Current.NavigationService.Navigate(typeof(FlipViewPage), navigationParamName);
+            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
             return;           
         }
 

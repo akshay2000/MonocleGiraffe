@@ -142,8 +142,8 @@
     <Compile Include="Pages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FlipViewPage.xaml.cs">
-      <DependentUpon>FlipViewPage.xaml</DependentUpon>
+    <Compile Include="Pages\BrowserPage.xaml.cs">
+      <DependentUpon>BrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FrontPage.xaml.cs">
       <DependentUpon>FrontPage.xaml</DependentUpon>
@@ -163,7 +163,7 @@
     </Compile>
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
-    <Compile Include="ViewModels\FlipViewPageViewModel.cs" />
+    <Compile Include="ViewModels\BrowserPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\AccountViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\GalleryViewModel.cs" />
@@ -234,15 +234,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\FlipViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <DesignData Include="SampleData\CommentSampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Controls\CommentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
