@@ -4,47 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MonocleGiraffe.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
-    xmlns:controls="using:MonocleGiraffe.Controls"
     mc:Ignorable="d">
 
     <Page.DataContext>
         <vm:BrowserPageViewModel/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <DataTemplate x:Key="ImageTemplate">
+            <templates:ImageTemplate/>
+        </DataTemplate>
+    </Page.Resources>
+    
     <Grid Background="Black">
-        <FlipView ItemsSource="{Binding Images}" SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}">
-            <FlipView.ItemTemplate>
-                <DataTemplate>
-                    <ScrollViewer>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+        <FlipView 
+            ItemsSource="{Binding Images}"
+            SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
+            ItemTemplate="{StaticResource ImageTemplate}"/>
 
-                            <TextBlock Text="{Binding Title}"/>
-
-                            <TextBlock Grid.Row="1">
-                            <Run Text="by "/>
-                            <Run Text="{Binding UploaderName}"/>
-                            <Run Foreground="#939393" Text=" • " />                            
-                            <Run Text="{Binding Ups}"/>
-                            <Run Text="points"/>
-                            </TextBlock>
-
-                            <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
-                                <controls:ImageUserControl />
-                            </Viewbox>
-
-                            <TextBlock Text="{Binding Description}" Grid.Row="3"/>
-                        </Grid>
-                    </ScrollViewer>
-                </DataTemplate>
-            </FlipView.ItemTemplate>
-        </FlipView>
     </Grid>
 </Page>
