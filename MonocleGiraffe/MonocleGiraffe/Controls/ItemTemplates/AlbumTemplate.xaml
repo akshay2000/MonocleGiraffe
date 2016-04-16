@@ -10,9 +10,101 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <!-- Style for Windows.UI.Xaml.Controls.ListViewItem -->
+        <Style TargetType="ListViewItem" x:Key="ThinListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="12,0,12,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Grid x:Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="PointerOverSelected"/>
+                                    <VisualState x:Name="PressedSelected"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DisabledStates">
+                                    <VisualState x:Name="Enabled"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="MultiSelectStates">
+                                    <VisualState x:Name="MultiSelectDisabled"/>
+                                    <VisualState x:Name="MultiSelectEnabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint"/>
+                                    <VisualState x:Name="TopReorderHint"/>
+                                    <VisualState x:Name="RightReorderHint"/>
+                                    <VisualState x:Name="LeftReorderHint"/>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging"/>
+                                    <VisualState x:Name="DraggingTarget"/>
+                                    <VisualState x:Name="MultipleDraggingPrimary"/>
+                                    <VisualState x:Name="MultipleDraggingSecondary"/>
+                                    <VisualState x:Name="DraggedPlaceholder"/>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition To="NotDragging" GeneratedDuration="0:0:0.2"/>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>                            
+                            <Grid x:Name="ContentPresenterGrid"
+                Background="Transparent"
+                Margin="0,0,0,0">
+                                <Grid.RenderTransform>
+                                    <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                </Grid.RenderTransform>
+                                <ContentPresenter x:Name="ContentPresenter"
+                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>                            
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         
-        <ListView ItemsSource="{Binding AlbumImages}" >
+        <ListView
+            ItemsSource="{Binding AlbumImages}"
+            ItemContainerStyle="{StaticResource ThinListViewItem}"
+            SelectionMode="None">           
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -24,11 +116,8 @@
                         <TextBlock Text="{Binding Title}"/>
 
                         <TextBlock Grid.Row="1">
-                            <Run Text="by "/>
-                            <Run Text="{Binding UploaderName}"/>
-                            <Run Foreground="#939393" Text=" • " />       
-                            <Run Text="{Binding Ups}"/>
-                            <Run Text="points"/>
+                            <!--Keep all Run tags on the same line to avoid unwanted whitespaces-->
+                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>
@@ -42,7 +131,9 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding Title}"/>
-                        <controls:ImageUserControl Grid.Row="1"/>
+                        <Viewbox Grid.Row="1" StretchDirection="DownOnly">
+                            <controls:ImageUserControl/>
+                        </Viewbox>
                         <TextBlock Text="{Binding Description}" Grid.Row="2"/>
                     </Grid>
                 </DataTemplate>
