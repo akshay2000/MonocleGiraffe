@@ -132,6 +132,10 @@
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeView\CommentsPanel.xaml.cs">
+      <DependentUpon>CommentsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TreeView\ITreeItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
@@ -142,6 +146,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AlbumItem.cs" />
+    <Compile Include="Models\CommentItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\SubredditItem.cs" />
@@ -237,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TabHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TreeView\CommentsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,11 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MonocleGiraffe.Controls"
+    xmlns:tree="using:MonocleGiraffe.Controls.TreeView"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
         <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,11 +28,7 @@
                 <TextBlock Text="{Binding Title}"/>
 
                 <TextBlock Grid.Row="1">
-                            <Run Text="by "/>
-                            <Run Text="{Binding UploaderName}"/>
-                            <Run Foreground="#939393" Text=" • " />                            
-                            <Run Text="{Binding Ups}"/>
-                            <Run Text="points"/>
+                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
                 </TextBlock>
 
                 <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
@@ -37,5 +38,7 @@
                 <TextBlock Text="{Binding Description}" Grid.Row="3"/>
             </Grid>
         </ScrollViewer>
+
+        <tree:CommentsPanel ItemsSource="{Binding Comments}" Grid.Column="1"/>
     </Grid>
 </UserControl>

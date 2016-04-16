@@ -157,8 +157,8 @@ namespace MonocleGiraffe.Models
             }
         }
 
-        private ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
-        public ObservableCollection<Comment> Comments
+        private List<CommentItem> comments = new List<CommentItem>();
+        public List<CommentItem> Comments
         {
             get
             {
@@ -166,6 +166,7 @@ namespace MonocleGiraffe.Models
                     LoadComments(image.Id);
                 return comments;
             }
+            set { Set(ref comments, value); }
         }
 
         private string thumbnail;
@@ -198,10 +199,12 @@ namespace MonocleGiraffe.Models
         private async void LoadComments(string imageId)
         {
             var commentsList = await Gallery.GetComments(imageId);
+            var c = new List<CommentItem>();
             foreach (var comment in commentsList)
             {
-                comments.Add(comment);
+                c.Add(new CommentItem(comment));
             }
+            Comments = c;
         }
     }
 }
