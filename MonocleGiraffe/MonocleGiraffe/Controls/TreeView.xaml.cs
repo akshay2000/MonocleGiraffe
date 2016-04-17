@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Template10.Mvvm;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -44,13 +45,13 @@ namespace MonocleGiraffe.Controls
                 return;
             var newValue = e.NewValue as IEnumerable<ITreeItem>;
             var panel = (TreeView)d;
-            panel.Items = new ObservableCollection<TreeViewItem>(Translate(newValue.ToList(), 0, new List<int>()));
+            panel.Items = new ObservableCollection<TreeViewItem>(Translate(newValue.ToList(), 0));
         }
 
         ObservableCollection<TreeViewItem> items = default(ObservableCollection<TreeViewItem>);
         public ObservableCollection<TreeViewItem> Items { get { return items; } set { Set(ref items, value); } }
 
-        private static List<TreeViewItem> Translate<T>(List<T> input, int depth, List<int> address) where T : ITreeItem
+        private static List<TreeViewItem> Translate<T>(List<T> input, int depth) where T : ITreeItem
         {
             List<TreeViewItem> ret = new List<TreeViewItem>();
             for (int i = 0; i < input.Count(); i++)
@@ -59,11 +60,9 @@ namespace MonocleGiraffe.Controls
                 TreeViewItem t = new TreeViewItem();
                 t.Content = item.Content;
                 t.Depth = depth;
-                t.Address = new List<int>(address);
-                t.Address.Add(i);
                 if (item.Children != null)
                 {
-                    t.Children = Translate(item.Children, t.Depth + 1, t.Address);
+                    t.Children = Translate(item.Children, t.Depth + 1);
                 }
                 ret.Add(t);
             }
@@ -87,8 +86,22 @@ namespace MonocleGiraffe.Controls
            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
+        
+        private void CommentTemplate_ExpandRequested(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem tappedItem = (sender as FrameworkElement).Tag as TreeViewItem;
+            int index = Items.IndexOf(tappedItem);
+            if (!tappedItem.IsExpanded)
+            {
+                foreach (var item in tappedItem.Children)
+                {
+                    Items.Insert(++index, item);
+                }
+                tappedItem.IsExpanded = true;
+            }
+        }
 
-        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        private void CommentTemplate_CollapseRequested(object sender, RoutedEventArgs e)
         {
             TreeViewItem tappedItem = (sender as FrameworkElement).Tag as TreeViewItem;
             int index = Items.IndexOf(tappedItem);
@@ -105,28 +118,19 @@ namespace MonocleGiraffe.Controls
                 }
                 tappedItem.IsExpanded = false;
             }
-            else
-            {
-                foreach (var item in tappedItem.Children)
-                {
-                    Items.Insert(++index, item);
-                }
-                tappedItem.IsExpanded = true;
-            }
         }
     }
 
-    public class TreeViewItem
+    public class TreeViewItem : BindableBase
     {
         public object Content { get; set; }
-
-        public List<int> Address { get; set; }
-
+        
         public int Depth { get; set; }
 
         public List<TreeViewItem> Children { get; set; }
 
-        public bool IsExpanded { get; set; }
+        bool isExpanded;
+        public bool IsExpanded { get { return isExpanded; } set { Set(ref isExpanded, value); } }
     }
 
     public class DepthConverter : IValueConverter

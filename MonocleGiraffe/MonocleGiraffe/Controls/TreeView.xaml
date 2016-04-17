@@ -5,6 +5,7 @@
     xmlns:local="using:MonocleGiraffe.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -13,16 +14,22 @@
         <local:DepthConverter x:Key="DepthConverter"/>
     </UserControl.Resources>
 
-    <Grid Background="Red">
+    <Grid>
         <ListView ItemsSource="{x:Bind Items, Mode=OneWay}" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:TreeViewItem">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{x:Bind Depth, Converter={StaticResource DepthConverter}, ConverterParameter=5}"/>
+                            <ColumnDefinition Width="{x:Bind Depth, Converter={StaticResource DepthConverter}, ConverterParameter=10}"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock DataContext="{x:Bind Content}" Tag="{x:Bind}" Text="{Binding CommentText}" Grid.Column="1" Tapped="Grid_Tapped"/>
+                        <!--<TextBlock DataContext="{x:Bind Content}" Tag="{x:Bind}" Text="{Binding CommentText}" Grid.Column="1" Tapped="Grid_Tapped"/>-->
+                        <templates:CommentTemplate 
+                            DataContext="{x:Bind}" 
+                            Tag="{x:Bind}"
+                            Grid.Column="1"
+                            ExpandRequested="CommentTemplate_ExpandRequested"
+                            CollapseRequested="CommentTemplate_CollapseRequested"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

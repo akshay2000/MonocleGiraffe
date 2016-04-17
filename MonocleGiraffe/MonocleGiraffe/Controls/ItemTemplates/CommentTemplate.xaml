@@ -1,0 +1,96 @@
+﻿<UserControl
+    x:Class="MonocleGiraffe.Controls.ItemTemplates.CommentTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Controls.ItemTemplates"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:MonocleGiraffe.Models"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <!--  Note the 15 padding on the right keeps us off the scrollbar on desktop  -->
+        <Border
+            BorderBrush="{StaticResource AppThemeBrush}"
+            BorderThickness="2,0,0,0"             
+            Padding="0,10,15,10">
+
+
+            <!--  The full comment view  -->
+            <Grid Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="0,-5,0,5" DataContext="{Binding Content}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border 
+                                Margin="-2,0,6,0">
+                        <TextBlock 
+                                    Margin="2,0,2,0"
+                                    Text="{Binding Author}" />
+                    </Border>
+                    <TextBlock 
+                                Grid.Column="1"
+                                Margin="0,0,8,0"
+                                Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                Text="{Binding Ups}" />
+                </Grid>
+
+                <TextBlock 
+                            Grid.Row="1"
+                            Text="{Binding Content.CommentText}"/>
+
+                <!--  Comment buttons  -->
+                <!--  Note we use - margins and postive padding to make the hit box larger  -->
+                <!--  Note!! We can't use the simpleTextButton control here because it is too expensive.  -->
+                <StackPanel Grid.Row="2"
+                                    Margin="0,5,0,0"
+                                    Orientation="Horizontal">
+                    <Border Margin="-4,-4,-4,-13"
+                                    Background="#01000000"
+                                    Padding="4,4,14,13">
+                        <TextBlock 
+                                    FontSize="15"
+                                    Foreground="#999999"
+                                    Text="up" />
+                    </Border>
+                    <Border Margin="-4,-4,-4,-13"
+                                    Background="#01000000"
+                                    Padding="4,4,14,13">
+                        <TextBlock 
+                                    FontSize="15"
+                                    Foreground="#999999"
+                                    Text="down" />
+                    </Border>
+                    <Border Margin="-4,-4,-4,-13"
+                                    Background="#01000000"
+                                    Padding="4,4,14,13"
+                                    Tapped="CommentCollapse_Tapped">
+                        <TextBlock FontSize="15"
+                                           Foreground="#999999"
+                                           Text="collapse"
+                                   Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibilityConverter}}"/>                        
+                    </Border>
+                    <Border Margin="-4,-4,-4,-13"
+                                    Background="#01000000"
+                                    Padding="4,4,14,13"
+                                    Tapped="CommentExpand_Tapped">
+                        <TextBlock FontSize="15"
+                                           Foreground="#999999"
+                                           Text="expand"
+                                   Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
