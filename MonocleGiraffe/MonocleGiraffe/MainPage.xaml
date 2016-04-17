@@ -6,10 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:t10c="using:Template10.Controls"
-    xmlns:tree="using:MonocleGiraffe.Controls.TreeView"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="Black">
-        <tree:CommentsPanel/>
     </Grid>
 </Page>

@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Template10.Mvvm;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,17 +19,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace MonocleGiraffe.Controls.TreeView
+namespace MonocleGiraffe.Controls
 {
-    public sealed partial class CommentsPanel : UserControl, INotifyPropertyChanged
+    public sealed partial class TreeView : UserControl, INotifyPropertyChanged
     {
-        public CommentsPanel()
+        public TreeView()
         {
             this.InitializeComponent();
-            //InitDesign();
         }
-
-
 
         public IEnumerable<ITreeItem> ItemsSource
         {
@@ -40,14 +36,14 @@ namespace MonocleGiraffe.Controls.TreeView
 
         // Using a DependencyProperty as the backing store for ItemsSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable<ITreeItem>), typeof(CommentsPanel), new PropertyMetadata(null, new PropertyChangedCallback(ItemsSourceChanged)));
+            DependencyProperty.Register("ItemsSource", typeof(IEnumerable<ITreeItem>), typeof(TreeView), new PropertyMetadata(null, new PropertyChangedCallback(ItemsSourceChanged)));
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue == null)
                 return;
             var newValue = e.NewValue as IEnumerable<ITreeItem>;
-            var panel = (CommentsPanel)d;
+            var panel = (TreeView)d;
             panel.Items = new ObservableCollection<TreeViewItem>(Translate(newValue.ToList(), 0, new List<int>()));
         }
 
@@ -74,39 +70,6 @@ namespace MonocleGiraffe.Controls.TreeView
             return ret;
         }
 
-        //private void InitDesign()
-        //{
-        //    var comments = new List<TreeItem>()
-        //    {
-        //        new TreeItem
-        //        {
-        //            Content = "1Comment",
-        //            Children = new List<TreeItem>
-        //            {
-        //                new TreeItem {Content = "1.1Comment" },
-        //                new TreeItem {Content = "1.2Comment" },
-        //                new TreeItem {Content = "1.3Comment" },
-        //                new TreeItem {Content = "1.4Comment" },
-        //            }
-        //        },
-        //        new TreeItem
-        //        {
-        //            Content = "2Comment",
-        //            Children = new List<TreeItem>
-        //            {
-        //                new TreeItem {Content = "2.1Comment" },
-        //                new TreeItem {Content = "2.2Comment" },
-        //                new TreeItem {Content = "2.3Comment" },
-        //                new TreeItem {Content = "2.4Comment" },
-        //            }
-        //        }
-        //    };
-          //  var p = Translate(new List<TreeItem>(), 0, new List<int>());
-        //    Items = new RangeObservableCollection<TreeViewItem>();
-        //    //Items.AddRange(p);
-        //}
-
-
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -131,17 +94,14 @@ namespace MonocleGiraffe.Controls.TreeView
             int index = Items.IndexOf(tappedItem);
             if (tappedItem.IsExpanded)
             {
-                //int depth = tappedItem.Depth;
-                //int nextDepth = Items[++index].Depth;
-                //while (nextDepth > depth && index < Items.Count)
-                //{
-                //    Items.RemoveAt(index);
-                //    if (Items.Count > index)
-                //        nextDepth = Items[index].Depth;
-                //}
-                foreach (var item in tappedItem.Children)
+                int depth = tappedItem.Depth;
+                index++;
+                int nextDepth = index < Items.Count ? Items[index].Depth : 0;
+                while (nextDepth > depth && index < Items.Count)
                 {
-                    Items.Remove(item);
+                    Items.RemoveAt(index);
+                    if (Items.Count > index)
+                        nextDepth = Items[index].Depth;
                 }
                 tappedItem.IsExpanded = false;
             }
@@ -222,5 +182,11 @@ namespace MonocleGiraffe.Controls.TreeView
             _suppressNotification = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
+    }
+
+    public interface ITreeItem
+    {
+        object Content { get; set; }
+        List<ITreeItem> Children { get; set; }
     }
 }

@@ -132,10 +132,9 @@
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TreeView\CommentsPanel.xaml.cs">
-      <DependentUpon>CommentsPanel.xaml</DependentUpon>
+    <Compile Include="Controls\TreeView.xaml.cs">
+      <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TreeView\ITreeItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
@@ -245,7 +244,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TreeView\CommentsPanel.xaml">
+    <Page Include="Controls\TreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

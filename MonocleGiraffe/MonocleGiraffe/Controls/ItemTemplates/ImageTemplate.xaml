@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MonocleGiraffe.Controls"
-    xmlns:tree="using:MonocleGiraffe.Controls.TreeView"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -39,6 +38,6 @@
             </Grid>
         </ScrollViewer>
 
-        <tree:CommentsPanel ItemsSource="{Binding Comments}" Grid.Column="1"/>
+        <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
     </Grid>
 </UserControl>

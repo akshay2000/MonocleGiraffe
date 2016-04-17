@@ -1,4 +1,4 @@
-﻿using MonocleGiraffe.Controls.TreeView;
+﻿using MonocleGiraffe.Controls;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
