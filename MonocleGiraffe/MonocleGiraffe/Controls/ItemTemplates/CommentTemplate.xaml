@@ -46,8 +46,9 @@
                 </Grid>
 
                 <TextBlock 
-                            Grid.Row="1"
-                            Text="{Binding Content.CommentText}"/>
+                    Grid.Row="1"
+                    Text="{Binding Content.CommentText}"
+                    TextWrapping="Wrap"/>
 
                 <!--  Comment buttons  -->
                 <!--  Note we use - margins and postive padding to make the hit box larger  -->
@@ -75,10 +76,11 @@
                                     Background="#01000000"
                                     Padding="4,4,14,13"
                                     Tapped="CommentCollapse_Tapped">
-                        <TextBlock FontSize="15"
-                                           Foreground="#999999"
-                                           Text="collapse"
-                                   Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibilityConverter}}"/>                        
+                        <TextBlock 
+                            FontSize="15"
+                            Foreground="#999999"
+                            Text="collapse"
+                            Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibilityConverter}}"/>                        
                     </Border>
                     <Border Margin="-4,-4,-4,-13"
                                     Background="#01000000"

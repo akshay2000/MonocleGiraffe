@@ -11,33 +11,87 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="400"/>
-        </Grid.ColumnDefinitions>
-        <ScrollViewer>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidhStateGroup">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.Setters>
+                        <Setter Target="NarrowView.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.Setters>
+                        <Setter Target="WideView.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid x:Name="WideView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Background="#FF252525">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding Title}"/>
+                    <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
 
-                <TextBlock Grid.Row="1">
-                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
-                </TextBlock>
+                    <TextBlock Grid.Row="1" Margin="12,0,12,12">
+                        <Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text="points" Foreground="#FF959595"/>
+                    </TextBlock>
 
-                <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
-                    <controls:ImageUserControl />
-                </Viewbox>
+                    <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
+                        <controls:ImageUserControl />
+                    </Viewbox>
 
-                <TextBlock Text="{Binding Description}" Grid.Row="3"/>
-            </Grid>
-        </ScrollViewer>
+                    <Border Background="#FF333333" Grid.Row="3">
+                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
 
-        <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
+            <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
+        </Grid>
+
+        <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">            
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Background="#FF252525">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>                        
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
+
+                    <TextBlock Grid.Row="1" Margin="12,0,12,12">
+                        <Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text="points" Foreground="#FF959595"/>
+                    </TextBlock>
+
+                    <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
+                        <controls:ImageUserControl />
+                    </Viewbox>
+
+                    <Border Background="#FF333333" Grid.Row="3">
+                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                    </Border>
+
+                    <!--<controls:TreeView ItemsSource="{Binding Comments}" Grid.Row="4"/>-->
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

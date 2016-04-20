@@ -100,50 +100,127 @@
     </UserControl.Resources>
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidhStateGroup">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.Setters>
+                        <Setter Target="NarrowView.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.Setters>
+                        <Setter Target="WideView.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         
-        <ListView
+        <Grid x:Name="WideView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+            <ListView
             ItemsSource="{Binding AlbumImages}"
             ItemContainerStyle="{StaticResource ThinListViewItem}"
-            SelectionMode="None">           
-            <ListView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+            SelectionMode="None">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding Title}"/>
+                            <TextBlock Text="{Binding Title}"/>
 
-                        <TextBlock Grid.Row="1">
+                            <TextBlock Grid.Row="1">
                             <!--Keep all Run tags on the same line to avoid unwanted whitespaces-->
                             <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
-                        </TextBlock>
-                    </Grid>
-                </DataTemplate>
-            </ListView.HeaderTemplate>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Title}"/>
-                        <Viewbox Grid.Row="1" StretchDirection="DownOnly">
-                            <controls:ImageUserControl/>
-                        </Viewbox>
-                        <TextBlock Text="{Binding Description}" Grid.Row="2"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.FooterTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Description}" Grid.Row="3"/>
-                </DataTemplate>
-            </ListView.FooterTemplate>
-        </ListView>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Title}"/>
+                            <Viewbox Grid.Row="1" StretchDirection="DownOnly">
+                                <controls:ImageUserControl/>
+                            </Viewbox>
+                            <TextBlock Text="{Binding Description}" Grid.Row="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.FooterTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Description}" Grid.Row="3" TextWrapping="Wrap"/>
+                    </DataTemplate>
+                </ListView.FooterTemplate>
+            </ListView>
+
+            <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
+        </Grid>
+
+        <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListView
+            ItemsSource="{Binding AlbumImages}"
+            ItemContainerStyle="{StaticResource ThinListViewItem}"
+            SelectionMode="None">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Title}"/>
+
+                            <TextBlock Grid.Row="1">
+                            <!--Keep all Run tags on the same line to avoid unwanted whitespaces-->
+                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Title}"/>
+                            <Viewbox Grid.Row="1" StretchDirection="DownOnly">
+                                <controls:ImageUserControl/>
+                            </Viewbox>
+                            <TextBlock Text="{Binding Description}" Grid.Row="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.FooterTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Description}" Grid.Row="3" TextWrapping="Wrap"/>
+                    </DataTemplate>
+                </ListView.FooterTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 
 </UserControl>
