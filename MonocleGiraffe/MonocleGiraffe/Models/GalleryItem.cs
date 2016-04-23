@@ -133,7 +133,7 @@ namespace MonocleGiraffe.Models
         {
             if (image.IsAlbum)
             {
-                SharpImgur.Models.Album album = await SharpImgur.APIWrappers.Albums.GetAlbum(image.Id);
+                Album album = await Albums.GetAlbum(image.Id);
                 foreach (var image in album.Images)
                 {
                     albumImages.Add(new GalleryItem(image));

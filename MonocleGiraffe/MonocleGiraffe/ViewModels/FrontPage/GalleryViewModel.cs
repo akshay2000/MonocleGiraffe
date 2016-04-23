@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Models;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using SharpImgur.APIWrappers;
 using SharpImgur.Models;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using System.Threading;
+using static SharpImgur.APIWrappers.Enums;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -36,10 +39,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             LoadGallery(POPULAR, VIRAL);
         }
 
-        public async Task Reload()
+        public void Reload()
         {
             Topic topic = Topics[TopicSelectedIndex];
-            await LoadTopicGallery(topic, VIRAL);
+            LoadTopicGallery(topic, VIRAL);
         }
 
         #region Section and Sorting
@@ -93,27 +96,22 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         DelegateCommand<string> sortCommand;
         public DelegateCommand<string> SortCommand
-           => sortCommand ?? (sortCommand = new DelegateCommand<string>(async (string parameter) =>
+           => sortCommand ?? (sortCommand = new DelegateCommand<string>((string parameter) =>
            {
                Topic topic = Topics[TopicSelectedIndex];
-               await LoadTopicGallery(topic, parameter);
+               LoadTopicGallery(topic, parameter);
            }));
 
         #endregion
 
-        private async void LoadGallery(string sectionString, string sortString)
+        private void LoadGallery(string sectionString, string sortString)
         {
             Section = sectionString;
             IsSectionVisible = true;
-            Images = new ObservableCollection<GalleryItem>();
-            Enums.Section section = ToSection(sectionString);
-            Enums.Sort sort = ToSort(sortString);
-            var gallery = await Gallery.GetGallery(section, sort);
-            foreach (var image in gallery)
-            {
-                var gItem = new GalleryItem(image);
-                Images.Add(gItem);
-            }
+            Section section = ToSection(sectionString);
+            Sort sort = ToSort(sortString);
+            Images = new IncrementalGallery(MOST_VIRAL, section, sort);
+            Images.LoadMoreItemsAsync(10);
         }
 
         private async void LoadTopics()
@@ -132,8 +130,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref title, value); }
         }
         
-        private ObservableCollection<GalleryItem> images;
-        public ObservableCollection<GalleryItem> Images
+        private IncrementalGallery images;
+        public IncrementalGallery Images
         {
             get { return images; }
             set { Set(ref images, value); }
@@ -193,29 +191,23 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref topicSelectedIndex, value); }
         }
 
-        public async void TopicTapped(object sender, object parameter)
+        public void TopicTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as Topic;
             ClosePane();
-            await LoadTopicGallery(clickedItem, VIRAL);
+            LoadTopicGallery(clickedItem, VIRAL);
         }
 
-        private async Task LoadTopicGallery(Topic topic, string sortString)
+        private void LoadTopicGallery(Topic topic, string sortString)
         {
-            Images = new ObservableCollection<GalleryItem>();
             Title = topic.Name;
             if (topic.Name == MOST_VIRAL)
                 LoadGallery(Section, sortString);
             else
             {
-                IsSectionVisible = false;                
-                var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id, ToSort(sortString));
-                foreach (var image in gallery)
-                {
-                    var gItem = new GalleryItem(image);
-                    Images.Add(gItem);
-                }
+                IsSectionVisible = false;
+                Images = new IncrementalGallery(topic.Name, ToSort(sortString), topic.Id);
             }
         }
 
@@ -224,7 +216,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Title = MOST_VIRAL;
             Section = POPULAR;
             isSectionVisible = true;
-            Images = new ObservableCollection<GalleryItem>();
+            Images = new IncrementalGallery(Title, ToSection(POPULAR), Sort.Viral);
             Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345 }));
             Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
             Images.Add(new GalleryItem(new Image { Title = "Slow Cooker Parmesan Honey Pork Roast", Animated = true, Link = "http://i.imgur.com/AhoWKkYh.gif", AccountUrl = "drocks27", Mp4 = "http://i.imgur.com/AhoWKkY.mp4", Ups = 6419, CommentCount = 561 }));
@@ -247,6 +239,62 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Topics.Add(new Topic { Name = "Random", Description = "a mix from the imgur archives" });
             Topics.Add(new Topic { Name = "Staff Picks", Description = "great posts picked by imgur staff" });
             Topics.Add(new Topic { Name = "Funny", Description = "if it makes you laugh, you'll find it here" });
+        }
+
+        public class IncrementalGallery : IncrementalCollection<GalleryItem>
+        {
+            private const string VIRAL = "Viral";
+            private const string TIME = "Time";
+            private const string POPULAR = "Popular";
+            private const string TOP = "Top";
+            private const string MOST_VIRAL = "MOST VIRAL";
+
+            public IncrementalGallery(string title, Sort sort, int topicId)
+            {
+                Title = title;
+                Sort = sort;
+                TopicId = topicId;
+            }
+
+            public IncrementalGallery(string title, Section section, Sort sort)
+            {
+                Title = title;
+                Section = section;
+                Sort = sort;
+            }
+
+            public string Title { get; private set; }
+
+            public Section Section { get; private set; }
+
+            public Sort Sort { get; private set; }
+
+            public int TopicId { get; private set; }
+
+            protected override bool HasMoreItemsImpl()
+            {
+                return true;
+            }
+
+            protected override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
+            {
+                if (Title == MOST_VIRAL)
+                    return GetGallery(page);
+                else
+                    return GetTopicGallery(page);
+            }
+
+            private async Task<List<GalleryItem>> GetGallery(uint page)
+            {
+                var gallery = await Gallery.GetGallery(Section, Sort, (int)page);
+                return gallery.Select(i => new GalleryItem(i)).ToList();
+            }
+
+            private async Task<List<GalleryItem>> GetTopicGallery(uint page)
+            {
+                var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(TopicId, Sort, (int)page);
+                return gallery.Select(i => new GalleryItem(i)).ToList();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
+    xmlns:controls="using:MonocleGiraffe.Controls"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -30,7 +31,7 @@
     </Page.Resources>
     
     <Grid Background="Black">
-        <FlipView 
+        <controls:IncrementalFlipView 
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"/>

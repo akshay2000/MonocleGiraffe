@@ -69,7 +69,7 @@ namespace MonocleGiraffe.ViewModels
             switch (PivotIndex)
             {
                 case 0:
-                    await GalleryVM.Reload();
+                    GalleryVM.Reload();
                     break;
                 case 2:
                     await SearchVM.Refresh("default");

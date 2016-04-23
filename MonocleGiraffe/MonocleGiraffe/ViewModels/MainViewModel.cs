@@ -210,20 +210,20 @@ namespace MonocleGiraffe.ViewModels
 
         public async void LoadGallery()
         {
-            ImageItems = new ObservableCollection<GalleryItem>();
-            GalleryTitle = "Gallery";
-            var gallery = await Gallery.GetGallery( Enums.Section.Top);
-            foreach (var image in gallery)
-            {
-                var gItem = new GalleryItem(image);
-                Debug.Write("Title = \"" + gItem.Title + "\", ");
-                //Debug.Write(gItem.Description + ",");
-                Debug.Write("IsAnimated = \"" + gItem.IsAnimated + "\", ");
-                Debug.Write("Link = \"" + gItem.Link + "\", ");
-                Debug.Write("UploaderName = \"" + gItem.UploaderName + "\", ");
-                Debug.WriteLine("Mp4 = \"" + gItem.Mp4 + "\"");
-                ImageItems.Add(gItem);
-            }
+            //ImageItems = new ObservableCollection<GalleryItem>();
+            //GalleryTitle = "Gallery";
+            //var gallery = await Gallery.GetGallery( Enums.Section.Top);
+            //foreach (var image in gallery)
+            //{
+            //    var gItem = new GalleryItem(image);
+            //    Debug.Write("Title = \"" + gItem.Title + "\", ");
+            //    //Debug.Write(gItem.Description + ",");
+            //    Debug.Write("IsAnimated = \"" + gItem.IsAnimated + "\", ");
+            //    Debug.Write("Link = \"" + gItem.Link + "\", ");
+            //    Debug.Write("UploaderName = \"" + gItem.UploaderName + "\", ");
+            //    Debug.WriteLine("Mp4 = \"" + gItem.Mp4 + "\"");
+            //    ImageItems.Add(gItem);
+            //}
         }
 
         public async void LoadSubreddit(SubredditItem subreddit)
@@ -239,13 +239,13 @@ namespace MonocleGiraffe.ViewModels
 
         public async void LoadTopic(SharpImgur.Models.Topic topic)
         {
-            ImageItems = new ObservableCollection<GalleryItem>();
-            GalleryTitle = topic.Name;
-            var topicGallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id);
-            foreach (var image in topicGallery)
-            {
-                ImageItems.Add(new GalleryItem(image));
-            }
+            //ImageItems = new ObservableCollection<GalleryItem>();
+            //GalleryTitle = topic.Name;
+            //var topicGallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(topic.Id);
+            //foreach (var image in topicGallery)
+            //{
+            //    ImageItems.Add(new GalleryItem(image));
+            //}
         }
     }
 }

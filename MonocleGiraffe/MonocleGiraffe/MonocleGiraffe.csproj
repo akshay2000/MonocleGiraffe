@@ -111,6 +111,7 @@
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IncrementalFlipView.cs" />
     <Compile Include="Controls\ItemTemplates\AlbumTemplate.xaml.cs">
       <DependentUpon>AlbumTemplate.xaml</DependentUpon>
     </Compile>
@@ -141,6 +142,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
+    <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
