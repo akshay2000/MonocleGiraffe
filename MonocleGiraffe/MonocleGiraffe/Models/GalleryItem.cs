@@ -17,15 +17,14 @@ namespace MonocleGiraffe.Models
 
     public class GalleryItem : BindableBase
     {
-        private Image image;
-            
-        private const string baseUrl = "http://i.imgur.com/";
+        private Image image;        
 
         public GalleryItem(Image image)
         {
             this.image = image;
-            SetThumbnails();
         }
+
+        #region Available members
 
         public string Title
         {
@@ -65,27 +64,7 @@ namespace MonocleGiraffe.Models
             {
                 return image.AccountUrl;
             }
-        }
-
-        private string smallThumbnail;
-        public string SmallThumbnail
-        {
-            get
-            {
-                return smallThumbnail;
-            }
-            set { Set(ref smallThumbnail, value); }
-        }
-
-        private string bigThumbnail;
-        public string BigThumbnail
-        {
-            get
-            {
-                return bigThumbnail;
-            }
-            set { Set(ref bigThumbnail, value); }
-        }
+        }       
 
         public int? Ups
         {
@@ -96,49 +75,10 @@ namespace MonocleGiraffe.Models
         {
             get { return image.CommentCount; }
         }
-
-
+        
         public GalleryItemType ItemType
         {
             get { return GetImageType(); }
-        }
-
-        private ObservableCollection<GalleryItem> albumImages = new ObservableCollection<GalleryItem>();
-        public ObservableCollection<GalleryItem> AlbumImages
-        {
-            get
-            {
-                if (albumImages.Count == 0)
-                    LoadAlbumImages();
-                return albumImages;
-            }
-        }
-
-        public int Width
-        {
-            get { return image.Width; }
-        }
-
-        public int Height
-        {
-            get { return image.Height; }
-        }
-
-        public bool IsAnimated
-        {
-            get { return image.Animated; }
-        }
-
-        private async void LoadAlbumImages()
-        {
-            if (image.IsAlbum)
-            {
-                Album album = await Albums.GetAlbum(image.Id);
-                foreach (var image in album.Images)
-                {
-                    albumImages.Add(new GalleryItem(image));
-                }
-            }
         }
 
         private GalleryItemType GetImageType()
@@ -157,32 +97,109 @@ namespace MonocleGiraffe.Models
             }
         }
 
-        private List<CommentItem> comments = new List<CommentItem>();
+        public int Width
+        {
+            get { return image.Width; }
+        }
+
+        public int Height
+        {
+            get { return image.Height; }
+        }
+
+        public bool IsAnimated
+        {
+            get { return image.Animated; }
+        }
+
+        #endregion
+
+        #region Lazy members
+
+        private const string baseUrl = "http://i.imgur.com/";
+
+        private List<GalleryItem> albumImages;
+        public List<GalleryItem> AlbumImages
+        {
+            get
+            {
+                if (albumImages == null)
+                    LoadAlbumImages();
+                return albumImages;
+            }
+            set { Set(ref albumImages, value); }
+        }
+
+        private async Task LoadAlbumImages()
+        {
+            if (image.IsAlbum)
+            {
+                var album = await GetAlbum();
+                AlbumImages = album?.Images?.Select(i => new GalleryItem(i)).ToList();
+            }
+        }
+
+        private List<CommentItem> comments;
         public List<CommentItem> Comments
         {
             get
             {
-                if (comments.Count == 0)
-                    LoadComments(image.Id);
+                if (comments == null)
+                    LoadComments();
                 return comments;
             }
             set { Set(ref comments, value); }
         }
 
+        private async Task LoadComments()
+        {
+            var commentsList = await Gallery.GetComments(image.Id);
+            Comments = commentsList?.Select(c => new CommentItem(c)).ToList();
+        }
+
+        private string smallThumbnail;
+        public string SmallThumbnail
+        {
+            get
+            {
+                if (smallThumbnail == default(string))
+                    LoadThumbnails();
+                return smallThumbnail;
+            }
+            set { Set(ref smallThumbnail, value); }
+        }
+        
         private string thumbnail;
         public string Thumbnail
         {
-            get { return thumbnail; }
+            get
+            {
+                if (thumbnail == default(string))
+                    LoadThumbnails();
+                return thumbnail;
+            }
             set { Set(ref thumbnail, value); }
         }
 
-        private async void SetThumbnails()
+        private string bigThumbnail;
+        public string BigThumbnail
+        {
+            get
+            {
+                if (bigThumbnail == default(string))
+                    LoadThumbnails();
+                return bigThumbnail;
+            }
+            set { Set(ref bigThumbnail, value); }
+        }
+
+        private async Task LoadThumbnails()
         {
             string thumbnailId;
             if (image.IsAlbum)
             {
-                var album = await SharpImgur.APIWrappers.Albums.GetAlbum(image.Id);
-                thumbnailId = album.Cover;
+                var album = await GetAlbum();
+                thumbnailId = album?.Cover;
             }
             else
             {
@@ -196,15 +213,14 @@ namespace MonocleGiraffe.Models
                 BigThumbnail = baseUrl + thumbnailId + "l.jpg";
         }
 
-        private async void LoadComments(string imageId)
+        Album album = null;
+        private async Task<Album> GetAlbum()
         {
-            var commentsList = await Gallery.GetComments(imageId);
-            var c = new List<CommentItem>();
-            foreach (var comment in commentsList)
-            {
-                c.Add(new CommentItem(comment));
-            }
-            Comments = c;
+            if (album == null)
+                album = await Albums.GetAlbum(image.Id);
+            return album;
         }
+
+        #endregion
     }
 }

@@ -33,10 +33,12 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 Init();
         }
 
-        private void Init()
+        private async void Init()
         {
             Title = MOST_VIRAL;
             LoadGallery(POPULAR, VIRAL);
+            await Task.Delay(100);
+            await LoadTopics();
         }
 
         public void Reload()
@@ -111,10 +113,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Section section = ToSection(sectionString);
             Sort sort = ToSort(sortString);
             Images = new IncrementalGallery(MOST_VIRAL, section, sort);
-            Images.LoadMoreItemsAsync(10);
+            //Images.LoadMoreItemsAsync(10);
         }
 
-        private async void LoadTopics()
+        private async Task LoadTopics()
         {
             var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
             topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
@@ -175,12 +177,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private ObservableCollection<Topic> topics = new ObservableCollection<Topic>();
         public ObservableCollection<Topic> Topics
         {
-            get
-            {
-                if (topics.Count == 0)
-                    LoadTopics();
-                return topics;
-            }
+            get{ return topics; }
             set { Set(ref topics, value); }
         }
 

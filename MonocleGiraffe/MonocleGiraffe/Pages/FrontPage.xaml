@@ -40,13 +40,13 @@
                     </TransitionCollection>
                 </Setter.Value>
             </Setter>
-            <Setter Property="ItemsPanel">
+            <!--<Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
                         <controls:ColumnPanel />
                     </ItemsPanelTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridView">
@@ -412,7 +412,7 @@
                                     </Grid>
                                 </Border>
                             </Grid>
-                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="2" DataFetchSize="2" IncrementalLoadingTrigger="Edge" >
+                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="0" DataFetchSize="1" IncrementalLoadingTrigger="Edge" >
                                 <GridView.ItemContainerStyle>
                                     <Style TargetType="GridViewItem">
                                         <Setter Property="Margin" Value="0,0,12,12"/>
