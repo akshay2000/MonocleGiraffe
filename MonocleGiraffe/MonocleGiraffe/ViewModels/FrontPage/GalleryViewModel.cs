@@ -131,7 +131,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             get { return title; }
             set { Set(ref title, value); }
         }
-        
+
         private IncrementalGallery images;
         public IncrementalGallery Images
         {
@@ -144,8 +144,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             get { return imageSelectedIndex; }
             set { Set(ref imageSelectedIndex, value); }
-        }        
-        
+        }
+
         public void ImageTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
@@ -154,7 +154,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             const string navigationParamName = "GalleryInfo";
             BootStrapper.Current.SessionState[navigationParamName] = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
             BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
-            return;           
+            return;
         }
 
         private bool isPaneOpen;
@@ -177,7 +177,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private ObservableCollection<Topic> topics = new ObservableCollection<Topic>();
         public ObservableCollection<Topic> Topics
         {
-            get{ return topics; }
+            get { return topics; }
             set { Set(ref topics, value); }
         }
 
@@ -237,61 +237,62 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Topics.Add(new Topic { Name = "Staff Picks", Description = "great posts picked by imgur staff" });
             Topics.Add(new Topic { Name = "Funny", Description = "if it makes you laugh, you'll find it here" });
         }
+    }
 
-        public class IncrementalGallery : IncrementalCollection<GalleryItem>
+    public class IncrementalGallery : IncrementalCollection<GalleryItem>
+    {
+        private const string VIRAL = "Viral";
+        private const string TIME = "Time";
+        private const string POPULAR = "Popular";
+        private const string TOP = "Top";
+        private const string MOST_VIRAL = "MOST VIRAL";
+
+        public IncrementalGallery(string title, Sort sort, int topicId)
         {
-            private const string VIRAL = "Viral";
-            private const string TIME = "Time";
-            private const string POPULAR = "Popular";
-            private const string TOP = "Top";
-            private const string MOST_VIRAL = "MOST VIRAL";
+            Title = title;
+            Sort = sort;
+            TopicId = topicId;
+        }
 
-            public IncrementalGallery(string title, Sort sort, int topicId)
-            {
-                Title = title;
-                Sort = sort;
-                TopicId = topicId;
-            }
+        public IncrementalGallery(string title, Section section, Sort sort)
+        {
+            Title = title;
+            Section = section;
+            Sort = sort;
+        }
 
-            public IncrementalGallery(string title, Section section, Sort sort)
-            {
-                Title = title;
-                Section = section;
-                Sort = sort;
-            }
+        public string Title { get; private set; }
 
-            public string Title { get; private set; }
+        public Section Section { get; private set; }
 
-            public Section Section { get; private set; }
+        public Sort Sort { get; private set; }
 
-            public Sort Sort { get; private set; }
+        public int TopicId { get; private set; }
 
-            public int TopicId { get; private set; }
+        protected override bool HasMoreItemsImpl()
+        {
+            return true;
+        }
 
-            protected override bool HasMoreItemsImpl()
-            {
-                return true;
-            }
+        protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
+        {
+            if (Title == MOST_VIRAL)
+                return await GetGallery(page);
+            else
+                return await GetTopicGallery(page);
+        }
 
-            protected override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
-            {
-                if (Title == MOST_VIRAL)
-                    return GetGallery(page);
-                else
-                    return GetTopicGallery(page);
-            }
+        private async Task<List<GalleryItem>> GetGallery(uint page)
+        {
+            var gallery = await Gallery.GetGallery(Section, Sort, (int)page);
+            return gallery?.Select(i => new GalleryItem(i)).ToList();
+        }
 
-            private async Task<List<GalleryItem>> GetGallery(uint page)
-            {
-                var gallery = await Gallery.GetGallery(Section, Sort, (int)page);
-                return gallery.Select(i => new GalleryItem(i)).ToList();
-            }
-
-            private async Task<List<GalleryItem>> GetTopicGallery(uint page)
-            {
-                var gallery = await SharpImgur.APIWrappers.Topics.GetTopicGallery(TopicId, Sort, (int)page);
-                return gallery.Select(i => new GalleryItem(i)).ToList();
-            }
+        private async Task<List<GalleryItem>> GetTopicGallery(uint page)
+        {
+            var gallery = await Topics.GetTopicGallery(TopicId, Sort, (int)page);
+            return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
     }
+    
 }
