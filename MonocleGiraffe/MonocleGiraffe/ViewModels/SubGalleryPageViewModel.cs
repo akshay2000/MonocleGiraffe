@@ -16,6 +16,7 @@ using Windows.ApplicationModel;
 using Windows.UI;
 using Windows.UI.Xaml.Navigation;
 using System.Threading;
+using MonocleGiraffe.Pages;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -37,6 +38,13 @@ namespace MonocleGiraffe.ViewModels
         IncrementalSubredditGallery images = default(IncrementalSubredditGallery);
         public IncrementalSubredditGallery Images { get { return images; } set { Set(ref images, value); } }
 
+        private int imageSelectedIndex;
+        public int ImageSelectedIndex
+        {
+            get { return imageSelectedIndex; }
+            set { Set(ref imageSelectedIndex, value); }
+        }
+
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (state.Any())
@@ -46,8 +54,15 @@ namespace MonocleGiraffe.ViewModels
             }
             else
             {
-                var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
-                Images = new IncrementalSubredditGallery(sub.Url);
+                if (mode == NavigationMode.Back)
+                {
+                    ImageSelectedIndex = galleryMetaInfo?.SelectedIndex ?? 0;
+                }
+                else
+                {
+                    var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
+                    Images = new IncrementalSubredditGallery(sub.Url);
+                }
             }
             await Task.CompletedTask;
         }
@@ -65,6 +80,19 @@ namespace MonocleGiraffe.ViewModels
         {
             args.Cancel = false;
             await Task.CompletedTask;
+        }
+
+        private GalleryMetaInfo galleryMetaInfo;
+
+        public void ImageTapped(object sender, object parameter)
+        {
+            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
+            var clickedItem = args.ClickedItem as GalleryItem;
+            const string navigationParamName = "GalleryInfo";
+            galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = Images.IndexOf(clickedItem) };
+            BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
+            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+            return;
         }
     }
 

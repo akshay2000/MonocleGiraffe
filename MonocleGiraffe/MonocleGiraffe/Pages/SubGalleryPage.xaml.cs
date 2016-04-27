@@ -25,6 +25,13 @@ namespace MonocleGiraffe.Pages
         public SubGalleryPage()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+        }
+
+        public void ScrollMe(object sender, object parameter)
+        {
+            int selectedIndex = (int)((parameter as DependencyPropertyChangedEventArgs).NewValue);
+            MainGridView.ScrollIntoView(MainGridView.Items[selectedIndex]);
         }
     }
 }

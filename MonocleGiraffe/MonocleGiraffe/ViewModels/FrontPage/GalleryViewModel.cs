@@ -146,13 +146,16 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref imageSelectedIndex, value); }
         }
 
+        private GalleryMetaInfo galleryMetaInfo;
+
         public void ImageTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as GalleryItem;
             ImageSelectedIndex = Images.IndexOf(clickedItem);
             const string navigationParamName = "GalleryInfo";
-            BootStrapper.Current.SessionState[navigationParamName] = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
+            galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
+            BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
             BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
             return;
         }

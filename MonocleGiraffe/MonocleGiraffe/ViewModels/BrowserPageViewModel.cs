@@ -49,12 +49,19 @@ namespace MonocleGiraffe.ViewModels
             set { Set(ref flipViewIndex, value); }
         }
 
+        GalleryMetaInfo galleryMetaInfo;
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            var param = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
-            Images = param.Gallery;
-            FlipViewIndex = param.SelectedIndex;
+            galleryMetaInfo = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
+            Images = galleryMetaInfo.Gallery;
+            FlipViewIndex = galleryMetaInfo.SelectedIndex;
             return base.OnNavigatedToAsync(parameter, mode, state);
+        }
+
+        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        {
+            galleryMetaInfo.SelectedIndex = FlipViewIndex;
+            return base.OnNavigatingFromAsync(args);
         }
 
         private void InitDesignTime()

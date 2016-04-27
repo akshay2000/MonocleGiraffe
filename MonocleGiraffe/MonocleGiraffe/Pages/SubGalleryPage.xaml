@@ -6,19 +6,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:MonocleGiraffe.ViewModels"
-    mc:Ignorable="d">
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    mc:Ignorable="d"
+    x:Name="PageRoot">
 
     <Page.DataContext>
         <vms:SubGalleryPageViewModel/>
     </Page.DataContext>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView ItemsSource="{Binding Images}">
+        <GridView x:Name="MainGridView" ItemsSource="{Binding Images}" IsItemClickEnabled="True" Tag="{Binding ImageSelectedIndex}">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Image Width="100" Height="100" Source="{Binding SmallThumbnail}"/>
                 </DataTemplate>
             </GridView.ItemTemplate>
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ItemClick">
+                    <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                </Core:EventTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{x:Bind MainGridView.Tag}" Value="0" ComparisonCondition="GreaterThan">
+                    <Core:CallMethodAction MethodName="ScrollMe" TargetObject="{x:Bind}"/>
+                </Core:DataTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
         </GridView>
     </Grid>
 </Page>
