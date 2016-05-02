@@ -20,8 +20,8 @@ namespace MonocleGiraffe.Models
             var data = subreddit.Data;
             Url = data.DisplayName;
             Title = data.Title;
-            Subscribers = data.Subscribers;
-            IsMature = data.Over18;
+            Subscribers = data.Subscribers ?? 0;      
+            IsMature = data.Over18 ?? false;
         }
 
         private string url;
@@ -30,7 +30,7 @@ namespace MonocleGiraffe.Models
             get { return url; }
             set { Set(ref url, value); }
         }
-        
+                                                                                                    
         private string title;
         public string Title
         {
