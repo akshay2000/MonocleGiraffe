@@ -25,8 +25,6 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             this.InitializeComponent();
         }
 
-
-
         public ICommand ToggleFavoriteCommand
         {
             get { return (ICommand)GetValue(ToggleFavoriteCommandProperty); }
@@ -37,9 +35,25 @@ namespace MonocleGiraffe.Controls.ItemTemplates
         public static readonly DependencyProperty ToggleFavoriteCommandProperty =
             DependencyProperty.Register("ToggleFavoriteCommand", typeof(ICommand), typeof(RedditResultTemplate), null);
 
-        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ToggleWrapper_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ToggleFavoriteCommand.Execute(DataContext);
+            e.Handled = true;
+        }
+
+        public ICommand GoToSubCommand
+        {
+            get { return (ICommand)GetValue(GoToSubCommandProperty); }
+            set { SetValue(GoToSubCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for GoToSubCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GoToSubCommandProperty =
+            DependencyProperty.Register("GoToSubCommand", typeof(ICommand), typeof(RedditResultTemplate), null);
+
+        private void Wrapper_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            GoToSubCommand.Execute(DataContext);
         }
     }
 }

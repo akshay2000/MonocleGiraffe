@@ -7,10 +7,10 @@
     xmlns:controls="using:MonocleGiraffe.Controls"
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:t10b="using:Template10.Behaviors"
     xmlns:ext="using:MonocleGiraffe.Controls.Extensions"
+    xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="MonocleGiraffe.Pages.FrontPage"
     x:Name="PageRoot"
     mc:Ignorable="d" >
@@ -74,7 +74,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
-                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListLowBrush}" SelectionCheckMarkVisualEnabled="True" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Tag="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListLowBrush}" SelectionCheckMarkVisualEnabled="True" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Tag="{Binding IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -269,7 +269,7 @@
                 </FlyoutBase.AttachedFlyout>
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Tapped">
-                        <t10b:OpenFlyoutAction />
+                        <Behaviors:OpenFlyoutAction/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
             </AppBarButton>
@@ -279,7 +279,7 @@
     </Page.BottomAppBar>
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <Pivot SelectedIndex="{Binding PivotIndex, Mode=TwoWay}" Style="{StaticResource TabbedPivotStyle}">
+        <Pivot SelectedIndex="{Binding PivotIndex, Mode=TwoWay}">
             <Pivot.Resources>
                 <Style TargetType="PivotHeaderItem">
                     <Setter Property="Height" Value="Auto" />
@@ -301,7 +301,7 @@
                                             <VisualState x:Name="Selected">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                       Storyboard.TargetProperty="Tag" >
+														Storyboard.TargetProperty="Tag" >
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="Selected" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -309,7 +309,7 @@
                                             <VisualState x:Name="UnselectedPointerOver">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                       Storyboard.TargetProperty="Tag" >
+														Storyboard.TargetProperty="Tag" >
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="UnselectedPointerOver" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -317,7 +317,7 @@
                                             <VisualState x:Name="SelectedPointerOver">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                       Storyboard.TargetProperty="Tag" >
+														Storyboard.TargetProperty="Tag" >
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="SelectedPointerOver" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -325,7 +325,7 @@
                                             <VisualState x:Name="UnselectedPressed">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                       Storyboard.TargetProperty="Tag" >
+														Storyboard.TargetProperty="Tag" >
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="UnselectedPointerOver" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -333,7 +333,7 @@
                                             <VisualState x:Name="SelectedPressed">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                       Storyboard.TargetProperty="Tag" >
+														Storyboard.TargetProperty="Tag" >
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="SelectedPointerOver" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -341,9 +341,9 @@
                                         </VisualStateGroup>
                                     </VisualStateManager.VisualStateGroups>
                                     <controls:TabHeader
-                                        x:Name="ContentPresenter"
-                                        Payload="{TemplateBinding Content}"
-                                        Tag="Unselected">
+										x:Name="ContentPresenter"
+										Payload="{TemplateBinding Content}"
+										Tag="Unselected">
                                         <controls:TabHeader.RenderTransform>
                                             <TranslateTransform x:Name="ContentPresenterTranslateTransform" />
                                         </controls:TabHeader.RenderTransform>
@@ -354,6 +354,9 @@
                     </Setter>
                 </Style>
             </Pivot.Resources>
+            <Pivot.Style>
+                <StaticResource ResourceKey="TabbedPivotStyle"/>
+            </Pivot.Style>
             <PivotItem Margin="12,0,0,0">
                 <PivotItem.Header>
                     <controls:TabHeaderContent IconPath="F 1 M 16,2.59375 L 15.2813,3.28125 2.28125,16.2813 3.71875,17.7188 5,16.4375 5,27 5,28 6,28 13,28 14,28 14,27 14,18 18,18 18,27 18,28 19,28 26,28 27,28 27,27 27,16.4375 28.2813,17.7188 29.7188,16.2813 16.7188,3.28125 16,2.59375 Z M 16,5.4375 L 25,14.4375 25,26 20,26 20,17 20,16 19,16 13,16 12,16 12,17 12,26 7,26 7,14.4375 16,5.4375 Z" Label="Home"/>
@@ -369,68 +372,66 @@
                                 </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <templates:TopicTemplate Tag="{Binding Path=Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        <templates:TopicTemplate Tag="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Grid>
                     </SplitView.Pane>
-                    <SplitView.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <FontIcon Glyph="&#xE700;" >
-                                    <Interactivity:Interaction.Behaviors>
-                                        <Core:EventTriggerBehavior EventName="Tapped">
-                                            <Core:CallMethodAction MethodName="OpenPane" TargetObject="{Binding Mode=OneWay}"/>
-                                        </Core:EventTriggerBehavior>
-                                    </Interactivity:Interaction.Behaviors>
-                                </FontIcon>
-                                <TextBlock Text="{Binding Title, Converter={StaticResource CaseConverter}, ConverterParameter=u}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
-                                <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Visibility="{Binding IsSectionVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0">
-                                    <FlyoutBase.AttachedFlyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem Text="Popular" Command="{Binding SectionCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"/>
-                                            <MenuFlyoutItem Text="Top" Command="{Binding SectionCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"/>
-                                        </MenuFlyout>
-                                    </FlyoutBase.AttachedFlyout>
-                                    <Interactivity:Interaction.Behaviors>
-                                        <Core:EventTriggerBehavior EventName="Tapped">
-                                            <t10b:OpenFlyoutAction />
-                                        </Core:EventTriggerBehavior>
-                                    </Interactivity:Interaction.Behaviors>
-                                    <Grid>
-                                        <TextBlock Text="{Binding Section}" Margin="12,4" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                            <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="0" DataFetchSize="1" IncrementalLoadingTrigger="Edge" >
-                                <GridView.ItemContainerStyle>
-                                    <Style TargetType="GridViewItem">
-                                        <Setter Property="Margin" Value="0,0,12,12"/>
-                                    </Style>
-                                </GridView.ItemContainerStyle>
-                                <GridView.ItemTemplate>
-                                    <DataTemplate>
-                                        <templates:GalleryThumbnailTemplate/>
-                                    </DataTemplate>
-                                </GridView.ItemTemplate>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Glyph="&#xE700;" >
                                 <Interactivity:Interaction.Behaviors>
-                                    <Core:EventTriggerBehavior EventName="ItemClick">
-                                        <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                                    <Core:EventTriggerBehavior EventName="Tapped">
+                                        <Core:CallMethodAction MethodName="OpenPane" TargetObject="{Binding Mode=OneWay}"/>
                                     </Core:EventTriggerBehavior>
                                 </Interactivity:Interaction.Behaviors>
-                            </GridView>
+                            </FontIcon>
+                            <TextBlock Text="{Binding Title, ConverterParameter=u, Converter={StaticResource CaseConverter}}" Grid.Column="1" Margin="12" VerticalAlignment="Center" FontWeight="Medium" FontSize="16"/>
+                            <Border Grid.Column="2" Background="#FF666666" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="3" Visibility="{Binding IsSectionVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0">
+                                <FlyoutBase.AttachedFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Popular" Command="{Binding SectionCommand}" CommandParameter="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"/>
+                                        <MenuFlyoutItem Text="Top" Command="{Binding SectionCommand}" CommandParameter="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="Tapped">
+                                        <Behaviors:OpenFlyoutAction/>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
+                                <Grid>
+                                    <TextBlock Text="{Binding Section}" Margin="12,4" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
                         </Grid>
-                    </SplitView.Content>
+                        <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="0" DataFetchSize="1" IncrementalLoadingTrigger="Edge" >
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="Margin" Value="0,0,12,12"/>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <templates:GalleryThumbnailTemplate/>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:EventTriggerBehavior EventName="ItemClick">
+                                    <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </GridView>
+                    </Grid>
                 </SplitView>
             </PivotItem>
             <PivotItem>
@@ -475,17 +476,19 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="6,0" Orientation="Horizontal">                        
+                    <StackPanel Margin="6,0" Orientation="Horizontal">
                         <ToggleButton Content="REDDITS" Margin="6,12" Height="25" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Reddits" ext:ToggleButtonExtensions.IsChecked="{Binding IsReddit}" Width="75" />
                         <ToggleButton Content="POSTS" Margin="6,12" Height="25" Grid.Column="1" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Posts" ext:ToggleButtonExtensions.IsChecked="{Binding IsPosts}" Width="75" />
                         <ToggleButton Content="GIFS" Margin="6,12" Height="25" Grid.Column="3" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Gifs" ext:ToggleButtonExtensions.IsChecked="{Binding IsGifs}" Width="75" />
                     </StackPanel>
                     <AutoSuggestBox Text="{Binding QueryText, Mode=TwoWay}" PlaceholderText="Search awesomeness" Margin="12,0" QueryIcon="Find" Grid.Row="1" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
                     <TextBlock Text="Search Results" FontSize="12" Foreground="#FF959595" Grid.Row="2" Margin="12" FontWeight="SemiBold"/>
-                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="3" Visibility="{Binding IsReddit, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="3" Visibility="{Binding IsReddit, Converter={StaticResource BoolToVisibilityConverter}}" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <templates:RedditResultTemplate ToggleFavoriteCommand="{Binding DataContext.SubredditsVM.ToggleFavorite, ElementName=PageRoot}"/>
+                                <templates:RedditResultTemplate 
+                                    ToggleFavoriteCommand="{Binding DataContext.SubredditsVM.ToggleFavorite, ElementName=PageRoot}"
+                                    GoToSubCommand="{Binding DataContext.SubredditsVM.GoToSub, ElementName=PageRoot}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.ItemContainerStyle>
@@ -579,7 +582,7 @@
                             </GridView>
                         </StackPanel>
                     </ScrollViewer>
-                    <Border Background="Black" Visibility="{Binding IsAuth, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}">
+                    <Border Background="Black" Visibility="{Binding IsAuth, ConverterParameter=false, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>
                     </Border>
                 </Grid>

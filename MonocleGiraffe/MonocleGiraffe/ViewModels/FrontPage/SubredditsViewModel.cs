@@ -92,14 +92,25 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             await RoamingDataHelper.StoreText(text, subredditsFileName);
         }
 
+        DelegateCommand<SubredditItem> goToSub;
+        public DelegateCommand<SubredditItem> GoToSub
+           => goToSub ?? (goToSub = new DelegateCommand<SubredditItem>((SubredditItem parameter) =>
+           {
+               NavigateToSub(parameter);
+           }));
+
+        private void NavigateToSub(SubredditItem sub)
+        {
+            string navigationParamName = "Subreddit";
+            BootStrapper.Current.SessionState[navigationParamName] = sub;
+            BootStrapper.Current.NavigationService.Navigate(typeof(SubGalleryPage), navigationParamName);            
+        }
+
         public void SubredditTapped(object sender, object parameter)
         {
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as SubredditItem;
-            string navigationParamName = "Subreddit";
-            BootStrapper.Current.SessionState[navigationParamName] = clickedItem;
-            BootStrapper.Current.NavigationService.Navigate(typeof(SubGalleryPage), navigationParamName);
-            return;           
+            NavigateToSub(clickedItem);
         }
 
         private void LoadSubredditsDesignTime()
