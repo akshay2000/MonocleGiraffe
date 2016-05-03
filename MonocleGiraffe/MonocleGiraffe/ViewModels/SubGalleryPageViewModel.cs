@@ -104,16 +104,24 @@ namespace MonocleGiraffe.ViewModels
         }
 
         public string Subreddit { get; set; }
+        public bool HasMore { get; set; } = true;
 
         protected override bool HasMoreItemsImpl()
         {
-            return true;
+            return HasMore;
         }
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
             var gallery = await Gallery.GetSubreddditGallery(Subreddit, Enums.Sort.Time, (int)page);
-            return gallery?.Select(i => new GalleryItem(i)).ToList();
+            if (gallery == null)
+                return new List<GalleryItem>();
+            if (gallery.Count == 0)
+            {
+                HasMore = false;
+                return new List<GalleryItem>();
+            }
+            return gallery.Select(i => new GalleryItem(i)).ToList();
         }
     }
 }

@@ -33,6 +33,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             this.subredditsVM = subredditsVM;
             IsReddit = true;
         }
+
+
+        bool isLoading = default(bool);
+        public bool IsLoading { get { return isLoading; } set { Set(ref isLoading, value); } }
         
         bool isReddit = default(bool);
         public bool IsReddit { get { return isReddit; }
@@ -53,7 +57,9 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public DelegateCommand<string> SearchCommand
            => searchCommand ?? (searchCommand = new DelegateCommand<string>(async (string searchType) =>
            {
+               IsLoading = true;
                await Refresh(searchType);
+               IsLoading = false;
            }));
 
         public async Task Refresh(string searchType)

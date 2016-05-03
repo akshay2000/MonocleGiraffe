@@ -474,6 +474,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="6,0" Orientation="Horizontal">
@@ -481,9 +482,10 @@
                         <ToggleButton Content="POSTS" Margin="6,12" Height="25" Grid.Column="1" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Posts" ext:ToggleButtonExtensions.IsChecked="{Binding IsPosts}" Width="75" />
                         <ToggleButton Content="GIFS" Margin="6,12" Height="25" Grid.Column="3" Style="{StaticResource SearchTabToggleButtonStyle}" Command="{Binding SearchCommand}" CommandParameter="Gifs" ext:ToggleButtonExtensions.IsChecked="{Binding IsGifs}" Width="75" />
                     </StackPanel>
-                    <AutoSuggestBox Text="{Binding QueryText, Mode=TwoWay}" PlaceholderText="Search awesomeness" Margin="12,0" QueryIcon="Find" Grid.Row="1" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
+                    <AutoSuggestBox Text="{Binding QueryText, Mode=TwoWay}" PlaceholderText="Search awesomeness" Margin="12,0" QueryIcon="Find" Grid.Row="1" QuerySubmitted="AutoSuggestBox_QuerySubmitted" IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}"/>
                     <TextBlock Text="Search Results" FontSize="12" Foreground="#FF959595" Grid.Row="2" Margin="12" FontWeight="SemiBold"/>
-                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="3" Visibility="{Binding IsReddit, Converter={StaticResource BoolToVisibilityConverter}}" SelectionMode="None">
+                    <ProgressBar Grid.Row="3" IsIndeterminate="True" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <ListView ItemsSource="{Binding Subreddits}" Grid.Row="4" Visibility="{Binding IsReddit, Converter={StaticResource BoolToVisibilityConverter}}" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <templates:RedditResultTemplate 

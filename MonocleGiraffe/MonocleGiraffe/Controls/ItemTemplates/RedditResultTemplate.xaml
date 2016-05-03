@@ -22,7 +22,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     
-    <Grid x:Name="Wrapper" HorizontalAlignment="Stretch" Margin="0,4.5,0,4.5" Tapped="Wrapper_Tapped">
+    <Grid x:Name="Wrapper" Background="Transparent" HorizontalAlignment="Stretch" Margin="0,4.5,0,4.5" Tapped="Wrapper_Tapped">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
