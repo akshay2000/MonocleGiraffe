@@ -27,7 +27,17 @@ namespace MonocleGiraffe.Controls
             this.InitializeComponent();
             LayoutRoot.SizeChanged += LayoutRoot_SizeChanged;
         }
-        
+
+        private void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                return;
+            var availableSize = new Size(Window.Current.Bounds.Width, double.PositiveInfinity);
+            MeasureOneItem((GalleryItem)e.NewItems[0], availableSize);
+            MainPanel.Height = finalHeight;
+            ArrangeOneItem(items[e.NewStartingIndex]);
+        }
+
         private void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             RefreshView();
@@ -41,12 +51,18 @@ namespace MonocleGiraffe.Controls
 
         // Using a DependencyProperty as the backing store for ItemsSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IncrementalCollection<GalleryItem>), typeof(ColumnGridView), new PropertyMetadata(null, new PropertyChangedCallback(OnChanged)));
+            DependencyProperty.Register("ItemsSource", typeof(IncrementalCollection<GalleryItem>), typeof(ColumnGridView), new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
 
-        private static void OnChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+        private static void OnItemsSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
         {
             var view = o as ColumnGridView;
+            view.SubscribeToCollectionChanged();
             view.RefreshView();
+        }
+
+        private void SubscribeToCollectionChanged()
+        {
+            ItemsSource.CollectionChanged += ItemsSource_CollectionChanged;
         }
 
         private void RefreshView()
@@ -57,64 +73,41 @@ namespace MonocleGiraffe.Controls
             ArrangePanel();
         }
 
-        private List<LayoutInfo> items;
+        private List<LayoutInfo> items = new List<LayoutInfo>();
+        double currentX = 0;
+        bool isFirstRow = true;
+        double finalWidth = 0;
+        double finalHeight = 0;
+        GalleryThumbnailTemplate element = new GalleryThumbnailTemplate();
+        List<double> columnHeights = new List<double>();
+        int count = 0;
 
-        private Size MeasurePanel(Size availableSize)
+        private void MeasureOneItem(GalleryItem g, Size availableSize)
         {
-            items = new List<LayoutInfo>();
             double availableWidth = availableSize.Width;
-            double finalWidth = 0;
-            double finalHeight = 0;
-            var element = new GalleryThumbnailTemplate();
-            double currentX = 0;
-            List<double> columnHeights = new List<double>();
-            int count = 0;
-            bool isFirstRow = true;
-            foreach (var g in ItemsSource)
+            element.Margin = new Thickness(0, 0, 12, 12);
+            element.MeasureWith(availableSize, g);
+            if (isFirstRow)
             {
-                element.Margin = new Thickness(0, 0, 12, 12);
-                element.MeasureWith(availableSize, g);
-                if (isFirstRow)
+                double newWidth = finalWidth + element.DesiredSize.Width;
+                if (newWidth <= availableWidth)
                 {
-                    double newWidth = finalWidth + element.DesiredSize.Width;
-                    if (newWidth <= availableWidth)
+                    items.Add(new LayoutInfo
                     {
-                        items.Add(new LayoutInfo
-                        {
-                            Height = element.DesiredSize.Height,
-                            Width = element.DesiredSize.Width,
-                            Left = currentX,
-                            Top = 0,
-                            Content = g
-                        });
-                        columnHeights.Add(element.DesiredSize.Height);
-                        finalWidth = newWidth;
-                        currentX += element.DesiredSize.Width;
-                    }
-                    else
-                    {
-                        currentX = 0;
-                        double currentY = columnHeights.Count > 0 ? columnHeights[0] : 0;
-                        items.Add(new LayoutInfo
-                        {
-                            Height = element.DesiredSize.Height,
-                            Width = element.DesiredSize.Width,
-                            Left = currentX,
-                            Top = currentY,
-                            Content = g
-                        });
-                        columnHeights[0] += element.DesiredSize.Height;
-                        currentX += element.DesiredSize.Width;
-                        count++;
-                        isFirstRow = false;
-                    }
+                        Height = element.DesiredSize.Height,
+                        Width = element.DesiredSize.Width,
+                        Left = currentX,
+                        Top = 0,
+                        Content = g
+                    });
+                    columnHeights.Add(element.DesiredSize.Height);
+                    finalWidth = newWidth;
+                    currentX += element.DesiredSize.Width;
                 }
                 else
                 {
-                    int noOfColumns = columnHeights.Count;
-                    int columnIndex = count % noOfColumns;
-                    currentX = columnIndex == 0 ? 0 : currentX;
-                    double currentY = columnHeights[columnIndex];
+                    currentX = 0;
+                    double currentY = columnHeights.Count > 0 ? columnHeights[0] : 0;
                     items.Add(new LayoutInfo
                     {
                         Height = element.DesiredSize.Height,
@@ -123,14 +116,59 @@ namespace MonocleGiraffe.Controls
                         Top = currentY,
                         Content = g
                     });
-                    columnHeights[columnIndex] += element.DesiredSize.Height;
+                    columnHeights[0] += element.DesiredSize.Height;
                     currentX += element.DesiredSize.Width;
                     count++;
+                    isFirstRow = false;
                 }
             }
+            else
+            {
+                int noOfColumns = columnHeights.Count;
+                int columnIndex = count % noOfColumns;
+                currentX = columnIndex == 0 ? 0 : currentX;
+                double currentY = columnHeights[columnIndex];
+                items.Add(new LayoutInfo
+                {
+                    Height = element.DesiredSize.Height,
+                    Width = element.DesiredSize.Width,
+                    Left = currentX,
+                    Top = currentY,
+                    Content = g
+                });
+                columnHeights[columnIndex] += element.DesiredSize.Height;
+                currentX += element.DesiredSize.Width;
+                count++;
+            }
             finalHeight = columnHeights.Count > 0 ? columnHeights.Max() : 0;
+        }
+
+        private Size MeasurePanel(Size availableSize)
+        {
+            items = new List<LayoutInfo>();
+            finalWidth = 0;
+            finalHeight = 0;
+            element = new GalleryThumbnailTemplate();
+            currentX = 0;
+            columnHeights = new List<double>();
+            count = 0;
+            isFirstRow = true;
+            foreach (var g in ItemsSource)
+            {
+                MeasureOneItem(g, availableSize);
+            }            
             Size finalSize = new Size(finalWidth, finalHeight);
             return finalSize;
+        }
+
+        private void ArrangeOneItem(LayoutInfo i)
+        {
+            var container = new GalleryThumbnailTemplate();
+            container.Tapped += Container_Tapped;
+            container.SetLayout(i.Content);
+            Canvas.SetLeft(container, i.Left);
+            Canvas.SetTop(container, i.Top);
+            MainPanel.Children.Add(container);
         }
 
         private void ArrangePanel()
@@ -138,12 +176,7 @@ namespace MonocleGiraffe.Controls
             MainPanel.Children.Clear();
             foreach(var i in items)
             {
-                var container = new GalleryThumbnailTemplate();
-                container.Tapped += Container_Tapped;
-                container.SetLayout(i.Content);
-                Canvas.SetLeft(container, i.Left);
-                Canvas.SetTop(container, i.Top);
-                MainPanel.Children.Add(container);
+                ArrangeOneItem(i);
             }
         }
 
