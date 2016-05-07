@@ -40,13 +40,13 @@
                     </TransitionCollection>
                 </Setter.Value>
             </Setter>
-            <!--<Setter Property="ItemsPanel">
+            <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
                         <controls:ColumnPanel />
                     </ItemsPanelTemplate>
                 </Setter.Value>
-            </Setter>-->
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridView">
@@ -414,7 +414,7 @@
                                 </Grid>
                             </Border>
                         </Grid>
-                        <GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="0" DataFetchSize="1" IncrementalLoadingTrigger="Edge" >
+                        <!--<GridView x:Name="ImagesGridView" Grid.Row="1" IsItemClickEnabled="True" ItemsSource="{Binding Images}" SelectedIndex="{Binding ImageSelectedIndex}" Style="{StaticResource CenteredGridViewStyle}" IncrementalLoadingThreshold="0" DataFetchSize="1" IncrementalLoadingTrigger="Edge" >
                             <GridView.ItemContainerStyle>
                                 <Style TargetType="GridViewItem">
                                     <Setter Property="Margin" Value="0,0,12,12"/>
@@ -430,7 +430,14 @@
                                     <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
                                 </Core:EventTriggerBehavior>
                             </Interactivity:Interaction.Behaviors>
-                        </GridView>
+                        </GridView>-->
+                        <controls:ColumnGridView Grid.Row="1" ItemsSource="{Binding Images}">
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:EventTriggerBehavior EventName="ItemClick">
+                                    <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </controls:ColumnGridView>
                     </Grid>
                 </SplitView>
             </PivotItem>
@@ -499,17 +506,17 @@
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
-                    <GridView ItemsSource="{Binding Posts}" Grid.Row="3" Visibility="{Binding IsPosts, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource CenteredGridViewStyle}" Margin="12,0,0,0">
+                    <GridView ItemsSource="{Binding Posts}" Grid.Row="3" Visibility="{Binding IsPosts, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0,0,0">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
                                 <Setter Property="Margin" Value="0,0,12,12"/>
                             </Style>
                         </GridView.ItemContainerStyle>
-                        <GridView.ItemTemplate>
+                        <!--<GridView.ItemTemplate>
                             <DataTemplate>
                                 <templates:GalleryThumbnailTemplate/>
                             </DataTemplate>
-                        </GridView.ItemTemplate>
+                        </GridView.ItemTemplate>-->
                     </GridView>
                     <GridView ItemsSource="{Binding Gifs}" Grid.Row="3" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0,0,0">
                         <GridView.ItemContainerStyle>

@@ -113,7 +113,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Section section = ToSection(sectionString);
             Sort sort = ToSort(sortString);
             Images = new IncrementalGallery(MOST_VIRAL, section, sort);
-            //Images.LoadMoreItemsAsync(10);
+            Images.LoadMoreItemsAsync(10);
         }
 
         private async Task LoadTopics()
@@ -149,9 +149,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private GalleryMetaInfo galleryMetaInfo;
 
         public void ImageTapped(object sender, object parameter)
-        {
-            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
-            var clickedItem = args.ClickedItem as GalleryItem;
+        {             
+            var clickedItem = parameter as GalleryItem;
             ImageSelectedIndex = Images.IndexOf(clickedItem);
             const string navigationParamName = "GalleryInfo";
             galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };

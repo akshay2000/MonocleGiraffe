@@ -108,6 +108,9 @@
     <Compile Include="Controls\AddSubredditContentDialog.xaml.cs">
       <DependentUpon>AddSubredditContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColumnGridView.xaml.cs">
+      <DependentUpon>ColumnGridView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ColumnPanel.cs" />
     <Compile Include="Controls\Extensions\ToggleButtonExtensions.cs" />
     <Compile Include="Controls\ImageItemPanel.xaml.cs">
@@ -216,6 +219,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AddSubredditContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ColumnGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

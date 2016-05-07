@@ -1,0 +1,18 @@
+﻿<UserControl
+    x:Class="MonocleGiraffe.Controls.ColumnGridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:template="using:MonocleGiraffe.Controls.ItemTemplates"
+    mc:Ignorable="d"
+    d:DesignHeight="480"
+    d:DesignWidth="360">
+   
+    <Grid x:Name="LayoutRoot" HorizontalAlignment="Stretch">
+        <ScrollViewer x:Name="MainScrollViewer">
+            <Canvas x:Name="MainPanel"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

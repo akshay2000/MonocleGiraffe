@@ -181,16 +181,27 @@ namespace MonocleGiraffe.Models
             set { Set(ref thumbnail, value); }
         }
 
-        private string bigThumbnail;
+        private string bigThumbnail = "";
         public string BigThumbnail
         {
             get
             {
-                if (bigThumbnail == default(string))
+                if (bigThumbnail == "")
                     LoadThumbnails();
                 return bigThumbnail;
             }
             set { Set(ref bigThumbnail, value); }
+        }
+        
+        public double BigThumbRatio
+        {
+            get
+            {
+                if (ItemType == GalleryItemType.Album || Height / (double)Width > 2.5)
+                    return 1;
+                else
+                    return Height / (double)Width;
+            }
         }
 
         private async Task LoadThumbnails()
@@ -208,9 +219,9 @@ namespace MonocleGiraffe.Models
             SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
             Thumbnail = baseUrl + thumbnailId + "b.jpg";
             if (ItemType == GalleryItemType.Album || Height / (double)Width > 2.5)
-                BigThumbnail = baseUrl + thumbnailId + "b.jpg";
+                BigThumbnail = baseUrl + thumbnailId + "b.jpg";            
             else
-                BigThumbnail = baseUrl + thumbnailId + "l.jpg";
+                BigThumbnail = baseUrl + thumbnailId + "l.jpg";            
         }
 
         Album album = null;
