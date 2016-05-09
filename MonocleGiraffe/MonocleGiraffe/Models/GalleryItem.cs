@@ -112,6 +112,17 @@ namespace MonocleGiraffe.Models
             get { return image.Animated; }
         }
 
+        public double BigThumbRatio
+        {
+            get
+            {
+                if (ItemType == GalleryItemType.Album || Height / (double)Width > 2.5)
+                    return 1;
+                else
+                    return Height / (double)Width;
+            }
+        }
+
         #endregion
 
         #region Lazy members
@@ -157,51 +168,42 @@ namespace MonocleGiraffe.Models
             Comments = commentsList?.Select(c => new CommentItem(c)).ToList();
         }
 
-        private string smallThumbnail;
+        private const string DUMMY = "ms-appx:///Assets/DummyImage.png";
+
+        private string smallThumbnail = DUMMY;
         public string SmallThumbnail
         {
             get
             {
-                if (smallThumbnail == default(string))
+                if (smallThumbnail == DUMMY)
                     LoadThumbnails();
                 return smallThumbnail;
             }
             set { Set(ref smallThumbnail, value); }
         }
         
-        private string thumbnail;
+        private string thumbnail = DUMMY;
         public string Thumbnail
         {
             get
             {
-                if (thumbnail == default(string))
+                if (thumbnail == DUMMY)
                     LoadThumbnails();
                 return thumbnail;
             }
             set { Set(ref thumbnail, value); }
         }
 
-        private string bigThumbnail = "";
+        private string bigThumbnail = DUMMY;
         public string BigThumbnail
         {
             get
             {
-                if (bigThumbnail == "")
+                if (bigThumbnail == DUMMY)
                     LoadThumbnails();
                 return bigThumbnail;
             }
             set { Set(ref bigThumbnail, value); }
-        }
-        
-        public double BigThumbRatio
-        {
-            get
-            {
-                if (ItemType == GalleryItemType.Album || Height / (double)Width > 2.5)
-                    return 1;
-                else
-                    return Height / (double)Width;
-            }
         }
 
         private async Task LoadThumbnails()

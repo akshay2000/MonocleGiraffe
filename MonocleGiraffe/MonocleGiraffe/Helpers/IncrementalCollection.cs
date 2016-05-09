@@ -37,8 +37,8 @@ namespace MonocleGiraffe.Helpers
 
         private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
-            var moreItems = await LoadMoreItemsImplAsync(c, Page);
             Page++;
+            var moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
             foreach (var item in moreItems)
                 Add(item);
             return new LoadMoreItemsResult { Count = (uint)moreItems.Count };

@@ -12,7 +12,7 @@
    
     <Grid x:Name="LayoutRoot" HorizontalAlignment="Stretch">
         <ScrollViewer x:Name="MainScrollViewer">
-            <Canvas x:Name="MainPanel"/>
+            <Canvas x:Name="MainPanel" Height="100"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

@@ -113,7 +113,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Section section = ToSection(sectionString);
             Sort sort = ToSort(sortString);
             Images = new IncrementalGallery(MOST_VIRAL, section, sort);
-            Images.LoadMoreItemsAsync(10);
+            //Images.LoadMoreItemsAsync(10);
         }
 
         private async Task LoadTopics()
