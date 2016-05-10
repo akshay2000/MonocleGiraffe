@@ -51,14 +51,11 @@ namespace MonocleGiraffe.Controls
         private void Render(bool isDown)
         {
             var currentWindow = GetRealizationWindow();
-            SortedSet<LayoutInfo> itemsToRealize;
             if (isDown)
-                itemsToRealize = items.GetViewBetween(new LayoutInfo { Top = oldWindow.Bottom }, new LayoutInfo { Top = currentWindow.Bottom });
+                RealizeWindow(oldWindow.Bottom, currentWindow.Bottom);
             else
-                itemsToRealize = items.GetViewBetween(new LayoutInfo { Top = currentWindow.Top }, new LayoutInfo { Top = oldWindow.Top });
-            oldWindow = currentWindow;
-            foreach (var item in itemsToRealize)
-                RealizeOneItem(item);          
+                RealizeWindow(currentWindow.Top, oldWindow.Top);
+            oldWindow = currentWindow;         
         }
 
         private void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -71,11 +68,21 @@ namespace MonocleGiraffe.Controls
         }
 
         double previousWidth = -1;
-        private async void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (previousWidth != -1 && e.NewSize.Width != previousWidth)                
-                await RefreshView();
+                RedrawView();
             previousWidth = e.NewSize.Width;
+        }
+
+        private void RedrawView()
+        {
+            ResetLayout();
+            MainPanel.Children.Clear();
+            var availableSize = new Size(Window.Current.Bounds.Width, double.PositiveInfinity);
+            MainPanel.Height = MeasurePanel(availableSize).Height;
+            var window = GetRealizationWindow();
+            RealizeWindow(window.Top, window.Bottom);
         }
 
         public IncrementalCollection<GalleryItem> ItemsSource
@@ -92,7 +99,7 @@ namespace MonocleGiraffe.Controls
         {
             var view = o as ColumnGridView;
             view.SubscribeToCollectionChanged();
-            await view.RefreshView();
+            await view.ReloadEverything();
         }
 
         private void SubscribeToCollectionChanged()
@@ -102,21 +109,33 @@ namespace MonocleGiraffe.Controls
 
         private void RealizeWindow(double top, double bottom)
         {
+            if (top >= bottom)
+                return;
             var itemsToRealize = items.GetViewBetween(new LayoutInfo { Top = top }, new LayoutInfo { Top = bottom});
             foreach (var item in itemsToRealize)
                 RealizeOneItem(item);
         }
 
-        private async Task RefreshView()
+        private async Task ReloadEverything()
         {
-            var window = GetRealizationWindow();
-            MainPanel.Children.Clear();
-            if (items.Count == 0)
+            ResetLayout();
+            if (ItemsSource.Count == 0)
                 await ItemsSource.LoadMoreItemsAsync(60);
-            //MeasurePanel(new Size(LayoutRoot.Width, double.PositiveInfinity));
+            var window = GetRealizationWindow();
             RealizeWindow(window.Top, window.Bottom);
+            oldWindow = window;
         }
 
+        private void ResetLayout()
+        {
+            items = new SortedSet<LayoutInfo>(new LayoutInfoComparer());
+            currentX = 0;
+            isFirstRow = true;
+            finalWidth = 0;
+            finalHeight = 0;
+            columnHeights = new List<double>();
+            count = 0;
+        }
         private SortedSet<LayoutInfo> items = new SortedSet<LayoutInfo>(new LayoutInfoComparer());
         double currentX = 0;
         bool isFirstRow = true;
@@ -188,15 +207,7 @@ namespace MonocleGiraffe.Controls
         }
 
         private Size MeasurePanel(Size availableSize)
-        {
-            items = new SortedSet<LayoutInfo>(new LayoutInfoComparer());
-            finalWidth = 0;
-            finalHeight = 0;
-            element = new GalleryThumbnailTemplate();
-            currentX = 0;
-            columnHeights = new List<double>();
-            count = 0;
-            isFirstRow = true;
+        {            
             foreach (var g in ItemsSource)
             {
                 MeasureOneItem(g, availableSize);
@@ -209,8 +220,8 @@ namespace MonocleGiraffe.Controls
 
         private void RealizeOneItem(LayoutInfo i)
         {
-            if (i.IsRendered)
-                return;
+            //if (i.IsRendered)
+            //    return;
             var container = containerCache.Get();
             if (container == null)
                 container = new GalleryThumbnailTemplate();
