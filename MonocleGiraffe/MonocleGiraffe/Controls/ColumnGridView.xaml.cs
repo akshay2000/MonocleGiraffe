@@ -3,11 +3,14 @@ using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Template10.Mvvm;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,7 +25,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.Controls
 {
-    public sealed partial class ColumnGridView : UserControl
+    public sealed partial class ColumnGridView : UserControl, INotifyPropertyChanged
     {
         public ColumnGridView()
         {
@@ -31,13 +34,37 @@ namespace MonocleGiraffe.Controls
             LayoutRoot.SizeChanged += LayoutRoot_SizeChanged;
         }
 
-        private double oldVerticalOffset = 0;
-        private void MainScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+
+        bool isLoadingMore = default(bool);
+        public bool IsLoadingMore { get { return isLoadingMore; } set { Set(ref isLoadingMore, value); } }
+
+        private async Task LoadMoreItems()
         {
+            if (!IsLoadingMore)
+            {
+                IsLoadingMore = true;
+                await ItemsSource.LoadMoreItemsAsync(100);
+                IsLoadingMore = false;
+            }
+        }
+
+        private async Task<Size> GetAvailableSize()
+        {
+            while (MainPanel.ActualWidth == 0)
+                await Task.Delay(50);
+            return new Size(MainPanel.ActualWidth, double.PositiveInfinity);
+        }
+
+        private double oldVerticalOffset = 0;
+        private async void MainScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {            
             bool isDown = (MainScrollViewer.VerticalOffset - oldVerticalOffset) > 0;
             oldVerticalOffset = MainScrollViewer.VerticalOffset;
             Render(isDown);
             UnrealizeItems();
+            bool isEdge = (GetRealizationWindow().Bottom + MainScrollViewer.ViewportHeight) >= MainScrollViewer.ScrollableHeight;
+            if (isEdge)
+                await LoadMoreItems();
         }
 
         private RealizationWindow GetRealizationWindow()
@@ -58,31 +85,32 @@ namespace MonocleGiraffe.Controls
             oldWindow = currentWindow;         
         }
 
-        private void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private async void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                 return;
-            var availableSize = new Size(Window.Current.Bounds.Width, double.PositiveInfinity);
+            var availableSize = await GetAvailableSize();
             MeasureOneItem((GalleryItem)e.NewItems[0], availableSize);
             MainPanel.Height = finalHeight;
         }
 
         double previousWidth = -1;
-        private void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (previousWidth != -1 && e.NewSize.Width != previousWidth)                
-                RedrawView();
+                await RedrawView();
             previousWidth = e.NewSize.Width;
         }
 
-        private void RedrawView()
+        private async Task RedrawView()
         {
             ResetLayout();
             MainPanel.Children.Clear();
-            var availableSize = new Size(Window.Current.Bounds.Width, double.PositiveInfinity);
+            var availableSize = await GetAvailableSize();
             MainPanel.Height = MeasurePanel(availableSize).Height;
             var window = GetRealizationWindow();
             RealizeWindow(window.Top, window.Bottom);
+            oldWindow = window;
         }
 
         public IncrementalCollection<GalleryItem> ItemsSource
@@ -119,8 +147,11 @@ namespace MonocleGiraffe.Controls
         private async Task ReloadEverything()
         {
             ResetLayout();
+            MainPanel.Height = 0;
+            MainPanel.Children.Clear();
             if (ItemsSource.Count == 0)
-                await ItemsSource.LoadMoreItemsAsync(60);
+                await LoadMoreItems();
+            var availableSize = await GetAvailableSize();
             var window = GetRealizationWindow();
             RealizeWindow(window.Top, window.Bottom);
             oldWindow = window;
@@ -303,5 +334,24 @@ namespace MonocleGiraffe.Controls
             public double Top { get; set; }
             public double Bottom { get; set; }
         }
+
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                RaisePropertyChanged(propertyName);
+            }
+        }
+
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        #endregion
     }
 }

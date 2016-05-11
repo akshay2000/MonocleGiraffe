@@ -11,8 +11,13 @@
     d:DesignWidth="360">
    
     <Grid x:Name="LayoutRoot" HorizontalAlignment="Stretch">
-        <ScrollViewer x:Name="MainScrollViewer">
-            <Canvas x:Name="MainPanel" Height="100"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar IsIndeterminate="True" Visibility="{x:Bind IsLoadingMore, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top"/>
+        <ScrollViewer x:Name="MainScrollViewer" Grid.Row="1">
+            <Canvas x:Name="MainPanel" Height="100" Margin="0,0,15,0"/>
         </ScrollViewer>
     </Grid>
 </UserControl>
