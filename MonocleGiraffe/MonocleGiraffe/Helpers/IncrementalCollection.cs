@@ -14,9 +14,12 @@ namespace MonocleGiraffe.Helpers
     {
         public uint Page { get; private set; }
 
+        public int ConsumedItemsIndex { get; private set; }
+
         public IncrementalCollection() : base()
         {
             Page = 0;
+            ConsumedItemsIndex = 0;
         }
 
         public IncrementalCollection(IEnumerable<T> collection) : base(collection) { }
@@ -35,14 +38,22 @@ namespace MonocleGiraffe.Helpers
 
         #endregion
 
+        private List<T> moreItems = new List<T>();
+
         private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
-            Page++;
-            var moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
-            foreach (var item in moreItems)
-                Add(item);
-            return new LoadMoreItemsResult { Count = (uint)moreItems.Count };
-        }        
+            for (int i = 0; i < count; i++)
+            {
+                if (moreItems.Count == 0 || moreItems.Count - 1 == ConsumedItemsIndex)
+                {
+                    Page++;
+                    moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
+                    ConsumedItemsIndex = 0;
+                }
+                Add(moreItems[ConsumedItemsIndex++]);
+            }
+            return new LoadMoreItemsResult { Count = count };
+        }
 
         #region Abstracts
 
