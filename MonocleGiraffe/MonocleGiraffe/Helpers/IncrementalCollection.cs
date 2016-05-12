@@ -38,13 +38,13 @@ namespace MonocleGiraffe.Helpers
 
         #endregion
 
-        private List<T> moreItems = new List<T>();
+        private List<T> moreItems;
 
         private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
             for (int i = 0; i < count; i++)
             {
-                if (moreItems.Count == 0 || moreItems.Count - 1 == ConsumedItemsIndex)
+                if (moreItems == null || moreItems.Count == ConsumedItemsIndex)
                 {
                     Page++;
                     moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
