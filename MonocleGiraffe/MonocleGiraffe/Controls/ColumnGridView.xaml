@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <ProgressBar IsIndeterminate="True" Visibility="{x:Bind IsLoadingMore, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top"/>
         <ScrollViewer x:Name="MainScrollViewer" Grid.Row="1">
-            <Canvas x:Name="MainPanel" Height="100" Margin="0,0,15,0"/>
+            <Canvas x:Name="MainPanel" Height="100" Margin="0,0,0,0"/>
         </ScrollViewer>
     </Grid>
 </UserControl>
