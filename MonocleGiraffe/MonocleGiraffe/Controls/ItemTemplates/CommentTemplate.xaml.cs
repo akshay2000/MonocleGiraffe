@@ -1,14 +1,18 @@
-﻿using System;
+﻿using MonocleGiraffe.Controls.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -23,13 +27,12 @@ namespace MonocleGiraffe.Controls.ItemTemplates
         {
             this.InitializeComponent();
         }
-
+        
         public event RoutedEventHandler CollapseRequested;
 
         private void OnCollapseRequested(object sender, RoutedEventArgs e)
         {
-            if (CollapseRequested != null)
-                CollapseRequested(sender, e);
+            CollapseRequested?.Invoke(sender, e);
         }
 
         private void CommentCollapse_Tapped(object sender, TappedRoutedEventArgs e)
@@ -41,13 +44,58 @@ namespace MonocleGiraffe.Controls.ItemTemplates
 
         private void OnExpandRequested(object sender, RoutedEventArgs e)
         {
-            if (ExpandRequested != null)
-                ExpandRequested(sender, e);
+            ExpandRequested?.Invoke(sender, e);
         }
 
         private void CommentExpand_Tapped(object sender, TappedRoutedEventArgs e)
         {
             OnExpandRequested(this, e);
+        }
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        private static readonly Regex regex = new Regex(@"([(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(CommentTemplate), 
+                new PropertyMetadata(string.Empty, (sender, e) => {
+                    string text = e.NewValue as string;
+                    var template = sender as CommentTemplate;
+                    var textBl = template?.CommentTextBox;
+                    if (textBl != null)
+                    {
+                        textBl.Inlines.Clear();
+                        var splits = regex.Split(text).Where(s => !s.StartsWith("/")).ToList();
+                        var matches = regex.Matches(text);
+                        for (int i = 0; i < splits.Count; i++)
+                        {
+                            var split = splits[i];
+                            if (i % 2 == 0)
+                                textBl.Inlines.Add(new Run { Text = split });
+                            else
+                            {
+                                Uri uri;
+                                if (Uri.TryCreate(split, UriKind.Absolute, out uri))
+                                {
+                                    Hyperlink link = new Hyperlink();
+                                    link.Click += template.Link_Click;
+                                    link.Inlines.Add(new Run { Text = split });
+                                    textBl.Inlines.Add(link);
+                                }
+                            }
+                        }
+                    }
+                }));
+
+        private async void Link_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            var t = (sender.Inlines[0] as Run)?.Text;
+            Uri uri = new Uri(t);
+            await Launcher.LaunchUriAsync(uri);
         }
     }
 }

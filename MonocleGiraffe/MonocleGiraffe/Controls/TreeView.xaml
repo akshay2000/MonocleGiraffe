@@ -28,6 +28,7 @@
                             DataContext="{Binding}" 
                             Tag="{Binding}"
                             Grid.Column="1"
+                            Text="{Binding Content.CommentText}"
                             ExpandRequested="CommentTemplate_ExpandRequested"
                             CollapseRequested="CommentTemplate_CollapseRequested"/>
                     </Grid>
