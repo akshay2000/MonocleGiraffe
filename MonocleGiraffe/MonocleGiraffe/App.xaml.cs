@@ -35,10 +35,23 @@ namespace MonocleGiraffe
             if (AuthenticationHelper.IsAuthIntended())
             {
                 splash.IsLoading = true;
-                var result = await ShakeHands();
+                JObject result = null;
                 bool isSuccess = false;
                 string errorMessage = "Could not connect to the internet";
-                if (result.HasValues)
+
+                try
+                {
+                    result = await ShakeHands();
+                }
+                catch (AuthException e)
+                {
+                    if (e.Reason == AuthException.AuthExceptionReason.HttpError)
+                        errorMessage = e.Message;
+                    else
+                        isSuccess = true;
+                }
+
+                if (result != null && result.HasValues)
                 {
                     isSuccess = (bool)result["success"];
                     if (!isSuccess)

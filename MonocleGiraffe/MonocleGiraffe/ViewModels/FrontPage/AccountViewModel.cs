@@ -23,45 +23,64 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 Init();
         }
 
-        private async void Init()
+        private async Task Init()
         {
             if (AuthenticationHelper.IsAuthIntended())
             {
+                await Load();
+            }
+        }
+
+        private async Task Load()
+        {
+            try
+            {
+                IsLoading = true;
                 await LoadUserData();
                 IsAuth = true;
+            }
+            catch
+            {
+                IsAuth = false;
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
         private async Task LoadUserData()
         {
+            var userName = await SecretsHelper.GetUserName();
             await Task.Delay(1000);
-            Account account = await Accounts.GetAccount();
+            Account account = await Accounts.GetAccount(userName);
             UserName = account.Url;
             Points = account.Reputation;
-            GalleryProfile galleryProfile = await Accounts.GetGalleryProfile();
+            GalleryProfile galleryProfile = await Accounts.GetGalleryProfile(userName);
             Trophies = new ObservableCollection<Trophy>(galleryProfile.Trophies);
             await Task.Delay(500);
-            await LoadAlbums();
+            await LoadAlbums(userName);
             await Task.Delay(500);
-            await LoadImages();
+            await LoadImages(userName);
         }
 
         public async Task Reload()
         {
-            Init();
+            await Init();
         }
 
-        bool isSigningIn = false;
         DelegateCommand signInCommand;
         public DelegateCommand SignInCommand
            => signInCommand ?? (signInCommand = new DelegateCommand(async () =>
            {
-               await LoadUserData();
-               IsAuth = true;
-           }, () => !isSigningIn));
+               await Load();
+           }, () => !IsLoading));
 
         bool isAuth = default(bool);
         public bool IsAuth { get { return isAuth; } set { Set(ref isAuth, value); } }
+
+        bool isLoading = default(bool);
+        public bool IsLoading { get { return isLoading; } set { Set(ref isLoading, value); } }
 
         #region User
 
@@ -101,10 +120,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref albums, value); }
         }
 
-        private async Task LoadAlbums()
+        private async Task LoadAlbums(string userName)
         {
             Albums = new ObservableCollection<AlbumItem>();
-            var albums = await Accounts.GetAlbums();
+            var albums = await Accounts.GetAlbums(userName);
             foreach (var a in albums)
             {
                 Albums.Add(new AlbumItem(a));
@@ -122,10 +141,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             set { Set(ref images, value); }
         }
 
-        private async Task LoadImages()
+        private async Task LoadImages(string userName)
         {
             Images = new ObservableCollection<GalleryItem>();
-            var images = await Accounts.GetImages();
+            var images = await Accounts.GetImages(userName);
             foreach (var i in images)
             {
                 Images.Add(new GalleryItem(i));
