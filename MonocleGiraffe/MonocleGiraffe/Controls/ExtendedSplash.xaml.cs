@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Template10.Mvvm;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -18,11 +21,36 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.Controls
 {
-    public sealed partial class ExtendedSplash : UserControl
+    public sealed partial class ExtendedSplash : UserControl, INotifyPropertyChanged
     {
         public ExtendedSplash(SplashScreen splash)
         {
             this.InitializeComponent();
         }
+
+
+        bool isLoading = default(bool);
+        public bool IsLoading { get { return isLoading; } set { Set(ref isLoading, value); } }
+
+        string errorMessage = default(string);
+        public string ErrorMessage { get { return errorMessage; } set { Set(ref errorMessage, value); } }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                RaisePropertyChanged(propertyName);
+            }
+        }
+
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        #endregion
     }
 }

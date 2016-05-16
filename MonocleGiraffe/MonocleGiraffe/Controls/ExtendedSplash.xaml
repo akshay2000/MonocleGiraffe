@@ -9,7 +9,12 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <ProgressRing IsActive="True" Foreground="{StaticResource AppThemeBrush}"/>
+    <Grid Background="Black">
+        <ProgressRing IsActive="{x:Bind IsLoading}" Foreground="{StaticResource AppThemeBrush}"/>
+        <TextBlock
+            Text="{x:Bind ErrorMessage}" 
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            TextWrapping="Wrap"/>
     </Grid>
 </UserControl>
