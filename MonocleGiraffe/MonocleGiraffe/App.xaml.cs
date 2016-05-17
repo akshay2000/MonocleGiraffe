@@ -56,7 +56,7 @@ namespace MonocleGiraffe
                     isSuccess = (bool)result["success"];
                     if (!isSuccess)
                     {
-                        await AuthenticationHelper.RefreshAccessToken(await SecretsHelper.GetRefreshToken());
+                        await SecretsHelper.RefreshAccessToken();
                         result = await ShakeHands();
                         isSuccess = (bool)result["success"];
                         errorMessage = JsonConvert.SerializeObject(result["data"], Formatting.Indented);
