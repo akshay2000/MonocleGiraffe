@@ -31,24 +31,26 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             }
         }
 
+        private string AUTHENTICATED = "Authenticated";
+        private string NOT_AUTHENTICATED = "NotAuthenticated";
+        private string BUSY = "Busy";
+        string state;// = NOT_AUTHENTICATED;
+        public string State { get { return state; } set { Set(ref state, value); } }
+
         private async Task Load()
         {
             try
             {
-                IsLoading = true;
+                State = BUSY;
                 await LoadUserData();
-                IsAuth = true;
+                State = AUTHENTICATED;
             }
             catch
             {
-                IsAuth = false;
-            }
-            finally
-            {
-                IsLoading = false;
+                State = NOT_AUTHENTICATED;
             }
         }
-
+        
         private async Task LoadUserData()
         {
             var userName = await SecretsHelper.GetUserName();
@@ -69,18 +71,20 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             await Init();
         }
 
+        public bool IsBusy
+        {
+            get
+            {
+                return State == BUSY;
+            }
+        }
+
         DelegateCommand signInCommand;
         public DelegateCommand SignInCommand
            => signInCommand ?? (signInCommand = new DelegateCommand(async () =>
            {
                await Load();
-           }, () => !IsLoading));
-
-        bool isAuth = default(bool);
-        public bool IsAuth { get { return isAuth; } set { Set(ref isAuth, value); } }
-
-        bool isLoading = default(bool);
-        public bool IsLoading { get { return isLoading; } set { Set(ref isLoading, value); } }
+           }, () => !IsBusy));
 
         #region User
 

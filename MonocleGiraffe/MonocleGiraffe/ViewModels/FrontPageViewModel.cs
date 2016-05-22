@@ -25,16 +25,20 @@ namespace MonocleGiraffe.ViewModels
         private void Init()
         {
             PivotIndex = 0;
-            GalleryVM = new GalleryViewModel();
-            SubredditsVM = new SubredditsViewModel();
-            SearchVM = new SearchViewModel(SubredditsVM);
-            AccountVM = new AccountViewModel();
         }
 
-        public GalleryViewModel GalleryVM { get; set; }
-        public SubredditsViewModel SubredditsVM { get; set; }
-        public SearchViewModel SearchVM { get; set; } 
-        public AccountViewModel AccountVM { get; set; }
+
+        GalleryViewModel galleryVM = default(GalleryViewModel);
+        public GalleryViewModel GalleryVM { get { return galleryVM; } set { Set(ref galleryVM, value); } }
+
+        SubredditsViewModel subredditsVM = default(SubredditsViewModel);
+        public SubredditsViewModel SubredditsVM { get { return subredditsVM; } set { Set(ref subredditsVM, value); } }
+
+        SearchViewModel searchVM = default(SearchViewModel);
+        public SearchViewModel SearchVM { get { return searchVM; } set { Set(ref searchVM, value); } }
+
+        AccountViewModel accountVM = default(AccountViewModel);
+        public AccountViewModel AccountVM { get { return accountVM; } set { Set(ref accountVM, value); } }
 
         private int pivotIndex;
         public int PivotIndex
@@ -44,8 +48,28 @@ namespace MonocleGiraffe.ViewModels
             {
                 Set(ref pivotIndex, value);
                 SetAppBarButtonVisibilities();
+                CreateSubVMIfRequired();
             }
-                    
+        }
+
+        private void CreateSubVMIfRequired()
+        {
+            switch (PivotIndex)
+            {
+                case 0:
+                    GalleryVM = GalleryVM ?? new GalleryViewModel();
+                    break;
+                case 1:
+                    SubredditsVM = SubredditsVM ?? new SubredditsViewModel();
+                    break;
+                case 2:
+                    SubredditsVM = SubredditsVM ?? new SubredditsViewModel();
+                    SearchVM = SearchVM ?? new SearchViewModel(SubredditsVM);
+                    break;
+                case 3:
+                    AccountVM = AccountVM ?? new AccountViewModel();
+                    break;
+            }
         }
 
         #region Command Bar
