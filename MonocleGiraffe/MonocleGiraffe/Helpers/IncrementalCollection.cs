@@ -48,6 +48,8 @@ namespace MonocleGiraffe.Helpers
                 {
                     Page++;
                     moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
+                    if (moreItems.Count == 0)
+                        break;
                     ConsumedItemsIndex = 0;
                 }
                 Add(moreItems[ConsumedItemsIndex++]);

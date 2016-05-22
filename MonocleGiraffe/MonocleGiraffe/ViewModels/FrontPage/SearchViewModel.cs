@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Models;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
 using SharpImgur.APIWrappers;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using System.Threading;
+using Template10.Common;
+using MonocleGiraffe.Pages;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -62,6 +66,27 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                IsLoading = false;
            }));
 
+        private int imageSelectedIndex;
+        public int ImageSelectedIndex
+        {
+            get { return imageSelectedIndex; }
+            set { Set(ref imageSelectedIndex, value); }
+        }
+
+        private GalleryMetaInfo galleryMetaInfo;
+
+        public void ImageTapped(object sender, object parameter)
+        {
+            var clickedItem = parameter as GalleryItem;
+            var imageCollection = IsPosts ? Posts : Gifs;
+            ImageSelectedIndex = imageCollection.IndexOf(clickedItem);
+            const string navigationParamName = "GalleryInfo";
+            galleryMetaInfo = new GalleryMetaInfo { Gallery = imageCollection, SelectedIndex = ImageSelectedIndex };
+            BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
+            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+            return;
+        }
+
         public async Task Refresh(string searchType)
         {
             switch (searchType)
@@ -74,20 +99,20 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                 case "Posts":
                     IsPosts = IsGifs = IsReddit = false;
                     IsPosts = true;
-                    await SearchPosts(QueryText);
+                    SearchPosts(QueryText);
                     break;
                 case "Gifs":
                     IsPosts = IsGifs = IsReddit = false;
                     IsGifs = true;
-                    await SearchGifs(QueryText);
+                    SearchGifs(QueryText);
                     break;
                 default:
                     if (IsReddit)
                         await SearchSubreddits(QueryText);
                     else if (IsPosts)
-                        await SearchPosts(QueryText);
+                        SearchPosts(QueryText);
                     else if (isGifs)
-                        await SearchGifs(QueryText);
+                        SearchGifs(QueryText);
                     break;
             }
         }
@@ -120,43 +145,32 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         #region Posts
 
-        ObservableCollection<GalleryItem> posts = default(ObservableCollection<GalleryItem>);
-        public ObservableCollection<GalleryItem> Posts { get { return posts; } set { Set(ref posts, value); } }
+        IncrementalPosts posts = default(IncrementalPosts);
+        public IncrementalPosts Posts { get { return posts; } set { Set(ref posts, value); } }
 
-        public async Task SearchPosts(string query)
+        public void SearchPosts(string query)
         {
             if (string.IsNullOrWhiteSpace(QueryText))
                 return;
-            Posts = new ObservableCollection<GalleryItem>();
-            var images = await Gallery.SearchGallery(query);
-            foreach (var i in images)
-            {
-                Posts.Add(new GalleryItem(i));
-            }
+            Posts = new IncrementalPosts(query);
         }
 
         #endregion
 
         #region Gifs
 
-        ObservableCollection<GalleryItem> gifs = default(ObservableCollection<GalleryItem>);
-        public ObservableCollection<GalleryItem> Gifs { get { return gifs; } set { Set(ref gifs, value); } }
+        IncrementalPosts gifs = default(IncrementalPosts);
+        public IncrementalPosts Gifs { get { return gifs; } set { Set(ref gifs, value); } }
 
-        public async Task SearchGifs(string query)
+        public void SearchGifs(string query)
         {
             if (string.IsNullOrWhiteSpace(QueryText))
                 return;
             query += " ext: gif";
-            Gifs = new ObservableCollection<GalleryItem>();
-            var images = await Gallery.SearchGallery(query);
-            foreach (var i in images)
-            {
-                Gifs.Add(new GalleryItem(i));
-            }
+            Gifs = new IncrementalPosts(query);
         }
 
         #endregion
-
 
         private void InitDesignTime()
         {
@@ -170,4 +184,33 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Subreddits.Add(new SubredditItem { Title = "Dank Memes", Url = "adviceanimals", IsFavorited = true });
         }
     }
+
+    public class IncrementalPosts : IncrementalCollection<GalleryItem>
+    {
+        public string Query { get; set; }
+        public IncrementalPosts(string query)
+        {
+            Query = query;
+        }
+
+        public bool HasMore { get; set; } = true;
+
+        protected override bool HasMoreItemsImpl()
+        {
+            return HasMore;
+        }
+
+        protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
+        {
+            var images = await Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page);
+            if (images == null)
+                return new List<GalleryItem>();
+            if (images.Count == 0)
+            {
+                HasMore = false;
+                return new List<GalleryItem>();
+            }
+            return images.Select(i => new GalleryItem(i)).ToList();
+        }
+    }    
 }
