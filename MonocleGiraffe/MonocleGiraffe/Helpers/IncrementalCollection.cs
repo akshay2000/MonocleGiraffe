@@ -52,6 +52,8 @@ namespace MonocleGiraffe.Helpers
                         break;
                     ConsumedItemsIndex = 0;
                 }
+                if (moreItems.Count == 0)
+                    break;
                 Add(moreItems[ConsumedItemsIndex++]);
             }
             return new LoadMoreItemsResult { Count = count };

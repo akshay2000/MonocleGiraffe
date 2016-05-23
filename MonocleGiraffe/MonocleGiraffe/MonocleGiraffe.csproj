@@ -159,6 +159,7 @@
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
+    <Compile Include="Helpers\SharingHelper.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

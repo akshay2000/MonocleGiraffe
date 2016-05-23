@@ -31,10 +31,10 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             }
         }
 
-        private string AUTHENTICATED = "Authenticated";
-        private string NOT_AUTHENTICATED = "NotAuthenticated";
-        private string BUSY = "Busy";
-        string state;// = NOT_AUTHENTICATED;
+        private const string AUTHENTICATED = "Authenticated";
+        private const string NOT_AUTHENTICATED = "NotAuthenticated";
+        private const string BUSY = "Busy";
+        string state = NOT_AUTHENTICATED;
         public string State { get { return state; } set { Set(ref state, value); } }
 
         private async Task Load()

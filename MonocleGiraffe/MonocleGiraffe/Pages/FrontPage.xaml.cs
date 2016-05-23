@@ -51,7 +51,6 @@ namespace MonocleGiraffe.Pages
                     statusBar.BackgroundColor = Color.FromArgb(1, 37, 37, 37);
                 }
                 LayoutRoot.Margin = new Thickness(0,-12,0,0);
-                //ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
             }
         }
 

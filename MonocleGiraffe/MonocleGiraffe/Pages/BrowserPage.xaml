@@ -15,6 +15,19 @@
         <vm:BrowserPageViewModel/>
     </Page.DataContext>
 
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
+            </CommandBar.Content>
+            <AppBarButton Label="Share" Command="{Binding ShareCommand}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
     <Page.Resources>
         <DataTemplate x:Key="ImageTemplate">
             <templates:ImageTemplate/>
@@ -35,5 +48,5 @@
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"/>
-    </Grid>
+    </Grid>   
 </Page>

@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Models;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,8 @@ namespace MonocleGiraffe.ViewModels
 
 
         int flipViewIndex;
-        public int FlipViewIndex {
+        public int FlipViewIndex
+        {
             get { return flipViewIndex; }
             set { Set(ref flipViewIndex, value); }
         }
@@ -62,6 +64,20 @@ namespace MonocleGiraffe.ViewModels
         {
             galleryMetaInfo.SelectedIndex = FlipViewIndex;
             return base.OnNavigatingFromAsync(args);
+        }
+
+
+        DelegateCommand shareCommand;
+        public DelegateCommand ShareCommand
+           => shareCommand ?? (shareCommand = new DelegateCommand(() =>
+           {
+               Share();
+           }, () => true));
+
+        private void Share()
+        {
+            GalleryItem toShare = Images[FlipViewIndex];
+            SharingHelper.ShareItem(toShare);
         }
 
         private void InitDesignTime()
