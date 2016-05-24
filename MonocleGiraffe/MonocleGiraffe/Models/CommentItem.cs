@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Controls;
+using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,14 @@ namespace MonocleGiraffe.Models
 {
     public class CommentItem : BindableBase, ITreeItem
     {
-        public CommentItem(Comment comment)
+        public CommentItem(CommentViewModel comment)
         {
             Content = comment;
             Children = Translate(comment.Children);
         }
 
-
         object content = default(object);
-        public object Content { get { return content; } set { Set(ref content, value); } }
-
+        public object Content { get { return content; } set { Set(ref content, value); } }       
 
         List<ITreeItem> children = default(List<ITreeItem>);
         public List<ITreeItem> Children { get { return children; } set { Set(ref children, value); } }
@@ -29,8 +28,37 @@ namespace MonocleGiraffe.Models
         {
             List<ITreeItem> ret = new List<ITreeItem>();
             foreach (var c in children)
-                ret.Add(new CommentItem(c));
+                ret.Add(new CommentItem(new CommentViewModel(c)));
             return ret;
+        }
+    }
+
+    public class CommentViewModel : BindableBase
+    {
+        private Comment comment;
+        public CommentViewModel(Comment comment)
+        {
+            this.comment = comment;
+        }
+                
+        public long Id { get { return comment.Id; } }
+
+        public string CommentText { get { return comment.CommentText; } }
+
+        public string Author { get { return comment.Author; } }
+
+        public long Ups { get { return comment.Ups; } }
+
+        public IList<Comment> Children { get { return comment.Children; } }
+
+        public async void UpVote()
+        {
+            await Comments.Vote(Id, "up");
+        }
+
+        public async void DownVote()
+        {
+            await Comments.Vote(Id, "down");
         }
     }
 }

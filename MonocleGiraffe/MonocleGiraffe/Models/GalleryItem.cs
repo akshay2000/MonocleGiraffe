@@ -165,7 +165,7 @@ namespace MonocleGiraffe.Models
         private async Task LoadComments()
         {
             var commentsList = await Gallery.GetComments(image.Id);
-            Comments = commentsList?.Select(c => new CommentItem(c)).ToList();
+            Comments = commentsList?.Select(c => new CommentItem(new CommentViewModel(c))).ToList();
         }
 
         private const string DUMMY = "ms-appx:///Assets/DummyImage.png";
