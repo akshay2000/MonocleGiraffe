@@ -9,7 +9,7 @@ namespace MonocleGiraffe.Models
 {
     public class GalleryMetaInfo
     {
-        public ObservableCollection<GalleryItem> Gallery { get; set; }
+        public IEnumerable<IGalleryItem> Gallery { get; set; }
 
         public int SelectedIndex { get; set; }
     }

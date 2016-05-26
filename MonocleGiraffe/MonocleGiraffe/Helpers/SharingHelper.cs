@@ -12,7 +12,7 @@ namespace MonocleGiraffe.Helpers
     public static class SharingHelper
     {
         private static DataTransferManager dataTransferManager;
-        private static GalleryItem itemToShare;
+        private static IGalleryItem itemToShare;
 
         static SharingHelper()
         {
@@ -29,7 +29,7 @@ namespace MonocleGiraffe.Helpers
             request.Data.SetWebLink(new Uri(itemToShare.Link));
         }
 
-        public static void ShareItem(GalleryItem item)
+        public static void ShareItem(IGalleryItem item)
         {
             itemToShare = item;
             DataTransferManager.ShowShareUI();

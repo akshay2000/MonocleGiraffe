@@ -86,6 +86,27 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                await Load();
            }, () => !IsBusy));
 
+
+        DelegateCommand<string> _ViewAllCommand;
+        public DelegateCommand<string> ViewAllCommand
+           => _ViewAllCommand ?? (_ViewAllCommand = new DelegateCommand<string>(ViewAllCommandExecute, ViewAllCommandCanExecute));
+        bool ViewAllCommandCanExecute(string param) => true;
+        void ViewAllCommandExecute(string param)
+        {
+            
+        }
+
+        //private void GoToBrowser()
+        //{
+        //    //var clickedItem = parameter as GalleryItem;
+        //    //ImageSelectedIndex = Images.IndexOf(clickedItem);
+        //    const string navigationParamName = "GalleryInfo";
+        //    var galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
+        //    BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
+        //    BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+        //    return;
+        //}
+
         #region User
 
         private string userName;
@@ -99,7 +120,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public long Points
         {
             get { return points; }
-            set { points = value; }
+            set { Set(ref points, value); }
         }
 
         #endregion
@@ -132,7 +153,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             {
                 Albums.Add(new AlbumItem(a));
             }
-        }
+        }        
 
         #endregion
 
@@ -161,6 +182,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             UserName = "akshay2000";
             Points = 524545;
+            State = AUTHENTICATED;
             Trophies = new ObservableCollection<Trophy> {
                 new Trophy { Name = "Gone Mobile", Image = "http://s.imgur.com/images/trophies/3c4711.png" },
                 new Trophy { Name = "3 Years", Image = "http://s.imgur.com/images/trophies/f09d7a.png" }

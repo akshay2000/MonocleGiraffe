@@ -519,67 +519,133 @@
                 <PivotItem.Header>
                     <controls:TabHeaderContent IconPath="F 1 M 16,4 C 12.1459,4 9,7.14585 9,11 9,13.3931 10.2204,15.5178 12.0625,16.7813 8.48555,18.3029 6,21.8599 6,26 L 8,26 C 8,21.5333 11.5333,18 16,18 20.4667,18 24,21.5333 24,26 L 26,26 C 26,21.8599 23.5144,18.3029 19.9375,16.7813 21.7796,15.5178 23,13.3931 23,11 23,7.14585 19.8541,4 16,4 Z M 16,6 C 18.7733,6 21,8.22673 21,11 21,13.7733 18.7733,16 16,16 13.2267,16 11,13.7733 11,11 11,8.22673 13.2267,6 16,6 Z" Label="Account"/>
                 </PivotItem.Header>
-                <Grid DataContext="{Binding AccountVM}">                 
-                    <ScrollViewer Visibility="{Binding State, ConverterParameter=Authenticated, Converter={StaticResource StateToVisibilityConverter}}">
+                <Grid DataContext="{Binding AccountVM}">
+                    <Grid.Resources>
+                        <Style x:Key="GroupHeaderStyle" TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="FontWeight" Value="ExtraBold"/>
+                        </Style>
+                        <Style x:Key="CountStyle" TargetType="Border">
+                            <Setter Property="Margin" Value="8,0"/>
+                            <Setter Property="Height" Value="18"/>
+                            <Setter Property="MinWidth" Value="18"/>
+                            <Setter Property="Background" Value="#FF528ACA"/>
+                        </Style>
+                        <Style x:Key="CountTextStyle" TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="0,0,12,0"/>
+                            <Setter Property="MinWidth" Value="10"/>
+                            <Setter Property="MinHeight" Value="10"/>
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                        <Style x:Key="HorizontalListViewStyle" TargetType="ListView">
+                            <Setter Property="MinHeight" Value="50"/>
+                            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+                            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
+                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                            <Setter Property="ItemsPanel">
+                                <Setter.Value>
+                                    <ItemsPanelTemplate>
+                                        <ItemsStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <!--<ScrollViewer Visibility="{Binding State, ConverterParameter=Authenticated, Converter={StaticResource StateToVisibilityConverter}}">-->
+                        <ScrollViewer Visibility="Visible">
                         <StackPanel>
-                            <TextBlock Text="HELLO"/>
-                            <TextBlock Text="{Binding UserName}"/>
-                            <TextBlock Text="{Binding Points}"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Text="TROPHIES" VerticalAlignment="Center"/>
-                                <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                    <TextBlock Text="{Binding Trophies.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <Border Height="24" Width="24" Background="{StaticResource AppThemeBrush}" CornerRadius="12"/>
+                                <TextBlock Text="HELLO" FontWeight="Bold" Margin="8,0" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <GridView ItemsSource="{Binding Trophies}">
-                                <GridView.ItemTemplate>
+                            <TextBlock Text="{Binding UserName}" FontSize="36" FontWeight="Light"/>
+                            <TextBlock FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8">
+                                <Run Text="{Binding Points}"/>
+                                <Run Text="Points"/>
+                            </TextBlock>
+                            <Grid Margin="0,16,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="TROPHIES" VerticalAlignment="Center" Style="{StaticResource GroupHeaderStyle}"/>
+                                <Border Style="{StaticResource CountStyle}" Grid.Column="1">
+                                    <TextBlock Text="{Binding Trophies.Count}" Style="{StaticResource CountTextStyle}"/>
+                                </Border>                                
+                            </Grid>
+                            <ListView ItemsSource="{Binding Trophies}" Style="{StaticResource HorizontalListViewStyle}" >                                
+                                <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Background="Gray" Height="50" Width="50">
+                                        <Border Background="Gray" Height="75" Width="75">
                                             <Image Margin="4" Source="{Binding Image}"/>
                                         </Border>
                                     </DataTemplate>
-                                </GridView.ItemTemplate>
-                            </GridView>
+                                </ListView.ItemTemplate>
+                            </ListView>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Text="ALBUMS" VerticalAlignment="Center"/>
-                                <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                    <TextBlock Text="{Binding Albums.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid Margin="0,16,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="ALBUMS" VerticalAlignment="Center" Style="{StaticResource GroupHeaderStyle}"/>
+                                <Border Style="{StaticResource CountStyle}" Grid.Column="1">
+                                    <TextBlock Text="{Binding Albums.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>
-                            </StackPanel>
-                            <GridView ItemsSource="{Binding Albums}">
-                                <GridView.ItemTemplate>
+                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0">
+                                    <TextBlock Text="View All" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AppThemeBrush}"/>
+                                </HyperlinkButton>
+                            </Grid>
+                            <ListView ItemsSource="{Binding Albums}" Style="{StaticResource HorizontalListViewStyle}">
+                                <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Background="Gray" Height="50" Width="50">
+                                        <Border Background="Gray" Height="75" Width="75">
                                             <Image Source="{Binding Thumbnail}"/>
                                         </Border>
                                     </DataTemplate>
-                                </GridView.ItemTemplate>
-                            </GridView>
+                                </ListView.ItemTemplate>
+                            </ListView>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Text="Images" VerticalAlignment="Center"/>
-                                <Border Background="SkyBlue" MinWidth="16" Height="16">
-                                    <TextBlock Text="{Binding Images.Count}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid Margin="0,16,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="IMAGES" VerticalAlignment="Center" Style="{StaticResource GroupHeaderStyle}"/>
+                                <Border Style="{StaticResource CountStyle}" Grid.Column="1">
+                                    <TextBlock Text="{Binding Images.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>
-                            </StackPanel>
-                            <GridView ItemsSource="{Binding Images}">
-                                <GridView.ItemTemplate>
+                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0">
+                                    <TextBlock Text="View All" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AppThemeBrush}"/>
+                                </HyperlinkButton>
+                            </Grid>
+                            <ListView ItemsSource="{Binding Images}" Style="{StaticResource HorizontalListViewStyle}">
+                                <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Background="Gray" Height="50" Width="50">
+                                        <Border Background="Gray" Height="75" Width="75">
                                             <Image Source="{Binding Thumbnail}"/>
                                         </Border>
                                     </DataTemplate>
-                                </GridView.ItemTemplate>
-                            </GridView>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </StackPanel>
                     </ScrollViewer>
-                    <Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
+                    <!--<Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
                         <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>
                     </Border>
                     <Border Background="Black" Visibility="{Binding State, ConverterParameter=Busy, Converter={StaticResource StateToVisibilityConverter}}">
                         <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
+                    </Border>-->
                 </Grid>
             </PivotItem>
         </Pivot>

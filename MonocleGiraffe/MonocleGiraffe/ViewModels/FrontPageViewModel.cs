@@ -157,6 +157,7 @@ namespace MonocleGiraffe.ViewModels
         private void InitDesignTime()
         {
             PivotIndex = 0;
+            AccountVM = new AccountViewModel();
         }
 
      

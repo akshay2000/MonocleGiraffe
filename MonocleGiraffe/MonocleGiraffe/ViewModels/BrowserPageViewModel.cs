@@ -36,8 +36,8 @@ namespace MonocleGiraffe.ViewModels
         {
         }
 
-        private ObservableCollection<GalleryItem> images;
-        public ObservableCollection<GalleryItem> Images
+        private IEnumerable<IGalleryItem> images;
+        public IEnumerable<IGalleryItem> Images
         {
             get { return images; }
             set { Set(ref images, value); }
@@ -76,15 +76,16 @@ namespace MonocleGiraffe.ViewModels
 
         private void Share()
         {
-            GalleryItem toShare = Images[FlipViewIndex];
+            IGalleryItem toShare = Images.ElementAt(FlipViewIndex);
             SharingHelper.ShareItem(toShare);
         }
 
         private void InitDesignTime()
         {
-            Images = new ObservableCollection<GalleryItem>();
-            Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345, Description="Never made the front page before" }));
-            Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
+            var images = new ObservableCollection<GalleryItem>();
+            images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345, Description="Never made the front page before" }));
+            images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
+            Images = images;
         }
     }
     

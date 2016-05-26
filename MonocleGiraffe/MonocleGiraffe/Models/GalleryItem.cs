@@ -15,7 +15,7 @@ namespace MonocleGiraffe.Models
 {
     public enum GalleryItemType { Image, Album, Animation }
 
-    public class GalleryItem : BindableBase
+    public class GalleryItem : BindableBase, IGalleryItem
     {
         private Image image;        
 
