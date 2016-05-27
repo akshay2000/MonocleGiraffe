@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml.Controls;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -109,6 +110,19 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                     GoToBrowser(Favourites, 0);
                     break;
             }
+        }
+
+        public void ImageTapped(object sender, object args)
+        {
+            var info = args as ItemClickEventArgs;
+            var clickedItem = (IGalleryItem)info.ClickedItem;
+            var collection = (info.OriginalSource as ItemsControl).ItemsSource;
+            if (collection == Albums)
+                GoToBrowser(Albums, Albums.IndexOf((AlbumItem)clickedItem));
+            else if (collection == Images)
+                GoToBrowser(Images, Images.IndexOf((GalleryItem)clickedItem));
+            else if (collection == Favourites)
+                GoToBrowser(Favourites, Favourites.IndexOf((GalleryItem)clickedItem));
         }
 
         private void GoToBrowser(IEnumerable<IGalleryItem> gallery, int index)
@@ -228,11 +242,11 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Albums.Add(new AlbumItem(new Album { Cover = "nqpaOvc" }));
 
             Images = new ObservableCollection<GalleryItem>();
-            Images.Add(new GalleryItem(new Image { Id = "vjpNYII" }));
-            Images.Add(new GalleryItem(new Image { Id = "eZBrROO" }));
-            Images.Add(new GalleryItem(new Image { Id = "FExPJrk" }));
-            Images.Add(new GalleryItem(new Image { Id = "nqpaOvc" }));
-            Images.Add(new GalleryItem(new Image { Id = "vjpNYII" }));
+            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "vjpNYII" }));
+            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "eZBrROO" }));
+            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "FExPJrk" }));
+            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "nqpaOvc" }));
+            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "vjpNYII" }));
         }
     }
 }

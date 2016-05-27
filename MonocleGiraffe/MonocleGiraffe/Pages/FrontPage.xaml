@@ -549,6 +549,8 @@
                             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
                             <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
                             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                            <Setter Property="SelectionMode" Value="None"/>
+                            <Setter Property="IsItemClickEnabled" Value="True"/>
                             <Setter Property="ItemsPanel">
                                 <Setter.Value>
                                     <ItemsPanelTemplate>
@@ -585,7 +587,12 @@
                                     <TextBlock Text="{Binding Trophies.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>                                
                             </Grid>
-                            <ListView ItemsSource="{Binding Trophies}" Style="{StaticResource HorizontalListViewStyle}" >                                
+                            <ListView ItemsSource="{Binding Trophies}" Style="{StaticResource HorizontalListViewStyle}" >
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction MethodName="ImageTapped" TargetObject="{Binding Mode=OneWay}" />
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Gray" Height="75" Width="75">
@@ -612,6 +619,11 @@
                                 </HyperlinkButton>
                             </Grid>
                             <ListView ItemsSource="{Binding Albums}" Style="{StaticResource HorizontalListViewStyle}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction MethodName="ImageTapped" TargetObject="{Binding Mode=OneWay}" />
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Gray" Height="75" Width="75">
@@ -638,6 +650,11 @@
                                 </HyperlinkButton>
                             </Grid>
                             <ListView ItemsSource="{Binding Images}" Style="{StaticResource HorizontalListViewStyle}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction MethodName="ImageTapped" TargetObject="{Binding Mode=OneWay}" />
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Gray" Height="75" Width="75">
@@ -664,6 +681,11 @@
                                 </HyperlinkButton>
                             </Grid>
                             <ListView ItemsSource="{Binding Favourites}" Style="{StaticResource HorizontalListViewStyle}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="ItemClick">
+                                        <Core:CallMethodAction MethodName="ImageTapped" TargetObject="{Binding Mode=OneWay}" />
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Gray" Height="75" Width="75">
