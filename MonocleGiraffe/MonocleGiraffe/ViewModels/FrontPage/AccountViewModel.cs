@@ -66,6 +66,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             await LoadAlbums(userName);
             await Task.Delay(500);
             await LoadImages(userName);
+            await Task.Delay(500);
+            await LoadFavourites(userName);
         }
 
         public async Task Reload()
@@ -102,6 +104,9 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                     break;
                 case "images":
                     GoToBrowser(Images, 0);
+                    break;
+                case "favourites":
+                    GoToBrowser(Favourites, 0);
                     break;
             }
         }
@@ -181,6 +186,27 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             foreach (var i in images)
             {
                 Images.Add(new GalleryItem(i));
+            }
+        }
+
+        #endregion
+
+        #region Favourites
+
+        private ObservableCollection<GalleryItem> favourites;
+        public ObservableCollection<GalleryItem> Favourites
+        {
+            get { return favourites; }
+            set { Set(ref favourites, value); }
+        }
+
+        private async Task LoadFavourites(string userName)
+        {
+            Favourites = new ObservableCollection<GalleryItem>();
+            var favourites = await Accounts.GetFavourites(userName);
+            foreach (var i in favourites)
+            {
+                Favourites.Add(new GalleryItem(i));
             }
         }
 
