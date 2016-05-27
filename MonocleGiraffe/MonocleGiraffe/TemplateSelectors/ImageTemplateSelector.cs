@@ -16,7 +16,7 @@ namespace MonocleGiraffe.TemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if ((item as GalleryItem).ItemType == GalleryItemType.Album)
+            if ((item as IGalleryItem).ItemType == GalleryItemType.Album)
                 return AlbumTemplate;
             else //if ((item as GalleryItem).ItemType == GalleryItemType.Image)
                 return ImageTemplate;

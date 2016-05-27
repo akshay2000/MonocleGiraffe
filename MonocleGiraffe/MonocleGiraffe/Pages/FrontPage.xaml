@@ -558,8 +558,8 @@
                             </Setter>
                         </Style>
                     </Grid.Resources>
-                    <!--<ScrollViewer Visibility="{Binding State, ConverterParameter=Authenticated, Converter={StaticResource StateToVisibilityConverter}}">-->
-                        <ScrollViewer Visibility="Visible">
+                    <ScrollViewer Visibility="{Binding State, ConverterParameter=Authenticated, Converter={StaticResource StateToVisibilityConverter}}">
+                        <!--<ScrollViewer Visibility="Visible">-->
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                                 <Border Height="24" Width="24" Background="{StaticResource AppThemeBrush}" CornerRadius="12"/>
@@ -601,7 +601,7 @@
                                 <Border Style="{StaticResource CountStyle}" Grid.Column="1">
                                     <TextBlock Text="{Binding Albums.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>
-                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0">
+                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0" Command="{Binding ViewAllCommand}" CommandParameter="albums">
                                     <TextBlock Text="View All" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AppThemeBrush}"/>
                                 </HyperlinkButton>
                             </Grid>
@@ -625,7 +625,7 @@
                                 <Border Style="{StaticResource CountStyle}" Grid.Column="1">
                                     <TextBlock Text="{Binding Images.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>
-                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0">
+                                <HyperlinkButton Grid.Column="2" HorizontalAlignment="Right" Padding="0" Command="{Binding ViewAllCommand}" CommandParameter="images">
                                     <TextBlock Text="View All" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AppThemeBrush}"/>
                                 </HyperlinkButton>
                             </Grid>
@@ -640,12 +640,12 @@
                             </ListView>
                         </StackPanel>
                     </ScrollViewer>
-                    <!--<Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
+                    <Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
                         <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>
                     </Border>
                     <Border Background="Black" Visibility="{Binding State, ConverterParameter=Busy, Converter={StaticResource StateToVisibilityConverter}}">
                         <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>-->
+                    </Border>
                 </Grid>
             </PivotItem>
         </Pivot>

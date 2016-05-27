@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
 using SharpImgur.Models;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 
@@ -87,25 +89,31 @@ namespace MonocleGiraffe.ViewModels.FrontPage
            }, () => !IsBusy));
 
 
-        DelegateCommand<string> _ViewAllCommand;
+        DelegateCommand<string> viewAllCommand;
         public DelegateCommand<string> ViewAllCommand
-           => _ViewAllCommand ?? (_ViewAllCommand = new DelegateCommand<string>(ViewAllCommandExecute, ViewAllCommandCanExecute));
+           => viewAllCommand ?? (viewAllCommand = new DelegateCommand<string>(ViewAllCommandExecute, ViewAllCommandCanExecute));
         bool ViewAllCommandCanExecute(string param) => true;
         void ViewAllCommandExecute(string param)
         {
-            
+            switch (param)
+            {
+                case "albums":
+                    GoToBrowser(Albums, 0);
+                    break;
+                case "images":
+                    GoToBrowser(Images, 0);
+                    break;
+            }
         }
 
-        //private void GoToBrowser()
-        //{
-        //    //var clickedItem = parameter as GalleryItem;
-        //    //ImageSelectedIndex = Images.IndexOf(clickedItem);
-        //    const string navigationParamName = "GalleryInfo";
-        //    var galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
-        //    BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
-        //    BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
-        //    return;
-        //}
+        private void GoToBrowser(IEnumerable<IGalleryItem> gallery, int index)
+        {
+            const string navigationParamName = "GalleryInfo";
+            var galleryMetaInfo = new GalleryMetaInfo { Gallery = gallery, SelectedIndex = index };
+            BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
+            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+            return;
+        }
 
         #region User
 
