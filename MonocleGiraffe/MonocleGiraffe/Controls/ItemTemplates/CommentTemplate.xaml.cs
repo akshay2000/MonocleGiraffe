@@ -1,10 +1,13 @@
 ﻿using MonocleGiraffe.Controls.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
+using Template10.Mvvm;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -21,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.Controls.ItemTemplates
 {
-    public sealed partial class CommentTemplate : UserControl
+    public sealed partial class CommentTemplate : UserControl, INotifyPropertyChanged
     {
         public CommentTemplate()
         {
@@ -35,9 +38,13 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             CollapseRequested?.Invoke(sender, e);
         }
 
-        private void CommentCollapse_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ExpandToggle_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            OnCollapseRequested(this, e);
+            if (IsExpanded)
+                OnCollapseRequested(this, e);
+            else
+                OnExpandRequested(this, e);
+            IsExpanded = !IsExpanded;
         }
 
         public event RoutedEventHandler ExpandRequested;
@@ -47,10 +54,8 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             ExpandRequested?.Invoke(sender, e);
         }
 
-        private void CommentExpand_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            OnExpandRequested(this, e);
-        }
+        bool isExpanded = false;
+        public bool IsExpanded { get { return isExpanded; } set { Set(ref isExpanded, value); } }
 
         public string Text
         {
@@ -97,5 +102,24 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             Uri uri = new Uri(t);
             await Launcher.LaunchUriAsync(uri);
         }
+
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                RaisePropertyChanged(propertyName);
+            }
+        }
+
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        #endregion  
     }
 }

@@ -152,6 +152,7 @@
       <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanInverseConverter.cs" />
+    <Compile Include="Converters\BoolToBrushConvreter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\StateToVisibilityConverter.cs" />

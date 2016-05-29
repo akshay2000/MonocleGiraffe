@@ -15,7 +15,17 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListView ItemsSource="{x:Bind Items, Mode=OneWay}" SelectionMode="None">
+        <ListView
+            ItemsSource="{x:Bind Items, Mode=OneWay}"
+            SelectionMode="None" 
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollMode="Auto">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:TreeViewItem">
                     <Grid>
@@ -23,7 +33,6 @@
                             <ColumnDefinition Width="{x:Bind Depth, Converter={StaticResource DepthConverter}, ConverterParameter=10}"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <!--<TextBlock DataContext="{x:Bind Content}" Tag="{x:Bind}" Text="{Binding CommentText}" Grid.Column="1" Tapped="Grid_Tapped"/>-->
                         <templates:CommentTemplate 
                             DataContext="{Binding}" 
                             Tag="{Binding}"

@@ -78,7 +78,7 @@
                     <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
 
                     <TextBlock Grid.Row="1" Margin="12,0,12,12">
-                        <Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text="points" Foreground="#FF959595"/>
+                        <Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text=" points" Foreground="#FF959595"/>
                     </TextBlock>
 
                     <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">

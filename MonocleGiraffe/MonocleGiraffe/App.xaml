@@ -15,6 +15,7 @@
             <converters:CaseConverter x:Key="CaseConverter"/>
             <converters:BooleanInverseConverter x:Key="BooleanInverseConverter"/>
             <converters:StateToVisibilityConverter x:Key="StateToVisibilityConverter"/>
+            <converters:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
 
             <Style x:Key="BasicTextStyle" TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>
