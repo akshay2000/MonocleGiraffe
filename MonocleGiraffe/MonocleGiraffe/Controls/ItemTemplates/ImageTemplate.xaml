@@ -138,6 +138,7 @@
                 ItemsSource="{Binding Comments}" 
                 Grid.Row="1"
                 Visibility="Collapsed"
+                IsLoading="{Binding IsLoadingComments}"
                 x:DeferLoadStrategy="Lazy"/>
         </Grid>
     </Grid>

@@ -48,6 +48,16 @@ namespace MonocleGiraffe.Controls
             panel.Items = new ObservableCollection<TreeViewItem>(Translate(newValue.ToList(), 0));
         }
 
+        public bool IsLoading
+        {
+            get { return (bool)GetValue(IsLoadingProperty); }
+            set { SetValue(IsLoadingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLoading.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsLoadingProperty =
+            DependencyProperty.Register("IsLoading", typeof(bool), typeof(TreeView), new PropertyMetadata(false));
+
         ObservableCollection<TreeViewItem> items = default(ObservableCollection<TreeViewItem>);
         public ObservableCollection<TreeViewItem> Items { get { return items; } set { Set(ref items, value); } }
 
@@ -68,24 +78,6 @@ namespace MonocleGiraffe.Controls
             }
             return ret;
         }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(storage, value))
-            {
-                storage = value;
-                RaisePropertyChanged(propertyName);
-            }
-        }
-
-        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
-           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        #endregion
         
         private void CommentTemplate_ExpandRequested(object sender, RoutedEventArgs e)
         {
@@ -119,6 +111,25 @@ namespace MonocleGiraffe.Controls
                 tappedItem.IsExpanded = false;
             }
         }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                RaisePropertyChanged(propertyName);
+            }
+        }
+
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        #endregion
+
     }
 
     public class TreeViewItem : BindableBase

@@ -44,5 +44,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <ProgressRing IsActive="{x:Bind IsLoading, Mode=OneWay}" Visibility="{x:Bind IsLoading, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </UserControl>
