@@ -20,7 +20,7 @@
             <Setter Property="TabNavigation" Value="Local"/>
             <Setter Property="IsHoldingEnabled" Value="True"/>
             <Setter Property="Padding" Value="12,0,12,0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
             <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
@@ -97,9 +97,39 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <ControlTemplate x:Key="UpVote" TargetType="ContentControl">
+            <Path Data="M 7,0 L 0,7 4,7 4,12 10,12 10,7 14,7 7,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Stroke="{TemplateBinding BorderBrush}"/>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DownVote" TargetType="ContentControl">
+            <Path Data="M 4,0 L 10,0 10,5 14,5 7,12 0,5 4,5 4,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Stroke="{TemplateBinding BorderBrush}" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="Comment" TargetType="ContentControl">
+            <Path Data="F 1 M 0,0 L 0,12 12,12 16,16 16,0 0,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Stroke="{TemplateBinding BorderBrush}"/>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="ImageItemTemplate">
+            <Grid Margin="0,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Background="#FF333333">
+                    <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="Normal" TextWrapping="Wrap" Margin="12,6"/>
+                </Border>
+
+                <Viewbox Grid.Row="1" StretchDirection="DownOnly">
+                    <controls:ImageUserControl/>
+                </Viewbox>
+                <Border Background="#FF333333" Grid.Row="2">
+                    <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                </Border>
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="#FF252525">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
                 <VisualState x:Name="NarrowState">
@@ -127,9 +157,10 @@
                 <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
             <ListView
-            ItemsSource="{Binding AlbumImages}"
-            ItemContainerStyle="{StaticResource ThinListViewItem}"
-            SelectionMode="None">
+                ItemsSource="{Binding AlbumImages}"
+                ItemContainerStyle="{StaticResource ThinListViewItem}"
+                ItemTemplate="{StaticResource ImageItemTemplate}"
+                SelectionMode="None">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid>
@@ -138,34 +169,17 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="{Binding Title}"/>
+                            <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
 
-                            <TextBlock Grid.Row="1">
-                            <!--Keep all Run tags on the same line to avoid unwanted whitespaces-->
-                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
+                            <TextBlock Grid.Row="1" Margin="12,0,12,12" TextWrapping="Wrap">
+					            <Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text=" points" Foreground="#FF959595"/>
                             </TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Title}"/>
-                            <Viewbox Grid.Row="1" StretchDirection="DownOnly">
-                                <controls:ImageUserControl/>
-                            </Viewbox>
-                            <TextBlock Text="{Binding Description}" Grid.Row="2"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Description}" Grid.Row="3" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
@@ -174,53 +188,66 @@
         </Grid>
 
         <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Header-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
+
+                <TextBlock Grid.Row="1" Margin="12,0,12,12" TextWrapping="Wrap">
+					<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text=" points" Foreground="#FF959595"/>
+                </TextBlock>
+
+                <ListViewItem
+					x:Name="ToggleCommentsButton" 
+					Grid.Column="1"
+					Grid.RowSpan="2"
+					VerticalAlignment="Top"
+					MinHeight="0"
+					MinWidth="0"
+					Margin="0"
+					HorizontalAlignment="Right"
+					Padding="12"
+                    Tapped="ToggleCommentsButton_Tapped">
+                    <ContentControl 
+						Template="{StaticResource Comment}" 
+						Height="16"/>
+                </ListViewItem>
+            </Grid>
+
+            <!--Images, Description and Comments-->
             <ListView
-            ItemsSource="{Binding AlbumImages}"
-            ItemContainerStyle="{StaticResource ThinListViewItem}"
-            SelectionMode="None">
-                <ListView.HeaderTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Text="{Binding Title}"/>
-
-                            <TextBlock Grid.Row="1">
-                            <!--Keep all Run tags on the same line to avoid unwanted whitespaces-->
-                            <Run Text="by "/><Run Text="{Binding UploaderName}"/><Run Foreground="#939393" Text=" • " /><Run Text="{Binding Ups}"/><Run Text="points"/>
-                            </TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.HeaderTemplate>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Title}"/>
-                            <Viewbox Grid.Row="1" StretchDirection="DownOnly">
-                                <controls:ImageUserControl/>
-                            </Viewbox>
-                            <TextBlock Text="{Binding Description}" Grid.Row="2"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                x:Name="ImagePanel"
+                ItemsSource="{Binding AlbumImages}"
+                ItemContainerStyle="{StaticResource ThinListViewItem}"
+                SelectionMode="None"
+                ItemTemplate="{StaticResource ImageItemTemplate}"
+                Grid.Row="1">
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Description}" Grid.Row="3" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
-        </Grid>
+            <controls:TreeView 
+                x:Name="CommentsView" 
+                ItemsSource="{Binding Comments}" 
+                Grid.Row="1"
+                Visibility="Collapsed"
+                IsLoading="{Binding IsLoadingComments}"
+                x:DeferLoadStrategy="Lazy"/>
+        </Grid>        
     </Grid>
 
 </UserControl>

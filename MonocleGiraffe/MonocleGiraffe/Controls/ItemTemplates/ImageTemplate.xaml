@@ -23,7 +23,7 @@
         </ControlTemplate>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="#FF252525">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
                 <VisualState x:Name="NarrowState">
@@ -78,7 +78,7 @@
             <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
         </Grid>
 
-        <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed" Background="#FF252525">
+        <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
