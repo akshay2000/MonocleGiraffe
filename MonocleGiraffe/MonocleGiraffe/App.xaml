@@ -5,17 +5,28 @@
     xmlns:converters="using:MonocleGiraffe.Converters"
     xmlns:local="using:MonocleGiraffe"
     xmlns:t10common="using:Template10.Common"
+    xmlns:t10converters="using:Template10.Converters"
     RequestedTheme="Dark">
 
   <Application.Resources>
         <ResourceDictionary>
 
-
+            <!--#region Converters-->
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <converters:CaseConverter x:Key="CaseConverter"/>
             <converters:BooleanInverseConverter x:Key="BooleanInverseConverter"/>
             <converters:StateToVisibilityConverter x:Key="StateToVisibilityConverter"/>
             <converters:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+
+            <t10converters:ValueWhenConverter x:Key="TextVisibilityConverter" When="{x:Null}">
+                <t10converters:ValueWhenConverter.Value>
+                    <Visibility>Collapsed</Visibility>                    
+                </t10converters:ValueWhenConverter.Value>
+                <t10converters:ValueWhenConverter.Otherwise>
+                    <Visibility>Visible</Visibility>
+                </t10converters:ValueWhenConverter.Otherwise>
+            </t10converters:ValueWhenConverter>
+            <!--#endregion-->
 
             <Style x:Key="BasicTextStyle" TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>

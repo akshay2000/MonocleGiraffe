@@ -115,14 +115,14 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Border Background="#FF333333">
+                <Border Background="#FF333333" Visibility="{Binding Title, Converter={StaticResource TextVisibilityConverter}}">
                     <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="Normal" TextWrapping="Wrap" Margin="12,6"/>
                 </Border>
 
                 <Viewbox Grid.Row="1" StretchDirection="DownOnly">
                     <controls:ImageUserControl/>
                 </Viewbox>
-                <Border Background="#FF333333" Grid.Row="2">
+                <Border Background="#FF333333" Grid.Row="2" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
                     <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                 </Border>
             </Grid>
@@ -179,7 +179,7 @@
                 </ListView.HeaderTemplate>
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                            <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
@@ -236,7 +236,7 @@
                 Grid.Row="1">
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                            <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
