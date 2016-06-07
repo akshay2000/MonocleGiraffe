@@ -62,7 +62,7 @@
                     <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
 
                     <TextBlock Grid.Row="1" Margin="12,0,12,12">
-						<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text="points" Foreground="#FF959595"/>
+						<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF1EEC88"/><Run Text=" points" Foreground="#FF1EEC88"/>
                     </TextBlock>
 
                     <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
@@ -97,23 +97,23 @@
                 <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
 
                 <TextBlock Grid.Row="1" Margin="12,0,12,12" TextWrapping="Wrap">
-					<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF959595"/><Run Text=" points" Foreground="#FF959595"/>
+					<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF1EEC88"/><Run Text=" points" Foreground="#FF1EEC88"/>
                 </TextBlock>
 
                 <ListViewItem
 					x:Name="ToggleCommentsButton" 
 					Grid.Column="1"
 					Grid.RowSpan="2"
-					VerticalAlignment="Top"
+					VerticalAlignment="Stretch"
 					MinHeight="0"
 					MinWidth="0"
 					Margin="0"
 					HorizontalAlignment="Right"
-					Padding="12"
+					Padding="24,0"
                     Tapped="ToggleCommentsButton_Tapped">
                     <ContentControl 
 						Template="{StaticResource Comment}" 
-						Height="16"/>
+						Width="18"/>
                 </ListViewItem>
             </Grid>
 
