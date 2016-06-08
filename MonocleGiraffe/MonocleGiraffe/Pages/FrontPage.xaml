@@ -275,6 +275,9 @@
             </AppBarButton>
             <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}" Visibility="{Binding RefreshVisibility}"/>
             <AppBarButton Icon="Add" Label="Add" Visibility="{Binding AddVisibility}" Command="{Binding AddCommand}"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Feedback" Command="{Binding FeedbackCommand}"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 

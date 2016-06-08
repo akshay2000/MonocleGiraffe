@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="MonocleGiraffe.Pages.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MonocleGiraffe.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:FeedbackPageViewModel/>
+    </Page.DataContext>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="12">
+            <TextBlock Text="FEEDBACK" FontSize="24" FontWeight="Bold" Margin="0,0,0,24"/>
+            <TextBox PlaceholderText="Share some feedback" Height="240" TextWrapping="Wrap" Text="{Binding FeedbackText, Mode=TwoWay}"/>
+            <Button Content="Send Feedback" Command="{Binding Send}" IsEnabled="{Binding IsSendEnabled}" Margin="0,12" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+    </Grid>
+</Page>

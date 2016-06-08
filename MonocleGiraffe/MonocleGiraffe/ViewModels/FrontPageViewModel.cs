@@ -1,10 +1,12 @@
-﻿using MonocleGiraffe.ViewModels.FrontPage;
+﻿using MonocleGiraffe.Pages;
+using MonocleGiraffe.ViewModels.FrontPage;
 using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
@@ -73,6 +75,13 @@ namespace MonocleGiraffe.ViewModels
         }
 
         #region Command Bar
+
+        DelegateCommand feedbackCommand;
+        public DelegateCommand FeedbackCommand
+           => feedbackCommand ?? (feedbackCommand = new DelegateCommand(() =>
+           {
+               BootStrapper.Current.NavigationService.Navigate(typeof(FeedbackPage));
+           }));
 
         DelegateCommand refreshCommand;
         public DelegateCommand RefreshCommand
