@@ -145,6 +145,7 @@
     <Compile Include="Controls\ItemTemplates\TopicTemplate.xaml.cs">
       <DependentUpon>TopicTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PathAppBarToggleButton.cs" />
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
@@ -325,6 +326,10 @@
     <Page Include="Pages\SubGalleryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -11,23 +11,6 @@
     xmlns:controls="using:MonocleGiraffe.Controls"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:BrowserPageViewModel/>
-    </Page.DataContext>
-
-    <Page.BottomAppBar>
-        <CommandBar>
-            <CommandBar.Content>
-                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
-            </CommandBar.Content>
-            <AppBarButton Label="Share" Command="{Binding ShareCommand}">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE72D;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </CommandBar>
-    </Page.BottomAppBar>
-    
     <Page.Resources>
         <DataTemplate x:Key="ImageTemplate">
             <templates:ImageTemplate/>
@@ -40,13 +23,17 @@
         <selectors:ImageTemplateSelector 
             x:Key="Selector"
             ImageTemplate="{StaticResource ImageTemplate}"
-            AlbumTemplate="{StaticResource AlbumTemplate}"/>
+            AlbumTemplate="{StaticResource AlbumTemplate}"/>           
     </Page.Resources>
-    
+
+    <Page.DataContext>
+        <vm:BrowserPageViewModel/>
+    </Page.DataContext>    
+
     <Grid Background="Black">
         <controls:IncrementalFlipView 
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"/>
-    </Grid>   
+    </Grid>
 </Page>
