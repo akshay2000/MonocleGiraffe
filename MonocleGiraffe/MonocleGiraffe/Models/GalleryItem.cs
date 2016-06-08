@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Xaml.Input;
 
 namespace MonocleGiraffe.Models
 {
@@ -22,9 +23,25 @@ namespace MonocleGiraffe.Models
         public GalleryItem(Image image)
         {
             this.image = image;
+            Init();
+        }
+
+        private void Init()
+        {
+            SetVote();
+            SetPoints();
+            SetFavourite();
         }
 
         #region Available members
+
+        public string Id
+        {
+            get
+            {
+                return image.Id;
+            }
+        }
 
         public string Title
         {
@@ -240,5 +257,116 @@ namespace MonocleGiraffe.Models
         }
 
         #endregion
+
+        private void SetVote()
+        {
+            switch (image.Vote)
+            {
+                case "up":
+                    IsUpVoted = true;
+                    break;
+                case "down":
+                    IsDownVoted = true;
+                    break;
+            }
+        }
+
+        private void SetPoints()
+        {
+            Points = image.Points ?? 0;
+        }
+
+        long points = default(long);
+        public long Points { get { return points; } set { Set(ref points, value); } }
+
+        bool isUpVoted = false;
+        public bool IsUpVoted { get { return isUpVoted; } set { Set(ref isUpVoted, value); } }
+
+        bool isDownVoted = false;
+        public bool IsDownVoted { get { return isDownVoted; } set { Set(ref isDownVoted, value); } }
+        
+        DelegateCommand<string> voteCommand;
+        public DelegateCommand<string> VoteCommand
+           => voteCommand ?? (voteCommand = new DelegateCommand<string>(async (string parameter) =>
+           {
+               switch (parameter)
+               {
+                   case "up":
+                       await UpVote();
+                       break;
+                   case "down":
+                       await DownVote();
+                       break;
+               }
+           }));
+
+        public async Task UpVote()
+        {
+            string toVote;
+            if (IsUpVoted)
+            {
+                toVote = "veto";
+                Points--;
+            }
+            else
+            {
+                if (IsDownVoted)
+                    Points++;
+                toVote = "up";
+                Points++;
+            }
+            IsDownVoted = false;
+            IsUpVoted = !IsUpVoted;
+            await Gallery.Vote(Id, toVote);
+        }
+
+        public async Task DownVote()
+        {
+            if (IsUpVoted)
+            {
+                IsUpVoted = false;
+                Points--;
+            }
+            string toVote;
+            if (IsDownVoted)
+            {
+                toVote = "veto";
+                Points++;
+            }
+            else
+            {
+                if (IsUpVoted)
+                    Points++;
+                toVote = "down";
+                Points--;
+            }
+            IsDownVoted = !IsDownVoted;
+            await Gallery.Vote(Id, toVote);
+        }
+
+        private void SetFavourite()
+        {
+            IsFavourited = image.Favorite;
+        }
+
+        bool isFavourited = false;
+        public bool IsFavourited { get { return isFavourited; } set { Set(ref isFavourited, value); } }
+
+        DelegateCommand favourite;
+        public DelegateCommand Favourite
+           => favourite ?? (favourite = new DelegateCommand(async () =>
+           {
+               if (ItemType == GalleryItemType.Album)
+                   IsFavourited = await Gallery.FavouriteAlbum(Id);
+               else
+                   IsFavourited = await Gallery.FavouriteImage(Id);
+           }));
+
+        DelegateCommand share;
+        public DelegateCommand ShareCommand
+           => share ?? (share = new DelegateCommand(() =>
+           {
+               SharingHelper.ShareItem(this);
+           }));
     }
 }
