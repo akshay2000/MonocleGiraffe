@@ -1,4 +1,5 @@
-﻿Param(
+﻿# This file generates Secrets.json at the given path
+Param(
     [string]$outPath,
     [string]$clientId,
     [string]$mashApeKey,
