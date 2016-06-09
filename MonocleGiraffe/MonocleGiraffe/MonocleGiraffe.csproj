@@ -18,7 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>MonocleGiraffe_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>3171B34AD4A486FC0525BC8CFFAA781819D24246</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>EFB210FB8CF77294A2E8604FAAAAE3C11B2C7B4B</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
