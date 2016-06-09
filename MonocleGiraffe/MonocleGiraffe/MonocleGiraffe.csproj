@@ -99,7 +99,6 @@
     </Content>
     <Content Include="Assets\DummyImage.png" />
     <Content Include="Assets\Fonts\Icons8.ttf" />
-    <None Include="MonocleGiraffe_StoreKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
