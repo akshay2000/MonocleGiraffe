@@ -20,7 +20,7 @@ namespace MonocleGiraffe.Models
 
         int? Ups { get; }
 
-        int? CommentCount { get; }
+        int CommentCount { get; }
 
         GalleryItemType ItemType { get; }
 

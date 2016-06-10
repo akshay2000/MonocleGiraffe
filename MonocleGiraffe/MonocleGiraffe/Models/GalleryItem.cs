@@ -88,9 +88,9 @@ namespace MonocleGiraffe.Models
             get { return image.Ups; }
         }
 
-        public int? CommentCount
+        public int CommentCount
         {
-            get { return image.CommentCount; }
+            get { return image.CommentCount ?? 0; }
         }
         
         public GalleryItemType ItemType

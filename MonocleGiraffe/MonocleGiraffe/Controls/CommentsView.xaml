@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="MonocleGiraffe.Controls.CommentsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Header-->
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontWeight="Bold" FontSize="15">
+                <Run Text="{Binding CommentCount}" Foreground="#FF1EEC88"/><Run Text=" COMMENTS"/>
+            </TextBlock>
+            <TextBlock Text="{x:Bind RemainingChars, Mode=OneWay}" HorizontalAlignment="Right"/>
+            <TextBox 
+                Grid.Row="1"
+                TextWrapping="Wrap"
+                Margin="0,16"
+                PlaceholderText="Write a comment"
+                KeyUp="TextBox_KeyUp"/>
+        </Grid>
+        
+        <!--Comments-->
+        <local:TreeView 
+            IsLoading="{Binding IsLoadingComments}"
+            Grid.Row="1" 
+            ItemsSource="{Binding Comments}"/>
+    </Grid>
+</UserControl>

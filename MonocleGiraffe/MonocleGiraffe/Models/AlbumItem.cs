@@ -87,7 +87,7 @@ namespace MonocleGiraffe.Models
             }
         }
 
-        public int? CommentCount
+        public int CommentCount
         {
             get
             {

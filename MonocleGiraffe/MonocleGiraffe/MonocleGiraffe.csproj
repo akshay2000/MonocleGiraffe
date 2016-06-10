@@ -112,13 +112,16 @@
       <DependentUpon>ColumnGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnPanel.cs" />
+    <Compile Include="Controls\CommentsUserControl.xaml.cs">
+      <DependentUpon>CommentsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommentsView.xaml.cs">
+      <DependentUpon>CommentsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ExtendedSplash.xaml.cs">
       <DependentUpon>ExtendedSplash.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Extensions\ToggleButtonExtensions.cs" />
-    <Compile Include="Controls\ImageItemPanel.xaml.cs">
-      <DependentUpon>ImageItemPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
@@ -196,9 +199,6 @@
       <DependentUpon>SubGalleryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\CommentsUserControl.xaml.cs">
-      <DependentUpon>CommentsUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\BrowserPageViewModel.cs" />
@@ -241,13 +241,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\CommentsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CommentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ExtendedSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImageItemPanel.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageUserControl.xaml">
       <SubType>Designer</SubType>
@@ -305,10 +313,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="Controls\CommentsUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\BrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

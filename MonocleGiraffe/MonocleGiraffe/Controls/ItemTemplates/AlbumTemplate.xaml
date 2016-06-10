@@ -175,7 +175,7 @@
                 </ListView.FooterTemplate>
             </ListView>
 
-            <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
+            <controls:CommentsView Grid.Column="1"/>
         </Grid>
 
         <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">

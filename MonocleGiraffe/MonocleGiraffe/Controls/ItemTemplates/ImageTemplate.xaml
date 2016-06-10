@@ -72,7 +72,7 @@
                 </Grid>
             </ScrollViewer>
 
-            <controls:TreeView ItemsSource="{Binding Comments}" Grid.Column="1"/>
+            <controls:CommentsView Grid.Column="1"/>
         </Grid>
 
         <Grid x:Name="NarrowView" x:DeferLoadStrategy="Lazy" Visibility="Collapsed">
@@ -99,12 +99,10 @@
                     </Border>
                 </Grid>
             </ScrollViewer>
-            <controls:TreeView 
+            <controls:CommentsView 
                 x:Name="CommentsView" 
-                ItemsSource="{Binding Comments}" 
                 Grid.Row="1"
                 Visibility="Collapsed"
-                IsLoading="{Binding IsLoadingComments}"
                 x:DeferLoadStrategy="Lazy"/>
         </Grid>
 
