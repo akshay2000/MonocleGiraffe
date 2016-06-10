@@ -18,10 +18,7 @@
         </ControlTemplate>
         <ControlTemplate x:Key="DownVote" TargetType="ContentControl">
             <Path Data="M 4,0 L 10,0 10,5 14,5 7,12 0,5 4,5 4,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Stroke="{TemplateBinding BorderBrush}" />
-        </ControlTemplate>
-        <ControlTemplate x:Key="Comment" TargetType="ContentControl">
-            <Path Data="F 1 M 0,0 L 0,12 12,12 16,16 16,0 0,0 Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Stroke="{TemplateBinding BorderBrush}"/>
-        </ControlTemplate>
+        </ControlTemplate>        
     </UserControl.Resources>
 
     <Grid Background="#FF252525">
@@ -61,20 +58,15 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
+                    <local:ImageHeaderTemplate CommentToggleRequested="ImageHeaderTemplate_CommentToggleRequested"/>
 
-                    <TextBlock Grid.Row="1" Margin="12,0,12,12">
-						<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF1EEC88"/><Run Text=" points" Foreground="#FF1EEC88"/>
-                    </TextBlock>
-
-                    <Viewbox StretchDirection="DownOnly" Grid.Row="2" HorizontalAlignment="Center">
+                    <Viewbox StretchDirection="DownOnly" Grid.Row="1" HorizontalAlignment="Center">
                         <controls:ImageUserControl />
                     </Viewbox>
 
-                    <Border Background="#FF333333" Grid.Row="3" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
+                    <Border Background="#FF333333" Grid.Row="2" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
                         <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                     </Border>
                 </Grid>
@@ -89,38 +81,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--Header-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Margin="12,12,12,0"/>
-
-                <TextBlock Grid.Row="1" Margin="12,0,12,12" TextWrapping="Wrap">
-					<Run Text="by " Foreground="#FF959595"/><Run Text="{Binding UploaderName}" Foreground="#FF528ACA"/><Run Foreground="#FF959595" Text=" • " /><Run Text="{Binding Ups}" Foreground="#FF1EEC88"/><Run Text=" points" Foreground="#FF1EEC88"/>
-                </TextBlock>
-
-                <ListViewItem
-					x:Name="ToggleCommentsButton" 
-					Grid.Column="1"
-					Grid.RowSpan="2"
-					VerticalAlignment="Stretch"
-					MinHeight="0"
-					MinWidth="0"
-					Margin="0"
-					HorizontalAlignment="Right"
-					Padding="24,0"
-                    Tapped="ToggleCommentsButton_Tapped">
-                    <ContentControl 
-						Template="{StaticResource Comment}" 
-						Width="18"/>
-                </ListViewItem>
-            </Grid>
+            <local:ImageHeaderTemplate CommentToggleRequested="ImageHeaderTemplate_CommentToggleRequested"/>
 
             <!--Image, Description and Comments-->
             <ScrollViewer x:Name="ImagePanel" VerticalScrollBarVisibility="Auto" Grid.Row="1">

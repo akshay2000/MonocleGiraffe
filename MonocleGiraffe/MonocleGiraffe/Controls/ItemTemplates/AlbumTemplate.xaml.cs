@@ -23,15 +23,7 @@ namespace MonocleGiraffe.Controls.ItemTemplates
         {
             this.InitializeComponent();
         }
-
-        private void ToggleCommentsButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if ((CommentsView ?? (FrameworkElement)FindName(nameof(CommentsView))).Visibility == Visibility.Collapsed)
-                ShowComments();
-            else
-                HideComments();
-        }
-
+                
         private void ShowComments()
         {
             CommentsView.Visibility = Visibility.Visible;
@@ -42,6 +34,14 @@ namespace MonocleGiraffe.Controls.ItemTemplates
         {
             CommentsView.Visibility = Visibility.Collapsed;
             ImagePanel.Visibility = Visibility.Visible;
+        }
+
+        private void ImageHeaderTemplate_CommentToggleRequested(object sender, RoutedEventArgs e)
+        {
+            if ((CommentsView ?? (FrameworkElement)FindName(nameof(CommentsView))).Visibility == Visibility.Collapsed)
+                ShowComments();
+            else
+                HideComments();
         }
     }
 }

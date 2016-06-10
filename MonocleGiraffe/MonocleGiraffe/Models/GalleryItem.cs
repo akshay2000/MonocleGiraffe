@@ -79,7 +79,7 @@ namespace MonocleGiraffe.Models
         {
             get
             {
-                return image.AccountUrl;
+                return image.AccountUrl ?? "REDDIT";
             }
         }       
 
