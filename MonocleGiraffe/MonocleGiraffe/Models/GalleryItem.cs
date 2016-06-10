@@ -1,6 +1,7 @@
 ﻿
 using MonocleGiraffe.Helpers;
 using SharpImgur.APIWrappers;
+using SharpImgur.Helpers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -368,5 +369,24 @@ namespace MonocleGiraffe.Models
            {
                SharingHelper.ShareItem(this);
            }));
+
+        public async Task<long?> AddComment(string comment, string parentId = null)
+        {
+            bool isChildComment = parentId != null;
+            long? commentId = await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            if (commentId != null)
+            {
+                var c = new Comment { Id = commentId.Value, CommentText = comment, Author = await SecretsHelper.GetUserName() };
+                var cvm = new CommentViewModel(c) { IsUpVoted = true, Points = 1 };
+                var newComment = new CommentItem(cvm);
+                if (isChildComment) { }
+                else
+                {
+                    Comments.Insert(0, newComment);
+                    Comments = new List<CommentItem>(Comments);
+                }
+            }                
+            return commentId;
+        }
     }
 }

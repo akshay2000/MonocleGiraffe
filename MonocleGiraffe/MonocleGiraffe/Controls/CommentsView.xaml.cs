@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -29,8 +30,8 @@ namespace MonocleGiraffe.Controls
 
         const int MAX_LENGTH = 140;
 
-        int _RemainingChars = MAX_LENGTH;
-        public int RemainingChars { get { return _RemainingChars; } set { Set(ref _RemainingChars, value); } }
+        int remainingChars = MAX_LENGTH;
+        public int RemainingChars { get { return remainingChars; } set { Set(ref remainingChars, value); } }
 
         private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
@@ -42,14 +43,20 @@ namespace MonocleGiraffe.Controls
                 if (RemainingChars > -1)
                 {
                     PostComment(t.Text);
-                    t.Text = string.Empty;
+                    ResetView(t);
                 }
             }
         }
 
+        private void ResetView(TextBox t)
+        {
+            t.Text = string.Empty;
+            RemainingChars = MAX_LENGTH;
+        }
+
         private void PostComment(string comment)
         {
-            
+            (DataContext as IGalleryItem)?.AddComment(comment);
         }
 
         #region INotifyPropertyChanged

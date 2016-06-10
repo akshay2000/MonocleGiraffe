@@ -41,5 +41,7 @@ namespace MonocleGiraffe.Models
         string Thumbnail { get; set; }
 
         string BigThumbnail { get; set; }
+
+        Task<long?> AddComment(string comment, string parentId = null);
     }
 }

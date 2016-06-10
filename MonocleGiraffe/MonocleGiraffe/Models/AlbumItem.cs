@@ -18,6 +18,11 @@ namespace MonocleGiraffe.Models
             SetThumbnails(); 
         }
 
+        public string Id
+        {
+            get { return album.Id; }
+        }
+
         public string Title
         {
             get
@@ -186,6 +191,11 @@ namespace MonocleGiraffe.Models
             SmallThumbnail = baseUrl + thumbnailId + "s.jpg";
             Thumbnail = baseUrl + thumbnailId + "b.jpg";
             BigThumbnail = baseUrl + thumbnailId + "l.jpg";
+        }
+
+        public async Task<long?> AddComment(string comment, string parentId = null)
+        {
+            return await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
         }
     }
 }

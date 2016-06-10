@@ -28,8 +28,9 @@ namespace MonocleGiraffe.Models
         private List<ITreeItem> Translate(IList<Comment> children)
         {
             List<ITreeItem> ret = new List<ITreeItem>();
-            foreach (var c in children)
-                ret.Add(new CommentItem(new CommentViewModel(c)));
+            if (children != null)
+                foreach (var c in children)
+                    ret.Add(new CommentItem(new CommentViewModel(c)));
             return ret;
         }
     }
