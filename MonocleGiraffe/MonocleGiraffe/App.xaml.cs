@@ -22,6 +22,7 @@ namespace MonocleGiraffe
         /// </summary>
         public App()
         {
+            Microsoft.HockeyApp.HockeyClient.Current.Configure("00cd7c1e6d7c4bb6ad3adfb6f1ae7d1a");
             this.InitializeComponent();
             SplashFactory = (e) =>
             {
