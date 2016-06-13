@@ -7,13 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 using System.Threading;
 using static SharpImgur.APIWrappers.Enums;
+using SharpImgur.Helpers;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -23,7 +23,9 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private const string TIME = "Time";
         private const string POPULAR = "Popular";
         private const string TOP = "Top";
+        private const string USER = "User";
         private const string MOST_VIRAL = "MOST VIRAL";
+        private const string USER_SUB = "USER SUBMITTED";
 
         public GalleryViewModel()
         {
@@ -49,7 +51,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         #region Section and Sorting
 
-        private Enums.Section ToSection(string sectionString)
+        private Section ToSection(string sectionString)
         {
             switch (sectionString)
             {
@@ -57,6 +59,8 @@ namespace MonocleGiraffe.ViewModels.FrontPage
                     return Enums.Section.Hot;
                 case TOP:
                     return Enums.Section.Top;
+                case USER:
+                    return Enums.Section.User;
                 default:
                     throw new NotImplementedException($"Section {sectionString} can not be handled");
             }
@@ -109,16 +113,16 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         private void LoadGallery(string sectionString, string sortString)
         {
             Section = sectionString;
-            IsSectionVisible = true;
+            IsSectionVisible = sectionString != USER;
             Section section = ToSection(sectionString);
             Sort sort = ToSort(sortString);
-            Images = new IncrementalGallery(MOST_VIRAL, section, sort);
-            //Images.LoadMoreItemsAsync(10);
+            Images = new IncrementalGallery(section, sort);
         }
 
         private async Task LoadTopics()
         {
             var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
+            topics.Insert(0, new Topic { Name = USER_SUB, Description = "Here it begins." });
             topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
             TopicSelectedIndex = 1;
@@ -203,10 +207,12 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Title = topic.Name;
             if (topic.Name == MOST_VIRAL)
                 LoadGallery(Section, sortString);
+            else if (topic.Name == USER_SUB)
+                LoadGallery(USER, sortString);
             else
             {
                 IsSectionVisible = false;
-                Images = new IncrementalGallery(topic.Name, ToSort(sortString), topic.Id);
+                Images = new IncrementalGallery(ToSort(sortString), topic.Id);
             }
         }
 
@@ -215,7 +221,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Title = MOST_VIRAL;
             Section = POPULAR;
             isSectionVisible = true;
-            Images = new IncrementalGallery(Title, ToSection(POPULAR), Sort.Viral);
+            Images = new IncrementalGallery(ToSection(POPULAR), Sort.Viral);
             Images.Add(new GalleryItem(new Image { Title = "Paper Wizard", Animated = true, Link = "http://i.imgur.com/kJYBDHJh.gif", AccountUrl = "AvengeMeKreigerBots", Mp4 = "http://i.imgur.com/kJYBDHJ.mp4", Ups = 73474, CommentCount = 345 }));
             Images.Add(new GalleryItem(new Image { Title = "Upvote baby duck for good luck", Animated = false, Link = "http://i.imgur.com/j1jujAp.jpg", AccountUrl = "Snickletits", Mp4 = "", Ups = 879, CommentCount = 49 }));
             Images.Add(new GalleryItem(new Image { Title = "Slow Cooker Parmesan Honey Pork Roast", Animated = true, Link = "http://i.imgur.com/AhoWKkYh.gif", AccountUrl = "drocks27", Mp4 = "http://i.imgur.com/AhoWKkY.mp4", Ups = 6419, CommentCount = 561 }));
@@ -242,28 +248,22 @@ namespace MonocleGiraffe.ViewModels.FrontPage
     }
 
     public class IncrementalGallery : IncrementalCollection<GalleryItem>
-    {
-        private const string VIRAL = "Viral";
-        private const string TIME = "Time";
-        private const string POPULAR = "Popular";
-        private const string TOP = "Top";
-        private const string MOST_VIRAL = "MOST VIRAL";
-
-        public IncrementalGallery(string title, Sort sort, int topicId)
+    {        
+        public IncrementalGallery(Sort sort, int topicId)
         {
-            Title = title;
+            IsGallery = false;
             Sort = sort;
             TopicId = topicId;
         }
 
-        public IncrementalGallery(string title, Section section, Sort sort)
+        public IncrementalGallery(Section section, Sort sort)
         {
-            Title = title;
+            IsGallery = true;
             Section = section;
             Sort = sort;
         }
 
-        public string Title { get; private set; }
+        public bool IsGallery { get; set; }
 
         public Section Section { get; private set; }
 
@@ -278,7 +278,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
-            if (Title == MOST_VIRAL)
+            if (IsGallery)
                 return await GetGallery(page);
             else
                 return await GetTopicGallery(page);
@@ -286,10 +286,19 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         private async Task<List<GalleryItem>> GetGallery(uint page)
         {
-            var gallery = await Gallery.GetGallery(Section, Sort, (int)page);
+            List<Image> gallery;
+            if (Section == Section.User)
+            {
+                bool showViral = SettingsHelper.GetValue<bool>("IsViralEnabled", true);
+                gallery = await Gallery.GetGallery(Section, Sort, (int)page, showViral);
+            }
+            else
+            {
+                gallery = await Gallery.GetGallery(Section, Sort, (int)page);
+            }
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
-
+        
         private async Task<List<GalleryItem>> GetTopicGallery(uint page)
         {
             var gallery = await Topics.GetTopicGallery(TopicId, Sort, (int)page);
