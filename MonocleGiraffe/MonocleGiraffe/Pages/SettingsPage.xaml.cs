@@ -25,6 +25,7 @@ namespace MonocleGiraffe.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
     }
 }

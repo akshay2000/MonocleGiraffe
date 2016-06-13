@@ -10,18 +10,11 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:SettingsViewModel/>
+        <vm:SettingsPageViewModel/>
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot Title="SETTINGS">
-            <PivotItem Header="Imgur">
-                <StackPanel>
-                    <ToggleSwitch
-						Header="Show mature content">                        
-                    </ToggleSwitch>
-                </StackPanel>
-            </PivotItem>
+        <Pivot Title="SETTINGS" SelectedIndex="{Binding PivotIndex, Mode=TwoWay}">
             <PivotItem Header="App">
                 <StackPanel>
                     <ToggleSwitch
@@ -35,6 +28,48 @@
                     </ToggleSwitch>
                 </StackPanel>
             </PivotItem>
+            <PivotItem Header="Imgur" DataContext="{Binding ImgurSettings}">
+                <Grid>
+                    <StackPanel Visibility="{Binding State, ConverterParameter=Authenticated, Converter={StaticResource StateToVisibilityConverter}}">
+                        <TextBox 
+                            Header="Bio"
+                            Text="{Binding Bio, Mode=TwoWay}"
+                            TextWrapping="Wrap"
+                            MaxHeight="80"
+                            Margin="0,12"/>
+                        <ToggleSwitch						
+                            Header="Make images public"
+                            IsOn="{Binding PublicImages, Mode=TwoWay}"
+                            Margin="0,12"/>
+                        <ToggleSwitch						
+                            Header="Enable messaging"
+                            IsOn="{Binding MessagingEnabled, Mode=TwoWay}"
+                            Margin="0,12"/>
+                        <ComboBox
+                            SelectedIndex="{Binding AlbumPrivacyIndex, Mode=TwoWay}"
+                            Header="Album privacy"
+                            Margin="0,12">
+                            <ComboBoxItem Content="Public"/>
+                            <ComboBoxItem Content="Hidden"/>
+                            <ComboBoxItem Content="Secret"/>
+                        </ComboBox>
+                        <ToggleSwitch						
+                            Header="Show mature content"
+                            IsOn="{Binding ShowMature, Mode=TwoWay}"
+                            Margin="0,12"/>
+                        <Button
+                            Content="Save Settings"
+                            Margin="0,12"
+                            Command="{Binding SaveCommand}"/>
+                    </StackPanel>
+                    <Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
+                        <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>
+                    </Border>
+                    <Border Background="Black" Visibility="{Binding State, ConverterParameter=Busy, Converter={StaticResource StateToVisibilityConverter}}">
+                        <ProgressRing Height="20" Width="20" IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </PivotItem>            
         </Pivot>
     </Grid>
 </Page>

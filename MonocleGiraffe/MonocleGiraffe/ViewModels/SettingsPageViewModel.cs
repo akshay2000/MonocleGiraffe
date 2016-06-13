@@ -1,4 +1,7 @@
-﻿using SharpImgur.Helpers;
+﻿using MonocleGiraffe.ViewModels.Settings;
+using SharpImgur.APIWrappers;
+using SharpImgur.Helpers;
+using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +16,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.ViewModels
 {
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsPageViewModel : ViewModelBase
     {
-        const string IS_VIRAL_ENABLED = "IsViralEnabled";
-        public SettingsViewModel()
+        private const string IS_VIRAL_ENABLED = "IsViralEnabled";
+        
+        public SettingsPageViewModel()
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
@@ -26,17 +30,37 @@ namespace MonocleGiraffe.ViewModels
             {
                 Init();
             }
-        }
-
-        private void InitDesignTime()
-        {
-            IsViralEnabled = true;
-        }
+        }        
 
         private void Init()
         {
             IsViralEnabled = SettingsHelper.GetValue<bool>(IS_VIRAL_ENABLED, true);
         }
+
+        private int pivotIndex;
+        public int PivotIndex
+        {
+            get { return pivotIndex; }
+            set
+            {
+                Set(ref pivotIndex, value);
+                CreateSubVMIfRequired();
+            }
+        }
+
+        private void CreateSubVMIfRequired()
+        {
+            switch (PivotIndex)
+            {                
+                case 1:
+                    ImgurSettings = ImgurSettings ?? new ImgurSettingsViewModel();
+                    break;
+            }
+        }
+
+        ImgurSettingsViewModel imgurSettings;
+        public ImgurSettingsViewModel ImgurSettings { get { return imgurSettings; } set { Set(ref imgurSettings, value); } }
+
 
         bool isViralEnabled = default(bool);
         public bool IsViralEnabled { get { return isViralEnabled; } set { Set(ref isViralEnabled, value); } }
@@ -78,6 +102,12 @@ namespace MonocleGiraffe.ViewModels
         }
 
         #endregion
+
+        private void InitDesignTime()
+        {
+            IsViralEnabled = true;
+            ImgurSettings = new ImgurSettingsViewModel();
+        }
 
     }
 }
