@@ -192,6 +192,9 @@
     <Compile Include="Pages\ManageSubredditsPage.xaml.cs">
       <DependentUpon>ManageSubredditsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SlideShowPage.xaml.cs">
       <DependentUpon>SlideShowPage.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,7 @@
     <Compile Include="ViewModels\FrontPage\SearchViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +330,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ManageSubredditsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

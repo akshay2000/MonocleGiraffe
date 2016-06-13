@@ -83,6 +83,13 @@ namespace MonocleGiraffe.ViewModels
                BootStrapper.Current.NavigationService.Navigate(typeof(FeedbackPage));
            }));
 
+        DelegateCommand settingsCommand;
+        public DelegateCommand SettingsCommand
+           => settingsCommand ?? (settingsCommand = new DelegateCommand(() =>
+           {
+               BootStrapper.Current.NavigationService.Navigate(typeof(SettingsPage));
+           }));
+
         DelegateCommand refreshCommand;
         public DelegateCommand RefreshCommand
            => refreshCommand ?? (refreshCommand = new DelegateCommand(async () =>

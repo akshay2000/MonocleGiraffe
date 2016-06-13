@@ -277,6 +277,7 @@
             <AppBarButton Icon="Add" Label="Add" Visibility="{Binding AddVisibility}" Command="{Binding AddCommand}"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Feedback" Command="{Binding FeedbackCommand}"/>
+                <AppBarButton Label="Settings" Command="{Binding SettingsCommand}"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

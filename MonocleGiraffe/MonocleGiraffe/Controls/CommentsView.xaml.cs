@@ -32,6 +32,9 @@ namespace MonocleGiraffe.Controls
 
         int remainingChars = MAX_LENGTH;
         public int RemainingChars { get { return remainingChars; } set { Set(ref remainingChars, value); } }
+        
+        bool isCharCountVisible = default(bool);
+        public bool IsCharCountVisible { get { return isCharCountVisible; } set { Set(ref isCharCountVisible, value); } }
 
         private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
@@ -57,6 +60,16 @@ namespace MonocleGiraffe.Controls
         private void PostComment(string comment)
         {
             (DataContext as IGalleryItem)?.AddComment(comment);
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            IsCharCountVisible = true;
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            IsCharCountVisible = false;
         }
 
         #region INotifyPropertyChanged

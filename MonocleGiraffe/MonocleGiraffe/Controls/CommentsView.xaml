@@ -23,13 +23,18 @@
             <TextBlock FontWeight="Bold" FontSize="15">
                 <Run Text="{Binding CommentCount}" Foreground="#FF1EEC88"/><Run Text=" COMMENTS"/>
             </TextBlock>
-            <TextBlock Text="{x:Bind RemainingChars, Mode=OneWay}" HorizontalAlignment="Right"/>
+            <TextBlock 
+                Text="{x:Bind RemainingChars, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                Visibility="{x:Bind IsCharCountVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             <TextBox 
                 Grid.Row="1"
                 TextWrapping="Wrap"
-                Margin="0,16"
+                Margin="0,16,0,12"
                 PlaceholderText="Write a comment"
-                KeyUp="TextBox_KeyUp"/>
+                KeyUp="TextBox_KeyUp"
+                GotFocus="TextBox_GotFocus"
+                LostFocus="TextBox_LostFocus"/>
         </Grid>
         
         <!--Comments-->
