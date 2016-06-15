@@ -81,7 +81,7 @@ namespace MonocleGiraffe.ViewModels
             }
             else
             {
-                // use parameter
+                await ImgurSettings?.Refresh();
             }
             await Task.CompletedTask;
         }
@@ -108,6 +108,5 @@ namespace MonocleGiraffe.ViewModels
             IsViralEnabled = true;
             ImgurSettings = new ImgurSettingsViewModel();
         }
-
     }
 }

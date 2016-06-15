@@ -22,7 +22,14 @@ namespace MonocleGiraffe.ViewModels.Settings
                 Init();
         }
 
-        private async void Init()
+        public async Task Refresh()
+        {
+            if (AuthenticationHelper.IsAuthIntended())
+                if (!IsLoaded)
+                    await Load();
+        }
+
+        private async Task Init()
         {
             if (AuthenticationHelper.IsAuthIntended())
                 await Load();
@@ -43,6 +50,8 @@ namespace MonocleGiraffe.ViewModels.Settings
             }
         }
 
+        public bool IsLoaded { get; private set; }
+
         private async Task LoadSettings()
         {
             var userName = await SecretsHelper.GetUserName();
@@ -55,6 +64,7 @@ namespace MonocleGiraffe.ViewModels.Settings
             AlbumPrivacyIndex = ToIndex(settings.AlbumPrivacy);
             ShowMature = settings.ShowMature;
             SubscribeNewsletter = settings.NewsletterSubscribed;
+            IsLoaded = true;
         }
 
         private int ToIndex(string albumPrivacy)

@@ -258,7 +258,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.Content>
-                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
+                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}" Command="{Binding UploadCommand}"/>
             </CommandBar.Content>
             <AppBarButton Icon="Sort" Label="Sort" Visibility="{Binding SortVisibility}">
                 <FlyoutBase.AttachedFlyout>

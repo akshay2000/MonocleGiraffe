@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Pages;
 using MonocleGiraffe.ViewModels.FrontPage;
+using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 
 namespace MonocleGiraffe.ViewModels
@@ -75,6 +77,21 @@ namespace MonocleGiraffe.ViewModels
         }
 
         #region Command Bar
+
+        DelegateCommand uploadCommand;
+        public DelegateCommand UploadCommand
+           => uploadCommand ?? (uploadCommand = new DelegateCommand(async () =>
+           {
+               var picker = new FileOpenPicker();
+               picker.ViewMode = PickerViewMode.Thumbnail;
+               picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+               picker.FileTypeFilter.Add(".jpeg");
+               picker.FileTypeFilter.Add(".jpg");
+               picker.FileTypeFilter.Add(".png");
+               var file = await picker.PickSingleFileAsync();
+               if (file != null)
+                   await Images.UploadImage(file);
+           }));
 
         DelegateCommand feedbackCommand;
         public DelegateCommand FeedbackCommand
