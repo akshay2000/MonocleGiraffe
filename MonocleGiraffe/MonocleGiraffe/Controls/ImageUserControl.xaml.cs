@@ -22,31 +22,13 @@ namespace MonocleGiraffe.Controls
         public ImageUserControl()
         {
             this.InitializeComponent();
-            //MainWebView.NavigateToString("<html><body><video preload=\"auto\" autoplay=\"autoplay\" loop=\"loop\" muted=\"muted\"><source src=\"http://i.imgur.com/BVrDzLG.mp4\" type=\"video/mp4\"></video></body></html>");
         }
-    }
 
-    class WebViewExtensions
-    {
-        // "HtmlString" attached property for a WebView
-        public static readonly DependencyProperty HtmlStringProperty =
-           DependencyProperty.RegisterAttached("HtmlString", typeof(string), typeof(WebViewExtensions), new PropertyMetadata("", OnHtmlStringChanged));
-
-        // Getter and Setter
-        public static string GetHtmlString(DependencyObject obj) { return (string)obj.GetValue(HtmlStringProperty); }
-        public static void SetHtmlString(DependencyObject obj, string value) { obj.SetValue(HtmlStringProperty, value); }
-
-        // Handler for property changes in the DataContext : set the WebView
-        private static void OnHtmlStringChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void LayoutRoot_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            string newValue = (string)e.NewValue;
-            if (newValue == "")
-                return;
-            WebView wv = d as WebView;
-            if (wv != null)
-            {
-                wv.NavigateToString((string)e.NewValue);
-            }
+            var targetElement = sender as FrameworkElement;
+            MenuFlyout flyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(targetElement);
+            flyout.ShowAt(targetElement, e.GetPosition(targetElement));
         }
     }
 }

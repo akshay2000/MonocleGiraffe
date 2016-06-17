@@ -6,11 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:MonocleGiraffe.Converters"
+    xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="DarkGray">
+    <Grid x:Name="LayoutRoot" Background="DarkGray" RightTapped="LayoutRoot_RightTapped">
+        <FlyoutBase.AttachedFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Share" Command="{Binding ShareCommand}"/>
+                <MenuFlyoutItem Text="Save"/>
+            </MenuFlyout>
+        </FlyoutBase.AttachedFlyout>        
         <MediaElement MinHeight="{Binding Height}" MinWidth="{Binding Width}" Source="{Binding Mp4}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}" IsLooping="True"/>
         <Image Source="{Binding Link}" Height="{Binding Height}" Width="{Binding Width}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
     </Grid>
