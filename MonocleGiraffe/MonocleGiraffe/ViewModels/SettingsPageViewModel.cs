@@ -81,7 +81,8 @@ namespace MonocleGiraffe.ViewModels
             }
             else
             {
-                await ImgurSettings?.Refresh();
+                if (ImgurSettings != null)
+                    await ImgurSettings.Refresh();
             }
             await Task.CompletedTask;
         }
