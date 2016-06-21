@@ -8,18 +8,71 @@
     xmlns:vms="using:MonocleGiraffe.ViewModels"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
+    xmlns:ext="using:MonocleGiraffe.Controls.Extensions"
     mc:Ignorable="d"
     x:Name="PageRoot">
 
     <Page.DataContext>
         <vms:SubGalleryPageViewModel/>
     </Page.DataContext>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Sort" Label="Sort">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <ToggleMenuFlyoutItem Text="Time" Command="{Binding SortCommand}" CommandParameter="Time" ext:ToggleMenuFlyoutItemExtensions.IsChecked="{Binding Sort, Converter={StaticResource ValueComparisonConverter}, ConverterParameter=Time}"/>
+                            <ToggleMenuFlyoutItem Text="Top" Command="{Binding SortCommand}" CommandParameter="Top" ext:ToggleMenuFlyoutItemExtensions.IsChecked="{Binding Sort, Converter={StaticResource ValueComparisonConverter}, ConverterParameter=Top}"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="MainGridView" ItemsSource="{Binding Images}" IsItemClickEnabled="True" Tag="{Binding ImageSelectedIndex}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#FF252525" Padding="12" DataContext="{Binding Sub}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xF100;" Foreground="#FF959595"/>
+                <TextBlock FontSize="12" Foreground="#FF959595">              
+                    <Run Text=" /r/"/><Run Text="{Binding Url}"/>
+                </TextBlock>
+            </StackPanel>
+            <Border Width="24" Height="15" BorderBrush="#FFDC3E3E" BorderThickness="1" Visibility="{Binding IsMature, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.Column="1" Margin="12,0,0,0">
+                <TextBlock Text="18+" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFDC3E3E"/>
+            </Border>
+        </Grid>
+        <GridView 
+            x:Name="MainGridView" 
+            ItemsSource="{Binding Images}" 
+            IsItemClickEnabled="True" 
+            Tag="{Binding ImageSelectedIndex}"
+            Margin="6,6,0,0"
+            Grid.Row="1">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Image Width="100" Height="100" Source="{Binding SmallThumbnail}"/>
+                    <templates:SubredditThumbnailTemplate/>
                 </DataTemplate>
             </GridView.ItemTemplate>
             <Interactivity:Interaction.Behaviors>

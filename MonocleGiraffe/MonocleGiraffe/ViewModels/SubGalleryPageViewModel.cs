@@ -38,12 +38,18 @@ namespace MonocleGiraffe.ViewModels
         IncrementalSubredditGallery images = default(IncrementalSubredditGallery);
         public IncrementalSubredditGallery Images { get { return images; } set { Set(ref images, value); } }
 
+        SubredditItem sub = default(SubredditItem);
+        public SubredditItem Sub { get { return sub; } set { Set(ref sub, value); } }
+
         private int imageSelectedIndex;
         public int ImageSelectedIndex
         {
             get { return imageSelectedIndex; }
             set { Set(ref imageSelectedIndex, value); }
         }
+
+        string sort = "Time";
+        public string Sort { get { return sort; } set { Set(ref sort, value); } }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -61,7 +67,8 @@ namespace MonocleGiraffe.ViewModels
                 else
                 {
                     var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
-                    Images = new IncrementalSubredditGallery(sub.Url);
+                    Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
+                    Sub = sub;
                 }
             }
             await Task.CompletedTask;
@@ -94,16 +101,49 @@ namespace MonocleGiraffe.ViewModels
             BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
             return;
         }
+
+        private Enums.Sort ToSort(string s)
+        {
+            switch (s)
+            {                
+                case "Time":
+                    return Enums.Sort.Time;
+                case "Top":
+                    return Enums.Sort.Top;
+                default:
+                    throw new NotImplementedException($"Can't convert {s} to Sort");
+            }
+        }
+
+        DelegateCommand refreshCommand;
+        public DelegateCommand RefreshCommand
+           => refreshCommand ?? (refreshCommand = new DelegateCommand(() =>
+           {
+               Images = new IncrementalSubredditGallery(Sub.Url, ToSort(Sort));
+           }, () => true));
+
+
+        DelegateCommand<string> sortCommand;
+        public DelegateCommand<string> SortCommand
+           => sortCommand ?? (sortCommand = new DelegateCommand<string>(SortCommandExecute, SortCommandCanExecute));
+        bool SortCommandCanExecute(string param) => true;
+        void SortCommandExecute(string param)
+        {
+            Sort = param;
+            RefreshCommand.Execute();
+        }
     }
 
     public class IncrementalSubredditGallery : IncrementalCollection<GalleryItem>
     {
-        public IncrementalSubredditGallery(string subreddit)
+        public IncrementalSubredditGallery(string subreddit, Enums.Sort sort)
         {
             Subreddit = subreddit;
+            Sort = sort;
         }
 
         public string Subreddit { get; set; }
+        public Enums.Sort Sort { get; set; }
         public bool HasMore { get; set; } = true;
 
         protected override bool HasMoreItemsImpl()
@@ -113,7 +153,7 @@ namespace MonocleGiraffe.ViewModels
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
-            var gallery = await Gallery.GetSubreddditGallery(Subreddit, Enums.Sort.Time, (int)page);
+            var gallery = await Gallery.GetSubreddditGallery(Subreddit, Sort, (int)page);
             if (gallery == null)
                 return new List<GalleryItem>();
             if (gallery.Count == 0)

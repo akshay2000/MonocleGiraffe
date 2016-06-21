@@ -42,9 +42,7 @@
             <TextBlock Style="{StaticResource SubTextStyle}">                
                 <Run Text=" /r/"/>
                 <Run Text="{Binding Url}"/>
-            </TextBlock>
-            <Border Width="5" Height="5" Background="#FF959595" CornerRadius="3" VerticalAlignment="Center" Margin="8,0"/>
-            <TextBlock Style="{StaticResource SubTextStyle}">
+                <Run Text=" • "/>
                 <Run Text="{Binding Subscribers}"/>
                 <Run Text=" Subscribers"/>
             </TextBlock>

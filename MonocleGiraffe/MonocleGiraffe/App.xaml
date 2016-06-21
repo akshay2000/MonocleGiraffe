@@ -17,6 +17,7 @@
             <converters:BooleanInverseConverter x:Key="BooleanInverseConverter"/>
             <converters:StateToVisibilityConverter x:Key="StateToVisibilityConverter"/>
             <converters:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+            <converters:ValueComparisonConverter x:Key="ValueComparisonConverter"/>
 
             <t10converters:ValueWhenConverter x:Key="TextVisibilityConverter" When="{x:Null}">
                 <t10converters:ValueWhenConverter.Value>

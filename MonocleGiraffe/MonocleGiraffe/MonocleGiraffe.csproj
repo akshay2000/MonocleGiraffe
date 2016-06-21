@@ -122,6 +122,7 @@
       <DependentUpon>ExtendedSplash.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Extensions\ToggleButtonExtensions.cs" />
+    <Compile Include="Controls\Extensions\ToggleMenuFlyoutItemExtensions.cs" />
     <Compile Include="Controls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
@@ -147,6 +148,9 @@
     <Compile Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml.cs">
       <DependentUpon>SquareThumbnailTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\SubredditThumbnailTemplate.xaml.cs">
+      <DependentUpon>SubredditThumbnailTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\TopicTemplate.xaml.cs">
       <DependentUpon>TopicTemplate.xaml</DependentUpon>
     </Compile>
@@ -163,6 +167,7 @@
     <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\StateToVisibilityConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
+    <Compile Include="Converters\ValueComparisonConverter.cs" />
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
@@ -291,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\SubredditThumbnailTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
