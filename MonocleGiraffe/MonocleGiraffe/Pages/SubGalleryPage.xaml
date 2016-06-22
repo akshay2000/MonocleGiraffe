@@ -53,7 +53,8 @@
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock FontFamily="/Assets/Fonts/Icons8.ttf#Downloaded" Text="&#xF100;" Foreground="#FF959595"/>
                 <TextBlock FontSize="12" Foreground="#FF959595">              
-                    <Run Text=" /r/"/><Run Text="{Binding Url}"/>
+                    <Run Text=" /r/"/>
+                    <Run Text="{Binding Url}"/>
                 </TextBlock>
             </StackPanel>
             <Border Width="24" Height="15" BorderBrush="#FFDC3E3E" BorderThickness="1" Visibility="{Binding IsMature, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.Column="1" Margin="12,0,0,0">

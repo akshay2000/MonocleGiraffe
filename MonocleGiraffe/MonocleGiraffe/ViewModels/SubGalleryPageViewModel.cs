@@ -98,7 +98,7 @@ namespace MonocleGiraffe.ViewModels
             const string navigationParamName = "GalleryInfo";
             galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = Images.IndexOf(clickedItem) };
             BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
-            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+            BootStrapper.Current.NavigationService.Navigate(typeof(SubredditBrowserPage), navigationParamName);
             return;
         }
 

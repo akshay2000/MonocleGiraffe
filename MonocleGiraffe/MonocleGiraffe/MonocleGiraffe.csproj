@@ -148,6 +148,9 @@
     <Compile Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml.cs">
       <DependentUpon>SquareThumbnailTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\SubredditImageTemplate.xaml.cs">
+      <DependentUpon>SubredditImageTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\SubredditThumbnailTemplate.xaml.cs">
       <DependentUpon>SubredditThumbnailTemplate.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,9 @@
     </Compile>
     <Compile Include="Pages\SubGalleryPage.xaml.cs">
       <DependentUpon>SubGalleryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SubredditBrowserPage.xaml.cs">
+      <DependentUpon>SubredditBrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
@@ -299,6 +305,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ItemTemplates\SubredditImageTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ItemTemplates\SubredditThumbnailTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -360,6 +370,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Pages\SubGalleryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SubredditBrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

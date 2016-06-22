@@ -115,6 +115,14 @@ namespace MonocleGiraffe.Models
             }
         }
 
+        public int Views
+        {
+            get
+            {
+                return image.Views;
+            }
+        }
+
         public int Width
         {
             get { return image.Width; }
