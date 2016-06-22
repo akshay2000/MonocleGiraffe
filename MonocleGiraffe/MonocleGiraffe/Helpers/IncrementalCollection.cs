@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
@@ -10,7 +12,7 @@ using Windows.UI.Xaml.Data;
 
 namespace MonocleGiraffe.Helpers
 {
-    public abstract class IncrementalCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading
+    public abstract class IncrementalCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading, INotifyPropertyChanged
     {
         public uint Page { get; private set; }
 
@@ -38,10 +40,14 @@ namespace MonocleGiraffe.Helpers
 
         #endregion
 
+        bool isBusy = default(bool);
+        public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
+
         private List<T> moreItems;
 
         private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
+            IsBusy = true;
             for (int i = 0; i < count; i++)
             {
                 if (moreItems == null || moreItems.Count == ConsumedItemsIndex)
@@ -56,6 +62,7 @@ namespace MonocleGiraffe.Helpers
                     break;
                 Add(moreItems[ConsumedItemsIndex++]);
             }
+            IsBusy = false;
             return new LoadMoreItemsResult { Count = count };
         }
 
@@ -64,6 +71,24 @@ namespace MonocleGiraffe.Helpers
         protected abstract Task<List<T>> LoadMoreItemsImplAsync(CancellationToken c, uint page);
 
         protected abstract bool HasMoreItemsImpl();
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Set<E>(ref E storage, E value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                RaisePropertyChanged(propertyName);
+            }
+        }
+
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
     }

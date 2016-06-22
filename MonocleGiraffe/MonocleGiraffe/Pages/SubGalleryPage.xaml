@@ -36,8 +36,10 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="4"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <Grid Background="#FF252525" Padding="12" DataContext="{Binding Sub}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -58,13 +60,16 @@
                 <TextBlock Text="18+" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFDC3E3E"/>
             </Border>
         </Grid>
+
+        <ProgressBar IsIndeterminate="True" DataContext="{Binding Images}" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="1"/>
+
         <GridView 
             x:Name="MainGridView" 
             ItemsSource="{Binding Images}" 
             IsItemClickEnabled="True" 
             Tag="{Binding ImageSelectedIndex}"
-            Margin="6,6,0,0"
-            Grid.Row="1">
+            Margin="6,2,0,0"
+            Grid.Row="2">
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="Margin" Value="0"/>
