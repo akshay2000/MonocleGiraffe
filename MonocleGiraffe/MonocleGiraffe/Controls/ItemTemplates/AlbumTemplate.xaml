@@ -127,7 +127,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid Background="#FF252525">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>

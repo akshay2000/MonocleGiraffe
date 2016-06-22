@@ -21,7 +21,7 @@
         </ControlTemplate>        
     </UserControl.Resources>
 
-    <Grid Background="#FF252525">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -53,7 +53,7 @@
                 <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Background="#FF252525">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>

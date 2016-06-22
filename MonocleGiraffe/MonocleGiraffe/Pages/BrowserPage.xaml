@@ -34,6 +34,7 @@
         <controls:IncrementalFlipView 
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
-            ItemTemplateSelector="{StaticResource Selector}"/>
+            ItemTemplateSelector="{StaticResource Selector}"
+            Background="Black"/>
     </Grid>
 </Page>
