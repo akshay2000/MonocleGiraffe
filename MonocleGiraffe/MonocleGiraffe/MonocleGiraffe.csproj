@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
+    <Compile Include="Models\DownloadItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\IGalleryItem.cs" />
@@ -212,6 +213,9 @@
     <Compile Include="Pages\SubredditBrowserPage.xaml.cs">
       <DependentUpon>SubredditBrowserPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TransfersPage.xaml.cs">
+      <DependentUpon>TransfersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
@@ -226,6 +230,8 @@
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\ImgurSettingsViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
+    <Compile Include="ViewModels\TransfersPageViewModel.cs" />
+    <Compile Include="ViewModels\Transfers\DownloadsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -377,6 +383,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\TransfersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -393,6 +403,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
