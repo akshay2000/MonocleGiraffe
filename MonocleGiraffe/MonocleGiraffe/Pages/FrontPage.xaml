@@ -13,7 +13,8 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="MonocleGiraffe.Pages.FrontPage"
     x:Name="PageRoot"
-    mc:Ignorable="d" >
+    mc:Ignorable="d" 
+    DataContext="{Binding Source={StaticResource Locator}, Path=FrontPageViewModel}">
 
     <Page.Resources>
         <Style x:Key="CenteredGridViewStyle" TargetType="GridView">
@@ -250,10 +251,6 @@
             </Setter>
         </Style>
     </Page.Resources>
-
-    <Page.DataContext>
-        <vm:FrontPageViewModel/>
-    </Page.DataContext>
 
     <Page.BottomAppBar>
         <CommandBar>

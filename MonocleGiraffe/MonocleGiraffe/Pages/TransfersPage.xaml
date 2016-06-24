@@ -6,11 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
-    mc:Ignorable="d">
-
-    <Page.DataContext>
-        <vm:TransfersPageViewModel/>
-    </Page.DataContext>
+    mc:Ignorable="d"
+    DataContext="{Binding Path=TransfersPageViewModel, Source={StaticResource Locator}}">
 
     <Grid Background="Black">
         <Pivot Title="TRANSFERS">

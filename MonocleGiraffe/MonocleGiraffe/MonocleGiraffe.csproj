@@ -176,6 +176,7 @@
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\SharingHelper.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
+    <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

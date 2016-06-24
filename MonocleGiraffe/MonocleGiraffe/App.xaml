@@ -6,6 +6,7 @@
     xmlns:local="using:MonocleGiraffe"
     xmlns:t10common="using:Template10.Common"
     xmlns:t10converters="using:Template10.Converters"
+    xmlns:helpers="using:MonocleGiraffe.Helpers"
     RequestedTheme="Dark">
 
   <Application.Resources>
@@ -28,6 +29,8 @@
                 </t10converters:ValueWhenConverter.Otherwise>
             </t10converters:ValueWhenConverter>
             <!--#endregion-->
+
+            <helpers:ViewModelLocator x:Key="Locator"/>
 
             <Style x:Key="BasicTextStyle" TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>
