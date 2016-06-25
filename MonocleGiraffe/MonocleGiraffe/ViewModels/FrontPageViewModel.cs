@@ -93,6 +93,14 @@ namespace MonocleGiraffe.ViewModels
                    await Images.UploadImage(file);
            }));
 
+
+        DelegateCommand transfersCommand;
+        public DelegateCommand TransfersCommand
+           => transfersCommand ?? (transfersCommand = new DelegateCommand(() =>
+           {
+               BootStrapper.Current.NavigationService.Navigate(typeof(TransfersPage));
+           }));
+
         DelegateCommand feedbackCommand;
         public DelegateCommand FeedbackCommand
            => feedbackCommand ?? (feedbackCommand = new DelegateCommand(() =>

@@ -275,6 +275,7 @@
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Feedback" Command="{Binding FeedbackCommand}"/>
                 <AppBarButton Label="Settings" Command="{Binding SettingsCommand}"/>
+                <AppBarButton Label="Downloads" Command="{Binding TransfersCommand}"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

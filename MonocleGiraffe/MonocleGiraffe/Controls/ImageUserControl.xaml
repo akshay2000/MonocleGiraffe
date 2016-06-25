@@ -17,7 +17,7 @@
         <FlyoutBase.AttachedFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="Share" Command="{Binding ShareCommand}"/>
-                <MenuFlyoutItem Text="Save"/>
+                <MenuFlyoutItem Text="Save" Command="{Binding SaveCommand}"/>
             </MenuFlyout>
         </FlyoutBase.AttachedFlyout>        
         <MediaElement MinHeight="{Binding Height}" MinWidth="{Binding Width}" Source="{Binding Mp4}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}" IsLooping="True"/>

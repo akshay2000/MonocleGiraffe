@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
+    xmlns:t10c="using:Template10.Converters"
     mc:Ignorable="d"
     DataContext="{Binding Path=TransfersPageViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <t10c:ValueWhenConverter x:Key="IsIndeterminateConverter" When="Pending" Value="True" Otherwise="False"/>
+    </Page.Resources>
 
     <Grid Background="Black">
         <Pivot Title="TRANSFERS">
@@ -17,8 +22,8 @@
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="Margin" Value="0,6"/>
+                                <Setter Property="Padding" Value="0,6"/>
+                                <Setter Property="Margin" Value="0"/>
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
@@ -34,7 +39,7 @@
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Name}"/>
-                                    <ProgressBar Value="{Binding CurrentSize}" Maximum="{Binding TotalSize}" Grid.Row="1" Margin="0,4,0,0"/>
+                                    <ProgressBar Value="{Binding CurrentSize}" Maximum="{Binding TotalSize}" Grid.Row="1" Margin="0,4,0,0" IsIndeterminate="{Binding State, Converter={StaticResource IsIndeterminateConverter}}"/>
                                     <SymbolIcon Symbol="Pause" Grid.Column="1" Grid.RowSpan="2" />
                                     <SymbolIcon Symbol="Cancel" Grid.Column="2" Grid.RowSpan="2" />
                                 </Grid>

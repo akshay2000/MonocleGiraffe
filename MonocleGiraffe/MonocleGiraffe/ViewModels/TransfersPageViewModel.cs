@@ -23,8 +23,13 @@ namespace MonocleGiraffe.ViewModels
             }
             else
             {
-                // runtime experience
+                Init();
             }
+        }
+
+        private void Init()
+        {
+            DownloadsVM = new DownloadsViewModel();
         }
 
         DownloadsViewModel downloadsVM = default(DownloadsViewModel);

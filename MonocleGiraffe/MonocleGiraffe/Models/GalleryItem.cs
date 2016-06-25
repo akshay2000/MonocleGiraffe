@@ -377,6 +377,20 @@ namespace MonocleGiraffe.Models
            {
                SharingHelper.ShareItem(this);
            }));
+        
+        DelegateCommand save;
+        public DelegateCommand SaveCommand
+           => save ?? (save = new DelegateCommand(() =>
+           {
+               StartDownload();
+           }, () => true));
+
+        private async Task StartDownload()
+        {
+            var vm = ViewModelLocator.GetInstance().TransfersPageViewModel.DownloadsVM;
+            var url = IsAnimated ? Mp4 : Link;
+            await vm.StartDownload(url);
+        }
 
         public async Task<long?> AddComment(string comment, string parentId = null)
         {
