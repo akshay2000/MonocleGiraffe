@@ -40,9 +40,9 @@ namespace MonocleGiraffe.ViewModels.Transfers
         {
             DownloadItem item = await DownloadItem.Create(Downloader, url);
             Downloads.Add(item);
-            item.Start();
+            await item.Start();
         }
-
+        
         private void InitDesignTime()
         {
             Downloads = new ObservableCollection<DownloadItem>();
@@ -53,3 +53,4 @@ namespace MonocleGiraffe.ViewModels.Transfers
         }
     }
 }
+    

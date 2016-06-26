@@ -34,14 +34,17 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>                                        
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Name}"/>
                                     <ProgressBar Value="{Binding CurrentSize}" Maximum="{Binding TotalSize}" Grid.Row="1" Margin="0,4,0,0" IsIndeterminate="{Binding State, Converter={StaticResource IsIndeterminateConverter}}"/>
-                                    <SymbolIcon Symbol="Pause" Grid.Column="1" Grid.RowSpan="2" />
-                                    <SymbolIcon Symbol="Cancel" Grid.Column="2" Grid.RowSpan="2" />
+                                    <Button Background="Transparent" Grid.Column="1" Grid.RowSpan="2" Command="{Binding CancelCommand}" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Downloading|Pending}">
+                                        <SymbolIcon Symbol="Cancel"/>
+                                    </Button>
+                                    <Button Background="Transparent" Grid.Column="1" Grid.RowSpan="2" Command="{Binding RestartCommand}" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Error|Canceled}">
+                                        <SymbolIcon Symbol="Refresh"/>
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

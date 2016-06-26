@@ -15,8 +15,8 @@ namespace MonocleGiraffe.Converters
             if (value == null || parameter == null)
                 return Visibility.Collapsed;
             string currentState = value as string;
-            string requiredState = parameter as string;
-            if (currentState == requiredState)
+            string[] requiredStates = (parameter as string).Split('|');
+            if (requiredStates.Contains(currentState))
                 return Visibility.Visible;
             else
                 return Visibility.Collapsed;

@@ -15,14 +15,22 @@ namespace MonocleGiraffe.Models
         public static async Task<DownloadItem> Create(BackgroundDownloader b, string url)
         {
             DownloadItem item = new DownloadItem();
-            var folder = KnownFolders.SavedPictures;
-            var fileName = url.Split('/').Last();
-            StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
-            item.Name = file.Name;
-            item.Operation = b.CreateDownload(new Uri(url), file);
-            item.Progress = new Progress<DownloadOperation>(item.HandleProgress);
-            item.CancellationToken = new CancellationTokenSource();
+            item.Downloader = b;
+            item.Url = url;
+            await item.Construct();   
             return item;
+        }
+
+        private async Task Construct()
+        {
+            var folder = KnownFolders.SavedPictures;
+            var fileName = Url.Split('/').Last();
+            var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+            File = file;
+            Name = file.Name;
+            Operation = Downloader.CreateDownload(new Uri(Url), file);
+            Progress = new Progress<DownloadOperation>(HandleProgress);
+            CancellationToken = new CancellationTokenSource();
         }
 
         public const string DOWNLOADING = "Downloading";
@@ -47,20 +55,53 @@ namespace MonocleGiraffe.Models
         private DownloadOperation Operation { get; set; }
         private Progress<DownloadOperation> Progress { get; set; }
         private CancellationTokenSource CancellationToken { get; set; }
+        private StorageFile File { get; set; }
+        private BackgroundDownloader Downloader { get; set; }
+        private string Url { get; set; }
 
         public void Pause()
         {
             Operation.Pause();
         }
 
-        public void Cancel()
+        DelegateCommand cancelCommand;
+        public DelegateCommand CancelCommand
+           => cancelCommand ?? (cancelCommand = new DelegateCommand(async () =>
+           {
+               await Cancel();
+           }));
+
+        public async Task Cancel()
         {
+            State = CANCELED;
             CancellationToken.Cancel();
+            await File.DeleteAsync();
+        }
+
+        DelegateCommand restartCommand;
+        public DelegateCommand RestartCommand
+           => restartCommand ?? (restartCommand = new DelegateCommand(async () =>
+           {
+               await Restart();
+           }));
+
+        public async Task Restart()
+        {
+            State = PENDING;
+            await Construct();
+            await Start();
         }
 
         public async Task Start()
-        {            
-            await Operation.StartAsync().AsTask(CancellationToken.Token, Progress);
+        {
+            try
+            {
+                await Operation.StartAsync().AsTask(CancellationToken.Token, Progress);
+            }
+            catch (TaskCanceledException)
+            {
+                State = CANCELED;
+            }
         }
                
         private void HandleProgress(DownloadOperation op)
@@ -86,6 +127,8 @@ namespace MonocleGiraffe.Models
                     State = PAUSED;
                     break;                    
             }
+            if (TotalSize == CurrentSize)
+                State = SUCCESSFUL;
         }
     }
 }
