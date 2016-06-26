@@ -107,34 +107,36 @@
         </Grid>
 
         <CommandBar Grid.Row="1">
-            <CommandBar.Content>
-                <AppBarButton Icon="Camera" Foreground="{StaticResource AppThemeBrush}"/>
-            </CommandBar.Content>
-            <controls:PathAppBarToggleButton 
+            <CommandBar.PrimaryCommands>
+                <controls:PathAppBarToggleButton 
                 Label="Upvote"
                 Data="M 7,0 L 0,7 4,7 4,12 10,12 10,7 14,7 7,0 Z"
                 CheckedFill="#FF1EEC88"
                 ext:ToggleButtonExtensions.IsChecked="{Binding IsUpVoted}"
                 Command="{Binding VoteCommand}"
                 CommandParameter="up"/>
-            <controls:PathAppBarToggleButton 
+                <controls:PathAppBarToggleButton 
                 Label="Downvote"
                 Data="M 4,0 L 10,0 10,5 14,5 7,12 0,5 4,5 4,0 Z"
                 CheckedFill="#FFDC3E3E"
                 ext:ToggleButtonExtensions.IsChecked="{Binding IsDownVoted}"
                 Command="{Binding VoteCommand}"
                 CommandParameter="down"/>
-            <controls:PathAppBarToggleButton 
+                <controls:PathAppBarToggleButton 
                 Label="Favorite"
                 CheckedFill="#FFE1447B"
                 Data="F 1 M 24,38.052 L 23.497,37.756 C 23.19,37.575 15.924,33.25 11.778,26.697 9.575,23.218 8.89,19.544 9.848,16.354 10.633,13.743 12.453,11.678 14.974,10.544 15.854,10.148 16.762,9.947 17.673,9.947 20.59,9.947 22.854,11.975 24,13.268 25.147,11.975 27.41,9.947 30.328,9.947 31.239,9.947 32.147,10.147 33.026,10.544 35.547,11.678 37.368,13.742 38.153,16.354 39.111,19.543 38.425,23.216 36.223,26.698 32.077,33.25 24.811,37.575 24.504,37.756 L 24,38.052 Z"
                 ext:ToggleButtonExtensions.IsChecked="{Binding IsFavourited}"
                 Command="{Binding Favourite}"/>
-            <AppBarButton Label="Share" Command="{Binding ShareCommand}">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE72D;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton Label="Share" Command="{Binding ShareCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE72D;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Download" Command="{Binding SaveCommand}"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
 </UserControl>

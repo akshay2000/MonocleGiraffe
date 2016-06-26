@@ -380,16 +380,27 @@ namespace MonocleGiraffe.Models
         
         DelegateCommand save;
         public DelegateCommand SaveCommand
-           => save ?? (save = new DelegateCommand(() =>
+           => save ?? (save = new DelegateCommand(async () =>
            {
-               StartDownload();
+               await StartDownload();
            }, () => true));
 
         private async Task StartDownload()
         {
             var vm = ViewModelLocator.GetInstance().TransfersPageViewModel.DownloadsVM;
-            var url = IsAnimated ? Mp4 : Link;
-            await vm.StartDownload(url);
+            if (ItemType == GalleryItemType.Album)
+            {
+                foreach (var item in AlbumImages)
+                {
+                    var url = item.IsAnimated ? item.Mp4 : item.Link;
+                    var task = vm.StartDownload(url);
+                }
+            }
+            else
+            {
+                var url = IsAnimated ? Mp4 : Link;
+                await vm.StartDownload(url);
+            }
         }
 
         public async Task<long?> AddComment(string comment, string parentId = null)
