@@ -18,7 +18,12 @@
         <Pivot Title="TRANSFERS">
             <PivotItem Header="Downloads" DataContext="{Binding DownloadsVM}">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Downloads}" Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="Cancel All" Command="{Binding CancelAllCommand}" IsEnabled="{Binding IsCancelAllEnabled}"/>
+                    <ListBox ItemsSource="{Binding Downloads}" Background="Transparent" Grid.Row="1">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -51,6 +56,7 @@
                     </ListBox>
                 </Grid>
             </PivotItem>
+            <PivotItem Header="Uploads"/>
         </Pivot>
     </Grid>
 </Page>

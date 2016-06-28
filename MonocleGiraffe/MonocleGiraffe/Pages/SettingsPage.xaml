@@ -240,7 +240,7 @@
                 </PivotItem.Header>
                 <StackPanel Margin="0,20,0,0">
                     <ToggleSwitch
-						Header="Show viral in UserSub"
+						Header="Show viral in user sub"
 						IsOn="{Binding IsViralEnabled, Mode=TwoWay}">
                         <Interactivity:Interaction.Behaviors>
                             <Core:EventTriggerBehavior EventName="Toggled">

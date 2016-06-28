@@ -28,19 +28,51 @@ namespace MonocleGiraffe.ViewModels.Transfers
         ObservableCollection<DownloadItem> downloads = default(ObservableCollection<DownloadItem>);
         public ObservableCollection<DownloadItem> Downloads { get { return downloads; } set { Set(ref downloads, value); } }
 
-        private void Init()
+        bool isCancelAllEnabled = default(bool);
+        public bool IsCancelAllEnabled { get { return isCancelAllEnabled; } set { Set(ref isCancelAllEnabled, value); } }
+
+        private async Task Init()
         {
+            IsCancelAllEnabled = false;
             Downloads = new ObservableCollection<DownloadItem>();
             Downloader = new BackgroundDownloader();
+            IReadOnlyList<DownloadOperation> oldDownloads = await BackgroundDownloader.GetCurrentDownloadsAsync();
+            foreach (var d in oldDownloads)
+                Downloads.Add(await DownloadItem.Create(d));
+            if (Downloads.Count > 0)
+                IsCancelAllEnabled = true;
         }
 
-        public BackgroundDownloader Downloader { get; set; }
+
+        DelegateCommand cancelAllCommand;
+        public DelegateCommand CancelAllCommand
+           => cancelAllCommand ?? (cancelAllCommand = new DelegateCommand(async () =>
+           {
+               await CancelAll();
+           }));
+
+        private async Task CancelAll()
+        {
+            IsCancelAllEnabled = false;
+            List<Task> all = new List<Task>();
+            foreach (var d in Downloads)
+            {
+                if (d.State != DownloadItem.CANCELED)
+                    all.Add(d.Cancel());
+            }
+            await Task.WhenAll(all);
+            IsCancelAllEnabled = true;
+        }
+
+        private BackgroundDownloader Downloader { get; set; }
 
         public async Task StartDownload(string url)
         {
             DownloadItem item = await DownloadItem.Create(Downloader, url);
             Downloads.Add(item);
             await item.Start();
+            if (Downloads.Count > 0)
+                IsCancelAllEnabled = true;
         }
         
         private void InitDesignTime()

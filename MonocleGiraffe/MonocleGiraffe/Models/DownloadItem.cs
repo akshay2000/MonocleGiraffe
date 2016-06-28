@@ -20,15 +20,26 @@ namespace MonocleGiraffe.Models
             await item.Construct();   
             return item;
         }
+      
+        public static async Task<DownloadItem> Create(DownloadOperation op)
+        {
+            DownloadItem item = new DownloadItem();
+            item.Downloader = new BackgroundDownloader();
+            item.Url = op.RequestedUri.OriginalString;
+            await item.Construct(op);
+            return item;
+        }
 
-        private async Task Construct()
+        private async Task Construct(DownloadOperation op = null)
         {
             var folder = KnownFolders.SavedPictures;
             var fileName = Url.Split('/').Last();
-            var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+            var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+            if ((await file.GetBasicPropertiesAsync()).Size > 0)
+                file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
             File = file;
             Name = file.Name;
-            Operation = Downloader.CreateDownload(new Uri(Url), file);
+            Operation = op ?? Downloader.CreateDownload(new Uri(Url), file);
             Progress = new Progress<DownloadOperation>(HandleProgress);
             CancellationToken = new CancellationTokenSource();
         }
