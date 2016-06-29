@@ -105,16 +105,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AddSubredditContentDialog.xaml.cs">
-      <DependentUpon>AddSubredditContentDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ColumnGridView.xaml.cs">
       <DependentUpon>ColumnGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnPanel.cs" />
-    <Compile Include="Controls\CommentsUserControl.xaml.cs">
-      <DependentUpon>CommentsUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -175,11 +169,7 @@
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\SharingHelper.cs" />
-    <Compile Include="Helpers\StateHelper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
     <Compile Include="Models\DownloadItem.cs" />
@@ -187,9 +177,6 @@
     <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\IGalleryItem.cs" />
     <Compile Include="Models\SubredditItem.cs" />
-    <Compile Include="Pages\AlbumPage.xaml.cs">
-      <DependentUpon>AlbumPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\BrowserPage.xaml.cs">
       <DependentUpon>BrowserPage.xaml</DependentUpon>
     </Compile>
@@ -199,14 +186,8 @@
     <Compile Include="Pages\FrontPage.xaml.cs">
       <DependentUpon>FrontPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ManageSubredditsPage.xaml.cs">
-      <DependentUpon>ManageSubredditsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\SlideShowPage.xaml.cs">
-      <DependentUpon>SlideShowPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SubGalleryPage.xaml.cs">
       <DependentUpon>SubGalleryPage.xaml</DependentUpon>
@@ -219,7 +200,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateSelectors\ImageTemplateSelector.cs" />
-    <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\BrowserPageViewModel.cs" />
     <Compile Include="ViewModels\FeedbackPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPageViewModel.cs" />
@@ -227,7 +207,6 @@
     <Compile Include="ViewModels\FrontPage\GalleryViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SearchViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\ImgurSettingsViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
@@ -256,17 +235,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\AddSubredditContentDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ColumnGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CommentsUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CommentsView.xaml">
       <SubType>Designer</SubType>
@@ -275,10 +246,6 @@
     <Page Include="Controls\ExtendedSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ImageItemPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageUserControl.xaml">
       <SubType>Designer</SubType>
@@ -332,14 +299,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\AlbumPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <DesignData Include="SampleData\CommentSampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -356,15 +315,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ManageSubredditsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\SlideShowPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -31,7 +31,6 @@ namespace MonocleGiraffe.Pages
     /// </summary>
     public sealed partial class FrontPage : Page
     {
-        MainViewModel mainVM = StateHelper.ViewModel;
         public FrontPage()
         {
             this.InitializeComponent();
