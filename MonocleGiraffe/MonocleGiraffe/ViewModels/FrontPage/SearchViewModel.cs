@@ -202,9 +202,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
-            var images = await Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page);
-            if (images == null)
-                return new List<GalleryItem>();
+            var images = (await Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page)).Content;
             if (images.Count == 0)
             {
                 HasMore = false;

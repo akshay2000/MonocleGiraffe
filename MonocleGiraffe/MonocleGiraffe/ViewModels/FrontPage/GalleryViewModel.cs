@@ -121,7 +121,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         private async Task LoadTopics()
         {
-            var topics = await SharpImgur.APIWrappers.Topics.GetDefaultTopics();
+            var topics = (await SharpImgur.APIWrappers.Topics.GetDefaultTopics()).Content;
             topics.Insert(0, new Topic { Name = USER_SUB, Description = "Here it begins." });
             topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
@@ -290,18 +290,18 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             if (Section == Section.User)
             {
                 bool showViral = SettingsHelper.GetValue<bool>("IsViralEnabled", true);
-                gallery = await Gallery.GetGallery(Section, Sort, (int)page, showViral);
+                gallery = (await Gallery.GetGallery(Section, Sort, (int)page, showViral)).Content;
             }
             else
             {
-                gallery = await Gallery.GetGallery(Section, Sort, (int)page);
+                gallery = (await Gallery.GetGallery(Section, Sort, (int)page)).Content;
             }
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
         
         private async Task<List<GalleryItem>> GetTopicGallery(uint page)
         {
-            var gallery = await Topics.GetTopicGallery(TopicId, Sort, (int)page);
+            var gallery = (await Topics.GetTopicGallery(TopicId, Sort, (int)page)).Content;
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
     }

@@ -175,6 +175,9 @@ namespace MonocleGiraffe.Models
                 AlbumImages = album?.Images?.Select(i => new GalleryItem(i)).ToList();
             }
         }
+        
+        bool isCommentError = default(bool);
+        public bool IsCommentError { get { return isCommentError; } set { Set(ref isCommentError, value); } }
 
         private List<CommentItem> comments;
         public List<CommentItem> Comments
@@ -191,8 +194,11 @@ namespace MonocleGiraffe.Models
         private async Task LoadComments()
         {
             IsLoadingComments = true;
-            var commentsList = await Gallery.GetComments(image.Id);
-            Comments = commentsList?.Select(c => new CommentItem(new CommentViewModel(c))).ToList();
+            var response = await Gallery.GetComments(image.Id);
+            if (response.IsError)
+                IsCommentError = true;
+            else
+                Comments = response.Content?.Select(c => new CommentItem(new CommentViewModel(c))).ToList();
             IsLoadingComments = false;
         }
 
