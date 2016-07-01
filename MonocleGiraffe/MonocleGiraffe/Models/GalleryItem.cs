@@ -391,6 +391,14 @@ namespace MonocleGiraffe.Models
                await StartDownload();
            }, () => true));
 
+        DelegateCommand copyLink;
+        public DelegateCommand CopyLinkCommand
+           => copyLink ?? (copyLink = new DelegateCommand(() =>
+           {
+               var url = IsAnimated ? Mp4 : Link;
+               ClipboardHelper.Clip(url);
+           }, () => true));
+
         private async Task StartDownload()
         {
             var vm = ViewModelLocator.GetInstance().TransfersPageViewModel.DownloadsVM;

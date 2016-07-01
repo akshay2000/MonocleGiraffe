@@ -16,6 +16,7 @@
     <Grid x:Name="LayoutRoot" Background="DarkGray" RightTapped="LayoutRoot_RightTapped">
         <FlyoutBase.AttachedFlyout>
             <MenuFlyout>
+                <MenuFlyoutItem Text="Copy Link" Command="{Binding CopyLinkCommand}"/>
                 <MenuFlyoutItem Text="Share" Command="{Binding ShareCommand}"/>
                 <MenuFlyoutItem Text="Save" Command="{Binding SaveCommand}"/>
             </MenuFlyout>
