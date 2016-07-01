@@ -13,7 +13,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid x:Name="LayoutRoot" Background="DarkGray" RightTapped="LayoutRoot_RightTapped">
+    <Grid x:Name="LayoutRoot" Background="DarkGray" Holding="LayoutRoot_Holding" RightTapped="LayoutRoot_RightTapped">
         <FlyoutBase.AttachedFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="Copy Link" Command="{Binding CopyLinkCommand}"/>

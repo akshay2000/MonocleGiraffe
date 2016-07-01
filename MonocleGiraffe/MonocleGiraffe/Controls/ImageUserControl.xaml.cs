@@ -26,9 +26,22 @@ namespace MonocleGiraffe.Controls
 
         private void LayoutRoot_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
+            if (IsHolding)
+                return;
             var targetElement = sender as FrameworkElement;
             MenuFlyout flyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(targetElement);
             flyout.ShowAt(targetElement, e.GetPosition(targetElement));
+        }
+
+        public bool IsHolding { get; set; }
+        private void LayoutRoot_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState != Windows.UI.Input.HoldingState.Started)
+                return;
+            IsHolding = true;
+            var targetElement = sender as FrameworkElement;
+            MenuFlyout flyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(targetElement);
+            flyout.ShowAt(targetElement, e.GetPosition(targetElement));          
         }
     }
 }
