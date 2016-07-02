@@ -26,18 +26,26 @@
             ImageTemplate="{StaticResource ImageTemplate}"
             AlbumTemplate="{StaticResource AlbumTemplate}"/>
     </Page.Resources>
-    
-    <Grid Background="Black">
-        <controls:IncrementalFlipView 
+
+    <Grid>
+        <Grid Background="Black">
+            <controls:IncrementalFlipView 
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"
             Background="Black"/>
+        </Grid>
+        <Grid Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#99000000">
+                <ProgressRing Foreground="{StaticResource AppThemeBrush}" IsActive="{Binding IsBusy}"/>
+            </Border>
+        </Grid>
     </Grid>
 
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="DeleteButton" Label="Delete" Icon="Delete" Click="DeleteButton_Click"/>
                 <AppBarButton Label="Edit" Icon="Edit" Command="{Binding EditCommand}"/>
             </CommandBar.PrimaryCommands>
         </CommandBar>

@@ -29,8 +29,8 @@
                 <TextBox Text="{Binding Description, Mode=TwoWay}" Header="Description" Margin="0,16,0,0"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.RowSpan="2">
-            <Border Background="#99000000" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#99000000">
                 <ProgressRing Foreground="{StaticResource AppThemeBrush}" IsActive="{Binding IsBusy}"/>
             </Border>
         </Grid>

@@ -51,6 +51,9 @@ namespace MonocleGiraffe.ViewModels
             set { Set(ref flipViewIndex, value); }
         }
 
+        bool isBusy = default(bool);
+        public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
+
         GalleryMetaInfo galleryMetaInfo;
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -94,6 +97,28 @@ namespace MonocleGiraffe.ViewModels
             BootStrapper.Current.SessionState[navigationParamName] = currentItem;
             BootStrapper.Current.NavigationService.Navigate(typeof(EditItemPage), navigationParamName);
             return;
+        }
+
+        DelegateCommand deleteCommand;
+        public DelegateCommand DeleteCommand
+           => deleteCommand ?? (deleteCommand = new DelegateCommand(async() =>
+           {
+               await Delete();
+           }, () => true));
+
+        private async Task Delete()
+        {
+            IsBusy = true;
+            var currentItem = Images.ElementAt(FlipViewIndex);
+            bool isSuccess = (await SharpImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
+            if (isSuccess)
+            {
+                if (currentItem is GalleryItem)
+                    (Images as ObservableCollection<GalleryItem>)?.Remove((GalleryItem)currentItem);
+                if (currentItem is AlbumItem)
+                    (Images as ObservableCollection<AlbumItem>)?.Remove((AlbumItem)currentItem);
+            }            
+            IsBusy = false;
         }
 
         private void InitDesignTime()
