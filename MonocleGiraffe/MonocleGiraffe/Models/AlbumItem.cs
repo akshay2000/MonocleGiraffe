@@ -25,9 +25,15 @@ namespace MonocleGiraffe.Models
 
         public string Title
         {
+            get { return album.Title; }
+            set { album.Title = value; }
+        }
+
+        public long Views
+        {
             get
             {
-                return album.Title;
+                return album.Views;
             }
         }
 
@@ -41,10 +47,8 @@ namespace MonocleGiraffe.Models
 
         public string Description
         {
-            get
-            {
-                return album.Description;
-            }
+            get { return album.Description; }
+            set { album.Description = value; }
         }
 
         public string UploaderName

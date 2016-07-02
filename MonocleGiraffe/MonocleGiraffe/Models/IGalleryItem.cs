@@ -8,13 +8,15 @@ namespace MonocleGiraffe.Models
 {
     public interface IGalleryItem
     {
-        string Title { get; }
+        string Id { get; }
+
+        string Title { get; set; }
 
         string Link { get; }
 
         string Mp4 { get; }
 
-        string Description { get; }
+        string Description { get; set; }
 
         string UploaderName { get; }
 

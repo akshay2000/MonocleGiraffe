@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,6 @@ namespace MonocleGiraffe.ViewModels
             set { Set(ref images, value); }
         }
 
-
         int flipViewIndex;
         public int FlipViewIndex
         {
@@ -78,6 +78,22 @@ namespace MonocleGiraffe.ViewModels
         {
             IGalleryItem toShare = Images.ElementAt(FlipViewIndex);
             SharingHelper.ShareItem(toShare);
+        }
+        
+        DelegateCommand editCommand;
+        public DelegateCommand EditCommand
+           => editCommand ?? (editCommand = new DelegateCommand(() =>
+           {
+               Edit();
+           }, () => true));
+
+        private void Edit()
+        {
+            var currentItem = Images.ElementAt(FlipViewIndex);
+            const string navigationParamName = "ItemToEdit";
+            BootStrapper.Current.SessionState[navigationParamName] = currentItem;
+            BootStrapper.Current.NavigationService.Navigate(typeof(EditItemPage), navigationParamName);
+            return;
         }
 
         private void InitDesignTime()

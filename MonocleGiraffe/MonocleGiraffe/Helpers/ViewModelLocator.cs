@@ -23,6 +23,7 @@ namespace MonocleGiraffe.Helpers
         {
             frontPageViewModel = new Lazy<FrontPageViewModel>();
             transfersPageViewModel = new Lazy<TransfersPageViewModel>();
+            browserPageViewModel = new Lazy<BrowserPageViewModel>();
         }
 
         private void InitDesignTime()
@@ -35,6 +36,9 @@ namespace MonocleGiraffe.Helpers
 
         private Lazy<FrontPageViewModel> frontPageViewModel;
         public FrontPageViewModel FrontPageViewModel { get { return frontPageViewModel.Value; } }
+
+        private Lazy<BrowserPageViewModel> browserPageViewModel;
+        public BrowserPageViewModel BrowserPageViewModel { get { return browserPageViewModel.Value; } }
 
         public static ViewModelLocator GetInstance()
         {

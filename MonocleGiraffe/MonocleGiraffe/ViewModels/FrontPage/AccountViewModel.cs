@@ -130,7 +130,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             const string navigationParamName = "GalleryInfo";
             var galleryMetaInfo = new GalleryMetaInfo { Gallery = gallery, SelectedIndex = index };
             BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
-            BootStrapper.Current.NavigationService.Navigate(typeof(BrowserPage), navigationParamName);
+            BootStrapper.Current.NavigationService.Navigate(typeof(SelfBrowserPage), navigationParamName);
             return;
         }
 

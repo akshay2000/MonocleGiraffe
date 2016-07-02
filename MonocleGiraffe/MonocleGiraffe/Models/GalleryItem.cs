@@ -46,10 +46,8 @@ namespace MonocleGiraffe.Models
 
         public string Title
         {
-            get
-            {
-                return image.Title;
-            }
+            get { return image.Title; }
+            set { image.Title = value; }
         }
 
         public string Link
@@ -70,10 +68,8 @@ namespace MonocleGiraffe.Models
 
         public string Description
         {
-            get
-            {
-                return image.Description;
-            }
+            get { return image.Description; }
+            set { image.Description = value; }
         }
 
         public string UploaderName

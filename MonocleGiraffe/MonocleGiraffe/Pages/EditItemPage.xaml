@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="MonocleGiraffe.Pages.EditItemPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MonocleGiraffe.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MonocleGiraffe.ViewModels"
+    xmlns:controls="using:MonocleGiraffe.Controls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:EditItemPageViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid DataContext="{Binding Item}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                    <controls:ImageUserControl/>
+                </Viewbox>
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Padding="12">
+                <TextBox Text="{Binding Title, Mode=TwoWay}" Header="Title"/>
+                <TextBox Text="{Binding Description, Mode=TwoWay}" Header="Description" Margin="0,16,0,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.RowSpan="2">
+            <Border Background="#99000000" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ProgressRing Foreground="{StaticResource AppThemeBrush}" IsActive="{Binding IsBusy}"/>
+            </Border>
+        </Grid>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
+                <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

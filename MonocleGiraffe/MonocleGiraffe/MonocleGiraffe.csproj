@@ -139,6 +139,12 @@
     <Compile Include="Controls\ItemTemplates\RedditResultTemplate.xaml.cs">
       <DependentUpon>RedditResultTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemTemplates\SelfAlbumTemplate.xaml.cs">
+      <DependentUpon>SelfAlbumTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ItemTemplates\SelfImageTemplate.xaml.cs">
+      <DependentUpon>SelfImageTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml.cs">
       <DependentUpon>SquareThumbnailTemplate.xaml</DependentUpon>
     </Compile>
@@ -181,11 +187,17 @@
     <Compile Include="Pages\BrowserPage.xaml.cs">
       <DependentUpon>BrowserPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\EditItemPage.xaml.cs">
+      <DependentUpon>EditItemPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FrontPage.xaml.cs">
       <DependentUpon>FrontPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SelfBrowserPage.xaml.cs">
+      <DependentUpon>SelfBrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -205,6 +217,7 @@
     <Compile Include="ViewModels\FeedbackPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\AccountViewModel.cs" />
+    <Compile Include="ViewModels\EditItemPageViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\GalleryViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SearchViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
@@ -276,6 +289,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ItemTemplates\SelfAlbumTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\SelfImageTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -308,11 +329,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\EditItemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\FrontPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SelfBrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
