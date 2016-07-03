@@ -110,14 +110,20 @@ namespace MonocleGiraffe.ViewModels
         {
             IsBusy = true;
             var currentItem = Images.ElementAt(FlipViewIndex);
-            bool isSuccess = (await SharpImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
-            if (isSuccess)
+
+            if (currentItem is GalleryItem)
             {
-                if (currentItem is GalleryItem)
+                bool isSuccess = (await SharpImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
+                if (isSuccess)
                     (Images as ObservableCollection<GalleryItem>)?.Remove((GalleryItem)currentItem);
-                if (currentItem is AlbumItem)
+            }
+            if (currentItem is AlbumItem)
+            {
+                bool isSuccess = (await SharpImgur.APIWrappers.Albums.DeleteAlbum(currentItem.Id)).Content;
+                if (isSuccess)
                     (Images as ObservableCollection<AlbumItem>)?.Remove((AlbumItem)currentItem);
-            }            
+            }
+
             IsBusy = false;
         }
 
