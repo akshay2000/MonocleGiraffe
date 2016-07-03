@@ -589,12 +589,7 @@
                                     <TextBlock Text="{Binding Trophies.Count}" Style="{StaticResource CountTextStyle}"/>
                                 </Border>                                
                             </Grid>
-                            <ListView ItemsSource="{Binding Trophies}" Style="{StaticResource HorizontalListViewStyle}" >
-                                <Interactivity:Interaction.Behaviors>
-                                    <Core:EventTriggerBehavior EventName="ItemClick">
-                                        <Core:CallMethodAction MethodName="ImageTapped" TargetObject="{Binding Mode=OneWay}" />
-                                    </Core:EventTriggerBehavior>
-                                </Interactivity:Interaction.Behaviors>
+                            <ListView ItemsSource="{Binding Trophies}" Style="{StaticResource HorizontalListViewStyle}" >                                
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Gray" Height="75" Width="75">

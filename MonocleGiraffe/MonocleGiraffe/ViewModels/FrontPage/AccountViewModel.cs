@@ -101,13 +101,13 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             switch (param)
             {
                 case "albums":
-                    GoToBrowser(Albums, 0);
+                    GoToBrowser(Albums, 0, typeof(SelfBrowserPage));
                     break;
                 case "images":
-                    GoToBrowser(Images, 0);
+                    GoToBrowser(Images, 0, typeof(SelfBrowserPage));
                     break;
                 case "favourites":
-                    GoToBrowser(Favourites, 0);
+                    GoToBrowser(Favourites, 0, typeof(SubredditBrowserPage));
                     break;
             }
         }
@@ -118,19 +118,19 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             var clickedItem = (IGalleryItem)info.ClickedItem;
             var collection = (info.OriginalSource as ItemsControl).ItemsSource;
             if (collection == Albums)
-                GoToBrowser(Albums, Albums.IndexOf((AlbumItem)clickedItem));
+                GoToBrowser(Albums, Albums.IndexOf((AlbumItem)clickedItem), typeof(SelfBrowserPage));
             else if (collection == Images)
-                GoToBrowser(Images, Images.IndexOf((GalleryItem)clickedItem));
+                GoToBrowser(Images, Images.IndexOf((GalleryItem)clickedItem), typeof(SelfBrowserPage));
             else if (collection == Favourites)
-                GoToBrowser(Favourites, Favourites.IndexOf((GalleryItem)clickedItem));
+                GoToBrowser(Favourites, Favourites.IndexOf((GalleryItem)clickedItem), typeof(SubredditBrowserPage));
         }
 
-        private void GoToBrowser(IEnumerable<IGalleryItem> gallery, int index)
+        private void GoToBrowser(IEnumerable<IGalleryItem> gallery, int index, Type page)
         {
             const string navigationParamName = "GalleryInfo";
             var galleryMetaInfo = new GalleryMetaInfo { Gallery = gallery, SelectedIndex = index };
             BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
-            BootStrapper.Current.NavigationService.Navigate(typeof(SelfBrowserPage), navigationParamName);
+            BootStrapper.Current.NavigationService.Navigate(page, navigationParamName);
             return;
         }
 
