@@ -1,5 +1,4 @@
 ﻿<Page
-    x:Class="MonocleGiraffe.Pages.EditItemPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MonocleGiraffe.Pages"
@@ -7,27 +6,101 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:controls="using:MonocleGiraffe.Controls"
+    xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    x:Class="MonocleGiraffe.Pages.EditItemPage"
     mc:Ignorable="d">
 
     <Page.DataContext>
         <vm:EditItemPageViewModel/>
     </Page.DataContext>
 
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
+            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
-        <Grid DataContext="{Binding Item}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
-                    <controls:ImageUserControl/>
-                </Viewbox>
-            </ScrollViewer>
-            <StackPanel Grid.Row="1" Padding="12">
-                <TextBox Text="{Binding Title, Mode=TwoWay}" Header="Title"/>
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Header="Description" Margin="0,16,0,0"/>
-            </StackPanel>
+        <Grid x:Name="ImageView" Visibility="{Binding IsAlbum, ConverterParameter=false, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" DataContext="{Binding Item}">
+                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                        <controls:ImageUserControl/>
+                    </Viewbox>
+                </ScrollViewer>
+                <StackPanel Grid.Row="1" Padding="12">
+                    <TextBox Text="{Binding Title, Mode=TwoWay}" Header="Title"/>
+                    <TextBox Text="{Binding Description, Mode=TwoWay}" Header="Description" Margin="0,16,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid x:Name="AlbumView" Visibility="{Binding IsAlbum, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="160" Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <GridView SelectionMode="Multiple" CanDragItems="True" AllowDrop="True" CanReorderItems="True" ItemsSource="{Binding AlbumImages}" DragItemsStarting="GridView_DragItemsStarting">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="SelectionChanged">
+                            <Core:CallMethodAction TargetObject="{Binding ElementName=AlbumView, Path=DataContext}" MethodName="ChangeSelection"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <templates:SubredditThumbnailTemplate/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <AppBarButton x:Name="RemoveButton" Icon="Delete" Label="Remove" Grid.Column="1">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Click">
+                            <Core:CallMethodAction TargetObject="{Binding ElementName=AlbumView, Path=DataContext}" MethodName="RemoveImages"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </AppBarButton>
+
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
+                    <StackPanel Padding="12">
+                        <TextBox Text="{Binding Title, Mode=TwoWay}" Header="Title" Margin="0,12"/>
+                        <TextBox Text="{Binding Description, Mode=TwoWay}" Header="Description" Margin="0,12"/>
+                        <ComboBox
+							SelectedIndex="{Binding AlbumPrivacyIndex, Mode=TwoWay}"
+							Header="Album privacy"
+							Margin="0,12">
+                            <ComboBoxItem Content="Public"/>
+                            <ComboBoxItem Content="Hidden"/>
+                            <ComboBoxItem Content="Secret"/>
+                        </ComboBox>
+                        <TextBlock Text="Cover" Margin="0,12,0,0"/>
+                        <TextBlock Text="Drag image from album above and drop it here to set as cover" TextWrapping="Wrap" Style="{StaticResource CaptionTextBlockStyle}"/>
+                        <Border 
+                            Background="#FF252525" 
+                            Height="96" Width="96" 
+                            HorizontalAlignment="Left"
+                            Margin="0,12"                            
+                            AllowDrop="True"
+                            DragEnter="Border_DragEnter">
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:EventTriggerBehavior EventName="Drop">
+                                    <Core:CallMethodAction TargetObject="{Binding}" MethodName="CoverDropped"/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                            <Image Source="{Binding CoverImage.SmallThumbnail}" Stretch="UniformToFill"/>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Grid>
         <Grid Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
             <Border Background="#99000000">
@@ -36,12 +109,4 @@
         </Grid>
     </Grid>
 
-    <Page.BottomAppBar>
-        <CommandBar>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
-                <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}"/>
-            </CommandBar.PrimaryCommands>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

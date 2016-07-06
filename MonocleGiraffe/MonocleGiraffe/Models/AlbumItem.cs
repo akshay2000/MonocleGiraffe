@@ -29,21 +29,11 @@ namespace MonocleGiraffe.Models
             set { album.Title = value; }
         }
 
-        public long Views
-        {
-            get
-            {
-                return album.Views;
-            }
-        }
+        public long Views { get { return album.Views; } }
 
-        public string Link
-        {
-            get
-            {
-                return album.Link;
-            }
-        }
+        public string Privacy { get { return album.Privacy; } }
+
+        public string Link { get { return album.Link; } }
 
         public string Description
         {
@@ -51,13 +41,7 @@ namespace MonocleGiraffe.Models
             set { album.Description = value; }
         }
 
-        public string UploaderName
-        {
-            get
-            {
-                return album.AccountUrl;
-            }
-        }
+        public string UploaderName { get { return album.AccountUrl; } }
 
         private string smallThumbnail;
         public string SmallThumbnail
@@ -80,70 +64,24 @@ namespace MonocleGiraffe.Models
             set { Set(ref bigThumbnail, value); }
         }
 
-        public string Mp4
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public string Mp4 { get { return ""; } }
 
-        public int? Ups
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public int? Ups { get { return 0; } }
 
-        public int CommentCount
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public int CommentCount { get { return 0; } }
 
-        public GalleryItemType ItemType
-        {
-            get
-            {
-                return GalleryItemType.Album;
-            }
-        }
+        public GalleryItemType ItemType { get { return GalleryItemType.Album; } }
 
-        public int Width
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public int Width { get { return 0; } }
 
-        public int Height
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public int Height { get { return 0; } }
 
-        public bool IsAnimated
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsAnimated { get { return false; } }
 
-        public double BigThumbRatio
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public double BigThumbRatio { get { return 1; } }
 
+        public string Cover { get { return album.Cover; } }
+        
         private List<GalleryItem> albumImages;
         public List<GalleryItem> AlbumImages
         {
@@ -153,7 +91,6 @@ namespace MonocleGiraffe.Models
                     LoadAlbumImages();
                 return albumImages;
             }
-
             set
             {
                 Set(ref albumImages, value);

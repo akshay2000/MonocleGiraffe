@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,29 @@ namespace MonocleGiraffe.Pages
         public EditItemPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void Image_Drop(object sender, DragEventArgs e)
+        {
+            var def = e.GetDeferral();
+            var data = await e.DataView.GetTextAsync();
+        }
+
+        private void Image_DropCompleted(UIElement sender, DropCompletedEventArgs args)
+        {
+
+        }
+
+        private void Border_DragEnter(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+        }
+
+        private void GridView_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
+        {
+            //e.Data.RequestedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+            var t = (IGalleryItem)e.Items[0];
+            e.Data.SetText(t.Id);
         }
     }
 }
