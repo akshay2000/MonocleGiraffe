@@ -26,7 +26,7 @@ namespace MonocleGiraffe.Helpers
                 var file = await roamingFolder.GetFileAsync(fileName);
                 textToReturn = await FileIO.ReadTextAsync(file);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 textToReturn = "[]";
             }

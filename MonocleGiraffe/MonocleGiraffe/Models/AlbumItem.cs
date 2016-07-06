@@ -136,7 +136,8 @@ namespace MonocleGiraffe.Models
 
         public async Task<long?> AddComment(string comment, string parentId = null)
         {
-            return await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            var response = await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            return response.Content;
         }
     }
 }

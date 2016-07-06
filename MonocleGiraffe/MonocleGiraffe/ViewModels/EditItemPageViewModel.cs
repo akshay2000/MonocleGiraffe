@@ -114,7 +114,7 @@ namespace MonocleGiraffe.ViewModels
                 string privacy = ToAlbumPrivacy(AlbumPrivacyIndex);
                 privacy = privacy != album.Privacy ? privacy : null;
                 string cover = CoverImage.Id != album.Cover ? CoverImage.Id : null;
-                await Albums.UpdateAlbum(album.Id, imageIds, title, description, privacy, cover);
+                var response = await Albums.UpdateAlbum(album.Id, imageIds, title, description, privacy, cover);
             }
             else
             {

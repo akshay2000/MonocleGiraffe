@@ -368,9 +368,9 @@ namespace MonocleGiraffe.Models
            => favourite ?? (favourite = new DelegateCommand(async () =>
            {
                if (ItemType == GalleryItemType.Album)
-                   IsFavourited = await Gallery.FavouriteAlbum(Id);
+                   IsFavourited = (await Gallery.FavouriteAlbum(Id)).Content;
                else
-                   IsFavourited = await Gallery.FavouriteImage(Id);
+                   IsFavourited = (await Gallery.FavouriteImage(Id)).Content;
            }));
 
         DelegateCommand share;
@@ -416,7 +416,7 @@ namespace MonocleGiraffe.Models
         public async Task<long?> AddComment(string comment, string parentId = null)
         {
             bool isChildComment = parentId != null;
-            long? commentId = await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            long? commentId = (await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId)).Content;
             if (commentId != null)
             {
                 var c = new Comment { Id = commentId.Value, CommentText = comment, Author = await SecretsHelper.GetUserName() };
