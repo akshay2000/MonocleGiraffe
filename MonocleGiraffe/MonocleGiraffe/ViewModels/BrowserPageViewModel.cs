@@ -1,6 +1,8 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
+using MonocleGiraffe.ViewModels.FrontPage;
+using Newtonsoft.Json;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Template10.Utils;
 using Windows.UI;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.ViewModels
@@ -55,17 +58,57 @@ namespace MonocleGiraffe.ViewModels
         public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
 
         GalleryMetaInfo galleryMetaInfo;
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            galleryMetaInfo = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
-            Images = galleryMetaInfo.Gallery;
-            FlipViewIndex = galleryMetaInfo.SelectedIndex;
-            return base.OnNavigatedToAsync(parameter, mode, state);
+            IsBusy = true;
+            if (state.Any())
+            {
+                string imagesJson = (string)state["Images"];
+                string type = (string)state["Type"];
+                int index = (int)state["Index"];
+                IEnumerable<IGalleryItem> collection = null;
+                if (type == typeof(IncrementalGallery).Name) collection = IncrementalGallery.fromJson(imagesJson);
+
+                if(collection != null && collection is ISupportIncrementalLoading)
+                {
+                    var im = (ISupportIncrementalLoading)collection;
+                    while (collection.Count() < index)
+                        await im.LoadMoreItemsAsync(60);
+                }
+                Images = collection;
+                FlipViewIndex = index;
+                state.Clear();
+            }
+            else
+            {
+                galleryMetaInfo = (GalleryMetaInfo)BootStrapper.Current.SessionState[(string)parameter];
+                Images = galleryMetaInfo.Gallery;
+                FlipViewIndex = galleryMetaInfo.SelectedIndex;
+                await base.OnNavigatedToAsync(parameter, mode, state);
+            }
+            IsBusy = false;
+        }
+
+        public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        {
+            if (suspending)
+            {
+                if (Images is IJsonizable)
+                {
+                    state["Images"] = ((IJsonizable)Images).toJson();
+                    state["Index"] = FlipViewIndex;
+                    state["Type"] = Images.GetType().Name;
+                }
+            }
+            return base.OnNavigatedFromAsync(state, suspending);
         }
 
         public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
-            galleryMetaInfo.SelectedIndex = FlipViewIndex;
+            if (galleryMetaInfo == null)
+                BootStrapper.Current.SessionState["GalleryInfo"] = new GalleryMetaInfo { Gallery = Images, SelectedIndex = FlipViewIndex };
+            else
+                galleryMetaInfo.SelectedIndex = FlipViewIndex;
             return base.OnNavigatingFromAsync(args);
         }
 

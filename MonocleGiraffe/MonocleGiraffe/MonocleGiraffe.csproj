@@ -183,6 +183,7 @@
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\IGalleryItem.cs" />
+    <Compile Include="Models\IJsonizable.cs" />
     <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Pages\BrowserPage.xaml.cs">
       <DependentUpon>BrowserPage.xaml</DependentUpon>

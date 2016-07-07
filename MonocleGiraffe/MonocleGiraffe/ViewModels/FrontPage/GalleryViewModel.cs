@@ -14,6 +14,8 @@ using Windows.ApplicationModel;
 using System.Threading;
 using static SharpImgur.APIWrappers.Enums;
 using SharpImgur.Helpers;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -247,7 +249,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         }
     }
 
-    public class IncrementalGallery : IncrementalCollection<GalleryItem>
+    public class IncrementalGallery : IncrementalCollection<GalleryItem>, IJsonizable
     {        
         public IncrementalGallery(Sort sort, int topicId)
         {
@@ -270,6 +272,32 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public Sort Sort { get; private set; }
 
         public int TopicId { get; private set; }
+
+        public string toJson()
+        {
+            JObject ret = new JObject();
+            ret["isGallery"] = IsGallery;
+            ret["sort"] = JsonConvert.SerializeObject(Sort);
+            ret["section"] = JsonConvert.SerializeObject(Sort);
+            ret["topicId"] = TopicId;
+            return ret.ToString();
+        }
+
+        public static IncrementalGallery fromJson(string s)
+        {
+            JObject o = JObject.Parse(s);
+            bool isGallery = (bool)o["isGallery"];
+            Sort sort = JsonConvert.DeserializeObject<Sort>((string)o["sort"]);
+            if (isGallery)
+            {
+                Section section = JsonConvert.DeserializeObject<Section>((string)o["section"]);
+                return new IncrementalGallery(section, sort);
+            }
+            else
+            {
+                return new IncrementalGallery(sort, (int)o["topicId"]);
+            }
+        }
 
         protected override bool HasMoreItemsImpl()
         {
