@@ -17,6 +17,8 @@ using Windows.UI;
 using Windows.UI.Xaml.Navigation;
 using System.Threading;
 using MonocleGiraffe.Pages;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -134,7 +136,7 @@ namespace MonocleGiraffe.ViewModels
         }
     }
 
-    public class IncrementalSubredditGallery : IncrementalCollection<GalleryItem>
+    public class IncrementalSubredditGallery : IncrementalCollection<GalleryItem>, IJsonizable
     {
         public IncrementalSubredditGallery(string subreddit, Enums.Sort sort)
         {
@@ -160,6 +162,22 @@ namespace MonocleGiraffe.ViewModels
                 return new List<GalleryItem>();
             }
             return gallery.Select(i => new GalleryItem(i)).ToList();
+        }
+
+        public string toJson()
+        {
+            JObject o = new JObject();
+            o["subreddit"] = Subreddit;
+            o["sort"] = JsonConvert.SerializeObject(Sort);
+            return o.ToString();
+        }
+
+        public static IncrementalSubredditGallery fromJson(String s)
+        {
+            JObject o = JObject.Parse(s);
+            Enums.Sort sort = JsonConvert.DeserializeObject<Enums.Sort>((string)o["sort"]);
+            string subreddit = (string)o["subreddit"];
+            return new IncrementalSubredditGallery(subreddit, sort);
         }
     }
 }
