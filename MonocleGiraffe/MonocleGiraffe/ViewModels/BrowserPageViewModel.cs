@@ -63,9 +63,9 @@ namespace MonocleGiraffe.ViewModels
             IsBusy = true;
             if (state.Any())
             {
-                string imagesJson = (string)state["Images"];
-                string type = (string)state["Type"];
-                int index = (int)state["Index"];
+                string imagesJson = (string)state["images"];
+                string type = (string)state["type"];
+                int index = (int)state["index"];
 
                 IEnumerable<IGalleryItem> collection = null;
                 if (type == typeof(IncrementalGallery).Name) collection = IncrementalGallery.fromJson(imagesJson);
@@ -97,9 +97,9 @@ namespace MonocleGiraffe.ViewModels
             {
                 if (Images is IJsonizable)
                 {
-                    state["Images"] = ((IJsonizable)Images).toJson();
-                    state["Index"] = FlipViewIndex;
-                    state["Type"] = Images.GetType().Name;
+                    state["images"] = ((IJsonizable)Images).toJson();
+                    state["index"] = FlipViewIndex;
+                    state["type"] = Images.GetType().Name;
                 }
             }
             return base.OnNavigatedFromAsync(state, suspending);

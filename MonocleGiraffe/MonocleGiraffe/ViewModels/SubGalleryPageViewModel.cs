@@ -57,7 +57,8 @@ namespace MonocleGiraffe.ViewModels
         {
             if (state.Any())
             {
-                // restore state
+                Sub = JsonConvert.DeserializeObject<SubredditItem>((string)state["sub"]);
+                Images = IncrementalSubredditGallery.fromJson((string)state["images"]);
                 state.Clear();
             }
             else
@@ -87,7 +88,8 @@ namespace MonocleGiraffe.ViewModels
         {
             if (suspending)
             {
-                // save state
+                state["images"] = Images.toJson();
+                state["sub"] = JsonConvert.SerializeObject(Sub);
             }
             await Task.CompletedTask;
         }
@@ -179,7 +181,7 @@ namespace MonocleGiraffe.ViewModels
             return o.ToString();
         }
 
-        public static IncrementalSubredditGallery fromJson(String s)
+        public static IncrementalSubredditGallery fromJson(string s)
         {
             JObject o = JObject.Parse(s);
             Enums.Sort sort = JsonConvert.DeserializeObject<Enums.Sort>((string)o["sort"]);
