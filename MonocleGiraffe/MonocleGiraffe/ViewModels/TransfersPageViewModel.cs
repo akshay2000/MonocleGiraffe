@@ -30,10 +30,14 @@ namespace MonocleGiraffe.ViewModels
         private void Init()
         {
             DownloadsVM = new DownloadsViewModel();
+            UploadsVM = new UploadsViewModel();
         }
 
         DownloadsViewModel downloadsVM = default(DownloadsViewModel);
         public DownloadsViewModel DownloadsVM { get { return downloadsVM; } set { Set(ref downloadsVM, value); } }
+
+        UploadsViewModel uploadsVM = default(UploadsViewModel);
+        public UploadsViewModel UploadsVM { get { return uploadsVM; } set { Set(ref uploadsVM, value); } }
 
         #region Navigation
 

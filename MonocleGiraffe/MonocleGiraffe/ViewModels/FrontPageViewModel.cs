@@ -1,9 +1,12 @@
-﻿using MonocleGiraffe.Pages;
+﻿using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using MonocleGiraffe.ViewModels.FrontPage;
 using SharpImgur.APIWrappers;
 using SharpImgur.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,16 +85,25 @@ namespace MonocleGiraffe.ViewModels
         public DelegateCommand UploadCommand
            => uploadCommand ?? (uploadCommand = new DelegateCommand(async () =>
            {
-               var picker = new FileOpenPicker();
-               picker.ViewMode = PickerViewMode.Thumbnail;
-               picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-               picker.FileTypeFilter.Add(".jpeg");
-               picker.FileTypeFilter.Add(".jpg");
-               picker.FileTypeFilter.Add(".png");
-               var file = await picker.PickSingleFileAsync();
-               if (file != null)
-                   await Images.UploadImage(file);
+               await PickFilesAndUpload();
            }));
+
+        private async Task PickFilesAndUpload()
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".png");
+            var files = await picker.PickMultipleFilesAsync();
+            var tasks = new List<Task>();
+            if (files != null)
+                foreach (var file in files)
+                    tasks.Add(ViewModelLocator.GetInstance().TransfersPageViewModel.UploadsVM.Enqueqe(new UploadItem { File = file }));
+            await Task.WhenAll(tasks);
+            Debug.WriteLine($"All uploads complete at {DateTime.Now}!");
+        }
 
 
         DelegateCommand transfersCommand;

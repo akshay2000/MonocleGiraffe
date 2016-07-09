@@ -185,6 +185,7 @@
     <Compile Include="Models\IGalleryItem.cs" />
     <Compile Include="Models\IJsonizable.cs" />
     <Compile Include="Models\SubredditItem.cs" />
+    <Compile Include="Models\UploadItem.cs" />
     <Compile Include="Pages\BrowserPage.xaml.cs">
       <DependentUpon>BrowserPage.xaml</DependentUpon>
     </Compile>
@@ -227,6 +228,7 @@
     <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
     <Compile Include="ViewModels\TransfersPageViewModel.cs" />
     <Compile Include="ViewModels\Transfers\DownloadsViewModel.cs" />
+    <Compile Include="ViewModels\Transfers\UploadsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
