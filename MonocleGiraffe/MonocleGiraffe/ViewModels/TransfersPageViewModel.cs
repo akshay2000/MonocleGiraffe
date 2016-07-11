@@ -75,6 +75,7 @@ namespace MonocleGiraffe.ViewModels
         private void InitDesignTime()
         {
             DownloadsVM = new DownloadsViewModel();
+            UploadsVM = new UploadsViewModel();
         }
     }
 
