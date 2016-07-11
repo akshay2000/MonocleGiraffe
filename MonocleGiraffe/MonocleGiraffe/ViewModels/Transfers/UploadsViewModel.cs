@@ -55,6 +55,8 @@ namespace MonocleGiraffe.ViewModels.Transfers
         public void UploadTapped(object sender, object args)
         {
             UploadItem clickedItem = (args as ItemClickEventArgs).ClickedItem as UploadItem;
+            if (clickedItem.State != UploadItem.SUCCESSFUL)
+                return;
             const string key = "ItemToEdit";
             BootStrapper.Current.SessionState[key] = clickedItem.Response;
             BootStrapper.Current.NavigationService.Navigate(typeof(EditItemPage), key);
