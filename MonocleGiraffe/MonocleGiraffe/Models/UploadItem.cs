@@ -60,8 +60,8 @@ namespace MonocleGiraffe.Models
         string state = PENDING;
         public string State { get { return state; } set { Set(ref state, value); } }
 
-        Image response = default(Image);
-        public Image Response { get { return response; } set { Set(ref response, value); } }
+        GalleryItem response;
+        public GalleryItem Response { get { return response; } set { Set(ref response, value); } }
 
         ulong? totalSize = default(ulong?);
         public ulong? TotalSize { get { return totalSize; } set { Set(ref totalSize, value); } }
@@ -100,7 +100,7 @@ namespace MonocleGiraffe.Models
             else
             {
                 State = SUCCESSFUL;
-                Response = response.Content;
+                Response = new GalleryItem(response.Content);
                 Message = "Tap here to edit";
             }
         }

@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Models;
+using MonocleGiraffe.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,11 +9,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Template10.Utils;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -35,7 +38,7 @@ namespace MonocleGiraffe.ViewModels.Transfers
         ObservableCollection<UploadItem> uploads = default(ObservableCollection<UploadItem>);
         public ObservableCollection<UploadItem> Uploads { get { return uploads; } set { Set(ref uploads, value); } }
 
-        SemaphoreSlim sem = new SemaphoreSlim(1);
+        SemaphoreSlim sem = new SemaphoreSlim(3);
 
         public async Task Enqueqe(UploadItem item)
         {
@@ -47,6 +50,14 @@ namespace MonocleGiraffe.ViewModels.Transfers
             await item.Upload();
             Debug.WriteLine($"Finished upload {name} at {DateTime.Now}");
             sem.Release();
+        }
+
+        public void UploadTapped(object sender, object args)
+        {
+            UploadItem clickedItem = (args as ItemClickEventArgs).ClickedItem as UploadItem;
+            const string key = "ItemToEdit";
+            BootStrapper.Current.SessionState[key] = clickedItem.Response;
+            BootStrapper.Current.NavigationService.Navigate(typeof(EditItemPage), key);
         }
 
         DelegateCommand cancelAllCommand;
