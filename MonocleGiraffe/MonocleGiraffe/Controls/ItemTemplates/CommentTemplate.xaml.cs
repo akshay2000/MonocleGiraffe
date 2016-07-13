@@ -55,6 +55,19 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             ExpandRequested?.Invoke(sender, e);
         }
 
+        private void ReplyButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OnReplyRequested(DataContext, e);
+        }
+
+        public event RoutedEventHandler ReplyRequested;
+
+        private void OnReplyRequested(object sender, RoutedEventArgs e)
+        {
+            ReplyRequested?.Invoke(sender, e);
+        }
+
         bool isExpanded = false;
         public bool IsExpanded { get { return isExpanded; } set { Set(ref isExpanded, value); } }
 

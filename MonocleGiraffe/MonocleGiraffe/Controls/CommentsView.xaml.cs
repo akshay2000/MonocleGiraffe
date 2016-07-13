@@ -1,4 +1,6 @@
 ﻿using MonocleGiraffe.Models;
+using SharpImgur.Helpers;
+using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -36,16 +39,16 @@ namespace MonocleGiraffe.Controls
         bool isCharCountVisible = default(bool);
         public bool IsCharCountVisible { get { return isCharCountVisible; } set { Set(ref isCharCountVisible, value); } }
 
-        private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        private async void CommentTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             var t = sender as TextBox;
             int currentLength = t?.Text?.Length ?? 0;
             RemainingChars = MAX_LENGTH - currentLength;
-            if(e.Key== Windows.System.VirtualKey.Enter)
+            if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 if (RemainingChars > -1)
                 {
-                    PostComment(t.Text);
+                    await PostComment(t.Text);
                     ResetView(t);
                 }
             }
@@ -57,9 +60,21 @@ namespace MonocleGiraffe.Controls
             RemainingChars = MAX_LENGTH;
         }
 
-        private void PostComment(string comment)
+        private async Task PostComment(string comment)
         {
-            (DataContext as IGalleryItem)?.AddComment(comment);
+            Comments.IsLoading = true;            
+            long? parentId = parent == null ? null : (long?)parent.Id;
+            bool isChildComment = parentId != null;
+
+            var newComment = await (DataContext as IGalleryItem)?.AddComment(comment, parentId);
+            if (newComment != null)
+            {
+                var cvm = new CommentViewModel(newComment) { IsUpVoted = true, Points = 1 };
+                var newCI = new CommentItem(cvm);
+                Comments.InsertComment(newCI, parentId);                
+            }
+            parent = null;
+            Comments.IsLoading = false;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -70,6 +85,13 @@ namespace MonocleGiraffe.Controls
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             IsCharCountVisible = false;
+        }
+
+        CommentViewModel parent;
+        private void TreeView_ReplyRequested(object sender, RoutedEventArgs e)
+        {
+            parent = ((sender as TreeViewItem)?.Content as CommentViewModel);
+            CommentTextBox.Focus(FocusState.Keyboard);
         }
 
         #region INotifyPropertyChanged
@@ -89,5 +111,6 @@ namespace MonocleGiraffe.Controls
            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
+
     }
 }

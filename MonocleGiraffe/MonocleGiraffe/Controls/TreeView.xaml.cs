@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -78,6 +79,32 @@ namespace MonocleGiraffe.Controls
             }
             return ret;
         }
+
+        public void InsertComment(ITreeItem item, long? parentId)
+        {
+            TreeViewItem t = new TreeViewItem();
+            t.Content = item.Content;
+            t.Depth = 0;
+            if (parentId == null)
+                Items.Insert(0, t);
+            else
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    var currentItem = Items[i];
+                    if (currentItem.Content is CommentViewModel)
+                    {
+                        if ((currentItem.Content as CommentViewModel).Id == parentId)
+                        {                            
+                            t.Depth = currentItem.Depth + 1;
+                            currentItem.Children.Insert(0, t);
+                            Items.Insert(i + 1, t);
+                            break;
+                        }
+                    }
+                }
+            }      
+        }
         
         private void CommentTemplate_ExpandRequested(object sender, RoutedEventArgs e)
         {
@@ -110,6 +137,18 @@ namespace MonocleGiraffe.Controls
                 }
                 tappedItem.IsExpanded = false;
             }
+        }
+
+        private void CommentTemplate_ReplyRequested(object sender, RoutedEventArgs e)
+        {
+            OnReplyRequested(sender, e);
+        }
+
+        public event RoutedEventHandler ReplyRequested;
+
+        private void OnReplyRequested(object sender, RoutedEventArgs e)
+        {
+            ReplyRequested?.Invoke(sender, e);
         }
 
         #region INotifyPropertyChanged

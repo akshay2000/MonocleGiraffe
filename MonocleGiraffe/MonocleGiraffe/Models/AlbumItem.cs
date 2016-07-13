@@ -1,4 +1,5 @@
 ﻿using SharpImgur.APIWrappers;
+using SharpImgur.Helpers;
 using SharpImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -134,10 +135,15 @@ namespace MonocleGiraffe.Models
             BigThumbnail = baseUrl + thumbnailId + "l.jpg";
         }
 
-        public async Task<long?> AddComment(string comment, string parentId = null)
+        public async Task<Comment> AddComment(string comment, long? parentId = null)
         {
             var response = await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
-            return response.Content;
+            if (!response.IsError)
+            {
+                var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await SecretsHelper.GetUserName(), Children = new List<Comment>() };
+                return c;
+            }
+            return null;
         }
     }
 }

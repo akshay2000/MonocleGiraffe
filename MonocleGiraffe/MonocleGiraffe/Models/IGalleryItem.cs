@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpImgur.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,6 @@ namespace MonocleGiraffe.Models
 
         string BigThumbnail { get; set; }
 
-        Task<long?> AddComment(string comment, string parentId = null);
+        Task<Comment> AddComment(string comment, long? parentId = null);
     }
 }

@@ -28,19 +28,22 @@
                 HorizontalAlignment="Right"
                 Visibility="{x:Bind IsCharCountVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             <TextBox 
+                x:Name="CommentTextBox"
                 Grid.Row="1"
                 TextWrapping="Wrap"
                 Margin="0,16,0,12"
                 PlaceholderText="Write a comment"
-                KeyUp="TextBox_KeyUp"
+                KeyUp="CommentTextBox_KeyUp"
                 GotFocus="TextBox_GotFocus"
                 LostFocus="TextBox_LostFocus"/>
         </Grid>
         
         <!--Comments-->
         <local:TreeView 
+            x:Name="Comments"
             IsLoading="{Binding IsLoadingComments}"
             Grid.Row="1" 
-            ItemsSource="{Binding Comments}"/>
+            ItemsSource="{Binding Comments}"
+            ReplyRequested="TreeView_ReplyRequested"/>
     </Grid>
 </UserControl>

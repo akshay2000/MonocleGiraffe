@@ -39,7 +39,8 @@
                             Grid.Column="1"
                             Text="{Binding Content.CommentText}"
                             ExpandRequested="CommentTemplate_ExpandRequested"
-                            CollapseRequested="CommentTemplate_CollapseRequested"/>
+                            CollapseRequested="CommentTemplate_CollapseRequested"
+                            ReplyRequested="CommentTemplate_ReplyRequested"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
