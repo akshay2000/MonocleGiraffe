@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Controls;
+using MonocleGiraffe.Helpers;
 using SharpImgur.APIWrappers;
 using SharpImgur.Models;
 using System;
@@ -69,6 +70,8 @@ namespace MonocleGiraffe.Models
 
         public string Author { get { return comment.Author; } }
 
+        public string Link { get { return $"http://imgur.com/gallery/{comment.ImageId}/comment/{Id}"; } }
+
         long points = default(long);
         public long Points { get { return points; } set { Set(ref points, value); } }
 
@@ -126,6 +129,13 @@ namespace MonocleGiraffe.Models
             }
             IsDownVoted = !IsDownVoted;
             await Comments.Vote(Id, toVote);
+        }
+
+        public void Share(object sender, object args)
+        {
+            if (args is TappedRoutedEventArgs)
+                (args as TappedRoutedEventArgs).Handled = true;
+            SharingHelper.ShareComment(this);
         }
     }
 }

@@ -92,7 +92,13 @@
             <Border>
                 <ContentControl Template="{StaticResource Comment}" Foreground="Transparent" BorderBrush="White" Margin="12,0,12,16" Height="13"/>
             </Border>
-            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72D;" Margin="12,0,12,16" FontSize="13"/>
+            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72D;" Padding="12,0,12,16" FontSize="13">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="Tapped">
+                        <Core:CallMethodAction MethodName="Share" TargetObject="{Binding}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </TextBlock>
         </StackPanel>
         
     </Grid>
