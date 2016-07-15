@@ -34,38 +34,23 @@ namespace MonocleGiraffe.Controls.ItemTemplates
 
         public void MeasureWith(Size availableSize, object item)
         {
-            SetDimensions((GalleryItem)item);
+            SetDimensions((GalleryItem)item, availableSize.Width);
             Measure(availableSize);
         }
 
-        public void SetLayout(object item)
+        public void SetLayout(Size availableSize, object item)
         {
             Item = (GalleryItem)item;
-            SetDimensions((GalleryItem)item);
+            SetDimensions((GalleryItem)item, availableSize.Width);
         }
 
-        private void SetDimensions(GalleryItem item)
+        private void SetDimensions(GalleryItem item, double availableWidth)
         {
-            var windowBounds = Window.Current.Bounds;
-            if (windowBounds.Width >= 360)
-            {
-                Thumbnail.Width = 162;
-                LayoutRoot.Width = 162;
-                Thumbnail.Height = item.BigThumbRatio * 162;
-            }
-            else if (windowBounds.Width >= 341)
-            {
-                Thumbnail.Width = 152;
-                LayoutRoot.Width = 152;
-                Thumbnail.Height = item.BigThumbRatio * 152;
-            }
-            else if (windowBounds.Width >= 320)
-            {
-                Thumbnail.Width = 142;
-                LayoutRoot.Width = 142;
-                Thumbnail.Height = item.BigThumbRatio * 142;
-            }
-        }
+            var thumbnailWidth = WidthManager.GetItemWidth(availableWidth);            
+            Thumbnail.Width = thumbnailWidth;
+            LayoutRoot.Width = thumbnailWidth;
+            Thumbnail.Height = item.BigThumbRatio * thumbnailWidth;
+        }        
 
         #region INotifyPropertyChanged
 
@@ -84,5 +69,40 @@ namespace MonocleGiraffe.Controls.ItemTemplates
            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
+
+
+        private static class WidthManager
+        {
+            private static Dictionary<double, double> cache;
+
+            static WidthManager()
+            {
+                cache = new Dictionary<double, double>();
+                cache[320] = 142;
+                cache[341] = 152;
+                cache[360] = 162;
+                cache[480] = 144;
+            }
+
+            public static double GetItemWidth(double availableWidth)
+            {
+                Debug.WriteLine($"Requested for {availableWidth}");
+                if (!cache.ContainsKey(availableWidth))
+                    cache[availableWidth] = CalculateWidth(availableWidth);
+                return cache[availableWidth];
+            }
+
+            private static double CalculateWidth(double availableWidth)
+            {                
+                const double maxWidth = 187;
+                const int margin = 12;
+                var effectiveItemWidth = maxWidth + margin;
+                int possibleNoOfColumns = (int)Math.Floor(availableWidth / effectiveItemWidth);
+                int requiredColumns = possibleNoOfColumns + 1;
+                var itemWidth = (availableWidth / requiredColumns) - margin;
+                itemWidth = Math.Floor(itemWidth);
+                return itemWidth;
+            }
+        }
     }
 }

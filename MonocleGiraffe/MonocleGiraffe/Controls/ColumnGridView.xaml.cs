@@ -249,15 +249,14 @@ namespace MonocleGiraffe.Controls
 
         ContainerCache<GalleryThumbnailTemplate> containerCache = new ContainerCache<GalleryThumbnailTemplate>();
 
-        private void RealizeOneItem(LayoutInfo i)
+        private async void RealizeOneItem(LayoutInfo i)
         {
-            //if (i.IsRendered)
-            //    return;
+            var availableSize = await GetAvailableSize();
             var container = containerCache.Get();
             if (container == null)
                 container = new GalleryThumbnailTemplate();
             container.Tapped += Container_Tapped;
-            container.SetLayout(i.Content);
+            container.SetLayout(availableSize, i.Content);
             container.Tag = i;
             Canvas.SetLeft(container, i.Left);
             Canvas.SetTop(container, i.Top);
