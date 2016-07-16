@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Controls;
+﻿using Microsoft.HockeyApp;
+using MonocleGiraffe.Controls;
 using MonocleGiraffe.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,7 +23,7 @@ namespace MonocleGiraffe
         /// </summary>
         public App()
         {
-            Microsoft.HockeyApp.HockeyClient.Current.Configure("00cd7c1e6d7c4bb6ad3adfb6f1ae7d1a");
+            HockeyClient.Current.Configure("00cd7c1e6d7c4bb6ad3adfb6f1ae7d1a");
             this.InitializeComponent();
             SplashFactory = (e) =>
             {
