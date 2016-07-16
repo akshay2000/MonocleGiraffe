@@ -44,6 +44,17 @@
                         <AdaptiveTrigger MinWindowWidth="360"/>
                     </VisualState.StateTriggers>
                 </VisualState>
+
+                <!-- 1440p 5 inch -->
+                <VisualState x:Name="PhabletState">
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Width)" Value="105"/>
+                        <Setter Target="LayoutRoot.(FrameworkElement.Height)" Value="105"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="480"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Gray"/>

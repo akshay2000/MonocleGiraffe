@@ -78,10 +78,10 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             static WidthManager()
             {
                 cache = new Dictionary<double, double>();
-                cache[320] = 142;
-                cache[341] = 152;
-                cache[360] = 162;
-                cache[480] = 144;
+                cache[308] = 142;
+                cache[329] = 152;
+                cache[348] = 162;
+                cache[468] = 144;
             }
 
             public static double GetItemWidth(double availableWidth)

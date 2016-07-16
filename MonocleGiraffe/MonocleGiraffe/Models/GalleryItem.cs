@@ -54,7 +54,7 @@ namespace MonocleGiraffe.Models
         {
             get
             {
-                return image.Link;
+                return IsAnimated ? string.Empty : image.Link;
             }
         }
 
