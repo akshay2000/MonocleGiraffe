@@ -86,7 +86,6 @@ namespace MonocleGiraffe.Controls.ItemTemplates
 
             public static double GetItemWidth(double availableWidth)
             {
-                Debug.WriteLine($"Requested for {availableWidth}");
                 if (!cache.ContainsKey(availableWidth))
                     cache[availableWidth] = CalculateWidth(availableWidth);
                 return cache[availableWidth];
