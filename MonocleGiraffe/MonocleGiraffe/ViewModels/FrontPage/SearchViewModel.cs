@@ -12,6 +12,7 @@ using Windows.ApplicationModel;
 using System.Threading;
 using Template10.Common;
 using MonocleGiraffe.Pages;
+using Windows.UI.Xaml.Controls;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -78,8 +79,19 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         public void ImageTapped(object sender, object parameter)
         {
             var clickedItem = parameter as GalleryItem;
-            var imageCollection = IsPosts ? Posts : Gifs;
-            ImageSelectedIndex = imageCollection.IndexOf(clickedItem);
+            ImageSelectedIndex = Posts.IndexOf(clickedItem);
+            NavigateToBrowser(Posts);
+        }
+
+        public void GifTapped(object sender, object parameter)
+        {
+            var clickedItem = (parameter as ItemClickEventArgs).ClickedItem as GalleryItem;
+            ImageSelectedIndex = Gifs.IndexOf(clickedItem);
+            NavigateToBrowser(Gifs);
+        }
+
+        private void NavigateToBrowser(IncrementalPosts imageCollection)
+        {
             const string navigationParamName = "GalleryInfo";
             galleryMetaInfo = new GalleryMetaInfo { Gallery = imageCollection, SelectedIndex = ImageSelectedIndex };
             BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
