@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold"/>
@@ -48,14 +48,9 @@
             </TextBlock>
         </StackPanel>
 
-        <Grid x:Name="ToggleWrapper" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0" Tapped="ToggleWrapper_Tapped">
-            <!--<Interactivity:Interaction.Behaviors>
-                <Core:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=ToggleWrapper}">
-                    <Core:InvokeCommandAction Command="{Binding ToggleFavoriteCommand, ElementName=UCRoot}" CommandParameter="{Binding DataContext, ElementName=UCRoot, Mode=OneWay}"/>
-                </Core:EventTriggerBehavior>
-            </Interactivity:Interaction.Behaviors>-->
-            <ContentControl Template="{StaticResource CheckMark}" Foreground="{StaticResource AppThemeBrush}" Width="16" Visibility="{Binding IsFavorited, Converter={StaticResource BoolToVisibilityConverter}}"/>
-            <Viewbox Width="14" Height="14" Visibility="{Binding IsFavorited, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}">
+        <Grid x:Name="ToggleWrapper" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Stretch" Tapped="ToggleWrapper_Tapped" Background="Transparent" >
+            <ContentControl VerticalAlignment="Center" Template="{StaticResource CheckMark}" Foreground="{StaticResource AppThemeBrush}" Width="16" Visibility="{Binding IsFavorited, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center"/>
+            <Viewbox Width="14" Height="14" Visibility="{Binding IsFavorited, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <SymbolIcon Symbol="Add" />
             </Viewbox>
         </Grid>
