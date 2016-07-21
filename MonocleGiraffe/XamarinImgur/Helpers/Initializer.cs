@@ -9,9 +9,19 @@ namespace XamarinImgur.Helpers
 {
     public static class Initializer
     {
-        public static IAuthBroker AuthBroker { get; set; }
-        public static IVault Vault { get; set; }
-        public static ISettingsHelper SettingsHelper { get; set; }
-        public static string SecretsJson { get; set; }
+        public static void Init(IAuthBroker broker, IVault vault, ISettingsHelper settingsHelper, string secretsJson, Func<IHttpClient> clientFactory)
+        {
+            AuthBroker = broker;
+            Vault = vault;
+            SettingsHelper = settingsHelper;
+            SecretsJson = secretsJson;
+            HttpClientFactory = clientFactory;
+        }
+
+        public static IAuthBroker AuthBroker { get; private set; }
+        public static IVault Vault { get; private set; }
+        public static ISettingsHelper SettingsHelper { get; private set; }
+        public static string SecretsJson { get; private set; }
+        public static Func<IHttpClient> HttpClientFactory { get; private set; }
     }
 }

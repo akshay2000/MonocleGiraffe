@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using XamarinImgur.Interfaces;
 using XamarinImgur.Models;
+using static XamarinImgur.Helpers.Initializer;
 
 namespace XamarinImgur.Helpers
 {
@@ -16,8 +17,8 @@ namespace XamarinImgur.Helpers
     {        
         #region Imgur
 
-        private static HttpClient httpClient;
-        private static HttpClient authHttpClient;
+        private static IHttpClient httpClient;
+        private static IHttpClient authHttpClient;
         private static string baseURI = "https://imgur-apiv3.p.mashape.com/3/";
         private static string imgurBaseURI = "https://api.imgur.com/3/";
 
@@ -28,9 +29,8 @@ namespace XamarinImgur.Helpers
             isNative = true;
 #endif
             Uri finalUrl = BuildUri(url, isNative);
-            HttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();
-            var r = await httpClient.GetAsync(finalUrl);
-            string response = await r.Content.ReadAsStringAsync();
+            IHttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();            
+            string response = await httpClient.GetAsync(finalUrl);
             JObject responseJson = JObject.Parse(response);
             return responseJson;
         }
@@ -63,12 +63,11 @@ namespace XamarinImgur.Helpers
             isNative = true;
 #endif
             Uri uri = BuildUri(relativeUri, isNative);
-            HttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();
+            IHttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();
             Response<T> response = new Response<T>();
             try
             {
-                var r = await httpClient.DeleteAsync(uri);
-                string res = await r.Content.ReadAsStringAsync();
+                string res = await httpClient.DeleteAsync(uri);
                 JObject o = JObject.Parse(res);
                 if ((bool)o["success"])
                     response.Content = o["data"].ToObject<T>();
@@ -86,7 +85,7 @@ namespace XamarinImgur.Helpers
             return response;
         }
 
-        public static async Task<Response<T>> PostRequest<T>(string url, JObject payload, bool isNative = false) where T : new()
+        public static async Task<Response<T>> PostRequest<T>(string url, JObject payload, CancellationToken ct, IProgress<HttpProgress> progress, bool isNative = false) where T : new()
         {
             Response<T> response = new Response<T>();
             try
@@ -107,15 +106,17 @@ namespace XamarinImgur.Helpers
             }
             return response;
         }
-        
-        public static async Task<JObject> ExecutePostRequest(string url, JObject payload, bool isNative)
+
+        public static async Task<Response<T>> PostRequest<T>(string url, JObject payload, bool isNative = false) where T : new()
+        {
+            return await PostRequest<T>(url, payload, CancellationToken.None, null, isNative);
+        }
+
+        public static async Task<JObject> ExecutePostRequest(string url, JObject payload, bool isNative, CancellationToken ct = default(CancellationToken), IProgress<HttpProgress> progress = null)
         {
             Uri uri = BuildUri(url, isNative);
-            HttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();
-            string response = "{}";
-            HttpContent content = new StringContent(payload.ToString(), Encoding.Unicode, "application/json");
-            var r = await httpClient.PostAsync(uri, content);//.AsTask(ct, progress);
-            response = await r.Content.ReadAsStringAsync();
+            IHttpClient httpClient = AuthenticationHelper.IsAuthIntended() ? await GetAuthClient() : await GetClient();
+            string response = await httpClient.PostAsync(uri, payload.ToString(), ct, progress);
             JObject responseJson = JObject.Parse(response);
             return responseJson;
         }
@@ -135,28 +136,28 @@ namespace XamarinImgur.Helpers
             httpClient = authHttpClient = null;
         }
 
-        private static async Task<HttpClient> GetClient()
+        private static async Task<IHttpClient> GetClient()
         {
             if (httpClient == null)
             {
-                httpClient = new HttpClient();
+                httpClient = HttpClientFactory.Invoke();
                 JObject config = await SecretsHelper.GetConfiguration();
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Client-ID {(string)config["Client_Id"]}");
-                httpClient.DefaultRequestHeaders.Add("X-Mashape-Key", (string)config["Mashape_Key"]);
+                httpClient.SetDefaultRequestHeader("Authorization", $"Client-ID {(string)config["Client_Id"]}");
+                httpClient.SetDefaultRequestHeader("X-Mashape-Key", (string)config["Mashape_Key"]);
             }
             return httpClient;
         }
 
-        private static async Task<HttpClient> GetAuthClient()
+        private static async Task<IHttpClient> GetAuthClient()
         {
             if (authHttpClient == null)
             {
-                authHttpClient = new HttpClient();
+                httpClient = HttpClientFactory.Invoke();
                 JObject config = await SecretsHelper.GetConfiguration();
-                authHttpClient.DefaultRequestHeaders.Add("X-Mashape-Key", (string)config["Mashape_Key"]);
+                authHttpClient.SetDefaultRequestHeader("X-Mashape-Key", (string)config["Mashape_Key"]);
                 try
                 {
-                    authHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {await SecretsHelper.GetAccessToken()}");
+                    authHttpClient.SetDefaultRequestHeader("Authorization", $"Bearer {await SecretsHelper.GetAccessToken()}");
                 }
                 catch
                 {
@@ -172,11 +173,11 @@ namespace XamarinImgur.Helpers
 
         public static async Task<JObject> ExecuteRedditRequest(string url)
         {
-            HttpClient httpClient = GetRedditClient();
+            IHttpClient httpClient = GetRedditClient();
             string response = "{}";
             try
             {
-                response = await httpClient.GetStringAsync(new Uri(url));
+                response = await httpClient.GetAsync(new Uri(url));
             }
             catch
             {
@@ -186,13 +187,11 @@ namespace XamarinImgur.Helpers
             return responseJson;
         }
 
-        private static HttpClient redditClient;
-        private static HttpClient GetRedditClient()
+        private static IHttpClient redditClient;
+        private static IHttpClient GetRedditClient()
         {
             if (redditClient == null)
-            {
-                redditClient = new HttpClient();
-            }
+                redditClient = HttpClientFactory.Invoke();
             return redditClient;
         }
 

@@ -177,6 +177,7 @@
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\SharingHelper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
+    <Compile Include="LibraryImpl\HttpClient.cs" />
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
     <Compile Include="Models\DownloadItem.cs" />
@@ -439,17 +440,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpImgur\SharpImgur.csproj">
-      <Project>{20ad996c-d3b1-4335-82a0-a6bdb973eb68}</Project>
-      <Name>SharpImgur</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SharpImgur\SharpImgur.csproj">
+      <Project>{20ad996c-d3b1-4335-82a0-a6bdb973eb68}</Project>
+      <Name>SharpImgur</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamarinImgur\XamarinImgur.csproj">
+      <Project>{f4ff4407-03d4-4667-a2b4-ac7cc347da54}</Project>
+      <Name>XamarinImgur</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
