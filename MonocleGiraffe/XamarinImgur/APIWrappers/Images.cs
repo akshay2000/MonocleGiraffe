@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using XamarinImgur.Interfaces;
 
 namespace XamarinImgur.APIWrappers
 {
     public static class Images
     {
-        public static async Task<Response<Image>> UploadImage(string base64image, string title = null, string description = null, string albumId = null, string type = null)
+        public static async Task<Response<Image>> UploadImage(string base64image, CancellationToken ct, IProgress<HttpProgress> progress, string title = null, string description = null, string albumId = null, string type = null)
         {
             JObject payload = new JObject();
             payload["image"] = base64image;

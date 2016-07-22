@@ -1,6 +1,6 @@
 ﻿using MonocleGiraffe.Models;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
+using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,7 +1,7 @@
 ﻿using MonocleGiraffe.Controls;
 using MonocleGiraffe.Helpers;
-using SharpImgur.APIWrappers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

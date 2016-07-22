@@ -3,11 +3,13 @@ using MonocleGiraffe.Controls;
 using MonocleGiraffe.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpImgur.Helpers;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using System;
 using Windows.Foundation;
 using Windows.UI.Popups;
+using MonocleGiraffe.LibraryImpl;
+using XamarinImgur.Helpers;
 
 namespace MonocleGiraffe
 {
@@ -34,6 +36,7 @@ namespace MonocleGiraffe
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
+            await InitLibrary();
             if (AuthenticationHelper.IsAuthIntended())
             {
                 splash.IsLoading = true;
@@ -86,6 +89,15 @@ namespace MonocleGiraffe
         {
             splash.IsLoading = false;
             splash.ErrorMessage = message;
+        }
+
+        private async Task InitLibrary()
+        {
+            var installationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var libFolder = installationFolder;
+            var file = await libFolder.GetFileAsync("Secrets.json");
+            string configurationString = await Windows.Storage.FileIO.ReadTextAsync(file);
+            XamarinImgur.Helpers.Initializer.Init(new AuthBroker(), new Vault(), new SettingsHelper(), configurationString, () => new HttpClient());
         }
     }
 }

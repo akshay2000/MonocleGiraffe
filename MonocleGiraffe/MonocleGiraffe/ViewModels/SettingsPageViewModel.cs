@@ -1,7 +1,7 @@
 ﻿using MonocleGiraffe.ViewModels.Settings;
-using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ using Template10.Services.NavigationService;
 using Template10.Utils;
 using Windows.UI;
 using Windows.UI.Xaml.Navigation;
+using MonocleGiraffe.LibraryImpl;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -34,7 +35,7 @@ namespace MonocleGiraffe.ViewModels
 
         private void Init()
         {
-            IsViralEnabled = SettingsHelper.GetValue<bool>(IS_VIRAL_ENABLED, true);
+            IsViralEnabled = Settings.GetValue<bool>(IS_VIRAL_ENABLED, true);
         }
 
         private int pivotIndex;
@@ -67,7 +68,7 @@ namespace MonocleGiraffe.ViewModels
 
         public void ChangeViralEnabled()
         {
-            SettingsHelper.SetValue(IS_VIRAL_ENABLED, IsViralEnabled);
+            Settings.SetValue(IS_VIRAL_ENABLED, IsViralEnabled);
         }
 
         #region Navigation
@@ -108,6 +109,16 @@ namespace MonocleGiraffe.ViewModels
         {
             IsViralEnabled = true;
             ImgurSettings = new ImgurSettingsViewModel();
+        }
+
+        private SettingsHelper settings;
+        public SettingsHelper Settings
+        {
+            get
+            {
+                settings = settings ?? new SettingsHelper();
+                return settings;
+            }
         }
     }
 }

@@ -2,8 +2,8 @@
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using MonocleGiraffe.ViewModels.FrontPage;
-using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

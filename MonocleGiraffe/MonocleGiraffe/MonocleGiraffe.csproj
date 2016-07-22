@@ -100,6 +100,9 @@
     <Content Include="Assets\DummyImage.png" />
     <Content Include="Assets\Fonts\Icons8.ttf" />
     <None Include="project.json" />
+    <Content Include="Secrets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -448,10 +451,6 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpImgur\SharpImgur.csproj">
-      <Project>{20ad996c-d3b1-4335-82a0-a6bdb973eb68}</Project>
-      <Name>SharpImgur</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XamarinImgur\XamarinImgur.csproj">
       <Project>{f4ff4407-03d4-4667-a2b4-ac7cc347da54}</Project>
       <Name>XamarinImgur</Name>

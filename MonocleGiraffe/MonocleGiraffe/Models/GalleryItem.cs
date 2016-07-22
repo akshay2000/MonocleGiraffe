@@ -1,8 +1,8 @@
 ﻿
 using MonocleGiraffe.Helpers;
-using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -415,7 +415,7 @@ namespace MonocleGiraffe.Models
 
         public async Task<Comment> AddComment(string comment, long? parentId = null)
         {
-            var response = await SharpImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            var response = await XamarinImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
             if (!response.IsError)
             {
                 var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await SecretsHelper.GetUserName(), Children = new List<Comment>() };

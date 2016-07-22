@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
