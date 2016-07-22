@@ -16,7 +16,7 @@ namespace XamarinImgur.Interfaces
             ResponseStatus = status;
         }
 
-        public AuthResult(string data, AuthResponseStatus status, int errorDetail)
+        public AuthResult(string data, AuthResponseStatus status, uint errorDetail)
         {
             ResponseData = data;
             ResponseStatus = status;
@@ -25,7 +25,7 @@ namespace XamarinImgur.Interfaces
 
         public string ResponseData { get; }
         public AuthResponseStatus ResponseStatus { get; }
-        public int ErrorDetail { get; }
+        public uint ErrorDetail { get; }
     }
 
     public enum AuthResponseStatus

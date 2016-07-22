@@ -177,6 +177,7 @@
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\SharingHelper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
+    <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
