@@ -179,6 +179,8 @@
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
+    <Compile Include="LibraryImpl\SettingsHelper.cs" />
+    <Compile Include="LibraryImpl\Vault.cs" />
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
     <Compile Include="Models\DownloadItem.cs" />
