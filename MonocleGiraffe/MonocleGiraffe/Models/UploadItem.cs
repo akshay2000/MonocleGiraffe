@@ -147,6 +147,7 @@ namespace MonocleGiraffe.Models
         private async Task Restart()
         {
             State = PENDING;
+            Message = string.Empty;
             await Upload();
         }
 

@@ -101,6 +101,7 @@ namespace MonocleGiraffe.ViewModels
             if (files != null)
                 foreach (var file in files)
                     tasks.Add(ViewModelLocator.GetInstance().TransfersPageViewModel.UploadsVM.Enqueqe(new UploadItem { File = file }));
+            BootStrapper.Current.NavigationService.Navigate(typeof(TransfersPage));
             await Task.WhenAll(tasks);
             Debug.WriteLine($"All uploads complete at {DateTime.Now}!");
         }
