@@ -30,14 +30,19 @@ namespace MonocleGiraffe.LibraryImpl
         public async Task<string> PostAsync(Uri uri, string content, CancellationToken ct, IProgress<HttpProgress> progress)
         {
             var httpContent = new Windows.Web.Http.HttpStringContent(content);
+            Windows.Web.Http.HttpResponseMessage r;
             if (progress != null)
             {
                 Progress<Windows.Web.Http.HttpProgress> httpProgress = new Progress<Windows.Web.Http.HttpProgress>();
                 httpProgress.ProgressChanged += HttpProgress_ProgressChanged;
                 progresses[httpProgress] = progress;
-                var r = await Client.PostAsync(uri, httpContent).AsTask(ct, httpProgress);
+                r = await Client.PostAsync(uri, httpContent).AsTask(ct, httpProgress);
             }
-            return null;
+            else
+            {
+                r = await Client.PostAsync(uri, httpContent).AsTask(ct);
+            }
+            return await r.Content.ReadAsStringAsync();
         }
 
         private void HttpProgress_ProgressChanged(object sender, Windows.Web.Http.HttpProgress e)
