@@ -1,8 +1,8 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
-using SharpImgur.APIWrappers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,10 +12,11 @@ using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 using System.Threading;
-using static SharpImgur.APIWrappers.Enums;
-using SharpImgur.Helpers;
+using static XamarinImgur.APIWrappers.Enums;
+using XamarinImgur.Helpers;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MonocleGiraffe.LibraryImpl;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -123,7 +124,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
 
         private async Task LoadTopics()
         {
-            var topics = (await SharpImgur.APIWrappers.Topics.GetDefaultTopics()).Content;
+            var topics = (await XamarinImgur.APIWrappers.Topics.GetDefaultTopics()).Content;
             topics.Insert(0, new Topic { Name = USER_SUB, Description = "Here it begins." });
             topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
@@ -317,7 +318,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             List<Image> gallery;
             if (Section == Section.User)
             {
-                bool showViral = SettingsHelper.GetValue<bool>("IsViralEnabled", true);
+                bool showViral = Settings.GetValue<bool>("IsViralEnabled", true);
                 gallery = (await Gallery.GetGallery(Section, Sort, (int)page, showViral)).Content;
             }
             else
@@ -331,6 +332,16 @@ namespace MonocleGiraffe.ViewModels.FrontPage
         {
             var gallery = (await Topics.GetTopicGallery(TopicId, Sort, (int)page)).Content;
             return gallery?.Select(i => new GalleryItem(i)).ToList();
+        }
+
+        private SettingsHelper settings;
+        public SettingsHelper Settings
+        {
+            get
+            {
+                settings = settings ?? new SettingsHelper();
+                return settings;
+            }
         }
     }
     

@@ -1,5 +1,5 @@
-﻿using SharpImgur.APIWrappers;
-using SharpImgur.Models;
+﻿using XamarinImgur.APIWrappers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using Template10.Mvvm;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Web.Http;
+using XamarinImgur.Interfaces;
 
 namespace MonocleGiraffe.Models
 {
@@ -83,7 +83,8 @@ namespace MonocleGiraffe.Models
             CTS = new CancellationTokenSource();
             await Task.Delay(5000);
             Progress = new Progress<HttpProgress>(HandleProgress);
-            var response = await Images.UploadImage(file, CTS.Token, Progress, Title, Description);
+            var base64Image = await GetBase64(file);
+            var response = await Images.UploadImage(base64Image, CTS.Token, Progress, Title, Description);
             if (response.IsError)
             {
                 if (response.Error is TaskCanceledException)
@@ -104,6 +105,21 @@ namespace MonocleGiraffe.Models
                 Message = "Tap here to edit";
             }
         }
+
+        private async Task<string> GetBase64(StorageFile file)
+        {            
+            byte[] fileBytes = null;
+            using (IRandomAccessStreamWithContentType stream = await file.OpenReadAsync())
+            {
+                fileBytes = new byte[stream.Size];
+                using (DataReader reader = new DataReader(stream))
+                {
+                    await reader.LoadAsync((uint)stream.Size);
+                    reader.ReadBytes(fileBytes);
+                }
+            }
+            return Convert.ToBase64String(fileBytes);
+        }    
 
         DelegateCommand cancelCommand;
         public DelegateCommand CancelCommand
@@ -131,6 +147,7 @@ namespace MonocleGiraffe.Models
         private async Task Restart()
         {
             State = PENDING;
+            Message = string.Empty;
             await Upload();
         }
 
@@ -138,8 +155,6 @@ namespace MonocleGiraffe.Models
         {
             TotalSize = progress.TotalBytesToSend;
             CurrentSize = progress.BytesSent;
-            if (TotalSize == CurrentSize)
-                State = SUCCESSFUL;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
-using SharpImgur.APIWrappers;
-using SharpImgur.Helpers;
-using SharpImgur.Models;
+using XamarinImgur.APIWrappers;
+using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -242,11 +242,11 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             Albums.Add(new AlbumItem(new Album { Cover = "nqpaOvc" }));
 
             Images = new ObservableCollection<GalleryItem>();
-            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "vjpNYII" }));
-            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "eZBrROO" }));
-            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "FExPJrk" }));
-            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "nqpaOvc" }));
-            Images.Add(new GalleryItem(new SharpImgur.Models.Image { Id = "vjpNYII" }));
+            Images.Add(new GalleryItem(new XamarinImgur.Models.Image { Id = "vjpNYII" }));
+            Images.Add(new GalleryItem(new XamarinImgur.Models.Image { Id = "eZBrROO" }));
+            Images.Add(new GalleryItem(new XamarinImgur.Models.Image { Id = "FExPJrk" }));
+            Images.Add(new GalleryItem(new XamarinImgur.Models.Image { Id = "nqpaOvc" }));
+            Images.Add(new GalleryItem(new XamarinImgur.Models.Image { Id = "vjpNYII" }));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Models:Comment xmlns:Models="using:SharpImgur.Models" Author="Aliquam duis" AuthorId="39" CommentText="Sed curabitur cras" Downs="96" Deleted="False" Datetime="15" Id="92" ImageId="Nam aenean" OnAlbum="True"  Platform="Class dis maecenas integer quisque" ParentId="48" Ups="34">
+﻿<Models:Comment xmlns:Models="using:XamarinImgur.Models" Author="Aliquam duis" AuthorId="39" CommentText="Sed curabitur cras" Downs="96" Deleted="False" Datetime="15" Id="92" ImageId="Nam aenean" OnAlbum="True"  Platform="Class dis maecenas integer quisque" ParentId="48" Ups="34">
 	<Models:Comment.Children>
 		<Models:Comment Author="Amet donec" AuthorId="63" CommentText="Hac curae nunc praesent" Downs="61" Deleted="False" Datetime="12" Id="34" ImageId="Phasellus est" OnAlbum="True"  Platform="Ante mauris leo" ParentId="95" Ups="29">
 			<!--<Models:Comment.Children>

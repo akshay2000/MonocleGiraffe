@@ -3,7 +3,7 @@ using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
 using MonocleGiraffe.ViewModels.FrontPage;
 using Newtonsoft.Json;
-using SharpImgur.Models;
+using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -158,13 +158,13 @@ namespace MonocleGiraffe.ViewModels
 
             if (currentItem is GalleryItem)
             {
-                bool isSuccess = (await SharpImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
+                bool isSuccess = (await XamarinImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
                 if (isSuccess)
                     (Images as ObservableCollection<GalleryItem>)?.Remove((GalleryItem)currentItem);
             }
             if (currentItem is AlbumItem)
             {
-                bool isSuccess = (await SharpImgur.APIWrappers.Albums.DeleteAlbum(currentItem.Id)).Content;
+                bool isSuccess = (await XamarinImgur.APIWrappers.Albums.DeleteAlbum(currentItem.Id)).Content;
                 if (isSuccess)
                     (Images as ObservableCollection<AlbumItem>)?.Remove((AlbumItem)currentItem);
             }
