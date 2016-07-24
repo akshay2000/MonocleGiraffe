@@ -150,7 +150,7 @@ namespace XamarinImgur.Helpers
         {
             if (authHttpClient == null)
             {
-                httpClient = HttpClientFactory.Invoke();
+                authHttpClient = HttpClientFactory.Invoke();
                 JObject config = await SecretsHelper.GetConfiguration();
                 if (IsCommercial)
                     authHttpClient.SetDefaultRequestHeader("X-Mashape-Key", (string)config["Mashape_Key"]);
