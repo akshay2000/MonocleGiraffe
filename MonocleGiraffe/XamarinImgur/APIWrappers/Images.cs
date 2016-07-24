@@ -18,11 +18,11 @@ namespace XamarinImgur.APIWrappers
             JObject payload = new JObject();
             payload["image"] = base64image;
             if (albumId != null) payload["album"] = albumId;
-            if (type != null) payload["type"] = type;
+            payload["type"] = type ?? "base64";
             if (title != null) payload["title"] = title;
             if (description != null) payload["description"] = description;
             string uri = "upload";
-            return await NetworkHelper.PostRequest<Image>(uri, payload);
+            return await NetworkHelper.PostRequest<Image>(uri, payload, ct, progress);
         }
         
         public static async Task<Response<bool>> UpdateImage(string id, string title, string description)

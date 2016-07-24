@@ -97,7 +97,7 @@ namespace MonocleGiraffe
             var libFolder = installationFolder;
             var file = await libFolder.GetFileAsync("Secrets.json");
             string configurationString = await Windows.Storage.FileIO.ReadTextAsync(file);
-            XamarinImgur.Helpers.Initializer.Init(new AuthBroker(), new Vault(), new SettingsHelper(), configurationString, () => new HttpClient());
+            XamarinImgur.Helpers.Initializer.Init(new AuthBroker(), new Vault(), new SettingsHelper(), configurationString, () => new HttpClient(), false);
         }
     }
 }
