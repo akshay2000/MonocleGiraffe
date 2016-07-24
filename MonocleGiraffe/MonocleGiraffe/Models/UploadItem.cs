@@ -154,8 +154,6 @@ namespace MonocleGiraffe.Models
         {
             TotalSize = progress.TotalBytesToSend;
             CurrentSize = progress.BytesSent;
-            if (TotalSize == CurrentSize)
-                State = SUCCESSFUL;
         }
     }
 }

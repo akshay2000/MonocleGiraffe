@@ -29,7 +29,7 @@ namespace MonocleGiraffe.LibraryImpl
 
         public async Task<string> PostAsync(Uri uri, string content, CancellationToken ct, IProgress<HttpProgress> progress)
         {
-            var httpContent = new Windows.Web.Http.HttpStringContent(content);
+            var httpContent = new Windows.Web.Http.HttpStringContent(content, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
             Windows.Web.Http.HttpResponseMessage r;
             if (progress != null)
             {
