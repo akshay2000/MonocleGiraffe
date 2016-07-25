@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using MonocleGiraffe.Android.LibraryImpl;
 
 namespace MonocleGiraffe.Android
 {
@@ -12,6 +13,7 @@ namespace MonocleGiraffe.Android
     public class MainActivity : Activity
     {
         int count = 1;
+        SettingsHelper helper;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -20,11 +22,28 @@ namespace MonocleGiraffe.Android
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            helper = new SettingsHelper(this);
+
             // Get our button from the layout resource,
             // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
+            Button saveButton = FindViewById<Button>(Resource.Id.SaveButton);
+            Button getButton = FindViewById<Button>(Resource.Id.GetButton);
 
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            saveButton.Click += SaveButton_Click;
+            getButton.Click += GetButton_Click;
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var editText = FindViewById<EditText>(Resource.Id.EditText);
+            helper.SetLocalValue("MyText", editText.Text);
+        }
+
+        private void GetButton_Click(object sender, EventArgs e)
+        {
+            var text = helper.GetLocalValue<string>("MyText", "YOYO!");
+            var textView = FindViewById<TextView>(Resource.Id.TextView);
+            textView.Text = text;
         }
     }
 }
