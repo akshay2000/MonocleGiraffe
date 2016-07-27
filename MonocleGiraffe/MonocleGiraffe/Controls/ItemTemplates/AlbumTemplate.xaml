@@ -200,12 +200,10 @@
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
-            <controls:TreeView 
-                x:Name="CommentsView" 
-                ItemsSource="{Binding Comments}" 
+            <controls:CommentsView 
+                x:Name="CommentsView"
                 Grid.Row="1"
                 Visibility="Collapsed"
-                IsLoading="{Binding IsLoadingComments}"
                 x:DeferLoadStrategy="Lazy"/>
         </Grid>
 
