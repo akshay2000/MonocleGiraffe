@@ -498,7 +498,7 @@
                             </Core:EventTriggerBehavior>
                         </Interactivity:Interaction.Behaviors>
                     </controls:ColumnGridView>
-                    <GridView ItemsSource="{Binding Gifs}" Grid.Row="4" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0,0,0">
+                    <GridView ItemsSource="{Binding Gifs}" Grid.Row="4" Visibility="{Binding IsGifs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="12,0,0,0" IsItemClickEnabled="True" SelectionMode="None">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
                                 <Setter Property="Margin" Value="0,0,12,12"/>
@@ -511,7 +511,7 @@
                         </GridView.ItemTemplate>
                         <Interactivity:Interaction.Behaviors>
                             <Core:EventTriggerBehavior EventName="ItemClick">
-                                <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ImageTapped"/>
+                                <Core:CallMethodAction TargetObject="{Binding}" MethodName="GifTapped"/>
                             </Core:EventTriggerBehavior>
                         </Interactivity:Interaction.Behaviors>
                     </GridView>
