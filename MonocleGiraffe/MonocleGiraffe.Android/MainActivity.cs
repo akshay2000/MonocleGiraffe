@@ -6,6 +6,9 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using MonocleGiraffe.Android.LibraryImpl;
+using Android.Content.Res;
+using System.IO;
+using XamarinImgur.Helpers;
 
 namespace MonocleGiraffe.Android
 {
@@ -26,25 +29,49 @@ namespace MonocleGiraffe.Android
 
             // Get our button from the layout resource,
             // and attach an event to it
-            Button saveButton = FindViewById<Button>(Resource.Id.SaveButton);
-            Button getButton = FindViewById<Button>(Resource.Id.GetButton);
+            Button logInButton = FindViewById<Button>(Resource.Id.LogInButton);
 
-            saveButton.Click += SaveButton_Click;
-            getButton.Click += GetButton_Click;
+            logInButton.Click += LogInButton_Click;
+
+            Init();               
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void Init()
         {
-            var editText = FindViewById<EditText>(Resource.Id.EditText);
-            helper.SetLocalValue("MyText", editText.Text);
+            string secrets = LoadSecretsFile();
+            Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
         }
 
-        private void GetButton_Click(object sender, EventArgs e)
+        private void LogInButton_Click(object sender, EventArgs e)
         {
-            var text = helper.GetLocalValue<string>("MyText", "YOYO!");
-            var textView = FindViewById<TextView>(Resource.Id.TextView);
-            textView.Text = text;
+            const string authUrl = "https://api.imgur.com/oauth2/authorize";
+            const string callback = "http://localhost:8080/MonocleGiraffeAndroid";
+            var result = Initializer.AuthBroker.AuthenticateAsync(new Uri(authUrl), new Uri(callback));
         }
+
+        private string LoadSecretsFile()
+        {
+            string content;
+            AssetManager assets = this.Assets;
+            using (StreamReader sr = new StreamReader(assets.Open("Secrets.json")))
+            {
+                content = sr.ReadToEnd();
+            }
+            return content;
+        }
+
+        //private void SaveButton_Click(object sender, EventArgs e)
+        //{
+        //    var editText = FindViewById<EditText>(Resource.Id.EditText);
+        //    helper.SetLocalValue("MyText", editText.Text);
+        //}
+
+        //private void GetButton_Click(object sender, EventArgs e)
+        //{
+        //    var text = helper.GetLocalValue<string>("MyText", "YOYO!");
+        //    var textView = FindViewById<TextView>(Resource.Id.TextView);
+        //    textView.Text = text;
+        //}
     }
 }
 

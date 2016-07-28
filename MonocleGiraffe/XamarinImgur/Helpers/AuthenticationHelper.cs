@@ -22,7 +22,7 @@ namespace XamarinImgur.Helpers
         private const string expiresAtKey = "expires_at";
         private const string isAuthIntendedKey = "IsAuthIntended";
 
-        public static async Task<string> Auth()
+        public static async Task<Dictionary<string, string>> Auth()
         {
             SettingsHelper.SetLocalValue(isAuthIntendedKey, false);
             JObject config = await SecretsHelper.GetConfiguration();
@@ -33,33 +33,17 @@ namespace XamarinImgur.Helpers
             else if (result.ResponseStatus == AuthResponseStatus.UserCancel)
                 throw new AuthException($"User cancelled the auth process");
             SettingsHelper.SetLocalValue(isAuthIntendedKey, true);
+
+            //result.ResponseData[expiresAtKey] = DateTime.Now.AddSeconds(int.Parse(ret["expires_in"])).ToString();
+            //Imgur API is a liar. It says the token is valid for a month but expires it in an hour anyway.
+            if (result.ResponseData != null)
+                result.ResponseData[expiresAtKey] = DateTime.Now.AddSeconds(3600).ToString();
             return result.ResponseData;
         }
 
-        public static Dictionary<string, string> ParseAuthResult(string result)
-        {
-            Dictionary<string, string> ret = new Dictionary<string, string>();
-            Uri uri = new Uri(result.Replace('#', '&'));
-            string query = uri.Query;
-            string[] frags = query.Split('&');
-            foreach (var frag in frags)
-            {
-                string[] splits = frag.Split('=');
-                ret.Add(splits[0], splits[1]);
-            }
-            //ret[expiresAtKey] = DateTime.Now.AddSeconds(int.Parse(ret["expires_in"])).ToString();
-            //Imgur API is a liar. It says the token is valid for a month but expires it in an hour anyway.
-            ret[expiresAtKey] = DateTime.Now.AddSeconds(3600).ToString();
-            return ret;                
-        }
-
         private static async Task<Dictionary<string, string>> GetAuthResult()
-        {
-            if (authResult == null)
-            {
-                string resultString = await Auth();
-                authResult = ParseAuthResult(resultString);
-            }
+        {           
+            authResult = authResult ?? await Auth();            
             return authResult;
         }
 

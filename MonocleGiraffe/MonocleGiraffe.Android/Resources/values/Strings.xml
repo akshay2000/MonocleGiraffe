@@ -3,5 +3,6 @@
     <string name="Hello">Hello World, Click Me!</string>
     <string name="Get">Get Text</string>
     <string name="Save">Save Text</string>
+    <string name="Log_In">Log In</string>
     <string name="ApplicationName">MonocleGiraffe.Android</string>
 </resources>

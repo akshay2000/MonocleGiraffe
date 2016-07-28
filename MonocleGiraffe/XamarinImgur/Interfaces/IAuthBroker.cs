@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace XamarinImgur.Interfaces
@@ -10,20 +11,20 @@ namespace XamarinImgur.Interfaces
 
     public class AuthResult
     {
-        public AuthResult(string data, AuthResponseStatus status)
+        public AuthResult(Dictionary<string, string> data, AuthResponseStatus status)
         {
             ResponseData = data;
             ResponseStatus = status;
         }
 
-        public AuthResult(string data, AuthResponseStatus status, uint errorDetail)
+        public AuthResult(Dictionary<string, string> data, AuthResponseStatus status, uint errorDetail)
         {
             ResponseData = data;
             ResponseStatus = status;
             ErrorDetail = errorDetail;
         }
 
-        public string ResponseData { get; }
+        public Dictionary<string, string> ResponseData { get; }
         public AuthResponseStatus ResponseStatus { get; }
         public uint ErrorDetail { get; }
     }

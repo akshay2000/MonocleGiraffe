@@ -3,24 +3,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/EditText" />
     <Button
-        android:id="@+id/SaveButton"
+        android:id="@+id/LogInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Save" />
-    <Button
+        android:text="@string/Log_In" />
+    <!--<Button
         android:id="@+id/GetButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Get" />  
+        android:text="@string/Get" />-->
     <TextView
         android:id="@+id/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DummyText"/>
+        android:text="DummyText" />
 </LinearLayout>
