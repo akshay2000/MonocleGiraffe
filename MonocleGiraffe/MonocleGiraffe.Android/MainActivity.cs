@@ -9,32 +9,57 @@ using MonocleGiraffe.Android.LibraryImpl;
 using Android.Content.Res;
 using System.IO;
 using XamarinImgur.Helpers;
+using GalaSoft.MvvmLight.Views;
+using GalaSoft.MvvmLight.Helpers;
+using System.Collections.Generic;
+using MonocleGiraffe.Portable.ViewModel;
 
 namespace MonocleGiraffe.Android
 {
     [Activity(Label = "Monocle Giraffe", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : ActivityBase
     {
         int count = 1;
-        SettingsHelper helper;
+        private readonly List<Binding> bindings = new List<Binding>();
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            helper = new SettingsHelper(this);
+            bindings.Add(this.SetBinding(() => Vm.SampleText, () => SampleTextView.Text));
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button logInButton = FindViewById<Button>(Resource.Id.LogInButton);
-
-            logInButton.Click += LogInButton_Click;
-
-            Init();               
+            LogInButton.SetCommand("Click", Vm.NavigateCommand);
         }
+
+        private MainViewModel Vm
+        {
+            get
+            {
+                return App.Locator.Main;
+            }
+        }
+
+        private Button logInButton;
+        public Button LogInButton
+        {
+            get
+            {
+                logInButton = logInButton ?? FindViewById<Button>(Resource.Id.LogInButton);
+                return logInButton;
+            }
+        }
+
+        private TextView sampleTextView;
+        public TextView SampleTextView
+        {
+            get
+            {
+                sampleTextView = sampleTextView ?? FindViewById<TextView>(Resource.Id.TextView);
+                return sampleTextView;
+            }
+        }
+
 
         private void Init()
         {
