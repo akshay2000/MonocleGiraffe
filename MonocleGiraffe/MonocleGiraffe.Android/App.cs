@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using MonocleGiraffe.Portable.ViewModel;
+using MonocleGiraffe.Portable.ViewModels;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Ioc;

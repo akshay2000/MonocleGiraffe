@@ -12,14 +12,13 @@ using XamarinImgur.Helpers;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Helpers;
 using System.Collections.Generic;
-using MonocleGiraffe.Portable.ViewModel;
+using MonocleGiraffe.Portable.ViewModels;
 
 namespace MonocleGiraffe.Android
 {
     [Activity(Label = "Monocle Giraffe", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : ActivityBase
     {
-        int count = 1;
         private readonly List<Binding> bindings = new List<Binding>();
 
         protected override void OnCreate(Bundle bundle)
@@ -30,6 +29,7 @@ namespace MonocleGiraffe.Android
             bindings.Add(this.SetBinding(() => Vm.SampleText, () => SampleTextView.Text));
 
             LogInButton.SetCommand("Click", Vm.NavigateCommand);
+            Init();
         }
 
         private MainViewModel Vm
@@ -63,8 +63,9 @@ namespace MonocleGiraffe.Android
 
         private void Init()
         {
-            string secrets = LoadSecretsFile();
-            Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
+            //string secrets = LoadSecretsFile();
+            //Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
+            MonocleGiraffe.Portable.Helpers.Initializer.Init(new RoamingDataHelper());
         }
 
         private void LogInButton_Click(object sender, EventArgs e)

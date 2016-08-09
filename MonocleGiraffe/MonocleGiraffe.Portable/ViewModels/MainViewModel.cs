@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 
-namespace MonocleGiraffe.Portable.ViewModel
+namespace MonocleGiraffe.Portable.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
@@ -35,6 +35,6 @@ namespace MonocleGiraffe.Portable.ViewModel
                     ?? (navigateCommand =
                     new RelayCommand(() => navigationService.NavigateTo(ViewModelLocator.FrontPageKey)));
             }
-        } 
+        }
     }
 }

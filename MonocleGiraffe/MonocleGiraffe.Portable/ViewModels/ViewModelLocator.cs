@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
-namespace MonocleGiraffe.Portable.ViewModel
+namespace MonocleGiraffe.Portable.ViewModels
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -25,6 +25,7 @@ namespace MonocleGiraffe.Portable.ViewModel
     public class ViewModelLocator
     {
         public const string FrontPageKey = "FrontPage";
+        public const string SubGalleryPageKey = "SubGalleryPage";
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -45,15 +46,12 @@ namespace MonocleGiraffe.Portable.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<FrontViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
+
+        public FrontViewModel Front { get { return ServiceLocator.Current.GetInstance<FrontViewModel>(); } }
         
         public static void Cleanup()
         {

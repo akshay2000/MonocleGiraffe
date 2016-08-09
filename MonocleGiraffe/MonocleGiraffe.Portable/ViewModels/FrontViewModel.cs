@@ -1,0 +1,30 @@
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
+using MonocleGiraffe.Portable.ViewModels.Front;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MonocleGiraffe.Portable.ViewModels
+{
+    public class FrontViewModel : ViewModelBase
+    {
+        private readonly INavigationService navigationService;
+        public FrontViewModel(INavigationService nav)
+        {
+            navigationService = nav;
+        }
+
+        private SubredditsViewModel subredditsVM;
+        public SubredditsViewModel SubredditsVM
+        {
+            get
+            {
+                subredditsVM = subredditsVM ?? new SubredditsViewModel(navigationService, IsInDesignMode);
+                return subredditsVM;
+            }
+        }
+    }
+}
