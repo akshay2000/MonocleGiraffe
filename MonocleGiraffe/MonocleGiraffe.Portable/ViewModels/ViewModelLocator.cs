@@ -26,6 +26,7 @@ namespace MonocleGiraffe.Portable.ViewModels
     {
         public const string FrontPageKey = "FrontPage";
         public const string SubGalleryPageKey = "SubGalleryPage";
+        public const string SubredditBrowserPageKey = "SubredditBrowserPage";
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -47,6 +48,7 @@ namespace MonocleGiraffe.Portable.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
+            SimpleIoc.Default.Register<SubGalleryPageViewModel>();
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
