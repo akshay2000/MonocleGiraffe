@@ -34,6 +34,7 @@ namespace MonocleGiraffe.Android
                     SimpleIoc.Default.Register<INavigationService>(() => nav);
 
                     nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontActivity));
+                    nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryActivity));
 
                     locator = new ViewModelLocator();
                 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
+    <Compile Include="Helpers\IIncrementalCollection.cs" />
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\Initializer.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="ViewModels\FrontViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />
+    <Compile Include="ViewModels\SubGalleryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>

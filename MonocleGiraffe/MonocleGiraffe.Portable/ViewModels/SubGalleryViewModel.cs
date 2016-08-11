@@ -11,15 +11,14 @@ using MonocleGiraffe.Portable.Models;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Command;
 using MonocleGiraffe.Portable.Interfaces;
-using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Portable.Helpers;
 
 namespace MonocleGiraffe.Portable.ViewModels
 {
-    public class SubGalleryPageViewModel : ViewModelBase, INavigable
+    public class SubGalleryViewModel : ViewModelBase, INavigable
     {
         private readonly INavigationService navigationService;
-        public SubGalleryPageViewModel(INavigationService nav)
+        public SubGalleryViewModel(INavigationService nav)
         {
             navigationService = nav;
             if (IsInDesignMode)

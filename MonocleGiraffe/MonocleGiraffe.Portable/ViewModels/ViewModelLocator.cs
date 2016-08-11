@@ -48,12 +48,14 @@ namespace MonocleGiraffe.Portable.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
-            SimpleIoc.Default.Register<SubGalleryPageViewModel>();
+            SimpleIoc.Default.Register<SubGalleryViewModel>();
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
 
         public FrontViewModel Front { get { return ServiceLocator.Current.GetInstance<FrontViewModel>(); } }
+
+        public SubGalleryViewModel SubGallery { get { return ServiceLocator.Current.GetInstance<SubGalleryViewModel>(); } }
         
         public static void Cleanup()
         {

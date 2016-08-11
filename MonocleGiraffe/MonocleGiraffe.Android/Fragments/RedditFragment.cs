@@ -35,7 +35,14 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            SubreddisListView.Adapter = Vm.SubredditsVM.Subreddits.GetAdapter(GetSubredditView);            
+            SubreddisListView.Adapter = Vm.SubredditsVM.Subreddits.GetAdapter(GetSubredditView);
+            SubreddisListView.ItemClick += SubreddisListView_ItemClick;
+        }
+
+        private void SubreddisListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var clickedItem = Vm.SubredditsVM.Subreddits[e.Position];
+            Vm.SubredditsVM.GoToSub.Execute(clickedItem);
         }
 
         private View GetSubredditView(int position, SubredditItem item, View convertView)

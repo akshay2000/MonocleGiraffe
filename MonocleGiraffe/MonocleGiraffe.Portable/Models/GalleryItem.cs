@@ -1,5 +1,4 @@
 ﻿
-using MonocleGiraffe.Helpers;
 using XamarinImgur.APIWrappers;
 using XamarinImgur.Helpers;
 using XamarinImgur.Models;

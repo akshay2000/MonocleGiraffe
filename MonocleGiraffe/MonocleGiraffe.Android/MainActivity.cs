@@ -63,8 +63,8 @@ namespace MonocleGiraffe.Android
 
         private void Init()
         {
-            //string secrets = LoadSecretsFile();
-            //Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
+            string secrets = LoadSecretsFile();
+            Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
             MonocleGiraffe.Portable.Helpers.Initializer.Init(new RoamingDataHelper());
         }
 

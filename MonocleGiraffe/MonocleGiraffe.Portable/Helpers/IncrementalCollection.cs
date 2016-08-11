@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MonocleGiraffe.Helpers
+namespace MonocleGiraffe.Portable.Helpers
 {
-    public abstract class IncrementalCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
+    public abstract class IncrementalCollection<T> : ObservableCollection<T>, IIncrementalCollection, INotifyPropertyChanged
     {
         public uint Page { get; private set; }
 
@@ -23,6 +25,23 @@ namespace MonocleGiraffe.Helpers
 
         bool isBusy = default(bool);
         public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
+
+        #region IIncrementalCollection
+
+        public bool HasMore
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public async void LoadMoreAsync(uint count)
+        {
+            await LoadMoreItemsAsync(default(CancellationToken), count);
+        }
+
+        #endregion
 
         private List<T> moreItems;
 
@@ -44,6 +63,7 @@ namespace MonocleGiraffe.Helpers
                 Add(moreItems[ConsumedItemsIndex++]);
             }
             IsBusy = false;
+            Debug.WriteLine("Done!");
             return count;
         }
 
