@@ -76,10 +76,8 @@ namespace MonocleGiraffe.Portable.Models
 
         public IList<Comment> Children { get { return comment.Children; } }
 
-        public virtual async void UpVote(object sender, object args)
+        public async void UpVote()
         {
-            //if (args is TappedRoutedEventArgs)
-            //    (args as TappedRoutedEventArgs).Handled = true;            
             string toVote;
             if (IsUpVoted)
             {
@@ -98,10 +96,8 @@ namespace MonocleGiraffe.Portable.Models
             await Comments.Vote(Id, toVote);
         }
 
-        public async void DownVote(object sender, object args)
+        public async void DownVote()
         {
-            //if (args is TappedRoutedEventArgs)
-            //    (args as TappedRoutedEventArgs).Handled = true;
             if (IsUpVoted)
             {
                 IsUpVoted = false;
@@ -124,11 +120,9 @@ namespace MonocleGiraffe.Portable.Models
             await Comments.Vote(Id, toVote);
         }
 
-        public void Share(object sender, object args)
+        public void Share()
         {
-            //if (args is TappedRoutedEventArgs)
-            //    (args as TappedRoutedEventArgs).Handled = true;
-            //SharingHelper.ShareComment(this);
+            Initializer.SharingHelper.ShareComment(this);
         }        
     }
 

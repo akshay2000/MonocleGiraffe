@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Controls.Extensions;
+using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,6 +71,33 @@ namespace MonocleGiraffe.Controls.ItemTemplates
 
         bool isExpanded = false;
         public bool IsExpanded { get { return isExpanded; } set { Set(ref isExpanded, value); } }
+        
+        private CommentViewModel Context
+        {
+            get
+            {
+                return (DataContext as TreeViewItem)?.Content as CommentViewModel;
+            }
+        }
+
+
+        private void UpVote_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Context?.UpVote();
+        }
+
+        private void DownVote_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Context?.DownVote();
+        }
+
+        private void Share_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Context?.Share();
+        }
 
         public string Text
         {
@@ -116,7 +144,6 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             Uri uri = new Uri(t);
             await Launcher.LaunchUriAsync(uri);
         }
-
 
         #region INotifyPropertyChanged
 

@@ -9,6 +9,7 @@ using Windows.Storage;
 
 namespace MonocleGiraffe.Helpers
 {
+    [Obsolete]
     public static class RoamingDataHelper
     {
         private static StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;

@@ -71,35 +71,20 @@
             Orientation="Horizontal"
             Grid.Row="1"
             Visibility="{x:Bind IsExpanded, Converter={StaticResource BoolToVisibilityConverter} ,Mode=OneWay}">
-            <Border Background="Transparent">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="Tapped">
-                        <Core:CallMethodAction MethodName="UpVote" TargetObject="{Binding}"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
+            <Border x:Name="UpVote" Background="Transparent" Tapped="UpVote_Tapped">                
                 <ContentControl Template="{StaticResource UpVote}" Foreground="{Binding IsUpVoted, Converter={StaticResource BoolToBrushConverter}, ConverterParameter=#FF1EEC88}" BorderBrush="White" Margin="12,0,12,16" Height="13"/>                
             </Border>
 
-            <Border Background="Transparent" Padding="12,0,12,16">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="Tapped">
-                        <Core:CallMethodAction MethodName="DownVote" TargetObject="{Binding}"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
+            <Border x:Name="DownVote" Background="Transparent" Padding="12,0,12,16" Tapped="DownVote_Tapped">                
                 <ContentControl Template="{StaticResource DownVote}" Foreground="{Binding IsDownVoted, Converter={StaticResource BoolToBrushConverter}, ConverterParameter=#FFDC3E3E}" BorderBrush="White" Height="13"/>                
             </Border>
 
             <Border x:Name="ReplyButton" Tapped="ReplyButton_Tapped">
                 <ContentControl Template="{StaticResource Comment}" Foreground="Transparent" BorderBrush="White" Margin="12,0,12,16" Height="13"/>
             </Border>
-            
-            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72D;" Padding="12,0,12,16" FontSize="13">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="Tapped">
-                        <Core:CallMethodAction MethodName="Share" TargetObject="{Binding}"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-            </TextBlock>
+
+            <TextBlock x:Name="Share" FontFamily="Segoe MDL2 Assets" Text="&#xE72D;" Padding="12,0,12,16" FontSize="13" Tapped="Share_Tapped"/>
+
         </StackPanel>
         
     </Grid>

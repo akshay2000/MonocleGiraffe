@@ -182,7 +182,9 @@
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
+    <Compile Include="LibraryImpl\RoamingDataHelper.cs" />
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
+    <Compile Include="LibraryImpl\SharingHelper.cs" />
     <Compile Include="LibraryImpl\Vault.cs" />
     <Compile Include="Models\DownloadItem.cs" />
     <Compile Include="Models\UploadItem.cs" />

@@ -21,7 +21,6 @@ namespace MonocleGiraffe.TemplateSelectors
                 return AlbumTemplate;
             else //if ((item as GalleryItem).ItemType == GalleryItemType.Image)
                 return ImageTemplate;
-            return base.SelectTemplateCore(item, container);
         }
     }
 }

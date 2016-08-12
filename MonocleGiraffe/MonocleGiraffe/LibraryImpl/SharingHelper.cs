@@ -1,4 +1,4 @@
-﻿using MonocleGiraffe.Models;
+﻿using MonocleGiraffe.Portable.Interfaces;
 using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
@@ -6,30 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Streams;
 
-namespace MonocleGiraffe.Helpers
+namespace MonocleGiraffe.LibraryImpl
 {
-    [Obsolete]
-    public static class SharingHelper
+    public class SharingHelper : ISharingHelper
     {
         private const string COMMENT = "Comment";
         private const string IMAGE = "Image";
 
-        private static DataTransferManager dataTransferManager;
+        private DataTransferManager dataTransferManager;
 
-        private static IGalleryItem itemToShare;
-        private static CommentViewModel commentToShare;
+        private IGalleryItem itemToShare;
+        private CommentViewModel commentToShare;
 
-        private static string shareType;
+        private string shareType;
 
-        static SharingHelper()
+        public SharingHelper()
         {
             dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DTManager_DataRequested;
         }
 
-        private static void DTManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        private void DTManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
             switch (shareType)
@@ -48,14 +46,14 @@ namespace MonocleGiraffe.Helpers
             }
         }
 
-        public static void ShareItem(IGalleryItem item)
+        public void ShareItem(IGalleryItem item)
         {
             itemToShare = item;
             shareType = IMAGE;
             DataTransferManager.ShowShareUI();
         }
 
-        public static void ShareComment(CommentViewModel comment)
+        public void ShareComment(CommentViewModel comment)
         {
             commentToShare = comment;
             shareType = COMMENT;
