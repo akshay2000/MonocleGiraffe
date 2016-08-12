@@ -17,6 +17,7 @@ using XamarinImgur.Helpers;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using MonocleGiraffe.LibraryImpl;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {

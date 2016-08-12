@@ -11,6 +11,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using XamarinImgur.Interfaces;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.Models
 {

@@ -15,6 +15,7 @@ using Template10.Utils;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels
 {

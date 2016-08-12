@@ -1,6 +1,7 @@
 ﻿using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
+using MonocleGiraffe.Portable.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

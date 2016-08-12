@@ -38,14 +38,14 @@ namespace MonocleGiraffe.Portable.Helpers
 
         public async void LoadMoreAsync(uint count)
         {
-            await LoadMoreItemsAsync(default(CancellationToken), count);
+            await LoadMoreAsync(default(CancellationToken), count);
         }
 
         #endregion
 
         private List<T> moreItems;
 
-        private async Task<uint> LoadMoreItemsAsync(CancellationToken c, uint count)
+        protected async Task<uint> LoadMoreAsync(CancellationToken c, uint count)
         {
             IsBusy = true;
             for (int i = 0; i < count; i++)

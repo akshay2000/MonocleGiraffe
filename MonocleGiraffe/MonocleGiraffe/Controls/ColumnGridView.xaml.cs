@@ -1,6 +1,7 @@
 ﻿using MonocleGiraffe.Controls.ItemTemplates;
 using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Models;
+using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

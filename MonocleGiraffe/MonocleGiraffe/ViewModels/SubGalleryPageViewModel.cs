@@ -19,6 +19,10 @@ using System.Threading;
 using MonocleGiraffe.Pages;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Windows.UI.Xaml.Data;
+using Windows.Foundation;
+using System.Runtime.InteropServices.WindowsRuntime;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -107,7 +111,7 @@ namespace MonocleGiraffe.ViewModels
             var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
             var clickedItem = args.ClickedItem as GalleryItem;
             const string navigationParamName = "GalleryInfo";
-            galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = Images.IndexOf(clickedItem) };
+            galleryMetaInfo = new GalleryMetaInfo { Gallery = (IEnumerable<IGalleryItem>)Images, SelectedIndex = Images.IndexOf(clickedItem) };
             BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
             BootStrapper.Current.NavigationService.Navigate(typeof(SubredditBrowserPage), navigationParamName);
             return;
@@ -145,40 +149,28 @@ namespace MonocleGiraffe.ViewModels
         }
     }
 
-    public class IncrementalSubredditGallery : IncrementalCollection<GalleryItem>, IJsonizable
+    public class IncrementalSubredditGallery : Portable.ViewModels.IncrementalSubredditGallery, ISupportIncrementalLoading
     {
         public IncrementalSubredditGallery(string subreddit, Enums.Sort sort)
-        {
-            Subreddit = subreddit;
-            Sort = sort;
-        }
+            : base(subreddit, sort) { }
 
-        public string Subreddit { get; set; }
-        public Enums.Sort Sort { get; set; }
-        public bool HasMore { get; set; } = true;
-
-        protected override bool HasMoreItemsImpl()
+        public bool HasMoreItems
         {
-            return HasMore;
-        }
-
-        protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
-        {
-            var gallery = (await Gallery.GetSubreddditGallery(Subreddit, Sort, (int)page)).Content;
-            if (gallery.Count == 0)
+            get
             {
-                HasMore = false;
-                return new List<GalleryItem>();
+                return HasMore;
             }
-            return gallery.Select(i => new GalleryItem(i)).ToList();
         }
 
-        public string toJson()
+        public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            JObject o = new JObject();
-            o["subreddit"] = Subreddit;
-            o["sort"] = JsonConvert.SerializeObject(Sort);
-            return o.ToString();
+            return AsyncInfo.Run((c) => LoadMoreItemsAsync(c, count));
+        }
+
+        private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
+        {
+            var ret = await LoadMoreAsync(c, count);
+            return new LoadMoreItemsResult { Count = count };
         }
 
         public static IncrementalSubredditGallery fromJson(string s)

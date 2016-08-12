@@ -13,6 +13,7 @@ using System.Threading;
 using Template10.Common;
 using MonocleGiraffe.Pages;
 using Windows.UI.Xaml.Controls;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {

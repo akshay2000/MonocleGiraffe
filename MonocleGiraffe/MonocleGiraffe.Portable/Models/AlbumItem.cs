@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Template10.Mvvm;
+using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.Helpers;
 
-namespace MonocleGiraffe.Models
+namespace MonocleGiraffe.Portable.Models
 {
     public class AlbumItem : BindableBase, IGalleryItem
     {

@@ -139,13 +139,5 @@ namespace MonocleGiraffe.Portable.ViewModels
             o["sort"] = JsonConvert.SerializeObject(Sort);
             return o.ToString();
         }
-
-        public static IncrementalSubredditGallery fromJson(string s)
-        {
-            JObject o = JObject.Parse(s);
-            Enums.Sort sort = JsonConvert.DeserializeObject<Enums.Sort>((string)o["sort"]);
-            string subreddit = (string)o["subreddit"];
-            return new IncrementalSubredditGallery(subreddit, sort);
-        }
     }
 }

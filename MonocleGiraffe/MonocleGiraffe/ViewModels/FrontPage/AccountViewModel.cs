@@ -13,6 +13,7 @@ using Template10.Common;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
+using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
@@ -101,7 +102,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             switch (param)
             {
                 case "albums":
-                    GoToBrowser(Albums, 0, typeof(SelfBrowserPage));
+                    GoToBrowser((IEnumerable<IGalleryItem>)Albums, 0, typeof(SelfBrowserPage));
                     break;
                 case "images":
                     GoToBrowser(Images, 0, typeof(SelfBrowserPage));
@@ -118,7 +119,7 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             var clickedItem = (IGalleryItem)info.ClickedItem;
             var collection = (info.OriginalSource as ItemsControl).ItemsSource;
             if (collection == Albums)
-                GoToBrowser(Albums, Albums.IndexOf((AlbumItem)clickedItem), typeof(SelfBrowserPage));
+                GoToBrowser((IEnumerable<IGalleryItem>)Albums, Albums.IndexOf((AlbumItem)clickedItem), typeof(SelfBrowserPage));
             else if (collection == Images)
                 GoToBrowser(Images, Images.IndexOf((GalleryItem)clickedItem), typeof(SelfBrowserPage));
             else if (collection == Favourites)

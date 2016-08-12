@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Models;
+using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -236,11 +237,5 @@ namespace MonocleGiraffe.Controls
             _suppressNotification = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
-    }
-
-    public interface ITreeItem
-    {
-        object Content { get; set; }
-        List<ITreeItem> Children { get; set; }
     }
 }
