@@ -41,7 +41,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\IIncrementalCollection.cs" />
     <Compile Include="Helpers\IncrementalCollection.cs" />
