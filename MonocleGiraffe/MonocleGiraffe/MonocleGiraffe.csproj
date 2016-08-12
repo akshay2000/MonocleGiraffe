@@ -451,6 +451,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MonocleGiraffe.Portable\MonocleGiraffe.Portable.csproj">
+      <Project>{5cd309e9-78ac-4ced-81b9-49a36c0b6d03}</Project>
+      <Name>MonocleGiraffe.Portable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XamarinImgur\XamarinImgur.csproj">
       <Project>{f4ff4407-03d4-4667-a2b4-ac7cc347da54}</Project>
       <Name>XamarinImgur</Name>
