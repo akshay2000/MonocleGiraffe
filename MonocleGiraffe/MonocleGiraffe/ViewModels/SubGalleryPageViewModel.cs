@@ -57,9 +57,11 @@ namespace MonocleGiraffe.ViewModels
                 else
                 {
                     //TODO: REMOVE NEXT TWO LINES AFTER REFACTOR IS DONE
-                    var sub = BootStrapper.Current.SessionState[(string)parameter];
-                    Portable.Helpers.StateHelper.SessionState[(string)parameter] = sub;
-                    Activate(parameter);
+                    var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
+                    //Portable.Helpers.StateHelper.SessionState[(string)parameter] = sub;
+                    //Activate(parameter);
+                    Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
+                    Sub = sub;
                 }
             }
             await Task.CompletedTask;
@@ -78,6 +80,15 @@ namespace MonocleGiraffe.ViewModels
         public Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
             return Task.CompletedTask;
+        }
+
+        public void ImageTapped(object sender, object parameter)
+        {
+            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
+            var clickedItem = args.ClickedItem as GalleryItem;
+            ImageTapped(clickedItem);
+            //TODO Remove this after refactor is done
+            BootStrapper.Current.SessionState["GalleryInfo"] = galleryMetaInfo;
         }
     }
 

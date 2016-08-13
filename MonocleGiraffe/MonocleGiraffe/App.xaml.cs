@@ -42,6 +42,7 @@ namespace MonocleGiraffe
 
             var nav = new MergedNavigationService(NavigationService);
             nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
+            nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
             SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
 
             if (AuthenticationHelper.IsAuthIntended())
