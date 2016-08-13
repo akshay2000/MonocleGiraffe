@@ -104,7 +104,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         {
             string navigationParamName = "Subreddit";
             StateHelper.SessionState[navigationParamName] = sub;
-            navigationService.NavigateTo(ViewModelLocator.SubGalleryPageKey, navigationParamName);            
+            navigationService.NavigateTo(PageKeyHolder.SubGalleryPageKey, navigationParamName);            
         }
         
         private void LoadSubredditsDesignTime()

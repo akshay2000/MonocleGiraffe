@@ -7,6 +7,7 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace MonocleGiraffe.Helpers
 {
+    [Obsolete]
     public static class ClipboardHelper
     {
         public static void Clip(string text)

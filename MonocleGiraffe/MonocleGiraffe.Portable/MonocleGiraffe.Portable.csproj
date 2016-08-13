@@ -46,6 +46,7 @@
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\Initializer.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
+    <Compile Include="Interfaces\IClipboardHelper.cs" />
     <Compile Include="Interfaces\INavigable.cs" />
     <Compile Include="Interfaces\IRoamingDataHelper.cs" />
     <Compile Include="Interfaces\ISharingHelper.cs" />
@@ -60,8 +61,8 @@
     <Compile Include="ViewModels\FrontViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PageKeyHolder.cs" />
     <Compile Include="ViewModels\SubGalleryViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">

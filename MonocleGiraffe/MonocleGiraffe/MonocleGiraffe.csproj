@@ -176,11 +176,13 @@
     <Compile Include="Converters\ValueComparisonConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\IncrementalCollection.cs" />
+    <Compile Include="Helpers\MergedNavigationService.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
     <Compile Include="Helpers\RoamingDataHelper.cs" />
     <Compile Include="Helpers\SharingHelper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
+    <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
     <Compile Include="LibraryImpl\RoamingDataHelper.cs" />
     <Compile Include="LibraryImpl\SettingsHelper.cs" />

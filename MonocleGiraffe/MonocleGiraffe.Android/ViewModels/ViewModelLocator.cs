@@ -15,19 +15,16 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using MonocleGiraffe.Portable.ViewModels;
 
-namespace MonocleGiraffe.Portable.ViewModels
+namespace MonocleGiraffe.Android.ViewModels
 {
     /// <summary>
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
     /// </summary>
-    public class ViewModelLocator
+    public class ViewModelLocator : PageKeyHolder
     {
-        public const string FrontPageKey = "FrontPage";
-        public const string SubGalleryPageKey = "SubGalleryPage";
-        public const string SubredditBrowserPageKey = "SubredditBrowserPage";
-
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>

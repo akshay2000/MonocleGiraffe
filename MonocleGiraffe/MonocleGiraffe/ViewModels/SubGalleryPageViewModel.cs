@@ -26,38 +26,14 @@ using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.ViewModels
 {
-    public class SubGalleryPageViewModel : ViewModelBase
+    public class SubGalleryPageViewModel : Portable.ViewModels.SubGalleryViewModel, INavigable
     {
-        public SubGalleryPageViewModel()
-        {
-            if (!DesignMode.DesignModeEnabled)
-            {
-                // design-time experience
-            }
-            else
-            {
-                // runtime experience
-            }
-        }
+        public INavigationService NavigationService { get; set; }
+        public IDispatcherWrapper Dispatcher { get; set; }
+        public IStateItems SessionState { get; set; }
 
-
-        IncrementalSubredditGallery images = default(IncrementalSubredditGallery);
-        public IncrementalSubredditGallery Images { get { return images; } set { Set(ref images, value); } }
-
-        SubredditItem sub = default(SubredditItem);
-        public SubredditItem Sub { get { return sub; } set { Set(ref sub, value); } }
-
-        private int imageSelectedIndex;
-        public int ImageSelectedIndex
-        {
-            get { return imageSelectedIndex; }
-            set { Set(ref imageSelectedIndex, value); }
-        }
-
-        string sort = "Time";
-        public string Sort { get { return sort; } set { Set(ref sort, value); } }
-
-        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public SubGalleryPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav) { }
+        public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (state.Any())
             {
@@ -69,7 +45,7 @@ namespace MonocleGiraffe.ViewModels
             {
                 if (mode == NavigationMode.Back)
                 {
-                    if(galleryMetaInfo == null)
+                    if (galleryMetaInfo == null)
                     {
                         galleryMetaInfo = BootStrapper.Current.SessionState["GalleryInfo"] as GalleryMetaInfo;
                         Images = galleryMetaInfo?.Gallery as IncrementalSubredditGallery;
@@ -80,15 +56,16 @@ namespace MonocleGiraffe.ViewModels
                 }
                 else
                 {
-                    var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
-                    Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
-                    Sub = sub;
+                    //TODO: REMOVE NEXT TWO LINES AFTER REFACTOR IS DONE
+                    var sub = BootStrapper.Current.SessionState[(string)parameter];
+                    Portable.Helpers.StateHelper.SessionState[(string)parameter] = sub;
+                    Activate(parameter);
                 }
             }
             await Task.CompletedTask;
         }
 
-        public override async Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        public async Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             if (suspending)
             {
@@ -98,54 +75,9 @@ namespace MonocleGiraffe.ViewModels
             await Task.CompletedTask;
         }
 
-        public override async Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        public Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
-            args.Cancel = false;
-            await Task.CompletedTask;
-        }
-
-        private GalleryMetaInfo galleryMetaInfo;
-
-        public void ImageTapped(object sender, object parameter)
-        {
-            var args = parameter as Windows.UI.Xaml.Controls.ItemClickEventArgs;
-            var clickedItem = args.ClickedItem as GalleryItem;
-            const string navigationParamName = "GalleryInfo";
-            galleryMetaInfo = new GalleryMetaInfo { Gallery = (IEnumerable<IGalleryItem>)Images, SelectedIndex = Images.IndexOf(clickedItem) };
-            BootStrapper.Current.SessionState[navigationParamName] = galleryMetaInfo;
-            BootStrapper.Current.NavigationService.Navigate(typeof(SubredditBrowserPage), navigationParamName);
-            return;
-        }
-
-        private Enums.Sort ToSort(string s)
-        {
-            switch (s)
-            {                
-                case "Time":
-                    return Enums.Sort.Time;
-                case "Top":
-                    return Enums.Sort.Top;
-                default:
-                    throw new NotImplementedException($"Can't convert {s} to Sort");
-            }
-        }
-
-        DelegateCommand refreshCommand;
-        public DelegateCommand RefreshCommand
-           => refreshCommand ?? (refreshCommand = new DelegateCommand(() =>
-           {
-               Images = new IncrementalSubredditGallery(Sub.Url, ToSort(Sort));
-           }, () => true));
-
-
-        DelegateCommand<string> sortCommand;
-        public DelegateCommand<string> SortCommand
-           => sortCommand ?? (sortCommand = new DelegateCommand<string>(SortCommandExecute, SortCommandCanExecute));
-        bool SortCommandCanExecute(string param) => true;
-        void SortCommandExecute(string param)
-        {
-            Sort = param;
-            RefreshCommand.Execute();
+            return Task.CompletedTask;
         }
     }
 

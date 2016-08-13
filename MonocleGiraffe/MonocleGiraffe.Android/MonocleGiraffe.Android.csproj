@@ -95,10 +95,12 @@
     <Compile Include="LibraryImpl\InstanceManager.cs" />
     <Compile Include="LibraryImpl\RoamingDataHelper.cs" />
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
+    <Compile Include="LibraryImpl\SharingHelper.cs" />
     <Compile Include="LibraryImpl\Vault.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Secrets.json">

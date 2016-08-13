@@ -33,7 +33,7 @@ namespace MonocleGiraffe.Portable.ViewModels
             {
                 return navigateCommand
                     ?? (navigateCommand =
-                    new RelayCommand(() => navigationService.NavigateTo(ViewModelLocator.FrontPageKey)));
+                    new RelayCommand(() => navigationService.NavigateTo(PageKeyHolder.FrontPageKey)));
             }
         }
     }

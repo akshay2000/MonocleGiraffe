@@ -11,11 +11,8 @@
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:ext="using:MonocleGiraffe.Controls.Extensions"
     mc:Ignorable="d"
-    x:Name="PageRoot">
-
-    <Page.DataContext>
-        <vms:SubGalleryPageViewModel/>
-    </Page.DataContext>
+    x:Name="PageRoot"
+    DataContext="{Binding Source={StaticResource Locator}, Path=SubGalleryPageViewModel}">
 
     <Page.BottomAppBar>
         <CommandBar>

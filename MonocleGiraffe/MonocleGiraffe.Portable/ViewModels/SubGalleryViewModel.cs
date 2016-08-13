@@ -31,7 +31,6 @@ namespace MonocleGiraffe.Portable.ViewModels
             }
         }
 
-
         IncrementalSubredditGallery images = default(IncrementalSubredditGallery);
         public IncrementalSubredditGallery Images { get { return images; } set { Set(ref images, value); } }
 
@@ -48,14 +47,14 @@ namespace MonocleGiraffe.Portable.ViewModels
         string sort = "Time";
         public string Sort { get { return sort; } set { Set(ref sort, value); } }
 
-        private GalleryMetaInfo galleryMetaInfo;
+        protected GalleryMetaInfo galleryMetaInfo;
 
         public void ImageTapped(GalleryItem clickedItem)
         {
             const string navigationParamName = "GalleryInfo";
             galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = Images.IndexOf(clickedItem) };
             Helpers.StateHelper.SessionState[navigationParamName] = galleryMetaInfo;
-            navigationService.NavigateTo(ViewModelLocator.SubredditBrowserPageKey, navigationParamName);
+            navigationService.NavigateTo(PageKeyHolder.SubredditBrowserPageKey, navigationParamName);
             return;
         }
 

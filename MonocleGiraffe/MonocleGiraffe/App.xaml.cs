@@ -10,6 +10,8 @@ using Windows.Foundation;
 using Windows.UI.Popups;
 using MonocleGiraffe.LibraryImpl;
 using XamarinImgur.Helpers;
+using MonocleGiraffe.Helpers;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace MonocleGiraffe
 {
@@ -31,12 +33,17 @@ namespace MonocleGiraffe
             {
                 splash = new ExtendedSplash(e);
                 return splash;
-            };
+            };            
         }
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             await InitLibrary();
+
+            var nav = new MergedNavigationService(NavigationService);
+            nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
+            SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+
             if (AuthenticationHelper.IsAuthIntended())
             {
                 splash.IsLoading = true;
@@ -98,7 +105,7 @@ namespace MonocleGiraffe
             var file = await libFolder.GetFileAsync("Secrets.json");
             string configurationString = await Windows.Storage.FileIO.ReadTextAsync(file);
             XamarinImgur.Helpers.Initializer.Init(new AuthBroker(), new Vault(), new SettingsHelper(), configurationString, () => new HttpClient(), false);
-            Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper());
+            Portable.Helpers.Initializer.Init(new LibraryImpl.RoamingDataHelper(), new LibraryImpl.SharingHelper(), new LibraryImpl.ClipboardHelper());
         }
     }
 }

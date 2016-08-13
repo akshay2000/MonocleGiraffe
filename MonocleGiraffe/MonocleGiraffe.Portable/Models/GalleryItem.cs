@@ -376,7 +376,7 @@ namespace MonocleGiraffe.Portable.Models
         public RelayCommand ShareCommand
            => share ?? (share = new RelayCommand(() =>
            {
-               //SharingHelper.ShareItem(this);
+               Helpers.Initializer.SharingHelper.ShareItem(this);
            }));
         
         RelayCommand save;
@@ -391,11 +391,12 @@ namespace MonocleGiraffe.Portable.Models
            => copyLink ?? (copyLink = new RelayCommand(() =>
            {
                var url = IsAnimated ? Mp4 : Link;
-               //ClipboardHelper.Clip(url);
+               Helpers.Initializer.ClipboardHelper.Clip(url);
            }, () => true));
 
         private async Task StartDownload()
         {
+            //TODO FIX THIS!
             //var vm = ViewModelLocator.GetInstance().TransfersPageViewModel.DownloadsVM;
             //if (ItemType == GalleryItemType.Album)
             //{
