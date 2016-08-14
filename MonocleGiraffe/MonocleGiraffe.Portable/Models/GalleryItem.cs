@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MonocleGiraffe.Portable.Helpers;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Portable.ViewModels;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -397,20 +399,20 @@ namespace MonocleGiraffe.Portable.Models
         private async Task StartDownload()
         {
             //TODO FIX THIS!
-            //var vm = ViewModelLocator.GetInstance().TransfersPageViewModel.DownloadsVM;
-            //if (ItemType == GalleryItemType.Album)
-            //{
-            //    foreach (var item in AlbumImages)
-            //    {
-            //        var url = item.IsAnimated ? item.Mp4 : item.Link;
-            //        var task = vm.StartDownload(url);
-            //    }
-            //}
-            //else
-            //{
-            //    var url = IsAnimated ? Mp4 : Link;
-            //    await vm.StartDownload(url);
-            //}
+            var vm = SimpleIoc.Default.GetInstance<IViewModelLocator>().TransfersViewModel.DownloadsVM;
+            if (ItemType == GalleryItemType.Album)
+            {
+                foreach (var item in AlbumImages)
+                {
+                    var url = item.IsAnimated ? item.Mp4 : item.Link;
+                    var task = vm.StartDownload(url);
+                }
+            }
+            else
+            {
+                var url = IsAnimated ? Mp4 : Link;
+                await vm.StartDownload(url);
+            }
         }
 
         public async Task<Comment> AddComment(string comment, long? parentId = null)

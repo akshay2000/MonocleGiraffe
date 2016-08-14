@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Common;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Template10.Utils;
@@ -13,9 +14,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.ViewModels
 {
-    public class TransfersPageViewModel : ViewModelBase
+    public class TransfersPageViewModel : Portable.ViewModels.TransfersViewModel, INavigable
     {
-        public TransfersPageViewModel()
+        public INavigationService NavigationService { get; set; }
+        public IDispatcherWrapper Dispatcher { get; set; }
+        public IStateItems SessionState { get; set; }
+
+        public TransfersPageViewModel() : base(new DownloadsViewModel())
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
@@ -29,19 +34,15 @@ namespace MonocleGiraffe.ViewModels
 
         private void Init()
         {
-            DownloadsVM = new DownloadsViewModel();
             UploadsVM = new UploadsViewModel();
         }
-
-        DownloadsViewModel downloadsVM = default(DownloadsViewModel);
-        public DownloadsViewModel DownloadsVM { get { return downloadsVM; } set { Set(ref downloadsVM, value); } }
 
         UploadsViewModel uploadsVM = default(UploadsViewModel);
         public UploadsViewModel UploadsVM { get { return uploadsVM; } set { Set(ref uploadsVM, value); } }
 
         #region Navigation
 
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (state.Any())
             {
@@ -55,7 +56,7 @@ namespace MonocleGiraffe.ViewModels
             return Task.CompletedTask;
         }
 
-        public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        public Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             if (suspending)
             {
@@ -64,7 +65,7 @@ namespace MonocleGiraffe.ViewModels
             return Task.CompletedTask;
         }
 
-        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        public Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
             args.Cancel = false;
             return Task.CompletedTask;

@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Models;
+using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,77 +12,24 @@ using Windows.Networking.BackgroundTransfer;
 
 namespace MonocleGiraffe.ViewModels.Transfers
 {
-    public class DownloadsViewModel : BindableBase
+    public class DownloadsViewModel : Portable.ViewModels.Transfers.DownloadsViewModel
     {
-        public DownloadsViewModel()
+        public DownloadsViewModel() : base(DownloadItemFactory, DesignMode.DesignModeEnabled)
+        { }
+
+        public static async Task<IDownloadItem> DownloadItemFactory(string url)
         {
-            if (DesignMode.DesignModeEnabled)
+            return await DownloadItem.Create(Downloader, url);
+        }
+
+        private static BackgroundDownloader downloader;
+        private static BackgroundDownloader Downloader
+        {
+            get
             {
-                InitDesignTime();
+                downloader = downloader ?? new BackgroundDownloader();
+                return downloader;
             }
-            else
-            {
-                Init();
-            }
-        }
-
-        ObservableCollection<DownloadItem> downloads = default(ObservableCollection<DownloadItem>);
-        public ObservableCollection<DownloadItem> Downloads { get { return downloads; } set { Set(ref downloads, value); } }
-
-        bool isCancelAllEnabled = default(bool);
-        public bool IsCancelAllEnabled { get { return isCancelAllEnabled; } set { Set(ref isCancelAllEnabled, value); } }
-
-        private async Task Init()
-        {
-            IsCancelAllEnabled = false;
-            Downloads = new ObservableCollection<DownloadItem>();
-            Downloader = new BackgroundDownloader();
-            IReadOnlyList<DownloadOperation> oldDownloads = await BackgroundDownloader.GetCurrentDownloadsAsync();
-            foreach (var d in oldDownloads)
-                Downloads.Add(await DownloadItem.Create(d));
-            if (Downloads.Count > 0)
-                IsCancelAllEnabled = true;
-        }
-
-
-        DelegateCommand cancelAllCommand;
-        public DelegateCommand CancelAllCommand
-           => cancelAllCommand ?? (cancelAllCommand = new DelegateCommand(async () =>
-           {
-               await CancelAll();
-           }));
-
-        private async Task CancelAll()
-        {
-            IsCancelAllEnabled = false;
-            List<Task> all = new List<Task>();
-            foreach (var d in Downloads)
-            {
-                if (d.State != DownloadItem.CANCELED)
-                    all.Add(d.Cancel());
-            }
-            await Task.WhenAll(all);
-            IsCancelAllEnabled = true;
-        }
-
-        private BackgroundDownloader Downloader { get; set; }
-
-        public async Task StartDownload(string url)
-        {
-            DownloadItem item = await DownloadItem.Create(Downloader, url);
-            Downloads.Add(item);
-            await item.Start();
-            if (Downloads.Count > 0)
-                IsCancelAllEnabled = true;
-        }
-        
-        private void InitDesignTime()
-        {
-            Downloads = new ObservableCollection<DownloadItem>();
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = DownloadItem.PENDING });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = DownloadItem.CANCELED });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = DownloadItem.SUCCESSFUL });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = DownloadItem.DOWNLOADING });
         }
     }
 }

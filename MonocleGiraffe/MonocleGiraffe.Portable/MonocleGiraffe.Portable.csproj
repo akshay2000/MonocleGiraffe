@@ -54,15 +54,20 @@
     <Compile Include="Models\CommentItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\GalleryMetaInfo.cs" />
+    <Compile Include="Models\IDownloadItem.cs" />
     <Compile Include="Models\IGalleryItem.cs" />
     <Compile Include="Models\IJsonizable.cs" />
     <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FrontViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />
+    <Compile Include="ViewModels\IViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageKeyHolder.cs" />
     <Compile Include="ViewModels\SubGalleryViewModel.cs" />
+    <Compile Include="ViewModels\TransfersViewModel.cs" />
+    <Compile Include="ViewModels\Transfers\DownloadStates.cs" />
+    <Compile Include="ViewModels\Transfers\DownloadsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
@@ -85,6 +90,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

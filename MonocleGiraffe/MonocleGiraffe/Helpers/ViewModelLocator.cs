@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Portable.ViewModels;
 using MonocleGiraffe.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Windows.ApplicationModel;
 
 namespace MonocleGiraffe.Helpers
 {
-    public class ViewModelLocator : Portable.ViewModels.PageKeyHolder
+    public class ViewModelLocator : Portable.ViewModels.PageKeyHolder, IViewModelLocator
     {
         public ViewModelLocator()
         {
@@ -34,6 +35,7 @@ namespace MonocleGiraffe.Helpers
             Init();
         }
 
+        //TODO: Remove this eventually
         private Lazy<TransfersPageViewModel> transfersPageViewModel;
         public TransfersPageViewModel TransfersPageViewModel { get { return transfersPageViewModel.Value; } }
 
@@ -44,6 +46,8 @@ namespace MonocleGiraffe.Helpers
         public BrowserPageViewModel BrowserPageViewModel { get { return browserPageViewModel.Value; } }
 
         public SubGalleryPageViewModel SubGalleryPageViewModel { get { return SimpleIoc.Default.GetInstance<SubGalleryPageViewModel>(); } }
+
+        public TransfersViewModel TransfersViewModel { get { return TransfersPageViewModel; } }
 
         public static ViewModelLocator GetInstance()
         {

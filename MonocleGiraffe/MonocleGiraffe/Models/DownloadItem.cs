@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Portable.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using Windows.Storage;
 
 namespace MonocleGiraffe.Models
 {
-    public class DownloadItem : BindableBase
+    public class DownloadItem : BindableBase, IDownloadItem
     {
         public static async Task<DownloadItem> Create(BackgroundDownloader b, string url)
         {

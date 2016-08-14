@@ -12,6 +12,7 @@ using MonocleGiraffe.LibraryImpl;
 using XamarinImgur.Helpers;
 using MonocleGiraffe.Helpers;
 using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Portable.ViewModels;
 
 namespace MonocleGiraffe
 {
@@ -44,6 +45,7 @@ namespace MonocleGiraffe
             nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
             nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
             SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
 
             if (AuthenticationHelper.IsAuthIntended())
             {

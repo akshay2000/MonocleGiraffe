@@ -58,8 +58,6 @@ namespace MonocleGiraffe.ViewModels
                 {
                     //TODO: REMOVE NEXT TWO LINES AFTER REFACTOR IS DONE
                     var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
-                    //Portable.Helpers.StateHelper.SessionState[(string)parameter] = sub;
-                    //Activate(parameter);
                     Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
                     Sub = sub;
                 }
