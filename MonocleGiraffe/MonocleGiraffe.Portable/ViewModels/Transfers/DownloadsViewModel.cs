@@ -75,13 +75,9 @@ namespace MonocleGiraffe.Portable.ViewModels.Transfers
                 IsCancelAllEnabled = true;
         }
         
-        private void InitDesignTime()
+        protected virtual void InitDesignTime()
         {
             Downloads = new ObservableCollection<IDownloadItem>();
-            //Downloads.Add(new IDownloadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = IDownloadItem.PENDING });
-            //Downloads.Add(new IDownloadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = IDownloadItem.CANCELED });
-            //Downloads.Add(new IDownloadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = IDownloadItem.SUCCESSFUL });
-            //Downloads.Add(new IDownloadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = IDownloadItem.DOWNLOADING });
         }
     }
 }

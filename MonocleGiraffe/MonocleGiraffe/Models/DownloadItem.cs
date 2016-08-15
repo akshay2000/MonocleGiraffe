@@ -1,4 +1,5 @@
 ﻿using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.ViewModels.Transfers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,13 +46,6 @@ namespace MonocleGiraffe.Models
             CancellationToken = new CancellationTokenSource();
         }
 
-        public const string DOWNLOADING = "Downloading";
-        public const string CANCELED = "Canceled";
-        public const string SUCCESSFUL = "Successful";
-        public const string ERROR = "Error";
-        public const string PAUSED = "Paused";
-        public const string PENDING = "Pending";
-
         string name = default(string);
         public string Name { get { return name; } set { Set(ref name, value); } }
 
@@ -61,7 +55,7 @@ namespace MonocleGiraffe.Models
         ulong currentSize = 0;
         public ulong CurrentSize { get { return currentSize; } set { Set(ref currentSize, value); } }
 
-        string state = PENDING;
+        string state = DownloadStates.PENDING;
         public string State { get { return state; } set { Set(ref state, value); } }
 
         private DownloadOperation Operation { get; set; }
@@ -85,7 +79,7 @@ namespace MonocleGiraffe.Models
 
         public async Task Cancel()
         {
-            State = CANCELED;
+            State = DownloadStates.CANCELED;
             CancellationToken.Cancel();
             await File.DeleteAsync();
         }
@@ -99,7 +93,7 @@ namespace MonocleGiraffe.Models
 
         public async Task Restart()
         {
-            State = PENDING;
+            State = DownloadStates.PENDING;
             await Construct();
             await Start();
         }
@@ -112,7 +106,7 @@ namespace MonocleGiraffe.Models
             }
             catch (TaskCanceledException)
             {
-                State = CANCELED;
+                State = DownloadStates.CANCELED;
             }
         }
                
@@ -124,23 +118,23 @@ namespace MonocleGiraffe.Models
             switch (currentProgress.Status)
             {
                 case BackgroundTransferStatus.Canceled:
-                    State = CANCELED;
+                    State = DownloadStates.CANCELED;
                     break;
                 case BackgroundTransferStatus.Completed:
-                    State = SUCCESSFUL;
+                    State = DownloadStates.SUCCESSFUL;
                     break;
                 case BackgroundTransferStatus.Running:
-                    State = DOWNLOADING;
+                    State = DownloadStates.DOWNLOADING;
                     break;
                 case BackgroundTransferStatus.Error:
-                    State = ERROR;
+                    State = DownloadStates.ERROR;
                     break;
                 default:
-                    State = PAUSED;
+                    State = DownloadStates.PAUSED;
                     break;                    
             }
             if (TotalSize == CurrentSize)
-                State = SUCCESSFUL;
+                State = DownloadStates.SUCCESSFUL;
         }
     }
 }
