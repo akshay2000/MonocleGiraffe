@@ -60,6 +60,7 @@
     <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FrontViewModel.cs" />
+    <Compile Include="ViewModels\Front\GalleryViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\IViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -123,7 +123,6 @@ namespace MonocleGiraffe.Portable.Models
 
         private void LoadComments()
         {
-            //TODO
             Comments = new List<CommentItem>();
         }
 

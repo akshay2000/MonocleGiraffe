@@ -398,7 +398,7 @@ namespace MonocleGiraffe.Portable.Models
 
         private async Task StartDownload()
         {
-            //TODO FIX THIS!
+            //We shouldn't be using container this deep down in the code. But whatever.
             var vm = SimpleIoc.Default.GetInstance<IViewModelLocator>().TransfersViewModel.DownloadsVM;
             if (ItemType == GalleryItemType.Album)
             {

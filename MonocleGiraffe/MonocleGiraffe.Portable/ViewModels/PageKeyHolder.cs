@@ -11,5 +11,6 @@ namespace MonocleGiraffe.Portable.ViewModels
         public const string FrontPageKey = "FrontPage";
         public const string SubGalleryPageKey = "SubGalleryPage";
         public const string SubredditBrowserPageKey = "SubredditBrowserPage";
+        public const string BrowserPageKey = "BrowserPage";
     }
 }

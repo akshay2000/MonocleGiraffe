@@ -44,7 +44,7 @@ namespace MonocleGiraffe.Controls
             if (!IsLoadingMore)
             {
                 IsLoadingMore = true;
-                await ItemsSource.LoadMoreItemsAsync(100);
+                await (ItemsSource as ISupportIncrementalLoading)?.LoadMoreItemsAsync(100);
                 IsLoadingMore = false;
             }
         }
@@ -114,15 +114,15 @@ namespace MonocleGiraffe.Controls
             oldWindow = window;
         }
 
-        public IncrementalCollection<GalleryItem> ItemsSource
+        public Portable.Helpers.IncrementalCollection<GalleryItem> ItemsSource
         {
-            get { return (IncrementalCollection<GalleryItem>)GetValue(ItemsSourceProperty); }
+            get { return (Portable.Helpers.IncrementalCollection<GalleryItem>)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ItemsSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IncrementalCollection<GalleryItem>), typeof(ColumnGridView), new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
+            DependencyProperty.Register("ItemsSource", typeof(Portable.Helpers.IncrementalCollection<GalleryItem>), typeof(ColumnGridView), new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
 
         private static async void OnItemsSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
         {

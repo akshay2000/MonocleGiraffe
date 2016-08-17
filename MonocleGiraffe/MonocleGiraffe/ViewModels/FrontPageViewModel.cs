@@ -20,8 +20,10 @@ namespace MonocleGiraffe.ViewModels
 {
     public class FrontPageViewModel : ViewModelBase
     {
-        public FrontPageViewModel()
+        private readonly GalaSoft.MvvmLight.Views.INavigationService navigationService;
+        public FrontPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav)
         {
+            navigationService = nav;
             if (!DesignMode.DesignModeEnabled)
                 Init();
             else
@@ -64,7 +66,7 @@ namespace MonocleGiraffe.ViewModels
             switch (PivotIndex)
             {
                 case 0:
-                    GalleryVM = GalleryVM ?? new GalleryViewModel();
+                    GalleryVM = GalleryVM ?? new GalleryViewModel(navigationService);
                     break;
                 case 1:
                     SubredditsVM = SubredditsVM ?? new SubredditsViewModel();
