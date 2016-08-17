@@ -100,14 +100,14 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
                NavigateToSub(parameter);
            }));
 
-        private void NavigateToSub(SubredditItem sub)
+        protected void NavigateToSub(SubredditItem sub)
         {
             string navigationParamName = "Subreddit";
             StateHelper.SessionState[navigationParamName] = sub;
             navigationService.NavigateTo(PageKeyHolder.SubGalleryPageKey, navigationParamName);            
         }
         
-        private void LoadSubredditsDesignTime()
+        protected virtual void LoadSubredditsDesignTime()
         {
             Subreddits = new ObservableCollection<SubredditItem>();
             Subreddits.Add(new SubredditItem { Title = "Funny", Url = "funny" });

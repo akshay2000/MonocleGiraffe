@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Data;
 using Windows.Foundation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.ViewModels;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -56,9 +57,7 @@ namespace MonocleGiraffe.ViewModels
                 }
                 else
                 {
-                    var sub = BootStrapper.Current.SessionState[(string)parameter] as SubredditItem;
-                    Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
-                    Sub = sub;
+                    Activate(parameter);
                 }
             }
             await Task.CompletedTask;
@@ -86,6 +85,11 @@ namespace MonocleGiraffe.ViewModels
             ImageTapped(clickedItem);
             //TODO Remove this after refactor is done
             BootStrapper.Current.SessionState["GalleryInfo"] = galleryMetaInfo;
+        }
+
+        protected override Portable.ViewModels.IncrementalSubredditGallery CreateSubredditGallery(string subreddit, Enums.Sort sort)
+        {
+            return new IncrementalSubredditGallery(subreddit, sort);
         }
     }
 

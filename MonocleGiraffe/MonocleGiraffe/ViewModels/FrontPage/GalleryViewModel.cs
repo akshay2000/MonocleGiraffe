@@ -1,27 +1,13 @@
-﻿using MonocleGiraffe.Helpers;
-using MonocleGiraffe.Models;
-using MonocleGiraffe.Pages;
-using XamarinImgur.APIWrappers;
-using XamarinImgur.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using MonocleGiraffe.Portable.Models;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Template10.Common;
-using Template10.Mvvm;
 using Windows.ApplicationModel;
-using System.Threading;
-using static XamarinImgur.APIWrappers.Enums;
-using XamarinImgur.Helpers;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using MonocleGiraffe.LibraryImpl;
-using MonocleGiraffe.Portable.Models;
-using Windows.UI.Xaml.Data;
 using Windows.Foundation;
-using System.Runtime.InteropServices.WindowsRuntime;
-using MonocleGiraffe.Portable.ViewModels.Front;
+using Windows.UI.Xaml.Data;
+using XamarinImgur.Models;
+using static XamarinImgur.APIWrappers.Enums;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {

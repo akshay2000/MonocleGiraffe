@@ -75,7 +75,7 @@ namespace MonocleGiraffe.Portable.ViewModels
         public RelayCommand RefreshCommand
            => refreshCommand ?? (refreshCommand = new RelayCommand(() =>
            {
-               Images = new IncrementalSubredditGallery(Sub.Url, ToSort(Sort));
+               Images = CreateSubredditGallery(Sub.Url, ToSort(Sort));
            }, () => true));
 
 
@@ -92,7 +92,7 @@ namespace MonocleGiraffe.Portable.ViewModels
         public void Activate(object parameter)
         {
             var sub = StateHelper.SessionState[(string)parameter] as SubredditItem;
-            Images = new IncrementalSubredditGallery(sub.Url, Enums.Sort.Time);
+            Images = CreateSubredditGallery(sub.Url, Enums.Sort.Time);
             Sub = sub;
         }
 
@@ -100,6 +100,11 @@ namespace MonocleGiraffe.Portable.ViewModels
         {
             Images = null;
             Sub = null;
+        }
+        
+        protected virtual IncrementalSubredditGallery CreateSubredditGallery(string subreddit, Enums.Sort sort)
+        {
+            return new IncrementalSubredditGallery(subreddit, sort);
         }
     }
 
