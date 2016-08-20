@@ -14,6 +14,7 @@ using MonocleGiraffe.Portable.ViewModels;
 using Android.Support.V7.Widget;
 using MonocleGiraffe.Portable.Models;
 using GalaSoft.MvvmLight.Helpers;
+using MonocleGiraffe.Portable.ViewModels.Front;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -36,9 +37,23 @@ namespace MonocleGiraffe.Android.Fragments
             base.OnActivityCreated(savedInstanceState);
 
             GalleryRecyclerView.SetLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical));
-            var adapter = Vm.GalleryVM.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
+            //Hacky way to bind
+            BindCollection();
+            Vm.PropertyChanged += Vm_PropertyChanged;
+
+            Vm.Images.LoadMoreAsync(60);
+        }
+
+        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Images")
+                BindCollection();
+        }
+
+        private void BindCollection()
+        {
+            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
             GalleryRecyclerView.SetAdapter(adapter);
-            Vm.GalleryVM.Images.LoadMoreAsync(60);
         }
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
@@ -47,7 +62,7 @@ namespace MonocleGiraffe.Android.Fragments
             textView.Text = item.Title;
         }
 
-        public FrontViewModel Vm { get { return App.Locator.Front; } }
+        public GalleryViewModel Vm { get { return App.Locator.Front.GalleryVM; } }
 
         private RecyclerView galleryRecyclerView;
         public RecyclerView GalleryRecyclerView

@@ -37,16 +37,27 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SubGallery);
+            SubGalleryRecyclerView.SetLayoutManager(new GridLayoutManager(this, 3));
+
+            //Hacky way to bind
+            Vm.PropertyChanged += Vm_PropertyChanged;
 
             var param = Nav.GetAndRemoveParameter<string>(Intent);
             Vm.Activate(param);
 
-            SubGalleryRecyclerView.SetLayoutManager(new GridLayoutManager(this, 3));
+            Vm.Images.LoadMoreAsync(60);
+        }
+
+        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Images")
+                BindCollection();
+        }
+
+        private void BindCollection()
+        {
             adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
             SubGalleryRecyclerView.SetAdapter(adapter);
-            //bindings.Add(this.SetBinding(() => Vm.Images, () => SubGalleryGridView.Adapter).ConvertSourceToTarget(g => g.GetAdapter(GetThumbnailView)));
-            //SubGalleryGridView.Adapter = Vm.Images.GetAdapter(GetThumbnailView);
-            Vm.Images.LoadMoreAsync(60);
         }
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
