@@ -12,7 +12,6 @@ using GalaSoft.MvvmLight.Command;
 
 namespace MonocleGiraffe.Portable.ViewModels
 {
-
     public class BrowserViewModel : ViewModelBase, INavigable
     {
         private readonly INavigationService navigationService;
@@ -30,8 +29,7 @@ namespace MonocleGiraffe.Portable.ViewModels
         }
 
         private void Init()
-        {
-        }
+        { }
 
         private IEnumerable<IGalleryItem> images;
         public IEnumerable<IGalleryItem> Images

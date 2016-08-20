@@ -73,5 +73,15 @@ namespace MonocleGiraffe.Android.Fragments
                 return galleryRecyclerView;
             }
         }
+
+        public override void OnDestroyView()
+        {
+            base.OnDestroyView();
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
 }

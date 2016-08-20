@@ -29,10 +29,12 @@ namespace MonocleGiraffe.Android.Activities
             actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
+            pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
 
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
+            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
         }
     }
 
@@ -40,7 +42,7 @@ namespace MonocleGiraffe.Android.Activities
     {
         public FrontPagerAdapter(global::Android.Support.V4.App.FragmentManager f) : base(f) { }
 
-        public override int Count { get { return 2; } }
+        public override int Count { get { return 3; } }
 
         public override global::Android.Support.V4.App.Fragment GetItem(int position)
         {
@@ -50,6 +52,8 @@ namespace MonocleGiraffe.Android.Activities
                     return Gallery;
                 case 1:
                     return Reddits;
+                case 2:
+                    return Account;
             }
             Log.Debug("FrontActivity", $"position was {position}");
             return null;
@@ -74,6 +78,17 @@ namespace MonocleGiraffe.Android.Activities
                 return reddits;
             }
         }
+
+        private AccountFragment account;
+        public AccountFragment Account
+        {
+            get
+            {
+                account = account ?? new AccountFragment();
+                return account;
+            }
+        }
+
     }
 
     public static class ViewPagerExtensions
