@@ -37,7 +37,7 @@ namespace MonocleGiraffe.Pages
             var result = await dialog.ShowAsync();
             if ((int)result.Id == 0)
             {
-                (DataContext as BrowserPageViewModel)?.DeleteCommand?.Execute();
+                (DataContext as BrowserPageViewModel)?.DeleteCommand?.Execute(null);
             }
         }
     }

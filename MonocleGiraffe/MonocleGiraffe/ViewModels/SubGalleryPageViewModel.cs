@@ -1,33 +1,22 @@
-﻿using MonocleGiraffe.Helpers;
-using MonocleGiraffe.Models;
-using XamarinImgur.APIWrappers;
-using System;
+﻿using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.ViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Template10.Common;
-using Template10.Mvvm;
 using Template10.Services.NavigationService;
-using Template10.Utils;
-using Windows.ApplicationModel;
-using Windows.UI;
-using Windows.UI.Xaml.Navigation;
-using System.Threading;
-using MonocleGiraffe.Pages;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using Windows.UI.Xaml.Data;
 using Windows.Foundation;
-using System.Runtime.InteropServices.WindowsRuntime;
-using MonocleGiraffe.Portable.Models;
-using MonocleGiraffe.Portable.ViewModels;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Navigation;
+using XamarinImgur.APIWrappers;
 
 namespace MonocleGiraffe.ViewModels
 {
-    public class SubGalleryPageViewModel : Portable.ViewModels.SubGalleryViewModel, INavigable
+    public class SubGalleryPageViewModel : SubGalleryViewModel, INavigable
     {
         public INavigationService NavigationService { get; set; }
         public IDispatcherWrapper Dispatcher { get; set; }

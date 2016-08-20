@@ -24,10 +24,10 @@ namespace MonocleGiraffe.Helpers
         private void Init()
         {
             transfersPageViewModel = new Lazy<TransfersPageViewModel>();
-            browserPageViewModel = new Lazy<BrowserPageViewModel>();
 
             SimpleIoc.Default.Register<SubGalleryPageViewModel>();
             SimpleIoc.Default.Register<FrontPageViewModel>();
+            SimpleIoc.Default.Register<BrowserPageViewModel>();
         }
 
         private void InitDesignTime()
@@ -41,8 +41,7 @@ namespace MonocleGiraffe.Helpers
 
         public FrontPageViewModel FrontPageViewModel { get { return SimpleIoc.Default.GetInstance<FrontPageViewModel>(); } }
 
-        private Lazy<BrowserPageViewModel> browserPageViewModel;
-        public BrowserPageViewModel BrowserPageViewModel { get { return browserPageViewModel.Value; } }
+        public BrowserPageViewModel BrowserPageViewModel { get { return SimpleIoc.Default.GetInstance<BrowserPageViewModel>(); } }
 
         public SubGalleryPageViewModel SubGalleryPageViewModel { get { return SimpleIoc.Default.GetInstance<SubGalleryPageViewModel>(); } }
 

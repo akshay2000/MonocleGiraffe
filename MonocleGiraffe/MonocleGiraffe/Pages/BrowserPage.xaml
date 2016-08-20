@@ -9,7 +9,8 @@
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     xmlns:controls="using:MonocleGiraffe.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=BrowserPageViewModel}">
 
     <Page.Resources>
         <DataTemplate x:Key="ImageTemplate">
@@ -25,10 +26,6 @@
             ImageTemplate="{StaticResource ImageTemplate}"
             AlbumTemplate="{StaticResource AlbumTemplate}"/>           
     </Page.Resources>
-
-    <Page.DataContext>
-        <vm:BrowserPageViewModel/>
-    </Page.DataContext>    
 
     <Grid Background="Black">
         <controls:IncrementalFlipView 

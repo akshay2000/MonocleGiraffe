@@ -59,6 +59,7 @@
     <Compile Include="Models\IJsonizable.cs" />
     <Compile Include="Models\SubredditItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="ViewModels\FrontViewModel.cs" />
     <Compile Include="ViewModels\Front\GalleryViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />

@@ -8,17 +8,14 @@
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:controls="using:MonocleGiraffe.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=BrowserPageViewModel}">
 
     <Page.Resources>
         <DataTemplate x:Key="ImageTemplate">
             <templates:SubredditImageTemplate/>
         </DataTemplate>
     </Page.Resources>
-    
-    <Page.DataContext>
-        <vm:BrowserPageViewModel/>
-    </Page.DataContext>
 
     <Grid Background="Black">
         <controls:IncrementalFlipView 
