@@ -10,6 +10,10 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using MonocleGiraffe.Portable.ViewModels;
+using Android.Support.V7.Widget;
+using MonocleGiraffe.Portable.Models;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -24,8 +28,35 @@ namespace MonocleGiraffe.Android.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
             return inflater.Inflate(Resource.Layout.Front_Gallery, container, false);
+        }
+
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState);
+
+            GalleryRecyclerView.SetLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical));
+            var adapter = Vm.GalleryVM.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
+            GalleryRecyclerView.SetAdapter(adapter);
+            Vm.GalleryVM.Images.LoadMoreAsync(60);
+        }
+
+        private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
+        {
+            var textView = holder.FindCachedViewById<TextView>(Resource.Id.textView1);
+            textView.Text = item.Title;
+        }
+
+        public FrontViewModel Vm { get { return App.Locator.Front; } }
+
+        private RecyclerView galleryRecyclerView;
+        public RecyclerView GalleryRecyclerView
+        {
+            get
+            {
+                galleryRecyclerView = galleryRecyclerView ?? View.FindViewById<RecyclerView>(Resource.Id.GalleryRecyclerView);
+                return galleryRecyclerView;
+            }
         }
     }
 }

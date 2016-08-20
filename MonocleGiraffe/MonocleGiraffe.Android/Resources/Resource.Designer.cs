@@ -97,6 +97,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f050005
 			public const int EditText = 2131034117;
 			
+			// aapt resource value: 0x7f050002
+			public const int GalleryRecyclerView = 2131034114;
+			
 			// aapt resource value: 0x7f050006
 			public const int LogInButton = 2131034118;
 			
@@ -123,9 +126,6 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f050004
 			public const int reddits_list = 2131034116;
-			
-			// aapt resource value: 0x7f050002
-			public const int textClock1 = 2131034114;
 			
 			// aapt resource value: 0x7f05000b
 			public const int textView1 = 2131034123;

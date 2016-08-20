@@ -46,7 +46,7 @@ namespace XamarinImgur.Models
         public string Vote { get; set; }
 
         [JsonProperty("favorite")]
-        public bool Favorite { get; set; }
+        public bool? Favorite { get; set; }
 
         [JsonProperty("nsfw")]
         public bool? Nsfw { get; set; }

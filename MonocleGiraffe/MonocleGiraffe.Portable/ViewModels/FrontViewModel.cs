@@ -17,6 +17,16 @@ namespace MonocleGiraffe.Portable.ViewModels
             navigationService = nav;
         }
 
+        private GalleryViewModel galleryVM;
+        public GalleryViewModel GalleryVM
+        {
+            get
+            {
+                galleryVM = galleryVM ?? new GalleryViewModel(navigationService, IsInDesignMode);
+                return galleryVM;
+            }
+        }
+
         private SubredditsViewModel subredditsVM;
         public SubredditsViewModel SubredditsVM
         {

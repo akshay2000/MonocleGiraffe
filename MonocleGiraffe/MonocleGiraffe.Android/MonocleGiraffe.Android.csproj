@@ -91,6 +91,7 @@
     <Compile Include="Fragments\GalleryFragment.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
+    <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
     <Compile Include="LibraryImpl\InstanceManager.cs" />
     <Compile Include="LibraryImpl\RoamingDataHelper.cs" />

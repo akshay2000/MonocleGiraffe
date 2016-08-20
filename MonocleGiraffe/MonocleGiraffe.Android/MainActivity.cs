@@ -65,7 +65,7 @@ namespace MonocleGiraffe.Android
         {
             string secrets = LoadSecretsFile();
             Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
-            MonocleGiraffe.Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper());
+            MonocleGiraffe.Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
         }
 
         private void LogInButton_Click(object sender, EventArgs e)

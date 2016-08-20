@@ -358,7 +358,7 @@ namespace MonocleGiraffe.Portable.Models
 
         private void SetFavourite()
         {
-            IsFavourited = image.Favorite;
+            IsFavourited = image.Favorite ?? false;
         }
 
         bool isFavourited = false;
