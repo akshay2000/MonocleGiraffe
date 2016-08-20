@@ -13,5 +13,6 @@ namespace MonocleGiraffe.Portable.ViewModels
         public const string SubredditBrowserPageKey = "SubredditBrowserPage";
         public const string BrowserPageKey = "BrowserPage";
         public const string EditItemPageKey = "EditItemPage";
+        public const string SelfBrowserPageKey = "SelfBrowserPage";
     }
 }

@@ -76,7 +76,7 @@ namespace MonocleGiraffe.ViewModels
                     SearchVM = SearchVM ?? new SearchViewModel(SubredditsVM);
                     break;
                 case 3:
-                    AccountVM = AccountVM ?? new AccountViewModel();
+                    AccountVM = AccountVM ?? new AccountViewModel(navigationService);
                     break;
             }
         }
@@ -213,9 +213,7 @@ namespace MonocleGiraffe.ViewModels
         private void InitDesignTime()
         {
             PivotIndex = 0;
-            AccountVM = new AccountViewModel();
-        }
-
-     
+            AccountVM = new AccountViewModel(navigationService);
+        }     
     }
 }
