@@ -118,6 +118,7 @@
     <Compile Include="Controls\ExtendedSplash.xaml.cs">
       <DependentUpon>ExtendedSplash.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Extensions\TextBlockExtensions.cs" />
     <Compile Include="Controls\Extensions\ToggleButtonExtensions.cs" />
     <Compile Include="Controls\Extensions\ToggleMenuFlyoutItemExtensions.cs" />
     <Compile Include="Controls\ImageUserControl.xaml.cs">

@@ -121,7 +121,7 @@
                     <controls:ImageUserControl/>
                 </Viewbox>
                 <Border Background="#FF333333" Grid.Row="2" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
-                    <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                    <TextBlock ext:TextBlockExtensions.Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                 </Border>
             </Grid>
         </DataTemplate>
@@ -170,7 +170,7 @@
                 </ListView.HeaderTemplate>
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
+                        <TextBlock ext:TextBlockExtensions.Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
@@ -196,7 +196,7 @@
                 Grid.Row="1">
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
+                        <TextBlock ext:TextBlockExtensions.Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}"/>
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>

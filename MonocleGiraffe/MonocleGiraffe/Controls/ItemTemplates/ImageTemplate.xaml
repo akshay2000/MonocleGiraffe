@@ -67,7 +67,7 @@
                     </Viewbox>
 
                     <Border Background="#FF333333" Grid.Row="2" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
-                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                        <TextBlock ext:TextBlockExtensions.Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                     </Border>
                 </Grid>
             </ScrollViewer>
@@ -95,7 +95,7 @@
                     </Viewbox>
 
                     <Border Background="#FF333333" Grid.Row="1" Visibility="{Binding Description, Converter={StaticResource TextVisibilityConverter}}">
-                        <TextBlock Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
+                        <TextBlock ext:TextBlockExtensions.Text="{Binding Description}" FontSize="15" Margin="12" TextWrapping="Wrap"/>
                     </Border>
                 </Grid>
             </ScrollViewer>
