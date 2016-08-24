@@ -73,7 +73,7 @@ namespace MonocleGiraffe.ViewModels
                     break;
                 case 2:
                     SubredditsVM = SubredditsVM ?? new SubredditsViewModel(navigationService);
-                    SearchVM = SearchVM ?? new SearchViewModel(SubredditsVM);
+                    SearchVM = SearchVM ?? new SearchViewModel(SubredditsVM, navigationService);
                     break;
                 case 3:
                     AccountVM = AccountVM ?? new AccountViewModel(navigationService);

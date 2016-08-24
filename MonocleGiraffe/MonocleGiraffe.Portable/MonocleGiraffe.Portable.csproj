@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\FrontViewModel.cs" />
     <Compile Include="ViewModels\Front\AccountViewModel.cs" />
     <Compile Include="ViewModels\Front\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\Front\SearchViewModel.cs" />
     <Compile Include="ViewModels\Front\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\IViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

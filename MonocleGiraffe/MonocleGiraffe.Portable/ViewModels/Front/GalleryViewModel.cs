@@ -340,8 +340,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             var gallery = (await Topics.GetTopicGallery(TopicId, Sort, (int)page)).Content;
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
-
-        private ISettingsHelper settings;
+        
         public ISettingsHelper Settings
         {
             get
