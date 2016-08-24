@@ -29,6 +29,9 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         private async Task Init()
         {
+#if DEBUG
+            UserName = "akshay2000";
+#endif
             if (AuthenticationHelper.IsAuthIntended())
             {
                 await Load();

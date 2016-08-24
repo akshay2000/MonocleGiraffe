@@ -36,5 +36,16 @@ namespace MonocleGiraffe.Portable.ViewModels
                 return subredditsVM;
             }
         }
+
+        private AccountViewModel accountVM;
+        public AccountViewModel AccountVM
+        {
+            get
+            {
+                accountVM = accountVM ?? new AccountViewModel(navigationService, IsInDesignMode);
+                return accountVM;
+            }
+        }
+
     }
 }

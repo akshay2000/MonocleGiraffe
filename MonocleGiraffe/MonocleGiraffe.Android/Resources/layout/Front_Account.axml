@@ -19,7 +19,7 @@
             android:textSize="15dp"
             android:fontFamily="sans-serif-black" />
         <TextView
-            android:text="akshay2000"
+            android:text="Eric Prince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/UserNameTextView"

@@ -10,11 +10,14 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using MonocleGiraffe.Portable.ViewModels.Front;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace MonocleGiraffe.Android.Fragments
 {
     public class AccountFragment : global::Android.Support.V4.App.Fragment
     {
+        List<Binding> bindings = new List<Binding>();
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,5 +30,23 @@ namespace MonocleGiraffe.Android.Fragments
             // Use this to return your custom view for this Fragment
             return inflater.Inflate(Resource.Layout.Front_Account, container, false);
         }
+
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState);
+            bindings.Add(this.SetBinding(() => Vm.UserName, () => UserNameTextView.Text));
+        }
+
+        public AccountViewModel Vm { get { return App.Locator.Front.AccountVM; } }
+
+        private TextView userNameTextView;
+        public TextView UserNameTextView
+        {
+            get
+            {
+                userNameTextView = userNameTextView ?? View.FindViewById<TextView>(Resource.Id.UserNameTextView);
+                return userNameTextView;
+            }
+        }        
     }
 }
