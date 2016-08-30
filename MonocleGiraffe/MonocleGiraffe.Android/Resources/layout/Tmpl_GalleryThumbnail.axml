@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/LayoutRoot"
+    android:layout_margin="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:background="@android:color/holo_red_dark">
+    <FFImageLoading.Views.ImageViewAsync
+        android:id="@+id/Thumbnail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:background="#00ff00"
+        android:adjustViewBounds="true" />
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="#4d4d4d"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/TitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You're a lizard harry. Don't let anyone tell you otherwise! Lorem Ipsum dolor sit amet"
+                android:layout_span="2"
+                android:layout_marginBottom="6dp"
+                android:textColor="@android:color/white"
+                android:textSize="12dp" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/UpsTextView"
+                android:text="2013"
+                android:layout_weight="1"
+                android:textSize="11dp"
+                android:textColor="#959595" />
+            <TextView
+                android:id="@+id/CommentsTextView"
+                android:text="435"
+                android:layout_weight="1"
+                android:textColor="#959595"
+                android:textSize="11dp" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

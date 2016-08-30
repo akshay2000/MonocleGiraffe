@@ -43,7 +43,7 @@ namespace MonocleGiraffe.Android.Fragments
             BindCollection();
             Vm.PropertyChanged += Vm_PropertyChanged;
 
-           // Vm.Images.LoadMoreAsync(60);
+            Vm.Images.LoadMoreAsync(60);
         }
 
         private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -54,15 +54,28 @@ namespace MonocleGiraffe.Android.Fragments
 
         private void BindCollection()
         {
-            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
+            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail);
             GalleryRecyclerView.SetAdapter(adapter);
         }
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
-            var layoutRoot = holder.FindCachedViewById<LinearLayout>(Resource.Id.LayoutRoot);
             var thumbnail = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+            thumbnail.Post(() =>
+            {
+                var height = item.BigThumbRatio * thumbnail.Width;
+                var layoutParams = thumbnail.LayoutParameters;
+                layoutParams.Height = (int)Math.Floor(height);
+                thumbnail.LayoutParameters = layoutParams;
+            });
             ImageService.Instance.LoadUrl(item.BigThumbnail).Into(thumbnail);
+
+            var title = holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView);
+            title.Text = item.Title;
+            var ups = holder.FindCachedViewById<TextView>(Resource.Id.UpsTextView);
+            ups.Text = item.Ups.ToString();
+            var comments = holder.FindCachedViewById<TextView>(Resource.Id.CommentsTextView);
+            comments.Text = item.CommentCount.ToString();
         }
 
         public GalleryViewModel Vm { get { return App.Locator.Front.GalleryVM; } }

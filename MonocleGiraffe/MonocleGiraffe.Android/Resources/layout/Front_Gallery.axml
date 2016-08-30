@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">    
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/GalleryRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:minHeight="25px"
+    android:background="#000">
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/GalleryRecyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
 </LinearLayout>
