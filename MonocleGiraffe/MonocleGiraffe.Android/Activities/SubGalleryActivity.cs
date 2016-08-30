@@ -15,6 +15,9 @@ using MonocleGiraffe.Portable.Models;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using Android.Support.V7.Widget;
+using FFImageLoading.Views;
+using FFImageLoading;
+using MonocleGiraffe.Android.Controls;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -23,6 +26,7 @@ namespace MonocleGiraffe.Android.Activities
     {
         private readonly List<Binding> bindings = new List<Binding>();
         private ObservableRecyclerAdapter<GalleryItem, CachingViewHolder> adapter;
+        private GridAutofitLayoutManager layoutManager;
 
         public NavigationService Nav
         {
@@ -37,7 +41,8 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SubGallery);
-            SubGalleryRecyclerView.SetLayoutManager(new GridLayoutManager(this, 3));
+            layoutManager = new GridAutofitLayoutManager(this, 240);
+            SubGalleryRecyclerView.SetLayoutManager(layoutManager);
 
             //Hacky way to bind
             Vm.PropertyChanged += Vm_PropertyChanged;
@@ -62,8 +67,16 @@ namespace MonocleGiraffe.Android.Activities
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
-            var textView = holder.FindCachedViewById<TextView>(Resource.Id.textView1);
-            textView.Text = item.Title;
+            var layoutRoot = holder.ItemView;
+            layoutRoot.Post(() =>
+            {
+                var width = layoutRoot.Width;
+                var layoutParams = layoutRoot.LayoutParameters;
+                layoutParams.Height = width;
+                layoutRoot.LayoutParameters = layoutParams;
+            });
+            var thumbnailView = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+            ImageService.Instance.LoadUrl(item.Thumbnail).Into(thumbnailView);
         }
 
         public SubGalleryViewModel Vm { get { return App.Locator.SubGallery; } }

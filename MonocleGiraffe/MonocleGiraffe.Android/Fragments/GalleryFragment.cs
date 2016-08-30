@@ -15,6 +15,8 @@ using Android.Support.V7.Widget;
 using MonocleGiraffe.Portable.Models;
 using GalaSoft.MvvmLight.Helpers;
 using MonocleGiraffe.Portable.ViewModels.Front;
+using FFImageLoading.Views;
+using FFImageLoading;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -41,7 +43,7 @@ namespace MonocleGiraffe.Android.Fragments
             BindCollection();
             Vm.PropertyChanged += Vm_PropertyChanged;
 
-            Vm.Images.LoadMoreAsync(60);
+           // Vm.Images.LoadMoreAsync(60);
         }
 
         private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -58,8 +60,9 @@ namespace MonocleGiraffe.Android.Fragments
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
-            var textView = holder.FindCachedViewById<TextView>(Resource.Id.textView1);
-            textView.Text = item.Title;
+            var layoutRoot = holder.FindCachedViewById<LinearLayout>(Resource.Id.LayoutRoot);
+            var thumbnail = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+            ImageService.Instance.LoadUrl(item.BigThumbnail).Into(thumbnail);
         }
 
         public GalleryViewModel Vm { get { return App.Locator.Front.GalleryVM; } }
