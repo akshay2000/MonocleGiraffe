@@ -97,11 +97,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\BrowserActivity.cs" />
     <Compile Include="Activities\FrontActivity.cs" />
     <Compile Include="Activities\SubGalleryActivity.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Controls\GridAutofitLayoutManager.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
+    <Compile Include="Fragments\BrowserItemFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
@@ -148,6 +150,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Tmpl_GalleryThumbnail.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Tmpl_Image.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Tmpl_Album.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Browser.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -38,7 +38,8 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            GalleryRecyclerView.SetLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical));
+            var layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical);
+            GalleryRecyclerView.SetLayoutManager(layoutManager);
             //Hacky way to bind
             BindCollection();
             Vm.PropertyChanged += Vm_PropertyChanged;
@@ -54,8 +55,14 @@ namespace MonocleGiraffe.Android.Fragments
 
         private void BindCollection()
         {
-            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail);
+            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail, ItemClicked);
             GalleryRecyclerView.SetAdapter(adapter);
+        }
+
+        //Action<int, View, int, View> clickListener = new Action<int, View, int, View>()
+        private void ItemClicked(int oldPosition, View oldView, int position, View view)
+        {
+            Vm.ImageTapped(position);
         }
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
@@ -93,6 +100,7 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnDestroyView()
         {
             galleryRecyclerView = null;
+            Vm.PropertyChanged -= Vm_PropertyChanged;
             base.OnDestroyView();
         }        
     }

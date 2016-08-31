@@ -46,6 +46,7 @@ namespace MonocleGiraffe.Android.ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
             SimpleIoc.Default.Register<SubGalleryViewModel>();
+            SimpleIoc.Default.Register<BrowserViewModel>();
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
@@ -53,6 +54,8 @@ namespace MonocleGiraffe.Android.ViewModels
         public FrontViewModel Front { get { return ServiceLocator.Current.GetInstance<FrontViewModel>(); } }
 
         public SubGalleryViewModel SubGallery { get { return ServiceLocator.Current.GetInstance<SubGalleryViewModel>(); } }
+
+        public BrowserViewModel Browser { get { return ServiceLocator.Current.GetInstance<BrowserViewModel>(); } }
         
         public static void Cleanup()
         {

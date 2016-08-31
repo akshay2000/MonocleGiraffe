@@ -154,6 +154,11 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         }
 
         protected GalleryMetaInfo galleryMetaInfo;
+
+        public void ImageTapped(int tappedIndex)
+        {
+            ImageTapped(Images[tappedIndex]);
+        }
         
         public void ImageTapped(GalleryItem clickedItem)
         {
@@ -162,7 +167,6 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             galleryMetaInfo = new GalleryMetaInfo { Gallery = Images, SelectedIndex = ImageSelectedIndex };
             StateHelper.SessionState[navigationParamName] = galleryMetaInfo;
             navigationService.NavigateTo(PageKeyHolder.BrowserPageKey, navigationParamName);
-            return;
         }
 
         private bool isPaneOpen;
