@@ -37,7 +37,7 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Browser);
-            var param = Nav.GetAndRemoveParameter(Intent);
+            var param = Nav.GetAndRemoveParameter(Intent) ?? "GalleryInfo";
             Vm.Activate(param);
             adapter = new BrowserAdapter(Vm.Images, SupportFragmentManager);
             BrowserPager.Adapter = adapter;
@@ -63,8 +63,7 @@ namespace MonocleGiraffe.Android.Activities
             {
                 this.images = images;
             }
-
-
+            
             public override int Count
             {
                 get
@@ -75,7 +74,7 @@ namespace MonocleGiraffe.Android.Activities
 
             public override global::Android.Support.V4.App.Fragment GetItem(int position)
             {
-                return new BrowserItemFragment(images.ElementAt(position));
+                return BrowserItemFragment.NewInstance(position);
             }
         }
     }    

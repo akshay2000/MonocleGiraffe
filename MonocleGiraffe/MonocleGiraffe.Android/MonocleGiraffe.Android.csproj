@@ -102,6 +102,7 @@
     <Compile Include="Activities\SubGalleryActivity.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Controls\GridAutofitLayoutManager.cs" />
+    <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BrowserItemFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
