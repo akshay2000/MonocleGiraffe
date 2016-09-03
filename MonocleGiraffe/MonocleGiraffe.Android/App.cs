@@ -28,6 +28,7 @@ namespace MonocleGiraffe.Android
                     nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontActivity));
                     nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryActivity));
                     nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserActivity));
+                    nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(BrowserActivity));
 
                     locator = new ViewModelLocator();
                 }

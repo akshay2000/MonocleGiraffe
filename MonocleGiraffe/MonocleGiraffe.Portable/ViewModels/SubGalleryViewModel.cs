@@ -49,6 +49,12 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         protected GalleryMetaInfo galleryMetaInfo;
 
+        public void ImageTapped(int index)
+        {
+            var item = Images[index];
+            ImageTapped(item);
+        }
+
         public void ImageTapped(GalleryItem clickedItem)
         {
             const string navigationParamName = "GalleryInfo";

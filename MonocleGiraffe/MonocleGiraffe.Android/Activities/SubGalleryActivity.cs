@@ -61,7 +61,7 @@ namespace MonocleGiraffe.Android.Activities
 
         private void BindCollection()
         {
-            adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail);
+            adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail, ItemClicked);
             SubGalleryRecyclerView.SetAdapter(adapter);
         }
 
@@ -77,6 +77,11 @@ namespace MonocleGiraffe.Android.Activities
             });
             var thumbnailView = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
             ImageService.Instance.LoadUrl(item.Thumbnail).Into(thumbnailView);
+        }
+
+        private void ItemClicked(int oldPosition, View oldView, int position, View view)
+        {
+            Vm.ImageTapped(position);
         }
 
         public SubGalleryViewModel Vm { get { return App.Locator.SubGallery; } }

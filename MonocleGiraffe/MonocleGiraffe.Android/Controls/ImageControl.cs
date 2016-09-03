@@ -83,7 +83,6 @@ namespace MonocleGiraffe.Android.Controls
         {
             var layParams = view.LayoutParameters;
             var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
-            //var width = LayoutRoot.Width;
             var height = (int)Math.Ceiling((item.Height / (double)item.Width) * width);
             layParams.Width = width;
             layParams.Height = height;
