@@ -15,5 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" 
             android:layout_gravity="center"/>
+      <TextView
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DescriptionTextView" />
     </LinearLayout>
 </ScrollView>

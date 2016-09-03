@@ -59,7 +59,6 @@ namespace MonocleGiraffe.Android.Fragments
             GalleryRecyclerView.SetAdapter(adapter);
         }
 
-        //Action<int, View, int, View> clickListener = new Action<int, View, int, View>()
         private void ItemClicked(int oldPosition, View oldView, int position, View view)
         {
             Vm.ImageTapped(position);

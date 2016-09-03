@@ -165,6 +165,9 @@
     <AndroidResource Include="Resources\layout\Ctrl_Image.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Tmpl_Item_Album.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

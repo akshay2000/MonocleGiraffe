@@ -82,11 +82,24 @@ namespace MonocleGiraffe.Android.Controls
         private void SetDimensions(View view, IGalleryItem item)
         {
             var layParams = view.LayoutParameters;
-            var width = Math.Min(LayoutRoot.Width, item.Width);
+            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
+            //var width = LayoutRoot.Width;
             var height = (int)Math.Ceiling((item.Height / (double)item.Width) * width);
             layParams.Width = width;
             layParams.Height = height;
             view.LayoutParameters = layParams;
+        }
+
+        private int PxToDp(int px)
+        {
+            int dp = (int)Math.Round(px / Resources.DisplayMetrics.Density);
+            return dp;
+        }
+
+        private int DpToPx(int dp)
+        {
+            int px = (int)Math.Round(dp * Resources.DisplayMetrics.Density + 0.5f);
+            return px;
         }
 
         private ImageViewAsync mainImageView;
