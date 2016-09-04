@@ -37,6 +37,16 @@ namespace MonocleGiraffe.Portable.ViewModels
             }
         }
 
+        private SearchViewModel searchVM;
+        public SearchViewModel SearchVM
+        {
+            get
+            {
+                searchVM = searchVM ?? new SearchViewModel(SubredditsVM, navigationService, IsInDesignMode);
+                return searchVM;
+            }
+        }
+
         private AccountViewModel accountVM;
         public AccountViewModel AccountVM
         {

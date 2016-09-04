@@ -89,6 +89,12 @@ namespace MonocleGiraffe.Android
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f060005
+			public const int Gray = 2131099653;
+			
+			// aapt resource value: 0x7f060004
+			public const int ImgurGreen = 2131099652;
+			
 			// aapt resource value: 0x7f060000
 			public const int cardview_dark_background = 2131099648;
 			
@@ -161,23 +167,26 @@ namespace MonocleGiraffe.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050011
-			public const int AlbumRecyclerView = 2131034129;
+			// aapt resource value: 0x7f050016
+			public const int AlbumRecyclerView = 2131034134;
 			
 			// aapt resource value: 0x7f050001
 			public const int BrowserPager = 2131034113;
 			
-			// aapt resource value: 0x7f050014
-			public const int CommentsTextView = 2131034132;
+			// aapt resource value: 0x7f050019
+			public const int CommentsTextView = 2131034137;
 			
-			// aapt resource value: 0x7f050016
-			public const int DescriptionTextView = 2131034134;
+			// aapt resource value: 0x7f05001b
+			public const int DescriptionTextView = 2131034139;
 			
-			// aapt resource value: 0x7f05000b
-			public const int EditText = 2131034123;
+			// aapt resource value: 0x7f050010
+			public const int EditText = 2131034128;
 			
 			// aapt resource value: 0x7f050008
 			public const int GalleryRecyclerView = 2131034120;
+			
+			// aapt resource value: 0x7f05000d
+			public const int GifsButton = 2131034125;
 			
 			// aapt resource value: 0x7f050006
 			public const int HelloTextView = 2131034118;
@@ -185,11 +194,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f050002
 			public const int LayoutRoot = 2131034114;
 			
-			// aapt resource value: 0x7f05000c
-			public const int LogInButton = 2131034124;
+			// aapt resource value: 0x7f050011
+			public const int LogInButton = 2131034129;
 			
-			// aapt resource value: 0x7f050015
-			public const int MainImage = 2131034133;
+			// aapt resource value: 0x7f05001a
+			public const int MainImage = 2131034138;
 			
 			// aapt resource value: 0x7f050004
 			public const int MainImageView = 2131034116;
@@ -200,26 +209,38 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f050003
 			public const int MainVideoView = 2131034115;
 			
+			// aapt resource value: 0x7f05000c
+			public const int PostsButton = 2131034124;
+			
 			// aapt resource value: 0x7f05000e
-			public const int SubGalleryRecyclerView = 2131034126;
+			public const int QueryEditText = 2131034126;
 			
-			// aapt resource value: 0x7f050010
-			public const int SubTitleTextView = 2131034128;
-			
-			// aapt resource value: 0x7f050017
-			public const int SubtitleTextView = 2131034135;
-			
-			// aapt resource value: 0x7f05000d
-			public const int TextView = 2131034125;
-			
-			// aapt resource value: 0x7f050012
-			public const int Thumbnail = 2131034130;
+			// aapt resource value: 0x7f05000b
+			public const int RedditsButton = 2131034123;
 			
 			// aapt resource value: 0x7f05000f
-			public const int TitleTextView = 2131034127;
+			public const int ResultsFrame = 2131034127;
 			
 			// aapt resource value: 0x7f050013
-			public const int UpsTextView = 2131034131;
+			public const int SubGalleryRecyclerView = 2131034131;
+			
+			// aapt resource value: 0x7f050015
+			public const int SubTitleTextView = 2131034133;
+			
+			// aapt resource value: 0x7f05001c
+			public const int SubtitleTextView = 2131034140;
+			
+			// aapt resource value: 0x7f050012
+			public const int TextView = 2131034130;
+			
+			// aapt resource value: 0x7f050017
+			public const int Thumbnail = 2131034135;
+			
+			// aapt resource value: 0x7f050014
+			public const int TitleTextView = 2131034132;
+			
+			// aapt resource value: 0x7f050018
+			public const int UpsTextView = 2131034136;
 			
 			// aapt resource value: 0x7f050007
 			public const int UserNameTextView = 2131034119;
@@ -265,28 +286,31 @@ namespace MonocleGiraffe.Android
 			public const int Front_Reddits = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int Main = 2130903046;
+			public const int Front_Search = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int SubGallery = 2130903047;
+			public const int Main = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int Tmpl_Album = 2130903048;
+			public const int SubGallery = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int Tmpl_GalleryThumbnail = 2130903049;
+			public const int Tmpl_Album = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int Tmpl_Image = 2130903050;
+			public const int Tmpl_GalleryThumbnail = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int Tmpl_Item_Album = 2130903051;
+			public const int Tmpl_Image = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int Tmpl_SubredditItem = 2130903052;
+			public const int Tmpl_Item_Album = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int Tmpl_SubredditThumbnail = 2130903053;
+			public const int Tmpl_SubredditItem = 2130903053;
+			
+			// aapt resource value: 0x7f03000e
+			public const int Tmpl_SubredditThumbnail = 2130903054;
 			
 			static Layout()
 			{

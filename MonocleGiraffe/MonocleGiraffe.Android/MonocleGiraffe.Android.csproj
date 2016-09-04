@@ -107,6 +107,7 @@
     <Compile Include="Fragments\BrowserItemFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
+    <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
@@ -168,6 +169,9 @@
     <AndroidResource Include="Resources\layout\Tmpl_Item_Album.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Front_Search.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -198,6 +202,9 @@
       <Visible>False</Visible>
       <Version>1.2.3.1</Version>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

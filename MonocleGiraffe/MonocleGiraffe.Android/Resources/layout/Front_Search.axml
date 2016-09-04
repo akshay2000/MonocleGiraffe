@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:background="#000000">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+        <TextView
+            android:text="REDDITS"
+            android:layout_width="75dp"
+            android:layout_height="25dp"
+            android:id="@+id/RedditsButton"
+            android:gravity="center"
+            android:layout_margin="6dp"
+            android:background="#1eec88"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#ffffff" />
+        <TextView
+            android:text="POSTS"
+            android:layout_width="75dp"
+            android:layout_height="25dp"
+            android:id="@+id/PostsButton"
+            android:gravity="center"
+            android:layout_margin="6dp"
+            android:background="#333333"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#ffffff" />
+        <TextView
+            android:text="GIFS"
+            android:layout_width="75dp"
+            android:layout_height="25dp"
+            android:id="@+id/GifsButton"
+            android:gravity="center"
+            android:layout_margin="6dp"
+            android:background="#333333"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/QueryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search awesomeness"
+        android:layout_margin="12dp" />
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/ResultsFrame" />
+</LinearLayout>

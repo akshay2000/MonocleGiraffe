@@ -34,6 +34,7 @@ namespace MonocleGiraffe.Android.Activities
 
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
+            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
         }
     }
@@ -42,7 +43,7 @@ namespace MonocleGiraffe.Android.Activities
     {
         public FrontPagerAdapter(global::Android.Support.V4.App.FragmentManager f) : base(f) { }
 
-        public override int Count { get { return 3; } }
+        public override int Count { get { return 4; } }
 
         public override global::Android.Support.V4.App.Fragment GetItem(int position)
         {
@@ -53,6 +54,8 @@ namespace MonocleGiraffe.Android.Activities
                 case 1:
                     return Reddits;
                 case 2:
+                    return Search;
+                case 3:
                     return Account;
             }
             Log.Debug("FrontActivity", $"position was {position}");
@@ -76,6 +79,16 @@ namespace MonocleGiraffe.Android.Activities
             {
                 reddits = reddits ?? new RedditFragment();
                 return reddits;
+            }
+        }
+
+        private SearchFragment search;
+        private SearchFragment Search
+        {
+            get
+            {
+                search = search ?? new SearchFragment();
+                return search;
             }
         }
 
