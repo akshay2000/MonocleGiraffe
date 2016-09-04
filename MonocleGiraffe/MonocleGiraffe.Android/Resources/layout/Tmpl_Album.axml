@@ -3,10 +3,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/TitleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="#252525">
+            <TextView
+                android:id="@+id/TitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="#ffffff" />
+            <TextView
+                android:id="@+id/SubTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#959595"
+                android:text="by akshay2000 • 10241 points" />
+        </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/AlbumRecyclerView"
         android:layout_width="match_parent"

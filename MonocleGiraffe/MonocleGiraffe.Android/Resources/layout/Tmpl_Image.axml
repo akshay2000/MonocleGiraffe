@@ -6,19 +6,37 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/TitleTextView"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="#252525">
+            <TextView
+                android:id="@+id/TitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="#ffffff" />
+            <TextView
+                android:id="@+id/SubTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#959595"
+                android:text="by akshay2000 • 10241 points" />
+        </LinearLayout>
         <monoclegiraffe.android.controls.ImageControl
             android:id="@+id/MainImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_gravity="center"/>
-      <TextView
-        android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/DescriptionTextView" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+        <TextView
+            android:text="Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/DescriptionTextView"
+            android:padding="12dp"
+            android:background="#252525" />
     </LinearLayout>
 </ScrollView>

@@ -18,6 +18,7 @@ using MonocleGiraffe.Android.Controls;
 using MonocleGiraffe.Android.Activities;
 using Android.Support.V7.Widget;
 using GalaSoft.MvvmLight.Helpers;
+using Android.Text;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -52,6 +53,7 @@ namespace MonocleGiraffe.Android.Fragments
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
+            RenderHeader(item);
             if (isAlbum)
                 RenderAlbum(item);
             else
@@ -59,9 +61,14 @@ namespace MonocleGiraffe.Android.Fragments
             base.OnViewCreated(view, savedInstanceState);
         }
 
-        private void RenderImage(IGalleryItem item)
+        private void RenderHeader(IGalleryItem item)
         {
             Title.Text = item.Title;
+            SubTitle.SetText(Html.FromHtml($"by <font color='#528ACA'>{item.UploaderName}</font> • {item.Ups} points"), TextView.BufferType.Spannable);
+        }
+
+        private void RenderImage(IGalleryItem item)
+        {           
             MainImage.RenderContent(item);
             var hasDescription = !string.IsNullOrEmpty(item.Description);
             var descView = Description;
@@ -120,6 +127,16 @@ namespace MonocleGiraffe.Android.Fragments
             {
                 title = title ?? View.FindViewById<TextView>(Resource.Id.TitleTextView);
                 return title;
+            }
+        }
+
+        private TextView subTitle;
+        public TextView SubTitle
+        {
+            get
+            {
+                subTitle = subTitle ?? View.FindViewById<TextView>(Resource.Id.SubTitleTextView);
+                return subTitle;
             }
         }
 

@@ -9,7 +9,14 @@
         android:text="Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TitleTextView" />
+        android:id="@+id/TitleTextView" 
+        android:background="#333333"
+        android:textColor="#ffffff"
+        android:textSize="15dp"
+        android:paddingLeft="12dp"        
+        android:paddingTop="6dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="6dp"/>
     <monoclegiraffe.android.controls.ImageControl
         android:id="@+id/MainImage"
         android:layout_width="match_parent"
@@ -19,5 +26,9 @@
         android:text="Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/DescriptionTextView" />
+        android:id="@+id/DescriptionTextView"
+        android:background="#333333"
+        android:textColor="#ffffff"
+        android:textSize="15dp"
+        android:padding="12dp"/>
 </LinearLayout>
