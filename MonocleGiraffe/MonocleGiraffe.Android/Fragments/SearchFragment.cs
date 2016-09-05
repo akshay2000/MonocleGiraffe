@@ -13,10 +13,14 @@ using Android.Widget;
 using MonocleGiraffe.Portable.ViewModels.Front;
 using GalaSoft.MvvmLight.Helpers;
 using Android.Graphics.Drawables;
+using MonocleGiraffe.Portable.Models;
+using Android.Support.V7.Widget;
+using FFImageLoading.Views;
+using FFImageLoading;
 
 namespace MonocleGiraffe.Android.Fragments
 {
-    public class SearchFragment : global::Android.Support.V4.App.Fragment
+    public partial class SearchFragment : global::Android.Support.V4.App.Fragment
     {
         List<Binding> bindings = new List<Binding>();
         public override void OnCreate(Bundle savedInstanceState)
@@ -40,9 +44,18 @@ namespace MonocleGiraffe.Android.Fragments
             bindings.Add(this.SetBinding(() => Vm.IsPosts, () => PostsButton.Background).ConvertSourceToTarget(ConvertBoolToDrawable));
             bindings.Add(this.SetBinding(() => Vm.IsGifs, () => GifsButton.Background).ConvertSourceToTarget(ConvertBoolToDrawable));
 
-            RedditsButton.SetCommand("Click", Vm.SearchCommand, "Reddits");
-            PostsButton.SetCommand("Click", Vm.SearchCommand, "Posts");
-            GifsButton.SetCommand("Click", Vm.SearchCommand, "Gifs");
+            bindings.Add(this.SetBinding(() => Vm.QueryText, () => QueryEditText.Text, BindingMode.TwoWay));
+
+            RedditsButton.Click += TypeButton_Click;
+            PostsButton.Click += TypeButton_Click;
+            GifsButton.Click += TypeButton_Click;
+        }
+
+        private void TypeButton_Click(object sender, EventArgs e)
+        {
+            string type = (string)(sender as TextView)?.Tag;
+            Vm.SearchCommand.Execute(type);
+            RefreshUI();
         }
 
         private Drawable ConvertBoolToDrawable(bool flag)
@@ -51,40 +64,70 @@ namespace MonocleGiraffe.Android.Fragments
             return new ColorDrawable(ret);
         }
 
+        private void RefreshUI()
+        {
+            if (Vm.IsReddit)
+            {
+                ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
+                var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditItem);
+                ResultsView.SetAdapter(adapter);
+            }else if (Vm.IsPosts)
+            {
+                ResultsView.SetLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.Vertical));
+                var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail);
+                ResultsView.SetAdapter(adapter);
+            }else if (Vm.IsGifs)
+            {
+                ResultsView.SetLayoutManager(new GridLayoutManager(Context, 2));
+                var adapter = Vm.Posts.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail);
+                ResultsView.SetAdapter(adapter);
+            }
+            else
+            {
+                //ResultsView.GetAdapter()
+            }
+        }
+
+        private void BindRedditView(CachingViewHolder holder, SubredditItem item, int position)
+        {
+            holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView).Text = item.Title;
+            holder.FindCachedViewById<TextView>(Resource.Id.SubtitleTextView).Text = $"/r/{item.Url} • {item.Subscribers} Subscribers";
+        }
+
+        private void BindPostView(CachingViewHolder holder, GalleryItem item, int position)
+        {
+            var thumbnail = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+            thumbnail.Post(() =>
+            {
+                var height = item.BigThumbRatio * thumbnail.Width;
+                var layoutParams = thumbnail.LayoutParameters;
+                layoutParams.Height = (int)Math.Floor(height);
+                thumbnail.LayoutParameters = layoutParams;
+            });
+            ImageService.Instance.LoadUrl(item.BigThumbnail).Into(thumbnail);
+
+            var title = holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView);
+            title.Text = item.Title;
+            var ups = holder.FindCachedViewById<TextView>(Resource.Id.UpsTextView);
+            ups.Text = item.Ups.ToString();
+            var comments = holder.FindCachedViewById<TextView>(Resource.Id.CommentsTextView);
+            comments.Text = item.CommentCount.ToString();
+        }
+
+        private void BindGifView(CachingViewHolder holder, GalleryItem item, int position)
+        {
+            var layoutRoot = holder.ItemView;
+            layoutRoot.Post(() =>
+            {
+                var width = layoutRoot.Width;
+                var layoutParams = layoutRoot.LayoutParameters;
+                layoutParams.Height = width;
+                layoutRoot.LayoutParameters = layoutParams;
+            });
+            var thumbnailView = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+            ImageService.Instance.LoadUrl(item.Thumbnail).Into(thumbnailView);
+        }
+
         public SearchViewModel Vm { get { return App.Locator.Front.SearchVM; } }
-
-        #region Views
-
-        private TextView redditsButton;
-        private TextView RedditsButton
-        {
-            get
-            {
-                redditsButton = redditsButton ?? View.FindViewById<TextView>(Resource.Id.RedditsButton);
-                return redditsButton;
-            }
-        }
-
-        private TextView postsButton;
-        private TextView PostsButton
-        {
-            get
-            {
-                postsButton = postsButton ?? View.FindViewById<TextView>(Resource.Id.PostsButton);
-                return postsButton;
-            }
-        }
-
-        private TextView gifsButton;
-        private TextView GifsButton
-        {
-            get
-            {
-                gifsButton  = gifsButton ?? View.FindViewById<TextView>(Resource.Id.GifsButton);
-                return gifsButton;
-            }
-        }
-
-        #endregion
     }
 }

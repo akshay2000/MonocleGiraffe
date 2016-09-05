@@ -101,6 +101,7 @@
     <Compile Include="Activities\FrontActivity.cs" />
     <Compile Include="Activities\SubGalleryActivity.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Controls\FontTextView.cs" />
     <Compile Include="Controls\GridAutofitLayoutManager.cs" />
     <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Fragments\GalleryFragment.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
+    <Compile Include="Fragments\SearchFragment.ui.cs" />
+    <Compile Include="Helpers\FontManager.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
@@ -126,6 +129,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidAsset>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\Fonts\MaterialIcons-Regular.ttf" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
@@ -205,6 +209,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Colors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Attrs.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
