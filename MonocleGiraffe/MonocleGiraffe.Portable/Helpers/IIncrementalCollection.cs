@@ -8,7 +8,7 @@ namespace MonocleGiraffe.Portable.Helpers
 {
     public interface IIncrementalCollection
     {
-        void LoadMoreAsync(uint count);
+        Task LoadMoreAsync(uint count);
 
         bool HasMore { get; }
     }

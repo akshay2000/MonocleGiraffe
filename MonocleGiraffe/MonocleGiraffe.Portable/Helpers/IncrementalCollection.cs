@@ -32,11 +32,11 @@ namespace MonocleGiraffe.Portable.Helpers
         {
             get
             {
-                throw new NotImplementedException();
+                return HasMoreItemsImpl();
             }
         }
 
-        public async void LoadMoreAsync(uint count)
+        public async Task LoadMoreAsync(uint count)
         {
             await LoadMoreAsync(default(CancellationToken), count);
         }

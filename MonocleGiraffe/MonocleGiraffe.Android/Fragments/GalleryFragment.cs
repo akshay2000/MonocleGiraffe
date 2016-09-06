@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.Helpers;
 using MonocleGiraffe.Portable.ViewModels.Front;
 using FFImageLoading.Views;
 using FFImageLoading;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -25,8 +26,6 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,6 +38,7 @@ namespace MonocleGiraffe.Android.Fragments
             base.OnActivityCreated(savedInstanceState);
 
             var layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical);
+            GalleryRecyclerView.AddOnScrollListener(new ScrollListener(Vm.Images));
             GalleryRecyclerView.SetLayoutManager(layoutManager);
             //Hacky way to bind
             BindCollection();

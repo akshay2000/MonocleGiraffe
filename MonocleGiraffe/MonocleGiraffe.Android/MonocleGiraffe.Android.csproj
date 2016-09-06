@@ -111,6 +111,7 @@
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchFragment.ui.cs" />
     <Compile Include="Helpers\FontManager.cs" />
+    <Compile Include="Helpers\ScrollListener.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
