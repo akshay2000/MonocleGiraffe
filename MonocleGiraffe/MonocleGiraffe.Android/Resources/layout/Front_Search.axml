@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:controls="http://schemas.android.com/apk/res-auto"              
+    xmlns:controls="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,24 +47,15 @@
             android:background="#333333"
             android:fontFamily="sans-serif-black"
             android:textColor="#ffffff" />
-      <monoclegiraffe.android.controls.FontTextView
-        android:text="&#xE145;"
-            android:tag="Gifs"
-            android:layout_width="75dp"
-            android:layout_height="25dp"
-            android:id="@+id/GifsButton"
-            android:gravity="center"
-            android:layout_margin="6dp"
-            android:background="#333333"
-            controls:typeface="@string/TF_Material"
-            android:textColor="#ffffff" />        
     </LinearLayout>
     <EditText
         android:id="@+id/QueryEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Search awesomeness"
-        android:layout_margin="12dp" />
+        android:layout_margin="12dp"
+        android:inputType="text"
+        android:imeOptions="actionSearch"/>
     <TextView
         android:text="Search results"
         android:layout_width="match_parent"
@@ -74,18 +65,18 @@
         android:layout_marginBottom="6dp"
         android:textColor="#959595"
         android:textSize="12dp" />
-  <FrameLayout
-      android:minWidth="25px"
-      android:minHeight="25px"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:id="@+id/ResultsFrame"
-      android:paddingLeft="6dp"
-      android:paddingRight="6dp">
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/ResultsRecyclerView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-  </FrameLayout>
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/ResultsFrame"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ResultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 </LinearLayout>

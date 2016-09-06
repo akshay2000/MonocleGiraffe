@@ -81,6 +81,18 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             NavigateToBrowser(Gifs);
         }
 
+        public void SubredditTapped(int position)
+        {
+            SubredditTapped(Subreddits[position]);
+        }
+
+        public void SubredditTapped(SubredditItem item)
+        {
+            subredditsVM.GoToSub.Execute(item);
+        }
+
+        public RelayCommand<SubredditItem> ToggleFavorite => subredditsVM.ToggleFavorite;
+
         private void NavigateToBrowser(IncrementalPosts imageCollection)
         {
             const string navigationParamName = "GalleryInfo";

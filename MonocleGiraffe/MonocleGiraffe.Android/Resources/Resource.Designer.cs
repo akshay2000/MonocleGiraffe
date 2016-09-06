@@ -170,11 +170,17 @@ namespace MonocleGiraffe.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f05001e
+			public const int AddButton = 2131034142;
+			
 			// aapt resource value: 0x7f050017
 			public const int AlbumRecyclerView = 2131034135;
 			
 			// aapt resource value: 0x7f050001
 			public const int BrowserPager = 2131034113;
+			
+			// aapt resource value: 0x7f05001f
+			public const int CheckButton = 2131034143;
 			
 			// aapt resource value: 0x7f05001a
 			public const int CommentsTextView = 2131034138;
@@ -316,7 +322,10 @@ namespace MonocleGiraffe.Android
 			public const int Tmpl_SubredditItem = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int Tmpl_SubredditThumbnail = 2130903054;
+			public const int Tmpl_SubredditResult = 2130903054;
+			
+			// aapt resource value: 0x7f03000f
+			public const int Tmpl_SubredditThumbnail = 2130903055;
 			
 			static Layout()
 			{

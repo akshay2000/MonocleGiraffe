@@ -49,6 +49,17 @@ namespace MonocleGiraffe.Android.Fragments
             RedditsButton.Click += TypeButton_Click;
             PostsButton.Click += TypeButton_Click;
             GifsButton.Click += TypeButton_Click;
+
+            QueryEditText.EditorAction += QueryEditText_EditorAction;
+        }
+
+        private void QueryEditText_EditorAction(object sender, TextView.EditorActionEventArgs e)
+        {
+            if (e.ActionId == global::Android.Views.InputMethods.ImeAction.Search)
+            {
+                Vm.SearchCommand.Execute("default");
+                RefreshUI();
+            }
         }
 
         private void TypeButton_Click(object sender, EventArgs e)
@@ -69,14 +80,16 @@ namespace MonocleGiraffe.Android.Fragments
             if (Vm.IsReddit)
             {
                 ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
-                var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditItem);
+                var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditResult, ItemClick);
                 ResultsView.SetAdapter(adapter);
-            }else if (Vm.IsPosts)
+            }
+            else if (Vm.IsPosts)
             {
                 ResultsView.SetLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.Vertical));
                 var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail);
                 ResultsView.SetAdapter(adapter);
-            }else if (Vm.IsGifs)
+            }
+            else if (Vm.IsGifs)
             {
                 ResultsView.SetLayoutManager(new GridLayoutManager(Context, 2));
                 var adapter = Vm.Posts.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail);
@@ -88,10 +101,29 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
+        private void ItemClick(int oldPosition, View oldView, int position, View view)
+        {
+            Vm.SubredditTapped(position);
+        }
+
         private void BindRedditView(CachingViewHolder holder, SubredditItem item, int position)
         {
-            holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView).Text = item.Title;
+            holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView).Text = item.Title.Replace("&amp;", "&");
             holder.FindCachedViewById<TextView>(Resource.Id.SubtitleTextView).Text = $"/r/{item.Url} • {item.Subscribers} Subscribers";
+
+            var addButton = holder.FindCachedViewById<TextView>(Resource.Id.AddButton);
+            var addButtonVisibilityBinding = new Binding<bool, ViewStates>(item, () => item.IsFavorited, addButton, () => addButton.Visibility).ConvertSourceToTarget((flag) => flag ? ViewStates.Gone : ViewStates.Visible);
+            holder.DeleteBinding(nameof(addButtonVisibilityBinding)); 
+            holder.SaveBinding(nameof(addButtonVisibilityBinding), addButtonVisibilityBinding);
+
+            addButton.SetCommand("Click", Vm.ToggleFavorite, item);
+
+            var checkButton = holder.FindCachedViewById<TextView>(Resource.Id.CheckButton);
+            var checkButtonVisibilityBinding = new Binding<bool, ViewStates>(item, () => item.IsFavorited, checkButton, () => checkButton.Visibility).ConvertSourceToTarget((flag) => !flag ? ViewStates.Gone : ViewStates.Visible);
+            holder.DeleteBinding(nameof(checkButtonVisibilityBinding));
+            holder.SaveBinding(nameof(checkButtonVisibilityBinding), checkButtonVisibilityBinding);
+
+            checkButton.SetCommand("Click", Vm.ToggleFavorite, item);
         }
 
         private void BindPostView(CachingViewHolder holder, GalleryItem item, int position)
