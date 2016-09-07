@@ -23,18 +23,27 @@ namespace MonocleGiraffe.Android.Helpers
         public ScrollListener(IEnumerable<object> collection)
         {
             this.collection = collection;
+            if (collection is IIncrementalCollection && collection.Count() == 0)
+                LoadMore();
         }
 
-        public override async void OnScrolled(RecyclerView recyclerView, int dx, int dy)
+        public override void OnScrolled(RecyclerView recyclerView, int dx, int dy)
         {
+            base.OnScrolled(recyclerView, dx, dy);
+
             if (!(collection is IIncrementalCollection))
                 return;
-            var incrementalCollection = (IIncrementalCollection)collection;
-
-            base.OnScrolled(recyclerView, dx, dy);
+            
             var layoutManager = recyclerView.GetLayoutManager();
             var lastItem = GetLastVisibleItem(layoutManager);
-            if (lastItem + treshold > collection.Count() && dy > 0 && incrementalCollection.HasMore && !isLoading)
+            if (lastItem + treshold > collection.Count() && dy > 0)
+                LoadMore();
+        }
+
+        private async void LoadMore()
+        {
+            var incrementalCollection = collection as IIncrementalCollection;
+            if (incrementalCollection.HasMore && !isLoading)
             {
                 isLoading = true;
                 await incrementalCollection.LoadMoreAsync(treshold);

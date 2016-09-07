@@ -42,9 +42,7 @@ namespace MonocleGiraffe.Android.Fragments
             GalleryRecyclerView.SetLayoutManager(layoutManager);
             //Hacky way to bind
             BindCollection();
-            Vm.PropertyChanged += Vm_PropertyChanged;
-
-            Vm.Images.LoadMoreAsync(60);
+            Vm.PropertyChanged += Vm_PropertyChanged;            
         }
 
         private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
