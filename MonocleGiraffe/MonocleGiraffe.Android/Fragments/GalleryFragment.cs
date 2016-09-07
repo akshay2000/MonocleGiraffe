@@ -23,6 +23,8 @@ namespace MonocleGiraffe.Android.Fragments
 {
     public class GalleryFragment : global::Android.Support.V4.App.Fragment
     {
+        private List<Binding> bindings = new List<Binding>();
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,23 +40,17 @@ namespace MonocleGiraffe.Android.Fragments
             base.OnActivityCreated(savedInstanceState);
 
             var layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical);
-            GalleryRecyclerView.AddOnScrollListener(new ScrollListener(Vm.Images));
-            GalleryRecyclerView.SetLayoutManager(layoutManager);
-            //Hacky way to bind
-            BindCollection();
-            Vm.PropertyChanged += Vm_PropertyChanged;            
+            GalleryRecyclerView.SetLayoutManager(layoutManager);         
+            bindings.Add(Vm.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
         }
-
-        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Images")
-                BindCollection();
-        }
-
+        
         private void BindCollection()
         {
             var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail, ItemClicked);
             GalleryRecyclerView.SetAdapter(adapter);
+            GalleryRecyclerView.ClearOnScrollListeners();
+            var listener = new ScrollListener(Vm.Images);
+            GalleryRecyclerView.AddOnScrollListener(listener);
         }
 
         private void ItemClicked(int oldPosition, View oldView, int position, View view)
@@ -97,8 +93,13 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnDestroyView()
         {
             galleryRecyclerView = null;
-            Vm.PropertyChanged -= Vm_PropertyChanged;
             base.OnDestroyView();
-        }        
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
+        }
     }
 }

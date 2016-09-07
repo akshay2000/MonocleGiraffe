@@ -18,6 +18,7 @@ using Android.Support.V7.Widget;
 using FFImageLoading.Views;
 using FFImageLoading;
 using MonocleGiraffe.Android.Controls;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -43,26 +44,18 @@ namespace MonocleGiraffe.Android.Activities
             SetContentView(Resource.Layout.SubGallery);
             layoutManager = new GridAutofitLayoutManager(this, 240);
             SubGalleryRecyclerView.SetLayoutManager(layoutManager);
-
-            //Hacky way to bind
-            Vm.PropertyChanged += Vm_PropertyChanged;
-
+            bindings.Add(Vm.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
             var param = Nav.GetAndRemoveParameter<string>(Intent);
             Vm.Activate(param);
-
-            Vm.Images.LoadMoreAsync(60);
-        }
-
-        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Images")
-                BindCollection();
         }
 
         private void BindCollection()
         {
             adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail, ItemClicked);
             SubGalleryRecyclerView.SetAdapter(adapter);
+            SubGalleryRecyclerView.ClearOnScrollListeners();
+            var listener = new ScrollListener(Vm.Images);
+            SubGalleryRecyclerView.AddOnScrollListener(listener);
         }
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
@@ -82,6 +75,12 @@ namespace MonocleGiraffe.Android.Activities
         private void ItemClicked(int oldPosition, View oldView, int position, View view)
         {
             Vm.ImageTapped(position);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
         }
 
         public SubGalleryViewModel Vm { get { return App.Locator.SubGallery; } }

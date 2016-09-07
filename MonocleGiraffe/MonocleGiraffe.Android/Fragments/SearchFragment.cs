@@ -17,12 +17,15 @@ using MonocleGiraffe.Portable.Models;
 using Android.Support.V7.Widget;
 using FFImageLoading.Views;
 using FFImageLoading;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Fragments
 {
     public partial class SearchFragment : global::Android.Support.V4.App.Fragment
     {
         List<Binding> bindings = new List<Binding>();
+        private ScrollListener listener;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -75,23 +78,27 @@ namespace MonocleGiraffe.Android.Fragments
 
         private void RefreshUI()
         {
+            ResultsView.ClearOnScrollListeners();
             if (Vm.IsReddit)
             {
                 ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
                 var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditResult, ItemClick);
                 ResultsView.SetAdapter(adapter);
+                ResultsView.AddOnScrollListener(new ScrollListener(Vm.Subreddits));
             }
             else if (Vm.IsPosts)
             {
                 ResultsView.SetLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.Vertical));
                 var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail);
                 ResultsView.SetAdapter(adapter);
+                ResultsView.AddOnScrollListener(new ScrollListener(Vm.Posts));
             }
             else if (Vm.IsGifs)
             {
                 ResultsView.SetLayoutManager(new GridLayoutManager(Context, 2));
-                var adapter = Vm.Posts.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail);
+                var adapter = Vm.Gifs.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail);
                 ResultsView.SetAdapter(adapter);
+                ResultsView.AddOnScrollListener(new ScrollListener(Vm.Gifs));
             }
             else
             {
