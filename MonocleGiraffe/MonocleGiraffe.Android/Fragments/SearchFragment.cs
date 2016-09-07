@@ -165,6 +165,12 @@ namespace MonocleGiraffe.Android.Fragments
             ImageService.Instance.LoadUrl(item.Thumbnail).Into(thumbnailView);
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
+        }
+
         public SearchViewModel Vm { get { return App.Locator.Front.SearchVM; } }
     }
 }

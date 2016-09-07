@@ -37,6 +37,12 @@ namespace MonocleGiraffe.Android.Fragments
             bindings.Add(this.SetBinding(() => Vm.UserName, () => UserNameTextView.Text));
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
+        }
+
         public AccountViewModel Vm { get { return App.Locator.Front.AccountVM; } }
 
         private TextView userNameTextView;

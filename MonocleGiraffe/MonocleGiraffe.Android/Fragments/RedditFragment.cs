@@ -53,6 +53,12 @@ namespace MonocleGiraffe.Android.Fragments
             return ret;
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
+        }
+
         public FrontViewModel Vm { get { return App.Locator.Front; } }        
 
         private ListView subreddisListView;

@@ -86,6 +86,12 @@ namespace MonocleGiraffe.Android
             return content;
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach((b) => b.Detach());
+        }
+
         //private void SaveButton_Click(object sender, EventArgs e)
         //{
         //    var editText = FindViewById<EditText>(Resource.Id.EditText);
