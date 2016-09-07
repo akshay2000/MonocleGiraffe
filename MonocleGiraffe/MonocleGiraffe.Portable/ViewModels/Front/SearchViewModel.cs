@@ -8,6 +8,7 @@ using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.Portable.Helpers;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Command;
+using System;
 
 namespace MonocleGiraffe.Portable.ViewModels.Front
 {
@@ -70,9 +71,23 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         public void ImageTapped(object sender, object parameter)
         {
-            var clickedItem = parameter as GalleryItem;
-            ImageSelectedIndex = Posts.IndexOf(clickedItem);
+            var clickedItem = parameter as GalleryItem;            
+        }
+
+        public void ImageTapped(int index)
+        {
+            ImageTapped(Posts[index]);
+        }
+
+        public void ImageTapped(GalleryItem item)
+        {
+            ImageSelectedIndex = Posts.IndexOf(item);
             NavigateToBrowser(Posts);
+        }
+
+        public void GifTapped(int position)
+        {
+            GifTapped(Gifs[position]);
         }
 
         public void GifTapped(GalleryItem clickedItem)
@@ -130,7 +145,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
                         SearchGifs(QueryText);
                     break;
             }
-        }
+        }        
 
         #region Reddit
 

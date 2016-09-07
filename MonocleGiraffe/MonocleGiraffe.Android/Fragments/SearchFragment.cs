@@ -82,21 +82,21 @@ namespace MonocleGiraffe.Android.Fragments
             if (Vm.IsReddit)
             {
                 ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
-                var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditResult, ItemClick);
+                var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditResult, SubredditItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Subreddits));
             }
             else if (Vm.IsPosts)
             {
                 ResultsView.SetLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.Vertical));
-                var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail);
+                var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail, PostItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Posts));
             }
             else if (Vm.IsGifs)
             {
                 ResultsView.SetLayoutManager(new GridLayoutManager(Context, 2));
-                var adapter = Vm.Gifs.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail);
+                var adapter = Vm.Gifs.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail, GifItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Gifs));
             }
@@ -106,9 +106,19 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
-        private void ItemClick(int oldPosition, View oldView, int position, View view)
+        private void SubredditItemClick(int oldPosition, View oldView, int position, View view)
         {
             Vm.SubredditTapped(position);
+        }
+
+        private void PostItemClick(int oldPosition, View oldView, int position, View view)
+        {
+            Vm.ImageTapped(position);
+        }
+
+        private void GifItemClick(int oldPosition, View oldView, int position, View view)
+        {
+            Vm.GifTapped(position);
         }
 
         private void BindRedditView(CachingViewHolder holder, SubredditItem item, int position)
