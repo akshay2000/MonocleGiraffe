@@ -29,9 +29,11 @@
 
     <Grid Background="Black">
         <controls:IncrementalFlipView 
+            x:Name="MainFlipView"
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"
-            Background="Black"/>
+            Background="Black"
+            SelectionChanged="MainFlipView_SelectionChanged"/>
     </Grid>
 </Page>

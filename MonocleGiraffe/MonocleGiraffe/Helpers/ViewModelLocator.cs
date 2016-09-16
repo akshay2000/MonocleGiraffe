@@ -32,6 +32,8 @@ namespace MonocleGiraffe.Helpers
 
         private void InitDesignTime()
         {
+            var nav = new MergedNavigationService(App.Current.NavigationService);
+            SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
             Init();
         }
 
