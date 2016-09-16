@@ -202,7 +202,7 @@ namespace MonocleGiraffe.Portable.Models
         bool isLoadingComments = false;
         public bool IsLoadingComments { get { return isLoadingComments; } set { Set(ref isLoadingComments, value); } }
 
-        private const string DUMMY = "ms-appx:///Assets/DummyImage.png";
+        private const string DUMMY = "http://i.imgur.com/EKuEM9F.png";
 
         private string smallThumbnail = DUMMY;
         public string SmallThumbnail

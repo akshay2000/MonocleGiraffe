@@ -41,7 +41,7 @@ namespace MonocleGiraffe.Android.Fragments
 
             var layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical);
             GalleryRecyclerView.SetLayoutManager(layoutManager);         
-            bindings.Add(Vm.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
+            bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
         }
         
         private void BindCollection()
