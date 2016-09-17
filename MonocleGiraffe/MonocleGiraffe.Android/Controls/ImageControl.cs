@@ -19,6 +19,8 @@ namespace MonocleGiraffe.Android.Controls
 {
     public class ImageControl : FrameLayout
     {
+       // GestureDetector detector;
+
         public ImageControl(Context context) : base(context)
         {
             Initialize();
@@ -56,20 +58,32 @@ namespace MonocleGiraffe.Android.Controls
                 default:
                     throw new NotSupportedException($"Itemtype {item.ItemType.ToString()} is not supported.");
             }
+        }        
+
+        private void RenderVideo(IGalleryItem item)
+        {
+            //detector = new GestureDetector(new GestureListener(MainVideoView));
+            LayoutRoot.Post(() => SetDimensions(MainVideoView, item));
+            MainVideoView.Visibility = ViewStates.Visible;
+            MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(item.Mp4));
+            MediaController controller = new MediaController(Context);
+            controller.SetAnchorView(MainVideoView);
+            controller.SetMediaPlayer(MainVideoView);
+            MainVideoView.SetMediaController(controller);
+            //MainVideoView.Start();
+            //MainVideoView.SeekTo(100);
+           // MainVideoView.Touch += MainVideoView_Touch;
+            MainVideoView.Prepared += MainVideoView_Prepared;
+        }
+
+        private void MainVideoView_Touch(object sender, TouchEventArgs e)
+        {
+            //detector.OnTouchEvent(e.Event);
         }
 
         private void MainVideoView_Prepared(object sender, EventArgs e)
         {
             (sender as MediaPlayer).Looping = true;
-        }
-
-        private void RenderVideo(IGalleryItem item)
-        {
-            LayoutRoot.Post(() => SetDimensions(MainVideoView, item));
-            MainVideoView.Visibility = ViewStates.Visible;
-            MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(item.Mp4));
-            MainVideoView.Start();
-            MainVideoView.Prepared += MainVideoView_Prepared;
         }
 
         private void RenderImage(IGalleryItem item)
@@ -128,6 +142,24 @@ namespace MonocleGiraffe.Android.Controls
             {
                 layoutRoot = layoutRoot ?? FindViewById<View>(Resource.Id.LayoutRoot);
                 return layoutRoot;
+            }
+        }
+
+        private class GestureListener : GestureDetector.SimpleOnGestureListener
+        {
+            VideoView view;
+            public GestureListener(VideoView view)
+            {
+                this.view = view;
+            }
+
+            public override bool OnSingleTapConfirmed(MotionEvent e)
+            {
+                if (view.IsPlaying)
+                    view.Pause();
+                else
+                    view.Start();
+                return true;
             }
         }
     }
