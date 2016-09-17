@@ -8,6 +8,7 @@
     xmlns:templates="using:MonocleGiraffe.Controls.ItemTemplates"
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:controls="using:MonocleGiraffe.Controls"
+    xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=BrowserPageViewModel}">
 
@@ -15,13 +16,20 @@
         <DataTemplate x:Key="ImageTemplate">
             <templates:SubredditImageTemplate/>
         </DataTemplate>
+        <DataTemplate x:Key="AlbumTemplte">
+            <templates:SubredditAlbumTemplate/>
+        </DataTemplate>
+
+        <selectors:ImageTemplateSelector x:Key="Selector" ImageTemplate="{StaticResource ImageTemplate}" AlbumTemplate="{StaticResource AlbumTemplte}"/>
     </Page.Resources>
 
     <Grid Background="Black">
         <controls:IncrementalFlipView 
+            x:Name="MainFlipView"
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
-            ItemTemplate="{StaticResource ImageTemplate}" 
-            Background="Black"/>
+            ItemTemplateSelector="{StaticResource Selector}"
+            Background="Black"
+            SelectionChanged="MainFlipView_SelectionChanged"/>
     </Grid>
 </Page>

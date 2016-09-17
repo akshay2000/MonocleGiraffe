@@ -94,6 +94,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="analytics.xml" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -151,6 +152,9 @@
     </Compile>
     <Compile Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml.cs">
       <DependentUpon>SquareThumbnailTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ItemTemplates\SubredditAlbumTemplate.xaml.cs">
+      <DependentUpon>SubredditAlbumTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ItemTemplates\SubredditImageTemplate.xaml.cs">
       <DependentUpon>SubredditImageTemplate.xaml</DependentUpon>
@@ -367,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTemplates\SquareThumbnailTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ItemTemplates\SubredditAlbumTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

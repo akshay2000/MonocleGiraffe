@@ -18,7 +18,7 @@ namespace MonocleGiraffe.ViewModels
         public IDispatcherWrapper Dispatcher { get; set; }
         public IStateItems SessionState { get; set; }
 
-        public BrowserPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav):base(nav)
+        public BrowserPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav)
         { }
         
         public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)

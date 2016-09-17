@@ -26,5 +26,10 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();
         }
+
+        private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GoogleAnalytics.EasyTracker.GetTracker().SendView("GalleryBrowserItem");
+        }
     }
 }

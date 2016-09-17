@@ -40,6 +40,7 @@ namespace MonocleGiraffe
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             await InitLibrary();
+            GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Lifecycle", startKind.ToString(), null, 0);
 
             var nav = new MergedNavigationService(NavigationService);
             nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
