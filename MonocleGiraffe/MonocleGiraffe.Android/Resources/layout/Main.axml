@@ -12,11 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Log_In" />
-    <!--<Button
-        android:id="@+id/GetButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Get" />-->
     <TextView
         android:id="@+id/TextView"
         android:layout_width="match_parent"

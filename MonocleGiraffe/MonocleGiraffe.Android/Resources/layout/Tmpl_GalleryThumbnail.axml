@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
-        android:background="#00ff00"
+        android:background="#959595"
         android:adjustViewBounds="true" />
     <TableLayout
         android:minWidth="25px"

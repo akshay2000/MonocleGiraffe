@@ -68,7 +68,10 @@ namespace MonocleGiraffe.Android.Fragments
                 layoutParams.Height = (int)Math.Floor(height);
                 thumbnail.LayoutParameters = layoutParams;
             });
-            ImageService.Instance.LoadUrl(item.BigThumbnail).Into(thumbnail);
+            holder.DeleteBinding(thumbnail);
+            var imageBinding = new Binding<string, string>(item, () => item.BigThumbnail).WhenSourceChanges(() => { ImageService.Instance.LoadUrl(item.BigThumbnail).Into(thumbnail); });
+            holder.SaveBinding(thumbnail, imageBinding);
+            
 
             var title = holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView);
             title.Text = item.Title;
