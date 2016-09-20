@@ -21,7 +21,6 @@ namespace MonocleGiraffe
     /// </summary>
     sealed partial class App : Template10.Common.BootStrapper
     {
-        private ExtendedSplash splash;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,11 +29,6 @@ namespace MonocleGiraffe
         {
             HockeyClient.Current.Configure("00cd7c1e6d7c4bb6ad3adfb6f1ae7d1a");
             this.InitializeComponent();
-            SplashFactory = (e) =>
-            {
-                splash = new ExtendedSplash(e);
-                return splash;
-            };            
         }
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
@@ -43,64 +37,14 @@ namespace MonocleGiraffe
             GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Lifecycle", startKind.ToString(), null, 0);
 
             var nav = new MergedNavigationService(NavigationService);
+            nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontPage));
             nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
             nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
             nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserPage));
-            SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
-            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
-
-            if (AuthenticationHelper.IsAuthIntended())
-            {
-                splash.IsLoading = true;
-                JObject result = null;
-                bool isSuccess = false;
-                string errorMessage = "Could not connect to the internet";
-
-                try
-                {
-                    result = await ShakeHands();
-                }
-                catch (AuthException e)
-                {
-                    if (e.Reason == AuthException.AuthExceptionReason.HttpError)
-                        errorMessage = e.Message;
-                    else
-                        isSuccess = true;
-                }
-
-                if (result != null && result.HasValues)
-                {
-                    isSuccess = (bool)result["success"];
-                    if (!isSuccess)
-                    {
-                        await SecretsHelper.RefreshAccessToken();
-                        result = await ShakeHands();
-                        isSuccess = (bool)result["success"];
-                        errorMessage = JsonConvert.SerializeObject(result["data"], Formatting.Indented);
-                    }
-                }
-                if (!isSuccess)
-                {
-                    ShowError(errorMessage, "Connection Error");
-                    return;
-                }
-            }
-            NavigationService.Navigate(typeof(FrontPage));
-        }
-
-        private async Task<JObject> ShakeHands()
-        {
-            string userName = await SecretsHelper.GetUserName();
-            const string urlPattern = "account/{0}/images/count";
-            string url = string.Format(urlPattern, userName);
-            JObject result = await NetworkHelper.ExecuteRequest(url);
-            return result;
-        }
-
-        private void ShowError(string message, string title)
-        {
-            splash.IsLoading = false;
-            splash.ErrorMessage = message;
+            if(!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
+                SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());            
+            NavigationService.Navigate(typeof(Pages.SplashScreen));
         }
 
         private async Task InitLibrary()

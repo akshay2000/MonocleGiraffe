@@ -41,6 +41,11 @@ namespace XamarinImgur.Helpers
             return result.ResponseData;
         }
 
+        public static void SetAuthIntention(bool flag)
+        {
+            SettingsHelper.SetLocalValue(isAuthIntendedKey, flag);
+        }
+
         private static async Task<Dictionary<string, string>> GetAuthResult()
         {           
             authResult = authResult ?? await Auth();            

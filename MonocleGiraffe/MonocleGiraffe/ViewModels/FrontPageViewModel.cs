@@ -36,7 +36,6 @@ namespace MonocleGiraffe.ViewModels
             PivotIndex = 0;
         }
 
-
         GalleryViewModel galleryVM = default(GalleryViewModel);
         public GalleryViewModel GalleryVM { get { return galleryVM; } set { Set(ref galleryVM, value); } }
 

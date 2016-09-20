@@ -16,7 +16,12 @@ namespace MonocleGiraffe.Helpers
 
         public void Configure(string pageKey, Type pageType)
         {
-            keyConfiguration[pageKey] = pageType;
+            keyConfiguration[pageKey] = pageType;            
+        }
+
+        public void Clear()
+        {
+            t10Nav.ClearHistory();
         }
 
         #region INavigationService
