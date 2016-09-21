@@ -99,6 +99,10 @@ namespace MonocleGiraffe.Portable.ViewModels
             {
                 result = await GetCredis();
                 isSuccess = (bool)result["success"];
+                if (!isSuccess)
+                {
+                    Message = (string)result["data"]["error"];
+                }
             }
             catch
             {
@@ -113,7 +117,9 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         private async Task<JObject> GetCredis()
         {
-            const string url = "credits";
+            //Credits API lies
+            //Let's do inception by checking this screenshot of app
+            const string url = "image/xpcPXpD";
             JObject result = await NetworkHelper.ExecuteRequest(url);
             return result;
         }

@@ -24,7 +24,8 @@ namespace MonocleGiraffe.LibraryImpl
 
         public async Task<string> GetAsync(Uri uri)
         {
-            return await Client.GetStringAsync(uri);
+            var r = await Client.GetAsync(uri);
+            return await r.Content.ReadAsStringAsync();
         }
 
         public async Task<string> PostAsync(Uri uri, string content, CancellationToken ct, IProgress<HttpProgress> progress)
