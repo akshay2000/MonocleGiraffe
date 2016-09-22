@@ -7,13 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:vm="using:MonocleGiraffe.Portable.ViewModels"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:SplashViewModel/>
+    </Page.DataContext>
 
     <Grid Background="Black" Loaded="Grid_Loaded">
         <StackPanel Padding="12" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Message}"/>
-            <ProgressRing Margin="12" IsActive="True" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Busy}"/>
-            <Button x:Name="RetryButton" Content="Retry" Click="RetryButton_Click" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Error}"/>
+            <Border Height="50">
+                <ProgressRing VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="12" IsActive="True" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Busy}"/>
+            </Border>
+            <TextBlock Text="{Binding Message}" FontSize="32" FontWeight="Light"/>
+            <Grid Height="60">
+                <Button x:Name="RetryButton" Content="Try Again" Click="RetryButton_Click" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AnonError}"/>
+                <Button x:Name="SignInButton" Content="Sign In" Click="SignInButton_Click" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AuthError}"/>
+            </Grid>
         </StackPanel>        
     </Grid>
 </Page>

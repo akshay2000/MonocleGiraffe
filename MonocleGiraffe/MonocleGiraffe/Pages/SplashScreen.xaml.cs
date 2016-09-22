@@ -26,12 +26,9 @@ namespace MonocleGiraffe.Pages
     /// </summary>
     public sealed partial class SplashScreen : Page
     {
-        private SplashViewModel vm;
         public SplashScreen()
         {
             this.InitializeComponent();
-            vm = new SplashViewModel();
-            DataContext = vm;
         }
 
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -46,7 +43,17 @@ namespace MonocleGiraffe.Pages
 
         private async Task GoToFrontPage()
         {
+            var vm = DataContext as SplashViewModel;
             if (await vm.ShakeHands())
+                Frame.Navigate(typeof(FrontPage));
+            await Task.Delay(100);
+            Frame.BackStack.Clear();
+        }
+
+        private async void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as SplashViewModel;
+            if (await vm.SignIn())
                 Frame.Navigate(typeof(FrontPage));
             await Task.Delay(100);
             Frame.BackStack.Clear();

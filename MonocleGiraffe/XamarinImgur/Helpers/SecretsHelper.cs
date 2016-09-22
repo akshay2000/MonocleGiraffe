@@ -105,12 +105,14 @@ namespace XamarinImgur.Helpers
 
         public static async Task RefreshSecrets()
         {
-            string userName = await GetUserName();
-            SettingsHelper.SetLocalValue(userNameKey, userName);
+            userName = null;
+            SettingsHelper.RemoveLocalValue(userNameKey);
+            string newUserName = await GetUserName();
+            SettingsHelper.SetLocalValue(userNameKey, newUserName);
             string accessToken = await AuthenticationHelper.GetAccessToken();
-            GetVault().AddCredential(accessResource, userName, accessToken);
+            GetVault().AddCredential(accessResource, newUserName, accessToken);
             string refreshToken = await AuthenticationHelper.GetRefreshToken();
-            GetVault().AddCredential(refreshResource, userName, refreshToken);
+            GetVault().AddCredential(refreshResource, newUserName, refreshToken);
         }
     }
 }

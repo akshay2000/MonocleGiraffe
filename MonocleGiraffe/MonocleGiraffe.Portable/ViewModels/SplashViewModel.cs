@@ -13,7 +13,16 @@ using XamarinImgur.Helpers;
 namespace MonocleGiraffe.Portable.ViewModels
 {
     public class SplashViewModel : ViewModelBase, INavigable
-    {        
+    {
+        public SplashViewModel()
+        {
+            if (IsInDesignMode)
+            {
+                State = BUSY;
+                Message = "Connecting...";
+            }
+        }
+
         string state = default(string);
         public string State { get { return state; } set { Set(ref state, value); } }
         
@@ -21,7 +30,8 @@ namespace MonocleGiraffe.Portable.ViewModels
         public string Message { get { return message; } set { Set(ref message, value); } }
 
         private const string BUSY = "Busy";
-        private const string ERROR = "Error";
+        private const string ANON_ERROR = "AnonError";
+        private const string AUTH_ERROR = "AuthError";
 
         public async Task<bool> ShakeHands()
         {
@@ -30,7 +40,7 @@ namespace MonocleGiraffe.Portable.ViewModels
             bool anonSuccess = await ShakeAnonHands();
             if (!anonSuccess)
             {
-                State = ERROR;
+                State = ANON_ERROR;
                 return false;
             }
 
@@ -39,7 +49,7 @@ namespace MonocleGiraffe.Portable.ViewModels
                 bool authSuccess = await ShakeAuthHands();
                 if (!authSuccess)
                 {
-                    State = ERROR;
+                    State = AUTH_ERROR;
                     return false;
                 }
             }
@@ -124,6 +134,25 @@ namespace MonocleGiraffe.Portable.ViewModels
             return result;
         }
 
+        public async Task<bool> SignIn()
+        {
+            State = BUSY;
+            try
+            {
+                await SecretsHelper.RefreshSecrets();
+            }
+            catch
+            {
+                Message = "Authentication Error";
+                State = AUTH_ERROR;
+                return false;
+            }
+            bool isSuccess = await ShakeAuthHands();
+            if (!isSuccess)
+                State = AUTH_ERROR;
+            return isSuccess;
+        }
+        
         public void Activate(object parameter)
         {
             throw new NotImplementedException();
