@@ -127,9 +127,7 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         private async Task<JObject> GetCredis()
         {
-            //Credits API lies
-            //Let's do inception by checking this screenshot of app
-            const string url = "image/xpcPXpD";
+            const string url = "credits";
             JObject result = await NetworkHelper.ExecuteRequest(url);
             return result;
         }
