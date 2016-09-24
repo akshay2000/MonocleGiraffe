@@ -25,7 +25,7 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         string state = default(string);
         public string State { get { return state; } set { Set(ref state, value); } }
-        
+
         string message = default(string);
         public string Message { get { return message; } set { Set(ref message, value); } }
 
@@ -150,7 +150,7 @@ namespace MonocleGiraffe.Portable.ViewModels
                 State = AUTH_ERROR;
             return isSuccess;
         }
-        
+
         public void Activate(object parameter)
         {
             throw new NotImplementedException();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MonocleGiraffe.Controls;
+using MonocleGiraffe.Controls.WebAuthBroker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +14,9 @@ namespace MonocleGiraffe.LibraryImpl
     {
         public async Task<AuthResult> AuthenticateAsync(Uri requestUri, Uri callbackUri)
         {
-            var result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, requestUri, callbackUri);
-            var responseData = ParseAuthResult(result.ResponseData);
-            AuthResult ret = new AuthResult(responseData, (AuthResponseStatus)Enum.Parse(typeof(AuthResponseStatus), result.ResponseStatus.ToString()), result.ResponseErrorDetail);
-            return ret;
+            var result = await AuthPage.AuthenticateAsync(requestUri, callbackUri);
+            //throw new NotImplementedException();
+            return result;
         }
 
         public static Dictionary<string, string> ParseAuthResult(string result)
