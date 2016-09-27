@@ -92,23 +92,23 @@ namespace MonocleGiraffe.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f060005
-			public const int Gray = 2131099653;
+			// aapt resource value: 0x7f070005
+			public const int Gray = 2131165189;
 			
-			// aapt resource value: 0x7f060004
-			public const int ImgurGreen = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int ImgurGreen = 2131165188;
 			
-			// aapt resource value: 0x7f060000
-			public const int cardview_dark_background = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int cardview_dark_background = 2131165184;
 			
-			// aapt resource value: 0x7f060001
-			public const int cardview_light_background = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int cardview_light_background = 2131165185;
 			
-			// aapt resource value: 0x7f060002
-			public const int cardview_shadow_end_color = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int cardview_shadow_end_color = 2131165186;
 			
-			// aapt resource value: 0x7f060003
-			public const int cardview_shadow_start_color = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int cardview_shadow_start_color = 2131165187;
 			
 			static Color()
 			{
@@ -371,17 +371,17 @@ namespace MonocleGiraffe.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int Base_CardView = 2131165184;
+			// aapt resource value: 0x7f060001
+			public const int Base_CardView = 2131099649;
 			
-			// aapt resource value: 0x7f070001
-			public const int CardView = 2131165185;
+			// aapt resource value: 0x7f060000
+			public const int CardView = 2131099648;
 			
-			// aapt resource value: 0x7f070002
-			public const int CardView_Dark = 2131165186;
+			// aapt resource value: 0x7f060002
+			public const int CardView_Dark = 2131099650;
 			
-			// aapt resource value: 0x7f070003
-			public const int CardView_Light = 2131165187;
+			// aapt resource value: 0x7f060003
+			public const int CardView_Light = 2131099651;
 			
 			static Style()
 			{
