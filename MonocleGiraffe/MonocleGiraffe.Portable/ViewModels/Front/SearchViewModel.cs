@@ -68,12 +68,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         }
 
         private GalleryMetaInfo galleryMetaInfo;
-
-        public void ImageTapped(object sender, object parameter)
-        {
-            var clickedItem = parameter as GalleryItem;            
-        }
-
+        
         public void ImageTapped(int index)
         {
             ImageTapped(Posts[index]);
@@ -228,11 +223,11 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             Query = query;
         }
 
-        public bool HasMore { get; set; } = true;
+        private bool hasMore = true;
 
         protected override bool HasMoreItemsImpl()
         {
-            return HasMore;
+            return hasMore;
         }
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
@@ -240,7 +235,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             var images = (await Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page)).Content;
             if (images.Count == 0)
             {
-                HasMore = false;
+                hasMore = false;
                 return new List<GalleryItem>();
             }
             return images.Select(i => new GalleryItem(i)).ToList();

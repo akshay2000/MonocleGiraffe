@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid x:Name="LayoutRoot" Background="#FF4D4D4D">
+    <Grid x:Name="LayoutRoot" Background="#FF959595">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
                 <!-- 480p 4.3 inch 768p 4 inch -->
@@ -49,6 +49,6 @@
 
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>        
-        <Image x:Name="Thumbnail" Source="{Binding Thumbnail}" Width="162" Stretch="UniformToFill"/>
+        <Image x:Name="Thumbnail" Source="{Binding Thumbnail}" Width="162" Height="{Binding ElementName=Thumbnail, Path=Width, Mode=OneWay}" Stretch="UniformToFill"/>
     </Grid>
 </UserControl>

@@ -5,19 +5,31 @@ using MonocleGiraffe.Portable.ViewModels.Front;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
+using MonocleGiraffe.Portable.Models;
+using Windows.UI.Xaml.Controls;
 
 namespace MonocleGiraffe.ViewModels.FrontPage
 {
     public class SearchViewModel : Portable.ViewModels.Front.SearchViewModel
     {
-        private SubredditsViewModel subredditsVM;
-
         public SearchViewModel(SubredditsViewModel subredditsVM, GalaSoft.MvvmLight.Views.INavigationService nav) : base(subredditsVM, nav, DesignMode.DesignModeEnabled)
         { }
 
         protected override Portable.ViewModels.Front.IncrementalPosts CreateIncrementalPosts(string query)
         {
             return new IncrementalPosts(query);
+        }
+        
+        public void ImageTapped(object sender, object parameter)
+        {
+            var clickedItem = parameter as GalleryItem;
+            ImageTapped(clickedItem);
+        }
+
+        public void GifTapped(object sender, object parameter)
+        {
+            var clickedItem = (GalleryItem)((ItemClickEventArgs)parameter).ClickedItem;
+            GifTapped(clickedItem);
         }
     }
 
