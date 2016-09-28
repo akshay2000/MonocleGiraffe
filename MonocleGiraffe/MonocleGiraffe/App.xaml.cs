@@ -43,7 +43,8 @@ namespace MonocleGiraffe
             nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserPage));
             if(!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
                 SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
-            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());            
+            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
+            SimpleIoc.Default.Register<RemoteDeviceHelper>();        
             NavigationService.Navigate(typeof(Pages.SplashScreen));
         }
 

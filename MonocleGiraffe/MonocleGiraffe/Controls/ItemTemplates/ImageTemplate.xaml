@@ -136,6 +136,7 @@
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Download" Command="{Binding SaveCommand}"/>
+                <AppBarButton x:Name="OpenRemoteButton" Label="Open on other device" Click="OpenRemoteButton_Click" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>

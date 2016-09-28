@@ -11,7 +11,7 @@
     <AssemblyName>MonocleGiraffe</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -109,6 +109,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RemoteDevicesDialog.xaml.cs">
+      <DependentUpon>RemoteDevicesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WebAuthBrokerOld.xaml.cs">
       <DependentUpon>WebAuthBrokerOld.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,7 @@
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\MergedNavigationService.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
+    <Compile Include="Helpers\RemoteDeviceHelper.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
@@ -328,6 +332,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\RemoteDevicesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\WebAuthBrokerOld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -470,11 +478,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MonocleGiraffe.Portable\MonocleGiraffe.Portable.csproj">
       <Project>{5cd309e9-78ac-4ced-81b9-49a36c0b6d03}</Project>
       <Name>MonocleGiraffe.Portable</Name>
@@ -483,6 +486,11 @@
       <Project>{f4ff4407-03d4-4667-a2b4-ac7cc347da54}</Project>
       <Name>XamarinImgur</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

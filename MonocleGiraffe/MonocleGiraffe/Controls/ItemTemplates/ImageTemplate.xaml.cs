@@ -43,5 +43,11 @@ namespace MonocleGiraffe.Controls.ItemTemplates
             else
                 HideComments();
         }
+
+        private void OpenRemoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RemoteDevicesDialog dialog = new RemoteDevicesDialog();
+            dialog.ShowAsync();
+        }
     }
 }
