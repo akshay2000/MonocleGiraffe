@@ -9,5 +9,7 @@ namespace MonocleGiraffe.Portable.ViewModels
     public interface IViewModelLocator
     {
         TransfersViewModel TransfersViewModel { get; } 
+
+        BrowserViewModel BrowserViewModel { get; }
     }
 }

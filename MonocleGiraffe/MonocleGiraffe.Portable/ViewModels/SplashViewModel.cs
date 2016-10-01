@@ -14,8 +14,12 @@ namespace MonocleGiraffe.Portable.ViewModels
 {
     public class SplashViewModel : ViewModelBase, INavigable
     {
-        public SplashViewModel()
+        protected INavigationService nav;
+        protected bool isUrlLaunch = false;
+
+        public SplashViewModel(INavigationService navigationService)
         {
+            nav = navigationService;
             if (IsInDesignMode)
             {
                 State = BUSY;
@@ -149,6 +153,28 @@ namespace MonocleGiraffe.Portable.ViewModels
             if (!isSuccess)
                 State = AUTH_ERROR;
             return isSuccess;
+        }
+
+        protected async Task ShakeHandsAndNavigate()
+        {
+            if (!(await ShakeHands()))
+                return;
+            await Navigate();
+        }
+
+        protected async Task SignInAndNavigate()
+        {
+            if (!(await SignIn()))
+                return;
+            await Navigate();
+        }
+
+        public virtual async Task Navigate()
+        {
+            if (isUrlLaunch)
+                nav.NavigateTo(PageKeyHolder.BrowserPageKey);
+            else
+                nav.NavigateTo(PageKeyHolder.FrontPageKey);
         }
 
         public void Activate(object parameter)

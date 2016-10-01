@@ -20,34 +20,39 @@ namespace MonocleGiraffe.ViewModels
 
         public BrowserPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav)
         { }
-        
+
+        public IDictionary<string, object> State { get; set; }
+
+        public async Task RestoreState(IDictionary<string, object> state)
+        {
+            string imagesJson = (string)state["images"];
+            string type = (string)state["type"];
+            int index = state["index"] is int ? (int)state["index"] : int.Parse((string)state["index"]);
+
+            IEnumerable<IGalleryItem> collection = null;
+            if (type == typeof(IncrementalGallery).Name) collection = IncrementalGallery.fromJson(imagesJson);
+            if (type == typeof(IncrementalSubredditGallery).Name) collection = (IEnumerable<IGalleryItem>)IncrementalSubredditGallery.fromJson(imagesJson);
+
+            if (collection != null && collection is ISupportIncrementalLoading)
+            {
+                var im = (ISupportIncrementalLoading)collection;
+                while (collection.Count() < index + 1)
+                    await im.LoadMoreItemsAsync(60);
+            }
+            Images = collection;
+            FlipViewIndex = index;
+            state.Clear();
+        }
+
         public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             IsBusy = true;
-            if (state.Any())
-            {
-                string imagesJson = (string)state["images"];
-                string type = (string)state["type"];
-                int index = (int)state["index"];
-
-                IEnumerable<IGalleryItem> collection = null;
-                if (type == typeof(IncrementalGallery).Name) collection = IncrementalGallery.fromJson(imagesJson);
-                if (type == typeof(IncrementalSubredditGallery).Name) collection = (IEnumerable<IGalleryItem>)IncrementalSubredditGallery.fromJson(imagesJson);
-
-                if(collection != null && collection is ISupportIncrementalLoading)
-                {
-                    var im = (ISupportIncrementalLoading)collection;
-                    while (collection.Count() < index)
-                        await im.LoadMoreItemsAsync(60);
-                }
-                Images = collection;
-                FlipViewIndex = index;
-                state.Clear();
-            }
+            if (State != null)
+                await RestoreState(State);
+            else if (state.Any())
+                await RestoreState(state);            
             else
-            {
                 Activate(parameter);
-            }
             IsBusy = false;
         }
 

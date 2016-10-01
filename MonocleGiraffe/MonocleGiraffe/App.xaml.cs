@@ -33,19 +33,33 @@ namespace MonocleGiraffe
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            await InitLibrary();
             GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Lifecycle", startKind.ToString(), null, 0);
+            bool isNewLaunch = args.PreviousExecutionState == ApplicationExecutionState.NotRunning;
+            if (isNewLaunch)
+            {
+                await InitLibrary();
 
-            var nav = new MergedNavigationService(NavigationService);
-            nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontPage));
-            nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
-            nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
-            nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserPage));
-            if(!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
-                SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
-            SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
-            SimpleIoc.Default.Register<RemoteDeviceHelper>();        
-            NavigationService.Navigate(typeof(Pages.SplashScreen));
+                var nav = new MergedNavigationService(NavigationService);
+                nav.Configure(ViewModelLocator.SplashPageKey, typeof(Pages.SplashScreen));
+                nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontPage));
+                nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryPage));
+                nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
+                nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserPage));
+                if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
+                    SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+                SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
+                SimpleIoc.Default.Register<RemoteDeviceHelper>();
+            }
+            JObject navigationParam = new JObject();
+            navigationParam["isNewLaunch"] = isNewLaunch;
+            if (args is ProtocolActivatedEventArgs)
+            {
+                var protoArgs = args as ProtocolActivatedEventArgs;
+                if (args.Kind == ActivationKind.Protocol)
+                    navigationParam["url"] = protoArgs.Uri.AbsoluteUri;
+            }
+            Portable.Helpers.StateHelper.SessionState["LaunchData"] = navigationParam;
+            SimpleIoc.Default.GetInstance< GalaSoft.MvvmLight.Views.INavigationService>().NavigateTo(ViewModelLocator.SplashPageKey);
         }
 
         private async Task InitLibrary()

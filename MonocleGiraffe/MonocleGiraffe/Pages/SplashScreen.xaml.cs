@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Portable.ViewModels;
+using MonocleGiraffe.ViewModels;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,32 +34,17 @@ namespace MonocleGiraffe.Pages
             this.InitializeComponent();
         }
 
-        private async void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            await GoToFrontPage();
-        }
+        //private async void RetryButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    await ShakeHandsAndNavigate();
+        //}
 
-        private async void RetryButton_Click(object sender, RoutedEventArgs e)
-        {
-            await GoToFrontPage();
-        }
-
-        private async Task GoToFrontPage()
-        {
-            var vm = DataContext as SplashViewModel;
-            if (await vm.ShakeHands())
-                Frame.Navigate(typeof(FrontPage));
-            await Task.Delay(100);
-            Frame.BackStack.Clear();
-        }
-
-        private async void SignInButton_Click(object sender, RoutedEventArgs e)
-        {
-            var vm = DataContext as SplashViewModel;
-            if (await vm.SignIn())
-                Frame.Navigate(typeof(FrontPage));
-            await Task.Delay(100);
-            Frame.BackStack.Clear();
-        }
+        //private async void SignInButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var vm = DataContext as SplashViewModel;
+        //    if (!(await vm.SignIn()))
+        //        return;
+        //    await Navigate();
+        //}
     }
 }

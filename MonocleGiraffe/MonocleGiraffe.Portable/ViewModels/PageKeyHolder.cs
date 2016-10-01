@@ -8,6 +8,7 @@ namespace MonocleGiraffe.Portable.ViewModels
 {
     public class PageKeyHolder
     {
+        public const string SplashPageKey = "SplashPage";
         public const string FrontPageKey = "FrontPage";
         public const string SubGalleryPageKey = "SubGalleryPage";
         public const string SubredditBrowserPageKey = "SubredditBrowserPage";

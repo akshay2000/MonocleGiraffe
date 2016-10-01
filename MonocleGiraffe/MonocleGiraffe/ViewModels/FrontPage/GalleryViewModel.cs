@@ -1,4 +1,6 @@
 ﻿using MonocleGiraffe.Portable.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,6 +57,22 @@ namespace MonocleGiraffe.ViewModels.FrontPage
             get
             {
                 return HasMore;
+            }
+        }
+
+        public static IncrementalGallery fromJson(string s)
+        {
+            JObject o = JObject.Parse(s);
+            bool isGallery = (bool)o["isGallery"];
+            Sort sort = JsonConvert.DeserializeObject<Sort>((string)o["sort"]);
+            if (isGallery)
+            {
+                Section section = JsonConvert.DeserializeObject<Section>((string)o["section"]);
+                return new IncrementalGallery(section, sort);
+            }
+            else
+            {
+                return new IncrementalGallery(sort, (int)o["topicId"]);
             }
         }
 

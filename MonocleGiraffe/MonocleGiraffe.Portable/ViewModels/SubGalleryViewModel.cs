@@ -147,7 +147,7 @@ namespace MonocleGiraffe.Portable.ViewModels
             JObject o = new JObject();
             o["subreddit"] = Subreddit;
             o["sort"] = JsonConvert.SerializeObject(Sort);
-            return o.ToString();
+            return o.ToString(Formatting.None);
         }
     }
 }
