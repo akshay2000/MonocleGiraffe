@@ -59,7 +59,7 @@ namespace MonocleGiraffe
                     navigationParam["url"] = protoArgs.Uri.AbsoluteUri;
             }
             Portable.Helpers.StateHelper.SessionState["LaunchData"] = navigationParam;
-            SimpleIoc.Default.GetInstance< GalaSoft.MvvmLight.Views.INavigationService>().NavigateTo(ViewModelLocator.SplashPageKey);
+            SimpleIoc.Default.GetInstance<GalaSoft.MvvmLight.Views.INavigationService>().NavigateTo(ViewModelLocator.SplashPageKey);
         }
 
         private async Task InitLibrary()

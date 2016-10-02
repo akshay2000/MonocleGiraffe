@@ -35,5 +35,8 @@
             ItemTemplateSelector="{StaticResource Selector}"
             Background="Black"
             SelectionChanged="MainFlipView_SelectionChanged"/>
+        <Border Background="#EE222222" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ProgressRing IsActive="{Binding IsBusy}"/>
+        </Border>
     </Grid>
 </Page>

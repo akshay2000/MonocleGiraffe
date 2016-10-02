@@ -173,6 +173,10 @@
                     <FontIcon Glyph="&#xE72D;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Download" Command="{Binding SaveCommand}"/>
+                <AppBarButton x:Name="OpenRemoteButton" Visibility="{x:Bind IsRemoteAvailable, Converter={StaticResource BoolToVisibilityConverter}}" Label="Open on other device" Click="OpenRemoteButton_Click" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
 </UserControl>

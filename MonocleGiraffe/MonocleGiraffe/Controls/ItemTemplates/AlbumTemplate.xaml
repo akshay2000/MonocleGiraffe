@@ -237,7 +237,7 @@
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Download All" Command="{Binding SaveCommand}"/>
-                <AppBarButton x:Name="OpenRemoteButton" Label="Open on other device" Click="OpenRemoteButton_Click" />
+                <AppBarButton x:Name="OpenRemoteButton" Visibility="{x:Bind IsRemoteAvailable, Converter={StaticResource BoolToVisibilityConverter}}" Label="Open on other device" Click="OpenRemoteButton_Click" />                
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>

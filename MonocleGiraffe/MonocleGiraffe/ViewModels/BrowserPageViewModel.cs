@@ -47,7 +47,7 @@ namespace MonocleGiraffe.ViewModels
         public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             IsBusy = true;
-            if (State != null)
+            if (State != null && State.Any())
                 await RestoreState(State);
             else if (state.Any())
                 await RestoreState(state);            

@@ -45,10 +45,10 @@ namespace MonocleGiraffe.Controls.ItemTemplates
                 HideComments();
         }
 
-        private void OpenRemoteButton_Click(object sender, RoutedEventArgs e)
+        private async void OpenRemoteButton_Click(object sender, RoutedEventArgs e)
         {
             RemoteDevicesDialog dialog = new RemoteDevicesDialog();
-            dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
 
         public bool IsRemoteAvailable { get { return RemoteDeviceHelper.IsRemoteAvailable; } }

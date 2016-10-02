@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,5 +24,13 @@ namespace MonocleGiraffe.Controls.ItemTemplates
         {
             this.InitializeComponent();
         }
+
+        private async void OpenRemoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RemoteDevicesDialog dialog = new RemoteDevicesDialog();
+            await dialog.ShowAsync();
+        }
+
+        public bool IsRemoteAvailable { get { return RemoteDeviceHelper.IsRemoteAvailable; } }
     }
 }
