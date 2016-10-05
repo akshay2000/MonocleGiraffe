@@ -1,5 +1,5 @@
 # Monocle Giraffe
-Most awesom Imgur client for Windows and Android.
+Most awesome Imgur client for Windows and Android.
 
 ##What is this?
 This is a Windows UWP and Xamarin Android app for Imgur. You're welcome to make a fork and send some pull requests. You're also welcome to use the code and build an app (or a car). Stay in touch; I'd like to know that someone is using the code.
@@ -14,10 +14,10 @@ Clone this repo. It contains code for the app. It also contains code for for C# 
     }
 
 ###Windows App
-Place a file called `Secrets.json` at root of your Windows project and add the content above.
+Place a file called `Secrets.json` at root of your Windows project and add the content above. You will need Visual Studio 2015 with latest copy of Windows SDK tools installed to build this project.
 
 ###Android App
-Create a file called `Secrets.json` inside `Assets` directory with the content above.
+Create a file called `Secrets.json` inside `Assets` directory with the content above. You will need Visual Studio 2015 with latest Xamarin Andorid installed and configured. Alternatively, you may also use Xamarin Studio, but I haven't tasted it personally.
 
 ##I have a better design!
 That's great. We have separate repository for design templates and resources. Please make a pull request in [this](https://github.com/akshay2000/MonocleGiraffeDesign) repository. All design input is welcome - especially for Android.
