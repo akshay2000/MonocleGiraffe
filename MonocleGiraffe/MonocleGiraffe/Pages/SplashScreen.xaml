@@ -18,8 +18,20 @@
             </Border>
             <TextBlock Text="{Binding Message}" FontSize="32" FontWeight="Light"/>
             <Grid Height="60">
-                <Button x:Name="RetryButton" Content="Try Again" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AnonError}"/>
-                <Button x:Name="SignInButton" Content="Sign In" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AuthError}"/>
+                <Button Content="Try Again" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AnonError}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Click">
+                            <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ShakeHandsAndNavigate"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </Button>
+                <Button Content="Sign In" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AuthError}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Click">
+                            <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="SignInAndNavigate"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </Button>
             </Grid>
         </StackPanel>        
     </Grid>

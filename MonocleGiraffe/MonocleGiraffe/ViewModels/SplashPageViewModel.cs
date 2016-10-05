@@ -52,9 +52,19 @@ namespace MonocleGiraffe.ViewModels
             }
 
             if ((bool)param["isNewLaunch"])
-                await ShakeHandsAndNavigate();
+                await base.ShakeHandsAndNavigate();
             else
                 await Navigate();
+        }
+
+        public new async void ShakeHandsAndNavigate()
+        {
+            await base.ShakeHandsAndNavigate();
+        }
+
+        public new async void SignInAndNavigate()
+        {
+            await base.SignInAndNavigate();
         }
 
         public async override Task Navigate()

@@ -15,7 +15,6 @@ namespace MonocleGiraffe.LibraryImpl
         public async Task<AuthResult> AuthenticateAsync(Uri requestUri, Uri callbackUri)
         {
             var result = await AuthPage.AuthenticateAsync(requestUri, callbackUri);
-            //throw new NotImplementedException();
             return result;
         }
 

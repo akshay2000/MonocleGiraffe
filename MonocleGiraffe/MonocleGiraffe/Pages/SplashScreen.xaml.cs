@@ -33,18 +33,5 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();
         }
-
-        //private async void RetryButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    await ShakeHandsAndNavigate();
-        //}
-
-        //private async void SignInButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var vm = DataContext as SplashViewModel;
-        //    if (!(await vm.SignIn()))
-        //        return;
-        //    await Navigate();
-        //}
     }
 }
