@@ -24,8 +24,13 @@ namespace MonocleGiraffe.Android.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Front);
+            SetTheme(global::Android.Resource.Style.ThemeDeviceDefault);
+                        
             var actionBar = ActionBar;
+            actionBar.SetDisplayShowHomeEnabled(false);
+            actionBar.SetDisplayShowTitleEnabled(false);
+
+            SetContentView(Resource.Layout.Front);
             actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
