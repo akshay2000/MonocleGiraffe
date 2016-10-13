@@ -21,15 +21,14 @@ namespace MonocleGiraffe.Android
                 {
                     DispatcherHelper.Initialize();
 
-                    var nav = new NavigationService();
-
-                    SimpleIoc.Default.Register<INavigationService>(() => nav);
+                    var nav = new NavigationService();                    
 
                     nav.Configure(ViewModelLocator.FrontPageKey, typeof(FrontActivity));
                     nav.Configure(ViewModelLocator.SubGalleryPageKey, typeof(SubGalleryActivity));
                     nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserActivity));
                     nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(BrowserActivity));
 
+                    SimpleIoc.Default.Register<INavigationService>(() => nav);
                     locator = new ViewModelLocator();
                 }
 

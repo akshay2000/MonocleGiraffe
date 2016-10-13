@@ -155,14 +155,14 @@ namespace MonocleGiraffe.Portable.ViewModels
             return isSuccess;
         }
 
-        protected async Task ShakeHandsAndNavigate()
+        public async Task ShakeHandsAndNavigate()
         {
             if (!(await ShakeHands()))
                 return;
             await Navigate();
         }
 
-        protected async Task SignInAndNavigate()
+        public async Task SignInAndNavigate()
         {
             if (!(await SignIn()))
                 return;

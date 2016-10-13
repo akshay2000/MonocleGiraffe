@@ -31,8 +31,53 @@ namespace MonocleGiraffe.Android
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010004
+			public const int cardBackgroundColor = 2130771972;
+			
+			// aapt resource value: 0x7f010005
+			public const int cardCornerRadius = 2130771973;
+			
+			// aapt resource value: 0x7f010006
+			public const int cardElevation = 2130771974;
+			
+			// aapt resource value: 0x7f010007
+			public const int cardMaxElevation = 2130771975;
+			
+			// aapt resource value: 0x7f010009
+			public const int cardPreventCornerOverlap = 2130771977;
+			
+			// aapt resource value: 0x7f010008
+			public const int cardUseCompatPadding = 2130771976;
+			
+			// aapt resource value: 0x7f01000a
+			public const int contentPadding = 2130771978;
+			
+			// aapt resource value: 0x7f01000e
+			public const int contentPaddingBottom = 2130771982;
+			
+			// aapt resource value: 0x7f01000b
+			public const int contentPaddingLeft = 2130771979;
+			
+			// aapt resource value: 0x7f01000c
+			public const int contentPaddingRight = 2130771980;
+			
+			// aapt resource value: 0x7f01000d
+			public const int contentPaddingTop = 2130771981;
+			
 			// aapt resource value: 0x7f010000
-			public const int typeface = 2130771968;
+			public const int layoutManager = 2130771968;
+			
+			// aapt resource value: 0x7f010002
+			public const int reverseLayout = 2130771970;
+			
+			// aapt resource value: 0x7f010001
+			public const int spanCount = 2130771969;
+			
+			// aapt resource value: 0x7f010003
+			public const int stackFromEnd = 2130771971;
+			
+			// aapt resource value: 0x7f01000f
+			public const int typeface = 2130771983;
 			
 			static Attribute()
 			{
@@ -47,11 +92,23 @@ namespace MonocleGiraffe.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int Gray = 2130968577;
+			// aapt resource value: 0x7f070005
+			public const int Gray = 2131165189;
 			
-			// aapt resource value: 0x7f040000
-			public const int ImgurGreen = 2130968576;
+			// aapt resource value: 0x7f070004
+			public const int ImgurGreen = 2131165188;
+			
+			// aapt resource value: 0x7f070000
+			public const int cardview_dark_background = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int cardview_light_background = 2131165185;
+			
+			// aapt resource value: 0x7f070002
+			public const int cardview_shadow_end_color = 2131165186;
+			
+			// aapt resource value: 0x7f070003
+			public const int cardview_shadow_start_color = 2131165187;
 			
 			static Color()
 			{
@@ -59,6 +116,37 @@ namespace MonocleGiraffe.Android
 			}
 			
 			private Color()
+			{
+			}
+		}
+		
+		public partial class Dimension
+		{
+			
+			// aapt resource value: 0x7f040003
+			public const int cardview_compat_inset_shadow = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int cardview_default_elevation = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int cardview_default_radius = 2130968581;
+			
+			// aapt resource value: 0x7f040000
+			public const int item_touch_helper_max_drag_scroll_per_frame = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int item_touch_helper_swipe_escape_max_velocity = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int item_touch_helper_swipe_escape_velocity = 2130968578;
+			
+			static Dimension()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Dimension()
 			{
 			}
 		}
@@ -82,98 +170,119 @@ namespace MonocleGiraffe.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06001d
-			public const int AddButton = 2131099677;
+			// aapt resource value: 0x7f050024
+			public const int AddButton = 2131034148;
 			
-			// aapt resource value: 0x7f060016
-			public const int AlbumRecyclerView = 2131099670;
+			// aapt resource value: 0x7f05001d
+			public const int AlbumRecyclerView = 2131034141;
 			
-			// aapt resource value: 0x7f060000
-			public const int BrowserPager = 2131099648;
+			// aapt resource value: 0x7f050001
+			public const int BrowserPager = 2131034113;
 			
-			// aapt resource value: 0x7f06001e
-			public const int CheckButton = 2131099678;
+			// aapt resource value: 0x7f050017
+			public const int ButtonWrapper = 2131034135;
 			
-			// aapt resource value: 0x7f060019
-			public const int CommentsTextView = 2131099673;
+			// aapt resource value: 0x7f050025
+			public const int CheckButton = 2131034149;
 			
-			// aapt resource value: 0x7f06001b
-			public const int DescriptionTextView = 2131099675;
+			// aapt resource value: 0x7f050020
+			public const int CommentsTextView = 2131034144;
 			
-			// aapt resource value: 0x7f060010
-			public const int EditText = 2131099664;
+			// aapt resource value: 0x7f050022
+			public const int DescriptionTextView = 2131034146;
 			
-			// aapt resource value: 0x7f060007
-			public const int GalleryRecyclerView = 2131099655;
+			// aapt resource value: 0x7f050011
+			public const int EditText = 2131034129;
 			
-			// aapt resource value: 0x7f06000c
-			public const int GifsButton = 2131099660;
+			// aapt resource value: 0x7f050008
+			public const int GalleryRecyclerView = 2131034120;
 			
-			// aapt resource value: 0x7f060005
-			public const int HelloTextView = 2131099653;
+			// aapt resource value: 0x7f05000d
+			public const int GifsButton = 2131034125;
 			
-			// aapt resource value: 0x7f060001
-			public const int LayoutRoot = 2131099649;
+			// aapt resource value: 0x7f050006
+			public const int HelloTextView = 2131034118;
 			
-			// aapt resource value: 0x7f060011
-			public const int LogInButton = 2131099665;
+			// aapt resource value: 0x7f050002
+			public const int LayoutRoot = 2131034114;
 			
-			// aapt resource value: 0x7f06001a
-			public const int MainImage = 2131099674;
+			// aapt resource value: 0x7f050012
+			public const int LogInButton = 2131034130;
 			
-			// aapt resource value: 0x7f060003
-			public const int MainImageView = 2131099651;
+			// aapt resource value: 0x7f050021
+			public const int MainImage = 2131034145;
 			
-			// aapt resource value: 0x7f060004
-			public const int MainPager = 2131099652;
+			// aapt resource value: 0x7f050004
+			public const int MainImageView = 2131034116;
 			
-			// aapt resource value: 0x7f060002
-			public const int MainVideoView = 2131099650;
+			// aapt resource value: 0x7f050005
+			public const int MainPager = 2131034117;
 			
-			// aapt resource value: 0x7f06000b
-			public const int PostsButton = 2131099659;
+			// aapt resource value: 0x7f050003
+			public const int MainVideoView = 2131034115;
 			
-			// aapt resource value: 0x7f06000d
-			public const int QueryEditText = 2131099661;
+			// aapt resource value: 0x7f050016
+			public const int MessageTextView = 2131034134;
 			
-			// aapt resource value: 0x7f06000a
-			public const int RedditsButton = 2131099658;
+			// aapt resource value: 0x7f05000c
+			public const int PostsButton = 2131034124;
 			
-			// aapt resource value: 0x7f06000e
-			public const int ResultsFrame = 2131099662;
+			// aapt resource value: 0x7f050015
+			public const int ProgressRing = 2131034133;
 			
-			// aapt resource value: 0x7f06000f
-			public const int ResultsRecyclerView = 2131099663;
+			// aapt resource value: 0x7f05000e
+			public const int QueryEditText = 2131034126;
 			
-			// aapt resource value: 0x7f060013
-			public const int SubGalleryRecyclerView = 2131099667;
+			// aapt resource value: 0x7f05000b
+			public const int RedditsButton = 2131034123;
 			
-			// aapt resource value: 0x7f060015
-			public const int SubTitleTextView = 2131099669;
+			// aapt resource value: 0x7f05000f
+			public const int ResultsFrame = 2131034127;
 			
-			// aapt resource value: 0x7f06001c
-			public const int SubtitleTextView = 2131099676;
+			// aapt resource value: 0x7f050010
+			public const int ResultsRecyclerView = 2131034128;
 			
-			// aapt resource value: 0x7f060012
-			public const int TextView = 2131099666;
+			// aapt resource value: 0x7f050018
+			public const int RetryButton = 2131034136;
 			
-			// aapt resource value: 0x7f060017
-			public const int Thumbnail = 2131099671;
+			// aapt resource value: 0x7f050019
+			public const int SignInButton = 2131034137;
 			
-			// aapt resource value: 0x7f060014
-			public const int TitleTextView = 2131099668;
+			// aapt resource value: 0x7f05001a
+			public const int SubGalleryRecyclerView = 2131034138;
 			
-			// aapt resource value: 0x7f060018
-			public const int UpsTextView = 2131099672;
+			// aapt resource value: 0x7f05001c
+			public const int SubTitleTextView = 2131034140;
 			
-			// aapt resource value: 0x7f060006
-			public const int UserNameTextView = 2131099654;
+			// aapt resource value: 0x7f050023
+			public const int SubtitleTextView = 2131034147;
 			
-			// aapt resource value: 0x7f060008
-			public const int reddits_header = 2131099656;
+			// aapt resource value: 0x7f050013
+			public const int TextView = 2131034131;
 			
-			// aapt resource value: 0x7f060009
-			public const int reddits_list = 2131099657;
+			// aapt resource value: 0x7f05001e
+			public const int Thumbnail = 2131034142;
+			
+			// aapt resource value: 0x7f05001b
+			public const int TitleTextView = 2131034139;
+			
+			// aapt resource value: 0x7f05001f
+			public const int UpsTextView = 2131034143;
+			
+			// aapt resource value: 0x7f050007
+			public const int UserNameTextView = 2131034119;
+			
+			// aapt resource value: 0x7f050014
+			public const int Wrapper = 2131034132;
+			
+			// aapt resource value: 0x7f050000
+			public const int item_touch_helper_previous_elevation = 2131034112;
+			
+			// aapt resource value: 0x7f050009
+			public const int reddits_header = 2131034121;
+			
+			// aapt resource value: 0x7f05000a
+			public const int reddits_list = 2131034122;
 			
 			static Id()
 			{
@@ -213,28 +322,31 @@ namespace MonocleGiraffe.Android
 			public const int Main = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int SubGallery = 2130903048;
+			public const int Splash = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int Tmpl_Album = 2130903049;
+			public const int SubGallery = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int Tmpl_GalleryThumbnail = 2130903050;
+			public const int Tmpl_Album = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int Tmpl_Image = 2130903051;
+			public const int Tmpl_GalleryThumbnail = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int Tmpl_Item_Album = 2130903052;
+			public const int Tmpl_Image = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int Tmpl_SubredditItem = 2130903053;
+			public const int Tmpl_Item_Album = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int Tmpl_SubredditResult = 2130903054;
+			public const int Tmpl_SubredditItem = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int Tmpl_SubredditThumbnail = 2130903055;
+			public const int Tmpl_SubredditResult = 2130903055;
+			
+			// aapt resource value: 0x7f030010
+			public const int Tmpl_SubredditThumbnail = 2130903056;
 			
 			static Layout()
 			{
@@ -249,23 +361,23 @@ namespace MonocleGiraffe.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050004
-			public const int ApplicationName = 2131034116;
+			// aapt resource value: 0x7f080004
+			public const int ApplicationName = 2131230724;
 			
-			// aapt resource value: 0x7f050001
-			public const int Get = 2131034113;
+			// aapt resource value: 0x7f080001
+			public const int Get = 2131230721;
 			
-			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
+			// aapt resource value: 0x7f080000
+			public const int Hello = 2131230720;
 			
-			// aapt resource value: 0x7f050003
-			public const int Log_In = 2131034115;
+			// aapt resource value: 0x7f080003
+			public const int Log_In = 2131230723;
 			
-			// aapt resource value: 0x7f050002
-			public const int Save = 2131034114;
+			// aapt resource value: 0x7f080002
+			public const int Save = 2131230722;
 			
-			// aapt resource value: 0x7f050005
-			public const int TF_Material = 2131034117;
+			// aapt resource value: 0x7f080005
+			public const int TF_Material = 2131230725;
 			
 			static String()
 			{
@@ -277,14 +389,115 @@ namespace MonocleGiraffe.Android
 			}
 		}
 		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f060001
+			public const int Base_CardView = 2131099649;
+			
+			// aapt resource value: 0x7f060000
+			public const int CardView = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int CardView_Dark = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int CardView_Light = 2131099651;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
+			{
+			}
+		}
+		
 		public partial class Styleable
 		{
 			
+			public static int[] CardView = new int[] {
+					16843071,
+					16843072,
+					2130771972,
+					2130771973,
+					2130771974,
+					2130771975,
+					2130771976,
+					2130771977,
+					2130771978,
+					2130771979,
+					2130771980,
+					2130771981,
+					2130771982};
+			
+			// aapt resource value: 1
+			public const int CardView_android_minHeight = 1;
+			
+			// aapt resource value: 0
+			public const int CardView_android_minWidth = 0;
+			
+			// aapt resource value: 2
+			public const int CardView_cardBackgroundColor = 2;
+			
+			// aapt resource value: 3
+			public const int CardView_cardCornerRadius = 3;
+			
+			// aapt resource value: 4
+			public const int CardView_cardElevation = 4;
+			
+			// aapt resource value: 5
+			public const int CardView_cardMaxElevation = 5;
+			
+			// aapt resource value: 7
+			public const int CardView_cardPreventCornerOverlap = 7;
+			
+			// aapt resource value: 6
+			public const int CardView_cardUseCompatPadding = 6;
+			
+			// aapt resource value: 8
+			public const int CardView_contentPadding = 8;
+			
+			// aapt resource value: 12
+			public const int CardView_contentPaddingBottom = 12;
+			
+			// aapt resource value: 9
+			public const int CardView_contentPaddingLeft = 9;
+			
+			// aapt resource value: 10
+			public const int CardView_contentPaddingRight = 10;
+			
+			// aapt resource value: 11
+			public const int CardView_contentPaddingTop = 11;
+			
 			public static int[] FontTextView = new int[] {
-					2130771968};
+					2130771983};
 			
 			// aapt resource value: 0
 			public const int FontTextView_typeface = 0;
+			
+			public static int[] RecyclerView = new int[] {
+					16842948,
+					2130771968,
+					2130771969,
+					2130771970,
+					2130771971};
+			
+			// aapt resource value: 0
+			public const int RecyclerView_android_orientation = 0;
+			
+			// aapt resource value: 1
+			public const int RecyclerView_layoutManager = 1;
+			
+			// aapt resource value: 3
+			public const int RecyclerView_reverseLayout = 3;
+			
+			// aapt resource value: 2
+			public const int RecyclerView_spanCount = 2;
+			
+			// aapt resource value: 4
+			public const int RecyclerView_stackFromEnd = 4;
 			
 			static Styleable()
 			{
