@@ -34,6 +34,7 @@ namespace MonocleGiraffe.Android.Activities
             actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
+            pager.PageSelected += (o, e) => actionBar.SetSelectedNavigationItem(e.Position);
             pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
 
