@@ -24,8 +24,8 @@ namespace MonocleGiraffe.Android.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetTheme(global::Android.Resource.Style.ThemeDeviceDefault);
-                        
+
+            SetTheme(global::Android.Resource.Style.ThemeDeviceDefault);                        
             var actionBar = ActionBar;
             actionBar.SetDisplayShowHomeEnabled(false);
             actionBar.SetDisplayShowTitleEnabled(false);
@@ -41,7 +41,7 @@ namespace MonocleGiraffe.Android.Activities
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
             actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
-            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
+            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
         }
     }
 
@@ -49,7 +49,7 @@ namespace MonocleGiraffe.Android.Activities
     {
         public FrontPagerAdapter(global::Android.Support.V4.App.FragmentManager f) : base(f) { }
 
-        public override int Count { get { return 4; } }
+        public override int Count { get { return 3; } }
 
         public override global::Android.Support.V4.App.Fragment GetItem(int position)
         {

@@ -47,11 +47,25 @@ namespace MonocleGiraffe.Android.Fragments
 
             bindings.Add(this.SetBinding(() => Vm.QueryText, () => QueryEditText.Text, BindingMode.TwoWay));
 
+            bindings.Add(Vm.SetBinding(() => Vm.IsLoading, this,
+                () => ProgressBar.Visibility, BindingMode.OneWay)
+                .ConvertSourceToTarget(flag => flag ? ViewStates.Visible : ViewStates.Gone));
+
             RedditsButton.Click += TypeButton_Click;
             PostsButton.Click += TypeButton_Click;
             GifsButton.Click += TypeButton_Click;
 
             QueryEditText.EditorAction += QueryEditText_EditorAction;
+            QueryEditText.KeyPress += QueryEditText_KeyPress;
+        }
+
+        private void QueryEditText_KeyPress(object sender, View.KeyEventArgs e)
+        {
+            if(e.KeyCode == Keycode.Enter)
+            {
+                Vm.SearchCommand.Execute("default");
+                RefreshUI();
+            }
         }
 
         private void QueryEditText_EditorAction(object sender, TextView.EditorActionEventArgs e)

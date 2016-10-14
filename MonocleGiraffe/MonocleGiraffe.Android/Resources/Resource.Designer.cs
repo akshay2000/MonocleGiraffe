@@ -170,29 +170,29 @@ namespace MonocleGiraffe.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050024
-			public const int AddButton = 2131034148;
+			// aapt resource value: 0x7f050025
+			public const int AddButton = 2131034149;
 			
-			// aapt resource value: 0x7f05001d
-			public const int AlbumRecyclerView = 2131034141;
+			// aapt resource value: 0x7f05001e
+			public const int AlbumRecyclerView = 2131034142;
 			
 			// aapt resource value: 0x7f050001
 			public const int BrowserPager = 2131034113;
 			
-			// aapt resource value: 0x7f050017
-			public const int ButtonWrapper = 2131034135;
+			// aapt resource value: 0x7f050018
+			public const int ButtonWrapper = 2131034136;
 			
-			// aapt resource value: 0x7f050025
-			public const int CheckButton = 2131034149;
+			// aapt resource value: 0x7f050026
+			public const int CheckButton = 2131034150;
 			
-			// aapt resource value: 0x7f050020
-			public const int CommentsTextView = 2131034144;
+			// aapt resource value: 0x7f050021
+			public const int CommentsTextView = 2131034145;
 			
-			// aapt resource value: 0x7f050022
-			public const int DescriptionTextView = 2131034146;
+			// aapt resource value: 0x7f050023
+			public const int DescriptionTextView = 2131034147;
 			
-			// aapt resource value: 0x7f050011
-			public const int EditText = 2131034129;
+			// aapt resource value: 0x7f050012
+			public const int EditText = 2131034130;
 			
 			// aapt resource value: 0x7f050008
 			public const int GalleryRecyclerView = 2131034120;
@@ -206,11 +206,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f050002
 			public const int LayoutRoot = 2131034114;
 			
-			// aapt resource value: 0x7f050012
-			public const int LogInButton = 2131034130;
+			// aapt resource value: 0x7f050013
+			public const int LogInButton = 2131034131;
 			
-			// aapt resource value: 0x7f050021
-			public const int MainImage = 2131034145;
+			// aapt resource value: 0x7f050022
+			public const int MainImage = 2131034146;
 			
 			// aapt resource value: 0x7f050004
 			public const int MainImageView = 2131034116;
@@ -221,14 +221,17 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f050003
 			public const int MainVideoView = 2131034115;
 			
-			// aapt resource value: 0x7f050016
-			public const int MessageTextView = 2131034134;
+			// aapt resource value: 0x7f050017
+			public const int MessageTextView = 2131034135;
 			
 			// aapt resource value: 0x7f05000c
 			public const int PostsButton = 2131034124;
 			
-			// aapt resource value: 0x7f050015
-			public const int ProgressRing = 2131034133;
+			// aapt resource value: 0x7f05000f
+			public const int ProgressBar = 2131034127;
+			
+			// aapt resource value: 0x7f050016
+			public const int ProgressRing = 2131034134;
 			
 			// aapt resource value: 0x7f05000e
 			public const int QueryEditText = 2131034126;
@@ -236,44 +239,44 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f05000b
 			public const int RedditsButton = 2131034123;
 			
-			// aapt resource value: 0x7f05000f
-			public const int ResultsFrame = 2131034127;
-			
 			// aapt resource value: 0x7f050010
-			public const int ResultsRecyclerView = 2131034128;
+			public const int ResultsFrame = 2131034128;
 			
-			// aapt resource value: 0x7f050018
-			public const int RetryButton = 2131034136;
+			// aapt resource value: 0x7f050011
+			public const int ResultsRecyclerView = 2131034129;
 			
 			// aapt resource value: 0x7f050019
-			public const int SignInButton = 2131034137;
+			public const int RetryButton = 2131034137;
 			
 			// aapt resource value: 0x7f05001a
-			public const int SubGalleryRecyclerView = 2131034138;
-			
-			// aapt resource value: 0x7f05001c
-			public const int SubTitleTextView = 2131034140;
-			
-			// aapt resource value: 0x7f050023
-			public const int SubtitleTextView = 2131034147;
-			
-			// aapt resource value: 0x7f050013
-			public const int TextView = 2131034131;
-			
-			// aapt resource value: 0x7f05001e
-			public const int Thumbnail = 2131034142;
+			public const int SignInButton = 2131034138;
 			
 			// aapt resource value: 0x7f05001b
-			public const int TitleTextView = 2131034139;
+			public const int SubGalleryRecyclerView = 2131034139;
+			
+			// aapt resource value: 0x7f05001d
+			public const int SubTitleTextView = 2131034141;
+			
+			// aapt resource value: 0x7f050024
+			public const int SubtitleTextView = 2131034148;
+			
+			// aapt resource value: 0x7f050014
+			public const int TextView = 2131034132;
 			
 			// aapt resource value: 0x7f05001f
-			public const int UpsTextView = 2131034143;
+			public const int Thumbnail = 2131034143;
+			
+			// aapt resource value: 0x7f05001c
+			public const int TitleTextView = 2131034140;
+			
+			// aapt resource value: 0x7f050020
+			public const int UpsTextView = 2131034144;
 			
 			// aapt resource value: 0x7f050007
 			public const int UserNameTextView = 2131034119;
 			
-			// aapt resource value: 0x7f050014
-			public const int Wrapper = 2131034132;
+			// aapt resource value: 0x7f050015
+			public const int Wrapper = 2131034133;
 			
 			// aapt resource value: 0x7f050000
 			public const int item_touch_helper_previous_elevation = 2131034112;

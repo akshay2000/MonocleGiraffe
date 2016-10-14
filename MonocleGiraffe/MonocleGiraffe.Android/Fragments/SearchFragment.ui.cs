@@ -65,5 +65,14 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
+        private ProgressBar progressBar;
+        private ProgressBar ProgressBar
+        {
+            get
+            {
+                progressBar = progressBar ?? View.FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+                return progressBar;
+            }
+        }
     }
 }
