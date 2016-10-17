@@ -1,7 +1,7 @@
 # Monocle Giraffe
 Most awesome Imgur client for Windows and Android.  
   
-<a href="https://www.microsoft.com/store/apps/9nblggh4qcvh?ocid=badge"><img height="104px" src="https://assets.windowsphone.com/f2f77ec7-9ba9-4850-9ebe-77e366d08adc/English_Get_it_Win_10_InvariantCulture_Default.png" alt="Get it on Windows 10" /></a>
+<a href="https://www.microsoft.com/store/apps/9nblggh4qcvh?ocid=badge"><img height="104px" src="https://assets.windowsphone.com/f2f77ec7-9ba9-4850-9ebe-77e366d08adc/English_Get_it_Win_10_InvariantCulture_Default.png" alt="Get it on Windows 10" /></a> <a href='https://play.google.com/store/apps/details?id=in.indestructible.monoclegiraffe&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img height="104px" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 ##What is this?
 This is a Windows UWP and Xamarin Android app for Imgur. You're welcome to make a fork and send some pull requests. You're also welcome to use the code and build an app (or a car). Stay in touch; I'd like to know that someone is using the code.
