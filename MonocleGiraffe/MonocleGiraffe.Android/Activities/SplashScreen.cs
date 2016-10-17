@@ -19,7 +19,7 @@ using GalaSoft.MvvmLight.Views;
 
 namespace MonocleGiraffe.Android.Activities
 {
-    [Activity(Label = "SplashScreen", MainLauncher = true, Icon = "@drawable/icon", NoHistory = true)]
+    [Activity(Label = "Monocle Giraffe", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : ActivityBase
     {
         private readonly List<Binding> bindings = new List<Binding>();

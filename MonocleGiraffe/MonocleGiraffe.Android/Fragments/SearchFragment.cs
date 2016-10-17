@@ -46,6 +46,8 @@ namespace MonocleGiraffe.Android.Fragments
             bindings.Add(this.SetBinding(() => Vm.IsGifs, () => GifsButton.Background).ConvertSourceToTarget(ConvertBoolToDrawable));
 
             bindings.Add(this.SetBinding(() => Vm.QueryText, () => QueryEditText.Text, BindingMode.TwoWay));
+            //Required for linker
+            QueryEditText.TextChanged += delegate { };
 
             bindings.Add(Vm.SetBinding(() => Vm.IsLoading, this,
                 () => ProgressBar.Visibility, BindingMode.OneWay)
