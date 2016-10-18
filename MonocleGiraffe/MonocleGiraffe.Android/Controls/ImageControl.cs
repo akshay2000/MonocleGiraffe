@@ -90,7 +90,8 @@ namespace MonocleGiraffe.Android.Controls
         {
             LayoutRoot.Post(() => SetDimensions(MainImageView, item));
             MainImageView.Visibility = ViewStates.Visible;
-            ImageService.Instance.LoadUrl(item.Link).Into(MainImageView);
+            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
+            ImageService.Instance.LoadUrl(item.Link).DownSample(width).Into(MainImageView);
         }
 
         private void SetDimensions(View view, IGalleryItem item)
