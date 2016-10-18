@@ -49,7 +49,7 @@ namespace MonocleGiraffe.Android.Fragments
             //Required for linker
             QueryEditText.TextChanged += delegate { };
 
-            bindings.Add(Vm.SetBinding(() => Vm.IsLoading, this,
+            bindings.Add(this.SetBinding(() => Vm.IsLoading,
                 () => ProgressBar.Visibility, BindingMode.OneWay)
                 .ConvertSourceToTarget(flag => flag ? ViewStates.Visible : ViewStates.Gone));
 

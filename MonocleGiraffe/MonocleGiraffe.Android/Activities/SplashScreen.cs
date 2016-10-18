@@ -35,17 +35,17 @@ namespace MonocleGiraffe.Android.Activities
 
         private void SetBindings()
         {
-            bindings.Add(Vm.SetBinding(() => Vm.State, this,
+            bindings.Add(this.SetBinding(() => Vm.State,
                 () => ProgressRing.Visibility, BindingMode.OneWay)
                 .ConvertSourceToTarget((string state) =>
                 state == "Busy" ? ViewStates.Visible : ViewStates.Invisible));
-            bindings.Add(Vm.SetBinding(() => Vm.Message, this,
+            bindings.Add(this.SetBinding(() => Vm.Message,
                 () => MessageText.Text, BindingMode.OneWay));
-            bindings.Add(Vm.SetBinding(() => Vm.State, this,
+            bindings.Add(this.SetBinding(() => Vm.State,
                 () => SignInButton.Visibility, BindingMode.OneWay)
                 .ConvertSourceToTarget((string state) =>
                 state == "AuthError" ? ViewStates.Visible : ViewStates.Invisible));
-            bindings.Add(Vm.SetBinding(() => Vm.State, this,
+            bindings.Add(this.SetBinding(() => Vm.State,
                 () => RetryButton.Visibility, BindingMode.OneWay)
                 .ConvertSourceToTarget((string state) =>
                 state == "AnonError" ? ViewStates.Visible : ViewStates.Invisible));
