@@ -407,6 +407,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f060003
 			public const int CardView_Light = 2131099651;
 			
+			// aapt resource value: 0x7f060004
+			public const int Theme_AppTheme = 2131099652;
+			
 			static Style()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
