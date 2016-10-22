@@ -26,6 +26,8 @@ namespace MonocleGiraffe.Android.Fragments
     {
         private IGalleryItem item;
         private bool isAlbum;
+        private List<Binding> bindings = new List<Binding>();
+
         public const string POSITION_ARG = "position";
 
         public static BrowserItemFragment NewInstance(int position)
@@ -78,14 +80,24 @@ namespace MonocleGiraffe.Android.Fragments
                 descView.Visibility = ViewStates.Gone;
         }
 
+        public IGalleryItem Item { get; set; }
+
         private void RenderAlbum(IGalleryItem item)
         {
+            Item = item;
             Title.Text = item.Title;
             AlbumRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
-            var adapter = item.AlbumImages.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
-            AlbumRecyclerView.SetAdapter(adapter);
+            bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
         }
 
+        private void UpdateAlbumAdapter()
+        {
+            if (Item.AlbumImages == null)
+                return;
+            var adapter = Item.AlbumImages.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            AlbumRecyclerView.SetAdapter(adapter);
+        }
+        
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
             var hasTitle = !string.IsNullOrEmpty(item.Title);
@@ -104,6 +116,12 @@ namespace MonocleGiraffe.Android.Fragments
                 descView.Text = item.Description;
             else
                 descView.Visibility = ViewStates.Gone;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            bindings.ForEach(b => b.Detach());
         }
 
         #region Views

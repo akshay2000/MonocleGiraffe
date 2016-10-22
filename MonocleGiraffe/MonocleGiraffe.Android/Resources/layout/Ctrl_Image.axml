@@ -14,13 +14,13 @@
             android:id="@+id/MainVideoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
         <FFImageLoading.Views.ImageViewAsync
             android:id="@+id/MainImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 </FrameLayout>

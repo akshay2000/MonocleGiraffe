@@ -88,10 +88,12 @@ namespace MonocleGiraffe.Android.Controls
 
         private void RenderImage(IGalleryItem item)
         {
+            var imageService = ImageService.Instance;
+            imageService.LoadFileFromApplicationBundle("DummyImage.png").Into(MainImageView);
             LayoutRoot.Post(() => SetDimensions(MainImageView, item));
             MainImageView.Visibility = ViewStates.Visible;
             var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
-            ImageService.Instance.LoadUrl(item.Link).DownSample(width).Into(MainImageView);
+            imageService.LoadUrl(item.Link).DownSample(width).Into(MainImageView);
         }
 
         private void SetDimensions(View view, IGalleryItem item)
