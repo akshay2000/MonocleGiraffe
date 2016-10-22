@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="Theme.AppTheme" parent="android:Theme.DeviceDefault.NoActionBar">
+  <style name="Theme.AppTheme" parent="android:Theme.DeviceDefault">
     <!-- customize the color palette -->
     <!--<item name="colorPrimary">@color/material_blue_500</item>
   <item name="colorPrimaryDark">@color/material_blue_700</item>

@@ -27,6 +27,7 @@ namespace MonocleGiraffe.Android.Activities
         protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             SetContentView(Resource.Layout.Splash);
             Init();
             SetBindings();

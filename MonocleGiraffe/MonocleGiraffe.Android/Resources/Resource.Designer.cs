@@ -92,11 +92,20 @@ namespace MonocleGiraffe.Android
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f070008
+			public const int Accent = 2131165192;
+			
 			// aapt resource value: 0x7f070005
 			public const int Gray = 2131165189;
 			
 			// aapt resource value: 0x7f070004
 			public const int ImgurGreen = 2131165188;
+			
+			// aapt resource value: 0x7f070006
+			public const int Primary = 2131165190;
+			
+			// aapt resource value: 0x7f070007
+			public const int PrimaryDark = 2131165191;
 			
 			// aapt resource value: 0x7f070000
 			public const int cardview_dark_background = 2131165184;
@@ -485,25 +494,29 @@ namespace MonocleGiraffe.Android
 			
 			public static int[] RecyclerView = new int[] {
 					16842948,
+					16842993,
 					2130771968,
 					2130771969,
 					2130771970,
 					2130771971};
 			
+			// aapt resource value: 1
+			public const int RecyclerView_android_descendantFocusability = 1;
+			
 			// aapt resource value: 0
 			public const int RecyclerView_android_orientation = 0;
 			
-			// aapt resource value: 1
-			public const int RecyclerView_layoutManager = 1;
-			
-			// aapt resource value: 3
-			public const int RecyclerView_reverseLayout = 3;
-			
 			// aapt resource value: 2
-			public const int RecyclerView_spanCount = 2;
+			public const int RecyclerView_layoutManager = 2;
 			
 			// aapt resource value: 4
-			public const int RecyclerView_stackFromEnd = 4;
+			public const int RecyclerView_reverseLayout = 4;
+			
+			// aapt resource value: 3
+			public const int RecyclerView_spanCount = 3;
+			
+			// aapt resource value: 5
+			public const int RecyclerView_stackFromEnd = 5;
 			
 			static Styleable()
 			{

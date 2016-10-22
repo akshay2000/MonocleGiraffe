@@ -25,7 +25,7 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            SetTheme(global::Android.Resource.Style.ThemeDeviceDefault);                        
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             var actionBar = ActionBar;
             actionBar.SetDisplayShowHomeEnabled(false);
             actionBar.SetDisplayShowTitleEnabled(false);
