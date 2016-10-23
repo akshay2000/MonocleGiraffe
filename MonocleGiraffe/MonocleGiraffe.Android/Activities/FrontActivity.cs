@@ -28,28 +28,44 @@ namespace MonocleGiraffe.Android.Activities
             base.OnCreate(savedInstanceState);
 
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            //var actionBar = ActionBar;
-            //actionBar.SetDisplayShowHomeEnabled(false);
-            //actionBar.SetDisplayShowTitleEnabled(false);
-
+            
             SetContentView(Resource.Layout.Front);
-            //actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.Tabs);
             tabLayout.SetupWithViewPager(pager);
             
-            //pager.PageSelected += (o, e) => actionBar.SetSelectedNavigationItem(e.Position);
             pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
 
-            TabLayout.Tab tab0 = tabLayout.GetTabAt(0);
-            tab0?.SetIcon(Resource.Drawable.Home);
-            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
-            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
-            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
-            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
+            SetTabContent(tabLayout);
+
+            tabLayout.TabSelected += TabLayout_TabSelected;
+            tabLayout.TabUnselected += TabLayout_TabUnselected;            
         }
+
+        private void TabLayout_TabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
+        {
+            var tab = e.Tab;
+            var imageView = tab.CustomView as ImageView;
+            imageView.SetColorFilter(global::Android.Graphics.Color.DarkGray);
+        }
+
+        private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
+        {
+            var tab = e.Tab;
+            var imageView = tab.CustomView as ImageView;
+            imageView.SetColorFilter(global::Android.Graphics.Color.White);
+        }       
+
+        private void SetTabContent(TabLayout layout)
+        {
+            for (int i = 0; i < layout.TabCount; i++)
+            {
+                layout.GetTabAt(i).SetCustomView(pagerAdapter.GetTabView(i, LayoutInflater));
+            }
+        }
+                 
     }
 
     public class FrontPagerAdapter : FragmentPagerAdapter
@@ -89,6 +105,14 @@ namespace MonocleGiraffe.Android.Activities
                     return new Java.Lang.String(nameof(Account));
             }
             return new Java.Lang.String("Unsupported");
+        }
+
+        public View GetTabView(int index, LayoutInflater inflater)
+        {
+            View view = inflater.Inflate(Resource.Layout.Ctrl_Tab, null);
+            var image = view.FindViewById<ImageView>(Resource.Id.TabIcon);
+            image.SetImageResource(Resource.Drawable.Home);
+            return view;
         }
 
         private GalleryFragment gallery;
