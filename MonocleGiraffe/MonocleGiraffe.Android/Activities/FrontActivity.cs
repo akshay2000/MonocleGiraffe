@@ -14,6 +14,8 @@ using Android.Support.V4.App;
 using MonocleGiraffe.Android.Fragments;
 using Android.Util;
 using Android.Support.V4.View;
+using Android.Support.Design.Widget;
+using Java.Lang;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -26,21 +28,23 @@ namespace MonocleGiraffe.Android.Activities
             base.OnCreate(savedInstanceState);
 
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            var actionBar = ActionBar;
-            actionBar.SetDisplayShowHomeEnabled(false);
-            actionBar.SetDisplayShowTitleEnabled(false);
+            //var actionBar = ActionBar;
+            //actionBar.SetDisplayShowHomeEnabled(false);
+            //actionBar.SetDisplayShowTitleEnabled(false);
 
             SetContentView(Resource.Layout.Front);
-            actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+            //actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
-            pager.PageSelected += (o, e) => actionBar.SetSelectedNavigationItem(e.Position);
+            var tabLayout = FindViewById<TabLayout>(Resource.Id.Tabs);
+            tabLayout.SetupWithViewPager(pager);
+            //pager.PageSelected += (o, e) => actionBar.SetSelectedNavigationItem(e.Position);
             pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
 
-            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
-            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
-            actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
+            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
+            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
+            //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
             //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Account"));
         }
     }
@@ -66,6 +70,22 @@ namespace MonocleGiraffe.Android.Activities
             }
             Log.Debug("FrontActivity", $"position was {position}");
             return null;
+        }
+
+        public override ICharSequence GetPageTitleFormatted(int position)
+        {
+            switch (position)
+            {
+                case 0:
+                    return new Java.Lang.String(nameof(Gallery));
+                case 1:
+                    return new Java.Lang.String(nameof(Reddits));
+                case 2:
+                    return new Java.Lang.String(nameof(Search));
+                case 3:
+                    return new Java.Lang.String(nameof(Account));
+            }
+            return new Java.Lang.String("Unsupported");
         }
 
         private GalleryFragment gallery;

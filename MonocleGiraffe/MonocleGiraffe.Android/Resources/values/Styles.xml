@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="Theme.AppTheme" parent="android:Theme.DeviceDefault">
+  <style name="Theme.AppTheme" parent="Theme.AppCompat.Light">
     <!-- customize the color palette -->
-    <!--<item name="colorPrimary">@color/material_blue_500</item>
-  <item name="colorPrimaryDark">@color/material_blue_700</item>
-  <item name="colorAccent">@color/material_green_A200</item>-->
+    <!-- 500 -->
+    <item name="colorPrimary">@color/Primary</item>
+    <!-- 700 -->
+    <item name="colorPrimaryDark">@color/PrimaryDark</item>
+    <item name="colorAccent">@color/PrimaryDark</item>
   </style>
 </resources>
