@@ -2050,10 +2050,13 @@ namespace MonocleGiraffe.Android
 			public const int design_snackbar_background = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int navigation_empty_icon = 2130837590;
+			public const int Home = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int notification_template_icon_bg = 2130837591;
+			public const int navigation_empty_icon = 2130837591;
+			
+			// aapt resource value: 0x7f020058
+			public const int notification_template_icon_bg = 2130837592;
 			
 			static Drawable()
 			{
@@ -3554,6 +3557,12 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f08003b
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131230779;
+			
+			// aapt resource value: 0x7f08016b
+			public const int TabTextStyle = 2131231083;
+			
+			// aapt resource value: 0x7f08016a
+			public const int TabsStyle = 2131231082;
 			
 			// aapt resource value: 0x7f0800c2
 			public const int TextAppearance_AppCompat = 2131230914;

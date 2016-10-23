@@ -38,10 +38,13 @@ namespace MonocleGiraffe.Android.Activities
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.Tabs);
             tabLayout.SetupWithViewPager(pager);
+            
             //pager.PageSelected += (o, e) => actionBar.SetSelectedNavigationItem(e.Position);
             pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
 
+            TabLayout.Tab tab0 = tabLayout.GetTabAt(0);
+            tab0?.SetIcon(Resource.Drawable.Home);
             //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Gallery"));
             //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Reddits"));
             //actionBar.AddTab(pager.GetViewPageTab(ActionBar, "Search"));
