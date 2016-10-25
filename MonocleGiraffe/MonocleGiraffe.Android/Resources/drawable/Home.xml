@@ -5,7 +5,7 @@
     android:viewportWidth="32"
     android:viewportHeight="32">
   <!-- draw a path -->
-  <path android:fillColor="#fff"
+  <path android:fillColor="@color/TabUnselected"
       android:pathData="M20.5,9.5
                         c-1.955,0,-3.83,1.268,-4.5,3
                         c-0.67,-1.732,-2.547,-3,-4.5,-3

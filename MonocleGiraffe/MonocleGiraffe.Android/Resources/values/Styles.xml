@@ -11,7 +11,7 @@
 
   <style name="TabsStyle" parent="Widget.Design.TabLayout">
     <item name="tabTextAppearance">@style/TabTextStyle</item>
-    <item name="tabIndicatorColor">#0000ff</item>
+    <item name="tabIndicatorColor">@color/TabSelected</item>
     <item name="tabSelectedTextColor">?android:textColorPrimary</item>
   </style>
 

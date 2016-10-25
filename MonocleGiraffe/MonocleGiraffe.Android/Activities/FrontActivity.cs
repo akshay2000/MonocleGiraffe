@@ -16,6 +16,7 @@ using Android.Util;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 using Java.Lang;
+using Android.Support.V4.Content;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -41,21 +42,27 @@ namespace MonocleGiraffe.Android.Activities
             SetTabContent(tabLayout);
 
             tabLayout.TabSelected += TabLayout_TabSelected;
-            tabLayout.TabUnselected += TabLayout_TabUnselected;            
+            tabLayout.TabUnselected += TabLayout_TabUnselected;
+
+            var selectedTab = tabLayout.GetTabAt(pager.CurrentItem);
+            var imageView = selectedTab.CustomView as ImageView;
+            imageView.SetColorFilter(new global::Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.TabSelected)));
         }
 
         private void TabLayout_TabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
         {
+            var resolved = ContextCompat.GetColor(this, Resource.Color.TabUnselected);
             var tab = e.Tab;
             var imageView = tab.CustomView as ImageView;
-            imageView.SetColorFilter(global::Android.Graphics.Color.DarkGray);
+            imageView.SetColorFilter(new global::Android.Graphics.Color(resolved));
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
+            var resolved = ContextCompat.GetColor(this, Resource.Color.TabSelected);
             var tab = e.Tab;
             var imageView = tab.CustomView as ImageView;
-            imageView.SetColorFilter(global::Android.Graphics.Color.White);
+            imageView.SetColorFilter(new global::Android.Graphics.Color(resolved));
         }       
 
         private void SetTabContent(TabLayout layout)
@@ -155,19 +162,5 @@ namespace MonocleGiraffe.Android.Activities
             }
         }
 
-    }
-
-    public static class ViewPagerExtensions
-    {
-        public static ActionBar.Tab GetViewPageTab(this ViewPager viewPager, ActionBar actionBar, string name)
-        {
-            var tab = actionBar.NewTab();
-            tab.SetText(name);
-            tab.TabSelected += (o, e) =>
-            {
-                viewPager.SetCurrentItem(actionBar.SelectedNavigationIndex, true);
-            };
-            return tab;
-        }
     }
 }
