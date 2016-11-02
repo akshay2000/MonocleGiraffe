@@ -2,4 +2,5 @@
 <analytics xmlns="http://googleanalyticssdk.codeplex.com/ns/easytracker">
   <!--Replace placeholder ID with your tracking ID-->
   <trackingId>UA-84261554-1</trackingId>
+  <reportUncaughtExceptions>true</reportUncaughtExceptions>
 </analytics>
