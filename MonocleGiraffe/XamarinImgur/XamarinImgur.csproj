@@ -55,6 +55,7 @@
     <Compile Include="Models\AccountSettings.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CreditResult.cs" />
     <Compile Include="Models\GalleryProfile.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Response.cs" />

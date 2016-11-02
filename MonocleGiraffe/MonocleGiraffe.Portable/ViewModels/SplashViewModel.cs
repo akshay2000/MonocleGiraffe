@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XamarinImgur.Helpers;
+using XamarinImgur.Models;
 
 namespace MonocleGiraffe.Portable.ViewModels
 {
@@ -107,15 +108,32 @@ namespace MonocleGiraffe.Portable.ViewModels
         {
             bool wasAuthIntended = AuthenticationHelper.IsAuthIntended();
             AuthenticationHelper.SetAuthIntention(false);
-            JObject result;
             bool isSuccess = false;
             try
             {
-                result = await GetCredis();
-                isSuccess = (bool)result["success"];
-                if (!isSuccess)
+                var response = await GetCredis();
+                if (response.IsError)
                 {
-                    Message = (string)result["data"]["error"];
+                    isSuccess = false;
+                    Message = response.Message;
+                }
+                else
+                {
+                    var result = response.Content;
+                    if (result.ClientRemaining == 0)
+                    {
+                        isSuccess = false;
+                        Message = "Monocle Giraffe is overloaded. Try again later.";
+                    }
+                    else if (result.UserRemaining == 0)
+                    {
+                        isSuccess = false;
+                        Message = "You seem to be using app too much. Are you sure you're not a bot?";
+                    }
+                    else
+                    {
+                        isSuccess = true;
+                    }
                 }
             }
             catch
@@ -129,10 +147,10 @@ namespace MonocleGiraffe.Portable.ViewModels
             return isSuccess;
         }
 
-        private async Task<JObject> GetCredis()
+        private async Task<Response<CreditResult>> GetCredis()
         {
             const string url = "credits";
-            JObject result = await NetworkHelper.ExecuteRequest(url);
+            Response<CreditResult> result = await NetworkHelper.GetRequest<CreditResult>(url);
             return result;
         }
 
