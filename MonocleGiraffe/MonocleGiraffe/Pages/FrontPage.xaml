@@ -281,7 +281,7 @@
     </Page.BottomAppBar>
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource AppBarBackgroundThemeBrush}">        
-        <Pivot SelectedIndex="{Binding PivotIndex, Mode=TwoWay}">
+        <Pivot x:Name="MainPivot" SelectedIndex="{Binding PivotIndex, Mode=TwoWay}">
             <Pivot.Resources>
                 <Style TargetType="PivotHeaderItem">
                     <Setter Property="Height" Value="Auto" />

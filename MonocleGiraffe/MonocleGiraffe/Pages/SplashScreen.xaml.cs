@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using GoogleAnalytics;
 using MonocleGiraffe.Helpers;
 using MonocleGiraffe.Portable.ViewModels;
 using MonocleGiraffe.ViewModels;
@@ -32,6 +33,17 @@ namespace MonocleGiraffe.Pages
         public SplashScreen()
         {
             this.InitializeComponent();
+            var tracker = EasyTracker.GetTracker();
+            tracker.SendView("SplashScreen");
+            //TryAgainButton.Click += TryAgainButton_Click;
+        }
+
+        private long tryAgainCount = 0;
+        private void TryAgainButton_Click(object sender, RoutedEventArgs e)
+        {
+            tryAgainCount++;
+            var tracker = EasyTracker.GetTracker();
+            tracker.SendEvent("ui", "click", "splash_try_again", tryAgainCount);
         }
     }
 }

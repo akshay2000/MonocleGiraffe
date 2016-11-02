@@ -16,9 +16,9 @@
             <Border Height="50">
                 <ProgressRing VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="12" IsActive="True" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=Busy}"/>
             </Border>
-            <TextBlock Text="{Binding Message}" FontSize="32" FontWeight="Light"/>
+            <TextBlock Text="{Binding Message}" FontSize="32" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center"/>
             <Grid Height="60">
-                <Button Content="Try Again" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AnonError}">
+                <Button x:Name="TryAgainButton" Content="Try Again" HorizontalAlignment="Center" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter=AnonError}">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Click">
                             <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ShakeHandsAndNavigate"/>

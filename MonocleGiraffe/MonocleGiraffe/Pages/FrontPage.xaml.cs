@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GoogleAnalytics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,6 +37,17 @@ namespace MonocleGiraffe.Pages
             this.InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
             ChageSystemTrayColor();
+            MainPivot.SelectionChanged += MainPivot_SelectionChanged;
+        }
+
+        private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedIndex = MainPivot.SelectedIndex;
+            if (selectedIndex < 0 || selectedIndex > 3)
+                return;
+            var tracker = EasyTracker.GetTracker();
+            string[] screenNames = new string[] { "Gallery", "Reddits", "Search", "Account" };
+            tracker.SendView(screenNames[selectedIndex]);
         }
 
         private void ChageSystemTrayColor()
