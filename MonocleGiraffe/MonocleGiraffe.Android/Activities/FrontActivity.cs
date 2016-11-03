@@ -17,11 +17,12 @@ using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 using Java.Lang;
 using Android.Support.V4.Content;
+using Android.Support.V7.App;
 
 namespace MonocleGiraffe.Android.Activities
 {
     [Activity(Label = "FrontActivity")]
-    public class FrontActivity : FragmentActivity
+    public class FrontActivity : AppCompatActivity
     {
         FrontPagerAdapter pagerAdapter;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -38,16 +39,36 @@ namespace MonocleGiraffe.Android.Activities
             
             pager.OffscreenPageLimit = 3;
             pager.Adapter = pagerAdapter;
+            pager.PageSelected += Pager_PageSelected;
 
             SetTabContent(tabLayout);
-
+            SetSupportActionBar(MainToolbar);
+            
             tabLayout.TabSelected += TabLayout_TabSelected;
             tabLayout.TabUnselected += TabLayout_TabUnselected;
 
-            var selectedTab = tabLayout.GetTabAt(pager.CurrentItem);
+            int currentIndex = pager.CurrentItem;
+            var selectedTab = tabLayout.GetTabAt(currentIndex);
             var imageView = selectedTab.CustomView as ImageView;
             imageView.SetColorFilter(new global::Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.TabSelected)));
+            SupportActionBar.Title = pagerAdapter.GetTitle(currentIndex);
         }
+
+        private void Pager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
+        {
+            SupportActionBar.Title = pagerAdapter.GetTitle(e.Position);
+        }
+
+        private global::Android.Support.V7.Widget.Toolbar mainToolbar;
+        public global::Android.Support.V7.Widget.Toolbar MainToolbar
+        {
+            get
+            {
+                mainToolbar = mainToolbar ?? FindViewById<global::Android.Support.V7.Widget.Toolbar>(Resource.Id.MainToolbar);
+                return mainToolbar;
+            }
+        }
+
 
         private void TabLayout_TabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
         {
@@ -106,6 +127,9 @@ namespace MonocleGiraffe.Android.Activities
             image.SetImageResource(tabIcons[index]);
             return view;
         }
+
+        private string[] titles = new string[] { "Gallery", "Subreddits", "Search", "Account" };
+        public string GetTitle(int index) => titles[index];
 
         private GalleryFragment gallery;
         private GalleryFragment Gallery

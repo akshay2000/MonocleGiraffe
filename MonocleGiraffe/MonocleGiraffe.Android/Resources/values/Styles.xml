@@ -13,6 +13,8 @@
     <item name="tabTextAppearance">@style/TabTextStyle</item>
     <item name="tabIndicatorColor">@color/TabSelected</item>
     <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    <item name="android:background">?attr/colorPrimary</item>
+    <item name="tabGravity">fill</item>
   </style>
 
   <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
