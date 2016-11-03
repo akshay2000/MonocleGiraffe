@@ -97,28 +97,13 @@ namespace MonocleGiraffe.Android.Activities
             Log.Debug("FrontActivity", $"position was {position}");
             return null;
         }
-
-        public override ICharSequence GetPageTitleFormatted(int position)
-        {
-            switch (position)
-            {
-                case 0:
-                    return new Java.Lang.String(nameof(Gallery));
-                case 1:
-                    return new Java.Lang.String(nameof(Reddits));
-                case 2:
-                    return new Java.Lang.String(nameof(Search));
-                case 3:
-                    return new Java.Lang.String(nameof(Account));
-            }
-            return new Java.Lang.String("Unsupported");
-        }
-
+        
+        private int[] tabIcons = new int[] { Resource.Drawable.Home, Resource.Drawable.Reddit, Resource.Drawable.Search };
         public View GetTabView(int index, LayoutInflater inflater)
         {
             View view = inflater.Inflate(Resource.Layout.Ctrl_Tab, null);
             var image = view.FindViewById<ImageView>(Resource.Id.TabIcon);
-            image.SetImageResource(Resource.Drawable.Home);
+            image.SetImageResource(tabIcons[index]);
             return view;
         }
 

@@ -2061,8 +2061,14 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f020057
 			public const int navigation_empty_icon = 2130837591;
 			
+			// aapt resource value: 0x7f02005a
+			public const int notification_template_icon_bg = 2130837594;
+			
 			// aapt resource value: 0x7f020058
-			public const int notification_template_icon_bg = 2130837592;
+			public const int Reddit = 2130837592;
+			
+			// aapt resource value: 0x7f020059
+			public const int Search = 2130837593;
 			
 			static Drawable()
 			{
