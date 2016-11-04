@@ -39,7 +39,7 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            var layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.Vertical);
+            var layoutManager = new AutoFitStaggeredLayoutManager(360, StaggeredGridLayoutManager.Vertical, Context);
             GalleryRecyclerView.SetLayoutManager(layoutManager);         
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
         }
@@ -93,6 +93,16 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
+        private LinearLayout layoutRoot;
+        public LinearLayout LayoutRoot
+        {
+            get
+            {
+                layoutRoot = layoutRoot ?? View.FindViewById<LinearLayout>(Resource.Id.LayoutRoot);
+                return layoutRoot;
+            }
+        }
+
         public override void OnDestroyView()
         {
             galleryRecyclerView = null;
@@ -104,5 +114,33 @@ namespace MonocleGiraffe.Android.Fragments
             base.OnDestroy();
             bindings.ForEach((b) => b.Detach());
         }
+    }
+    
+    public class AutoFitStaggeredLayoutManager : StaggeredGridLayoutManager
+    {
+        private int ColumnWidth { get; set; }
+        private Context Context { get; set; }
+        public AutoFitStaggeredLayoutManager(int columnWidth, int orientation, Context context) : base (1, orientation)
+        {
+            ColumnWidth = columnWidth;
+            Context = context;
+        }
+
+        private int oldWidth = 0;
+        public override void OnMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec)
+        {
+            int width = Width;
+            bool isWidthChanged = oldWidth != width;
+            if (isWidthChanged && ColumnWidth > 0 && width > 0)
+            {
+                oldWidth = width;
+                int totalWidth = width - PaddingRight - PaddingLeft;
+                int totalWidthInDp = Utils.PxToDp(totalWidth, Context.Resources);
+                int columnWidthInDp = Utils.PxToDp(ColumnWidth, Context.Resources);
+                int spanCount = Math.Max(1, totalWidthInDp / columnWidthInDp);
+                SpanCount = spanCount;
+            }
+            base.OnMeasure(recycler, state, widthSpec, heightSpec);
+        }        
     }
 }

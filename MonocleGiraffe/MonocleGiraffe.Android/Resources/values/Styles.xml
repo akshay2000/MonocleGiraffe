@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="Theme.AppTheme" parent="Theme.AppCompat.NoActionBar">
+  <style name="Theme.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- customize the color palette -->
     <!-- 500 -->
     <item name="colorPrimary">@color/Primary</item>

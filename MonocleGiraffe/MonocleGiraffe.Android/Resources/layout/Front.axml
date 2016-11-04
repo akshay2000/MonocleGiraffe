@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleTextColor="@android:color/white"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"/>
     <android.support.design.widget.TabLayout
         android:id="@+id/Tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TabsStyle" />
+        style="@style/TabsStyle"
+        android:elevation="4dp"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/MainPager"
         android:layout_width="match_parent"
