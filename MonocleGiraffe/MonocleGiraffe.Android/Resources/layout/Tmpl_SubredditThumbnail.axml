@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardPreventCornerOverlap="false"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true">
     <FFImageLoading.Views.ImageViewAsync
         android:id="@+id/Thumbnail"
         android:layout_width="match_parent"
