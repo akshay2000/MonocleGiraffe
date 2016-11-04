@@ -42,7 +42,7 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SubGallery);
-            layoutManager = new GridAutofitLayoutManager(this, 240);
+            layoutManager = new GridAutofitLayoutManager(this, 120);
             SubGalleryRecyclerView.SetLayoutManager(layoutManager);
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
             var param = Nav.GetAndRemoveParameter<string>(Intent);

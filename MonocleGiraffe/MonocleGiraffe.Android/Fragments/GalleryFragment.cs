@@ -39,7 +39,7 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            var layoutManager = new AutoFitStaggeredLayoutManager(360, StaggeredGridLayoutManager.Vertical, Context);
+            var layoutManager = new AutoFitStaggeredLayoutManager(180, StaggeredGridLayoutManager.Vertical, Context);
             GalleryRecyclerView.SetLayoutManager(layoutManager);         
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
         }
@@ -136,8 +136,7 @@ namespace MonocleGiraffe.Android.Fragments
                 oldWidth = width;
                 int totalWidth = width - PaddingRight - PaddingLeft;
                 int totalWidthInDp = Utils.PxToDp(totalWidth, Context.Resources);
-                int columnWidthInDp = Utils.PxToDp(ColumnWidth, Context.Resources);
-                int spanCount = Math.Max(1, totalWidthInDp / columnWidthInDp);
+                int spanCount = Math.Max(1, totalWidthInDp / ColumnWidth);
                 SpanCount = spanCount;
             }
             base.OnMeasure(recycler, state, widthSpec, heightSpec);
