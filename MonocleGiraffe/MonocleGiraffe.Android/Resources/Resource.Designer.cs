@@ -3537,6 +3537,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f080021
 			public const int Platform_Widget_AppCompat_Spinner = 2131230753;
 			
+			// aapt resource value: 0x7f08016c
+			public const int PrimaryText = 2131231084;
+			
 			// aapt resource value: 0x7f08002e
 			public const int RtlOverlay_DialogWindowTitle_AppCompat = 2131230766;
 			
@@ -3578,6 +3581,9 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f08003b
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131230779;
+			
+			// aapt resource value: 0x7f08016d
+			public const int SecondaryText = 2131231085;
 			
 			// aapt resource value: 0x7f08016b
 			public const int TabTextStyle = 2131231083;

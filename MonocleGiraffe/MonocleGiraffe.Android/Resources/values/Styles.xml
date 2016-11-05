@@ -21,4 +21,15 @@
     <item name="android:textColor">?android:textColorSecondary</item>
     <item name="textAllCaps">false</item>
   </style>
+
+  <style name="PrimaryText" parent="TextAppearance.AppCompat.Body2">
+    <item name="android:textColor">#212121</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="SecondaryText" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textColor">#757575</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+  
 </resources>

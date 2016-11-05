@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reddits_header"
         android:text="POPULAR SUBREDDITS"
-        android:textColor="@android:color/white"
-        android:textSize="15.0dp"
+        android:textSize="17.0sp"
         android:textStyle="bold"
-        android:layout_marginLeft="12.0dp"
-        android:layout_marginRight="12.0dp"
+        android:textColor="#000"
+        android:layout_marginLeft="16.0dp"
+        android:layout_marginRight="16.0dp"
         android:layout_marginTop="14.0dp" />
     <ListView
         android:minWidth="25px"

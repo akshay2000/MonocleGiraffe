@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LayoutRoot"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="4.0dp"
-    android:paddingBottom="4.0dp"
-    android:paddingLeft="12.0dp"
-    android:paddingRight="12.0dp">
-    <TextView
-        android:text="Text"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TitleTextView"
-        android:textSize="18.0dp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white" />
-    <TextView
-        android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SubtitleTextView"
-        android:textColor="#959595"
-        android:textSize="12.0dp" />
-</LinearLayout>
+        android:minHeight="60dp"
+        android:paddingLeft="16.0dp"
+        android:paddingRight="16.0dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:text="Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TitleTextView"
+            style="@style/PrimaryText" />
+        <TextView
+            android:text="Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/SubtitleTextView"
+            style="@style/SecondaryText" />
+    </LinearLayout>
+</FrameLayout>
