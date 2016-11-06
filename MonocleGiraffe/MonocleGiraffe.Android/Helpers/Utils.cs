@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Content.Res;
+using Android.Util;
 
 namespace MonocleGiraffe.Android.Helpers
 {
@@ -25,6 +26,15 @@ namespace MonocleGiraffe.Android.Helpers
         {
             int px = (int)Math.Round(dp * res.DisplayMetrics.Density + 0.5f);
             return px;
+        }
+
+        public static int GetAccentColor(Context context)
+        {
+            var typedValue = new TypedValue();
+            TypedArray a = context.ObtainStyledAttributes(typedValue.Data, new int[] { Resource.Attribute.colorAccent });
+            int color = a.GetColor(0, 0);
+            a.Recycle();
+            return color;
         }
     }
 }

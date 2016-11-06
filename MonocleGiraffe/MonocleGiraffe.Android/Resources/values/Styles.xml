@@ -3,32 +3,26 @@
   <style name="Theme.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- customize the color palette -->
     <!-- 500 -->
-    <item name="colorPrimary">@color/Primary</item>
+    <item name="colorPrimary">@color/primary</item>
     <!-- 700 -->
-    <item name="colorPrimaryDark">@color/PrimaryDark</item>
-    <item name="colorAccent">@color/PrimaryDark</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
   </style>
 
   <style name="TabsStyle" parent="Widget.Design.TabLayout">
-    <item name="tabTextAppearance">@style/TabTextStyle</item>
     <item name="tabIndicatorColor">@color/TabSelected</item>
     <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     <item name="android:background">?attr/colorPrimary</item>
     <item name="tabGravity">fill</item>
   </style>
 
-  <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
-    <item name="android:textColor">?android:textColorSecondary</item>
-    <item name="textAllCaps">false</item>
-  </style>
-
   <style name="PrimaryText" parent="TextAppearance.AppCompat.Body2">
-    <item name="android:textColor">#212121</item>
+    <item name="android:textColor">@color/primary_text</item>
     <item name="android:textSize">16sp</item>
   </style>
 
   <style name="SecondaryText" parent="TextAppearance.AppCompat.Body1">
-    <item name="android:textColor">#757575</item>
+    <item name="android:textColor">@color/secondary_text</item>
     <item name="android:textSize">14sp</item>
   </style>
   

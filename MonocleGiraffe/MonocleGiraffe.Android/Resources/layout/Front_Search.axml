@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px"
-    android:background="#000000">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp">
+        android:padding="8dp">
         <TextView
             android:text="REDDITS"
             android:tag="Reddits"
@@ -21,8 +22,8 @@
             android:layout_height="25dp"
             android:id="@+id/RedditsButton"
             android:gravity="center"
-            android:layout_margin="6dp"
-            android:background="#1eec88"
+            android:layout_margin="8dp"
+            android:background="?attr/colorAccent"
             android:fontFamily="sans-serif-black"
             android:textColor="#ffffff" />
         <TextView
@@ -32,8 +33,8 @@
             android:layout_height="25dp"
             android:id="@+id/PostsButton"
             android:gravity="center"
-            android:layout_margin="6dp"
-            android:background="#333333"
+            android:layout_margin="8dp"
+            android:background="@color/TabUnselected"
             android:fontFamily="sans-serif-black"
             android:textColor="#ffffff" />
         <TextView
@@ -43,35 +44,40 @@
             android:layout_height="25dp"
             android:id="@+id/GifsButton"
             android:gravity="center"
-            android:layout_margin="6dp"
-            android:background="#333333"
+            android:layout_margin="8dp"
+            android:background="@color/TabUnselected"
             android:fontFamily="sans-serif-black"
             android:textColor="#ffffff" />
     </LinearLayout>
-    <EditText
-        android:id="@+id/QueryEditText"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search awesomeness"
-        android:layout_margin="12dp"
-        android:inputType="text"
-        android:imeOptions="actionSearch" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+        <EditText
+            android:id="@+id/QueryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search awesomeness"
+            android:inputType="text"
+            android:imeOptions="actionSearch" />
+    </android.support.design.widget.TextInputLayout>
     <TextView
         android:text="Search results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
-        android:textColor="#959595"
-        android:textSize="12dp" />
+        android:textSize="17sp"
+        android:layout_marginTop="6dp" />
     <ProgressBar
         android:id="@+id/ProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_margin="12dp"
-        android:indeterminateOnly="true"/>
+        android:layout_margin="16dp"
+        android:indeterminateOnly="true" />
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -79,8 +85,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/ResultsFrame"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ResultsRecyclerView"
             android:layout_width="match_parent"

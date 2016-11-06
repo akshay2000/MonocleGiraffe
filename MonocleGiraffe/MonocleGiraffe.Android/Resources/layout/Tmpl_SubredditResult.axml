@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:controls="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-              android:layout_margin="6dp">
+    android:minHeight="60dp"
+    android:paddingLeft="6dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground">
     <LinearLayout
         android:orientation="vertical"
         android:minWidth="25px"
         android:minHeight="25px"
+        android:layout_gravity="center_vertical"
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -17,34 +21,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/TitleTextView"
-            android:textSize="18.0dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            style="@style/PrimaryText" />
         <TextView
             android:text="Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/SubtitleTextView"
-            android:textColor="#959595"
-            android:textSize="12.0dp" />
+            style="@style/SecondaryText" />
     </LinearLayout>
-    <monoclegiraffe.android.controls.FontTextView
-        android:text=""
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:layout_gravity="center"
-        android:textSize="18dp"
-        controls:typeface="@string/TF_Material"
-        android:id="@+id/AddButton" />
-    <monoclegiraffe.android.controls.FontTextView
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:layout_gravity="center"
-        android:textSize="18dp"
-        android:textColor="@color/ImgurGreen"
-        controls:typeface="@string/TF_Material"
-        android:id="@+id/CheckButton" />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:id="@+id/ToggleContainer">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            app:srcCompat="@drawable/add"
+            android:tint="@color/TabUnselected"
+            android:id="@+id/AddButton" />
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            app:srcCompat="@drawable/check"
+            android:tint="?attr/colorAccent"
+            android:id="@+id/CheckButton" />
+    </FrameLayout>
 </LinearLayout>

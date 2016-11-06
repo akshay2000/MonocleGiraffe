@@ -18,13 +18,14 @@ using Android.Support.V7.Widget;
 using FFImageLoading.Views;
 using FFImageLoading;
 using MonocleGiraffe.Android.Helpers;
+using Android.Support.V4.Content;
+using Android.Graphics;
 
 namespace MonocleGiraffe.Android.Fragments
 {
     public partial class SearchFragment : global::Android.Support.V4.App.Fragment
     {
         List<Binding> bindings = new List<Binding>();
-        private ScrollListener listener;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -81,20 +82,21 @@ namespace MonocleGiraffe.Android.Fragments
 
         private void TypeButton_Click(object sender, EventArgs e)
         {
-            string type = (string)(sender as TextView)?.Tag;
+            var type = (string)(sender as TextView)?.Tag;
             Vm.SearchCommand.Execute(type);
             RefreshUI();
         }
 
         private Drawable ConvertBoolToDrawable(bool flag)
-        {
-            var ret = flag ? Resources.GetColor(Resource.Color.ImgurGreen) : Resources.GetColor(Resource.Color.Gray);
-            return new ColorDrawable(ret);
+        {            
+            int ret = flag ? Utils.GetAccentColor(Context) : ContextCompat.GetColor(Context, Resource.Color.TabUnselected);
+            return new ColorDrawable(new Color(ret));
         }
 
         private void RefreshUI()
         {
             ResultsView.ClearOnScrollListeners();
+			QueryEditText.ClearFocus();
             if (Vm.IsReddit)
             {
                 ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
@@ -115,10 +117,6 @@ namespace MonocleGiraffe.Android.Fragments
                 var adapter = Vm.Gifs.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail, GifItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Gifs));
-            }
-            else
-            {
-                //ResultsView.GetAdapter()
             }
         }
 
@@ -142,19 +140,22 @@ namespace MonocleGiraffe.Android.Fragments
             holder.FindCachedViewById<TextView>(Resource.Id.TitleTextView).Text = item.Title.Replace("&amp;", "&");
             holder.FindCachedViewById<TextView>(Resource.Id.SubtitleTextView).Text = $"/r/{item.Url} • {item.Subscribers} Subscribers";
 
-            var addButton = holder.FindCachedViewById<TextView>(Resource.Id.AddButton);
+            var addButton = holder.FindCachedViewById<View>(Resource.Id.AddButton);
             var addButtonVisibilityBinding = new Binding<bool, ViewStates>(item, () => item.IsFavorited, addButton, () => addButton.Visibility).ConvertSourceToTarget((flag) => flag ? ViewStates.Gone : ViewStates.Visible);
             holder.DeleteBinding(nameof(addButtonVisibilityBinding)); 
             holder.SaveBinding(nameof(addButtonVisibilityBinding), addButtonVisibilityBinding);
 
-            addButton.SetCommand("Click", Vm.ToggleFavorite, item);
+            //addButton.SetCommand("Click", Vm.ToggleFavorite, item);
 
-            var checkButton = holder.FindCachedViewById<TextView>(Resource.Id.CheckButton);
+            var checkButton = holder.FindCachedViewById<View>(Resource.Id.CheckButton);
             var checkButtonVisibilityBinding = new Binding<bool, ViewStates>(item, () => item.IsFavorited, checkButton, () => checkButton.Visibility).ConvertSourceToTarget((flag) => !flag ? ViewStates.Gone : ViewStates.Visible);
             holder.DeleteBinding(nameof(checkButtonVisibilityBinding));
             holder.SaveBinding(nameof(checkButtonVisibilityBinding), checkButtonVisibilityBinding);
 
-            checkButton.SetCommand("Click", Vm.ToggleFavorite, item);
+            //checkButton.SetCommand("Click", Vm.ToggleFavorite, item);
+
+            var toggleContainer = holder.FindCachedViewById<View>(Resource.Id.ToggleContainer);
+            toggleContainer.SetCommand("Click", Vm.ToggleFavorite, item);
         }
 
         private void BindPostView(CachingViewHolder holder, GalleryItem item, int position)

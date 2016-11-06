@@ -2,8 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="28dp"
     android:width="28dp"
-    android:viewportWidth="32"
-    android:viewportHeight="32">
+    android:viewportWidth="24"
+    android:viewportHeight="24">
   <!-- draw a path -->
   <path android:fillColor="@color/TabUnselected"
       android:pathData="M15.5 14h-.79l-.28-.27C15.41 12.59

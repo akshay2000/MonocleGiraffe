@@ -7,4 +7,14 @@
   <color name="Accent">#1eec88</color>
   <color name="TabUnselected">#151515</color>
   <color name="TabSelected">#ffffff</color>
+
+  <!--Teal Red-->
+  <color name="primary">#009688</color>
+  <color name="primary_dark">#00796B</color>
+  <color name="primary_light">#B2DFDB</color>
+  <color name="accent">#FF5252</color>
+  <color name="primary_text">#212121</color>
+  <color name="secondary_text">#757575</color>
+  <color name="icons">#FFFFFF</color>
+  <color name="divider">#BDBDBD</color>
 </resources>

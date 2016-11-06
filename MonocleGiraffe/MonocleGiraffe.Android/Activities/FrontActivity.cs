@@ -119,7 +119,7 @@ namespace MonocleGiraffe.Android.Activities
             return null;
         }
         
-        private int[] tabIcons = new int[] { Resource.Drawable.Home, Resource.Drawable.Reddit, Resource.Drawable.Search };
+        private int[] tabIcons = new int[] { Resource.Drawable.home, Resource.Drawable.reddit, Resource.Drawable.search };
         public View GetTabView(int index, LayoutInflater inflater)
         {
             View view = inflater.Inflate(Resource.Layout.Ctrl_Tab, null);
