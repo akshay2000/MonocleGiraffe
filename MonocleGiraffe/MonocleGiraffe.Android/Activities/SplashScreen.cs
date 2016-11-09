@@ -16,6 +16,7 @@ using System.IO;
 using XamarinImgur.Helpers;
 using MonocleGiraffe.Android.LibraryImpl;
 using GalaSoft.MvvmLight.Views;
+using Android.Gms.Analytics;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -32,6 +33,7 @@ namespace MonocleGiraffe.Android.Activities
             Init();
             SetBindings();
             await Vm.ShakeHandsAndNavigate();
+            AnalyticsHelper.SendView("Splash");
         }
 
         private void SetBindings()

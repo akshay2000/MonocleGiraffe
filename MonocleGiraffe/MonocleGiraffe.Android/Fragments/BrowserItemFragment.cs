@@ -61,6 +61,7 @@ namespace MonocleGiraffe.Android.Fragments
             else
                 RenderImage(item);
             base.OnViewCreated(view, savedInstanceState);
+            AnalyticsHelper.SendView("BrowserItem");
         }
 
         private void RenderHeader(IGalleryItem item)

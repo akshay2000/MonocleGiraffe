@@ -47,6 +47,7 @@ namespace MonocleGiraffe.Android.Activities
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
             var param = Nav.GetAndRemoveParameter<string>(Intent);
             Vm.Activate(param);
+            AnalyticsHelper.SendView("SubredditGallery");
         }
 
         private void BindCollection()

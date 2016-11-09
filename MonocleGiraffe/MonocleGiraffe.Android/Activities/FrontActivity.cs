@@ -47,16 +47,21 @@ namespace MonocleGiraffe.Android.Activities
             tabLayout.TabSelected += TabLayout_TabSelected;
             tabLayout.TabUnselected += TabLayout_TabUnselected;
 
+            //Launch setup
             int currentIndex = pager.CurrentItem;
             var selectedTab = tabLayout.GetTabAt(currentIndex);
             var imageView = selectedTab.CustomView as ImageView;
             imageView.SetColorFilter(new global::Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.TabSelected)));
-            SupportActionBar.Title = pagerAdapter.GetTitle(currentIndex);
+            var title = pagerAdapter.GetTitle(currentIndex);
+            SupportActionBar.Title = title;
+            AnalyticsHelper.SendView(title);            
         }
 
         private void Pager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
         {
-            SupportActionBar.Title = pagerAdapter.GetTitle(e.Position);
+            var title = pagerAdapter.GetTitle(e.Position);
+            SupportActionBar.Title = title;
+            AnalyticsHelper.SendView(title);
         }
 
         private global::Android.Support.V7.Widget.Toolbar mainToolbar;
@@ -68,7 +73,6 @@ namespace MonocleGiraffe.Android.Activities
                 return mainToolbar;
             }
         }
-
 
         private void TabLayout_TabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
         {
