@@ -2086,28 +2086,34 @@ namespace MonocleGiraffe.Android
 			public const int check = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int design_fab_background = 2130837589;
+			public const int comment = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int design_ic_visibility = 2130837590;
+			public const int design_fab_background = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int design_snackbar_background = 2130837591;
+			public const int design_ic_visibility = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int home = 2130837592;
+			public const int design_snackbar_background = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int navigation_empty_icon = 2130837593;
-			
-			// aapt resource value: 0x7f02005c
-			public const int notification_template_icon_bg = 2130837596;
+			public const int home = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int reddit = 2130837594;
+			public const int navigation_empty_icon = 2130837594;
+			
+			// aapt resource value: 0x7f02005e
+			public const int notification_template_icon_bg = 2130837598;
 			
 			// aapt resource value: 0x7f02005b
-			public const int search = 2130837595;
+			public const int reddit = 2130837595;
+			
+			// aapt resource value: 0x7f02005c
+			public const int search = 2130837596;
+			
+			// aapt resource value: 0x7f02005d
+			public const int up = 2130837597;
 			
 			static Drawable()
 			{

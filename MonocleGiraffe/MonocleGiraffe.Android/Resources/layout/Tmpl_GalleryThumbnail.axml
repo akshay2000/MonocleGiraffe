@@ -41,24 +41,61 @@
                     android:layout_span="2"
                     android:layout_marginBottom="6dp"
                     android:textColor="@android:color/white"
-                    android:textSize="12dp" />
+                    android:textSize="16dp" />
             </TableRow>
             <TableRow
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/UpsTextView"
-                    android:text="2013"
-                    android:layout_weight="1"
-                    android:textSize="11dp"
-                    android:textColor="#959595" />
-                <TextView
-                    android:id="@+id/CommentsTextView"
-                    android:text="435"
-                    android:layout_weight="1"
-                    android:textColor="#959595"
-                    android:textSize="11dp" />
+                android:layout_width="match_parent">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        app:srcCompat="@drawable/up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:minWidth="10dp"
+                        android:paddingTop="3dp"
+                        android:tint="#959595"
+                        android:minHeight="10dp" />
+                    <TextView
+                        android:id="@+id/UpsTextView"
+                        android:text="2013"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textSize="14dp"
+                        android:textColor="#959595"
+                        android:paddingLeft="12dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        app:srcCompat="@drawable/comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:minWidth="10dp"
+                        android:paddingTop="3dp"
+                        android:tint="#959595"
+                        android:minHeight="10dp" />
+                    <TextView
+                        android:id="@+id/CommentsTextView"
+                        android:text="435"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textSize="14dp"
+                        android:textColor="#959595"
+                        android:paddingLeft="12dp" />
+                </LinearLayout>
             </TableRow>
         </TableLayout>
     </LinearLayout>
