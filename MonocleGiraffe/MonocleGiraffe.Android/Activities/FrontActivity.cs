@@ -18,12 +18,25 @@ using Android.Support.Design.Widget;
 using Java.Lang;
 using Android.Support.V4.Content;
 using Android.Support.V7.App;
+using Microsoft.Practices.ServiceLocation;
+using MonocleGiraffe.Portable.ViewModels;
 
 namespace MonocleGiraffe.Android.Activities
 {
     [Activity(Label = "FrontActivity")]
     public class FrontActivity : AppCompatActivity
     {
+		public NavigationService Nav
+		{
+			get
+			{
+				return (NavigationService)ServiceLocator.Current
+					.GetInstance<INavigationService>();
+			}
+		}
+
+		public FrontViewModel Vm { get { return App.Locator.Front; } }
+
         FrontPagerAdapter pagerAdapter;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -69,6 +82,7 @@ namespace MonocleGiraffe.Android.Activities
 			switch (itemId)
 			{
 				case Resource.Id.SettingsMenuItem:
+					StartActivity(new Intent(this, typeof(SettingsActivity)));
 					break;
 				case Resource.Id.DownloadsMenuItem:
 					break;
