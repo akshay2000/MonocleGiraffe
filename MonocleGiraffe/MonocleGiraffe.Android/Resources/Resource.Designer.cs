@@ -2103,17 +2103,20 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f02005a
 			public const int navigation_empty_icon = 2130837594;
 			
-			// aapt resource value: 0x7f02005e
-			public const int notification_template_icon_bg = 2130837598;
+			// aapt resource value: 0x7f02005f
+			public const int notification_template_icon_bg = 2130837599;
 			
 			// aapt resource value: 0x7f02005b
 			public const int reddit = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int search = 2130837596;
+			public const int refresh = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int up = 2130837597;
+			public const int search = 2130837597;
+			
+			// aapt resource value: 0x7f02005e
+			public const int up = 2130837598;
 			
 			static Drawable()
 			{
@@ -2149,8 +2152,14 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00ab
 			public const int DescriptionTextView = 2131361963;
 			
+			// aapt resource value: 0x7f0a00b1
+			public const int DownloadsMenuItem = 2131361969;
+			
 			// aapt resource value: 0x7f0a008d
 			public const int EditText = 2131361933;
+			
+			// aapt resource value: 0x7f0a00b2
+			public const int FeedbackMenuItem = 2131361970;
 			
 			// aapt resource value: 0x7f0a0083
 			public const int GalleryRecyclerView = 2131361923;
@@ -2208,6 +2217,9 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f0a00a1
 			public const int RetryButton = 2131361953;
+			
+			// aapt resource value: 0x7f0a00b0
+			public const int SettingsMenuItem = 2131361968;
 			
 			// aapt resource value: 0x7f0a00a2
 			public const int SignInButton = 2131361954;
@@ -2919,6 +2931,22 @@ namespace MonocleGiraffe.Android
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0e0000
+			public const int main_menu = 2131623936;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
@@ -3954,6 +3982,9 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f0b0106
 			public const int ThemeOverlay_AppCompat_Light = 2131427590;
+			
+			// aapt resource value: 0x7f0b016d
+			public const int ToolbarTheme = 2131427693;
 			
 			// aapt resource value: 0x7f0b0107
 			public const int Widget_AppCompat_ActionBar = 2131427591;

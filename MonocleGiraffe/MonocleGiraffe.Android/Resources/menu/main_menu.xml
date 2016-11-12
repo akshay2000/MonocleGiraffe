@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/SettingsMenuItem"
+        app:showAsAction="never"
+        android:title="Settings">
+    </item>
+    <item
+        android:id="@+id/DownloadsMenuItem"
+        android:icon="@drawable/refresh"
+        app:showAsAction="never"
+        android:title="Downloads">
+    </item>
+    <item
+        android:id="@+id/FeedbackMenuItem"
+        android:icon="@drawable/refresh"
+        app:showAsAction="never"
+        android:title="Feedback">
+    </item>
+</menu>
+

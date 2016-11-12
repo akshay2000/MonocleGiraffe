@@ -57,6 +57,39 @@ namespace MonocleGiraffe.Android.Activities
             AnalyticsHelper.SendView(title);            
         }
 
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
+			return true;
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			var itemId = item.ItemId;
+			switch (itemId)
+			{
+				case Resource.Id.SettingsMenuItem:
+					break;
+				case Resource.Id.DownloadsMenuItem:
+					break;
+				case Resource.Id.FeedbackMenuItem:
+					LaunchFeedbackEmail();
+					break;
+			}
+			return true;
+		}
+
+		private void LaunchFeedbackEmail()
+		{
+			var emailIntent = new Intent(Intent.ActionSend);
+			emailIntent.SetType("plain/text");
+			emailIntent.PutExtra(Intent.ExtraEmail, new string[] { "akshay2000+mg@hotmail.com" });
+			emailIntent.PutExtra(Intent.ExtraSubject, "Monocle Giraffe for Android");
+			emailIntent.PutExtra(Intent.ExtraText, "Write your feedback below\n_________________________");
+
+			StartActivity(Intent.CreateChooser(emailIntent, "Send Feedback"));
+		}
+
         private void Pager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
         {
             var title = pagerAdapter.GetTitle(e.Position);
