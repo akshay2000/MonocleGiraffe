@@ -102,7 +102,7 @@ namespace MonocleGiraffe.Android.Fragments
                 ResultsView.SetLayoutManager(new LinearLayoutManager(Context));
                 var adapter = Vm.Subreddits.GetRecyclerAdapter(BindRedditView, Resource.Layout.Tmpl_SubredditResult, SubredditItemClick);
                 ResultsView.SetAdapter(adapter);
-                ResultsView.AddOnScrollListener(new ScrollListener(Vm.Subreddits));
+				ResultsView.AddOnScrollListener(new ScrollListener(Vm.Subreddits));
             }
             else if (Vm.IsPosts)
             {

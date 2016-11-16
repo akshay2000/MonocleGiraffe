@@ -55,7 +55,7 @@ namespace MonocleGiraffe.Android.Activities
             adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_SubredditThumbnail, ItemClicked);
             SubGalleryRecyclerView.SetAdapter(adapter);
             SubGalleryRecyclerView.ClearOnScrollListeners();
-            var listener = new ScrollListener(Vm.Images);
+			var listener = new ScrollListener(Vm.Images);
             SubGalleryRecyclerView.AddOnScrollListener(listener);
         }
 

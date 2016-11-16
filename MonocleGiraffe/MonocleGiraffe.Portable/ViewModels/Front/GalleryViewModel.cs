@@ -198,11 +198,18 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         {
             get { return topicSelectedIndex; }
             set { Set(ref topicSelectedIndex, value); }
-        }   
+        }
+
+		public void TopicTapped(int position)
+		{
+			TopicTapped(Topics[position]);
+		}
 
         public void TopicTapped(Topic clickedItem)
         {
             ClosePane();
+			if (Title == clickedItem.Name)
+				return;
             LoadTopicGallery(clickedItem, VIRAL);
         }
 

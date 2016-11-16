@@ -16,7 +16,6 @@ using System.IO;
 using XamarinImgur.Helpers;
 using MonocleGiraffe.Android.LibraryImpl;
 using GalaSoft.MvvmLight.Views;
-using Android.Gms.Analytics;
 
 namespace MonocleGiraffe.Android.Activities
 {

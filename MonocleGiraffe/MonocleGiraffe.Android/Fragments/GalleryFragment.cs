@@ -39,24 +39,41 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            var layoutManager = new AutoFitStaggeredLayoutManager(180, StaggeredGridLayoutManager.Vertical, Context);
-            GalleryRecyclerView.SetLayoutManager(layoutManager);         
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
+			bindings.Add(this.SetBinding(() => Vm.Topics).WhenSourceChanges(BindTopics));
+
+			TopicsSpinner.ItemSelected += TopicsSpinner_ItemSelected;
         }
         
         private void BindCollection()
         {
-            var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail, ItemClicked);
+			var layoutManager = new AutoFitStaggeredLayoutManager(180, StaggeredGridLayoutManager.Vertical, Context);
+			GalleryRecyclerView.SetLayoutManager(layoutManager);
+			var adapter = Vm.Images.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_GalleryThumbnail, ItemClicked);
             GalleryRecyclerView.SetAdapter(adapter);
             GalleryRecyclerView.ClearOnScrollListeners();
-            var listener = new ScrollListener(Vm.Images);
+			var listener = new ScrollListener(Vm.Images);
             GalleryRecyclerView.AddOnScrollListener(listener);
         }
 
-        private void ItemClicked(int oldPosition, View oldView, int position, View view)
-        {
-            Vm.ImageTapped(position);
-        }
+		private void ItemClicked(int oldPosition, View oldView, int position, View view)
+		{
+			Vm.ImageTapped(position);
+		}
+
+		private void BindTopics()
+		{
+			if (Vm.Topics == null || Vm.Topics.Count == 0)
+				return;
+			var adapter = new ArrayAdapter<string>(Context, global::Android.Resource.Layout.SimpleSpinnerItem, Vm.Topics.Select(t => t.Name).ToList());
+			adapter.SetDropDownViewResource(global::Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			TopicsSpinner.Adapter = adapter;
+		}
+
+		void TopicsSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+		{
+			Vm.TopicTapped(e.Position);
+		}
 
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
@@ -102,6 +119,16 @@ namespace MonocleGiraffe.Android.Fragments
                 return layoutRoot;
             }
         }
+
+		private Spinner topicsSpinner;
+		public Spinner TopicsSpinner
+		{
+			get
+			{
+				topicsSpinner = topicsSpinner ?? View.FindViewById<Spinner>(Resource.Id.TopicsSpinner);
+				return topicsSpinner;
+			}
+		}
 
         public override void OnDestroyView()
         {

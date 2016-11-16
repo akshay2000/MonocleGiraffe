@@ -6,8 +6,25 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/TopicsSpinner"
+            android:layout_width="200.0dp"
+            android:layout_height="56dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp" />
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/GalleryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp" />
 </LinearLayout>
