@@ -1,14 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using MonocleGiraffe.Portable.ViewModels;
 using Android.Support.V4.View;
 using Android.Support.V4.App;
@@ -59,16 +53,25 @@ namespace MonocleGiraffe.Android.Activities
         private class BrowserAdapter : FragmentStatePagerAdapter
         {
             private IEnumerable<IGalleryItem> images;
-            public BrowserAdapter(IEnumerable<IGalleryItem> images, global::Android.Support.V4.App.FragmentManager fm) : base(fm)
+			private int oldCount;
+
+			public BrowserAdapter(IEnumerable<IGalleryItem> images, global::Android.Support.V4.App.FragmentManager fm) : base(fm)
             {
                 this.images = images;
-            }
-            
+				oldCount = images.Count();
+			}
+
             public override int Count
             {
                 get
                 {
-                    return images.Count();
+					var newCount = images.Count();
+					if (newCount != oldCount)
+					{
+						oldCount = newCount;
+						NotifyDataSetChanged();
+					}
+					return newCount;
                 }
             }
 

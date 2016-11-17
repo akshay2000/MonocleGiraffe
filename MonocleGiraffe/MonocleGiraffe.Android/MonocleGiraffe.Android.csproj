@@ -139,10 +139,10 @@
       <HintPath>..\packages\Xamarin.GooglePlayServices.Analytics.29.0.0.2\lib\MonoAndroid41\Xamarin.GooglePlayServices.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="FFImageLoading">
-      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.4\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.5\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
     </Reference>
     <Reference Include="FFImageLoading.Platform">
-      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.4\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.5\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
