@@ -78,6 +78,7 @@ namespace MonocleGiraffe.Android.Fragments
         private void BindViewHolder(CachingViewHolder holder, GalleryItem item, int position)
         {
             var thumbnail = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+			thumbnail.SetImageResource(global::Android.Resource.Color.Transparent);
             thumbnail.Post(() =>
             {
                 var height = item.BigThumbRatio * thumbnail.Width;

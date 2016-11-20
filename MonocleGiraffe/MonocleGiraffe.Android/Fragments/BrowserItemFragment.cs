@@ -87,7 +87,7 @@ namespace MonocleGiraffe.Android.Fragments
         {
             Item = item;
             Title.Text = item.Title;
-            AlbumRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
+            AlbumRecyclerView.SetLayoutManager(new PrefetchLinearLayoutManager(Context));
             bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
         }
 
@@ -181,4 +181,34 @@ namespace MonocleGiraffe.Android.Fragments
 
         #endregion
     }
+
+	class PrefetchLinearLayoutManager : LinearLayoutManager
+	{
+		private Context context;
+		private int? prefetchSize;
+
+		public PrefetchLinearLayoutManager(Context context, int? prefetchSize = null) : base(context)
+		{
+			this.context = context;
+			this.prefetchSize = prefetchSize;
+		}
+
+		public PrefetchLinearLayoutManager(IntPtr i, JniHandleOwnership o) : base(i, o)
+		{ }
+
+		public PrefetchLinearLayoutManager(Context context, IAttributeSet a, int i1, int i2) : base(context, a, i1, i2)
+		{ 
+			this.context = context;
+		}
+
+		public PrefetchLinearLayoutManager(Context context, int orientation, bool isReverse) : base(context, orientation, isReverse)
+		{
+			this.context = context;
+		}
+
+		protected override int GetExtraLayoutSpace(RecyclerView.State state)
+		{
+			return prefetchSize ?? 1920 * 2;
+		}
+	}
 }

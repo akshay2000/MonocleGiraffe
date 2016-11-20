@@ -8,13 +8,19 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#959595"
-        android:layout_gravity="center_horizontal">
-        <VideoView
-            android:id="@+id/MainVideoView"
-            android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="#959595">
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/VideoWrapper"
+            android:visibility="gone">
+            <VideoView
+                android:id="@+id/MainVideoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
         <FFImageLoading.Views.ImageViewAsync
             android:id="@+id/MainImageView"
             android:layout_width="match_parent"

@@ -62,38 +62,38 @@ namespace MonocleGiraffe.Android.Controls
 
         private void RenderVideo(IGalleryItem item)
         {
-            //detector = new GestureDetector(new GestureListener(MainVideoView));
             LayoutRoot.Post(() => SetDimensions(MainVideoView, item));
-            MainVideoView.Visibility = ViewStates.Visible;
+			MainImageView.Visibility = ViewStates.Gone;
+			VideoWrapper.Alpha = 0;
+			VideoWrapper.Visibility = ViewStates.Visible;
+			
             MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(item.Mp4));
-            MediaController controller = new MediaController(Context);
-            controller.SetAnchorView(MainVideoView);
-            controller.SetMediaPlayer(MainVideoView);
-            MainVideoView.SetMediaController(controller);
-            //MainVideoView.Start();
-            //MainVideoView.SeekTo(100);
-           // MainVideoView.Touch += MainVideoView_Touch;
-            MainVideoView.Prepared += MainVideoView_Prepared;
-        }
-
-        private void MainVideoView_Touch(object sender, TouchEventArgs e)
-        {
-            //detector.OnTouchEvent(e.Event);
-        }
-
-        private void MainVideoView_Prepared(object sender, EventArgs e)
-        {
-            (sender as MediaPlayer).Looping = true;
+   //         var controller = new MediaController(Context)
+   //		  controller.SetAnchorView(this);
+   //         controller.SetMediaPlayer(MainVideoView);
+   //         MainVideoView.SetMediaController(controller);
+			MainVideoView.Prepared += (sender, e) =>
+			{
+				var mp = sender as MediaPlayer;
+				(sender as MediaPlayer).Looping = true;
+				VideoWrapper.Alpha = 1;
+				MainVideoView.Start();
+			};
         }
 
         private void RenderImage(IGalleryItem item)
         {
             var imageService = ImageService.Instance;
-            imageService.LoadFileFromApplicationBundle("DummyImage.png").Into(MainImageView);
+			MainImageView.SetImageResource(global::Android.Resource.Color.Transparent);
             LayoutRoot.Post(() => SetDimensions(MainImageView, item));
             MainImageView.Visibility = ViewStates.Visible;
+			VideoWrapper.Visibility = ViewStates.Gone;
+			MainVideoView.Visibility = ViewStates.Gone;
             var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
-            imageService.LoadUrl(item.Link).DownSample(width).Into(MainImageView);
+			imageService
+				.LoadUrl(item.Link)
+				.DownSample(width)
+				.Into(MainImageView);
         }
 
         private void SetDimensions(View view, IGalleryItem item)
@@ -117,6 +117,8 @@ namespace MonocleGiraffe.Android.Controls
             int px = (int)Math.Round(dp * Resources.DisplayMetrics.Density + 0.5f);
             return px;
         }
+
+		#region UI
 
         private ImageViewAsync mainImageView;
         public ImageViewAsync MainImageView
@@ -148,22 +150,34 @@ namespace MonocleGiraffe.Android.Controls
             }
         }
 
-        private class GestureListener : GestureDetector.SimpleOnGestureListener
-        {
-            VideoView view;
-            public GestureListener(VideoView view)
-            {
-                this.view = view;
-            }
+		private View videoWrapper;
+		public View VideoWrapper
+		{
+			get
+			{
+				videoWrapper = videoWrapper ?? FindViewById<View>(Resource.Id.VideoWrapper);
+				return videoWrapper;
+			}
+		}
 
-            public override bool OnSingleTapConfirmed(MotionEvent e)
-            {
-                if (view.IsPlaying)
-                    view.Pause();
-                else
-                    view.Start();
-                return true;
-            }
-        }
+		#endregion
+
+        //private class GestureListener : GestureDetector.SimpleOnGestureListener
+        //{
+        //    VideoView view;
+        //    public GestureListener(VideoView view)
+        //    {
+        //        this.view = view;
+        //    }
+
+        //    public override bool OnSingleTapConfirmed(MotionEvent e)
+        //    {
+        //        if (view.IsPlaying)
+        //            view.Pause();
+        //        else
+        //            view.Start();
+        //        return true;
+        //    }
+        //}
     }
 }

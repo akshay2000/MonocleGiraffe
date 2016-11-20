@@ -70,6 +70,7 @@ namespace MonocleGiraffe.Android.Activities
                 layoutRoot.LayoutParameters = layoutParams;
             });
             var thumbnailView = holder.FindCachedViewById<ImageViewAsync>(Resource.Id.Thumbnail);
+			thumbnailView.SetImageResource(global::Android.Resource.Color.Transparent);
             holder.DeleteBinding(thumbnailView);
             var thumbnailBinding = new Binding<string, string>(item, () => item.Thumbnail)
                 .WhenSourceChanges(() => ImageService.Instance.LoadUrl(item.Thumbnail).Into(thumbnailView));
