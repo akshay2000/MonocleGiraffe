@@ -9,6 +9,7 @@
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     xmlns:controls="using:MonocleGiraffe.Controls"
+    xmlns:ad="using:AdDuplex"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=BrowserViewModel}">
 
@@ -27,16 +28,21 @@
             AlbumTemplate="{StaticResource AlbumTemplate}"/>           
     </Page.Resources>
 
-    <Grid Background="Black">
+    <Grid Background="Black" x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <controls:IncrementalFlipView 
             x:Name="MainFlipView"
             ItemsSource="{Binding Images}"
             SelectedIndex="{Binding FlipViewIndex, Mode=TwoWay}"
             ItemTemplateSelector="{StaticResource Selector}"
             Background="Black"
-            SelectionChanged="MainFlipView_SelectionChanged"/>
+            SelectionChanged="MainFlipView_SelectionChanged"
+            Grid.Row="1"/>
         <Border Background="#EE222222" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
-            <ProgressRing IsActive="{Binding IsBusy}"/>
+            <ProgressRing IsActive="{Binding IsBusy}" Grid.Row="1"/>
         </Border>
     </Grid>
 </Page>

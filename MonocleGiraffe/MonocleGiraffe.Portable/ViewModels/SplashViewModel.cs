@@ -115,7 +115,7 @@ namespace MonocleGiraffe.Portable.ViewModels
                 if (response.IsError)
                 {
                     isSuccess = false;
-                    Message = response.Message;
+                    Message = string.IsNullOrWhiteSpace(response.Message) ? "Connection Error" : response.Message;
                 }
                 else
                 {

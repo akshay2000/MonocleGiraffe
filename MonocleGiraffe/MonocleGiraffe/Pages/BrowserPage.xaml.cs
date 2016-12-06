@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Practices.ServiceLocation;
+using MonocleGiraffe.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,8 +28,10 @@ namespace MonocleGiraffe.Pages
         public BrowserPage()
         {
             this.InitializeComponent();
+            AdDuplex.AdControl ad = SimpleIoc.Default.GetInstance<AdHelper>().Banner;
+            LayoutRoot.Children.Add(ad);
         }
-
+        
         private void MainFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GoogleAnalytics.EasyTracker.GetTracker().SendView("GalleryBrowserItem");
