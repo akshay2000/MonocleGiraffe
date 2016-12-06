@@ -109,6 +109,7 @@ namespace MonocleGiraffe.Android.Fragments
                 titleView.Visibility = ViewStates.Gone;
 
             var image = holder.FindCachedViewById<ImageControl>(Resource.Id.MainImage);
+			//this.Activity.RegisterForContextMenu(image);
             image.RenderContent(item);
 
             var hasDescription = !string.IsNullOrEmpty(item.Description);

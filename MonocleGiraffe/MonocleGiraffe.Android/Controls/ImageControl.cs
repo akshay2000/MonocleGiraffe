@@ -43,31 +43,40 @@ namespace MonocleGiraffe.Android.Controls
         private void Initialize()
         {
             Inflate(Context, Resource.Layout.Ctrl_Image, this);
+			//LayoutRoot.LongClick += (sender, args) => { 
+			//	global::Android.Util.Log.Info("ImageControl", "Long pressed");
+			//	var menu = new PopupMenu(Context, this);
+			//	menu.Inflate(Resource.Menu.main_menu);
+			//	menu.Show();
+			//};
         }
 
-        public void RenderContent(IGalleryItem item)
+		private IGalleryItem item;
+
+		public void RenderContent(IGalleryItem itemToRender)
         {
-            switch (item.ItemType)
+			item = itemToRender;
+            switch (itemToRender.ItemType)
             {
                 case GalleryItemType.Animation:
-                    RenderVideo(item);
+                    RenderVideo(itemToRender);
                     break;
                 case GalleryItemType.Image:
-                    RenderImage(item);
+                    RenderImage(itemToRender);
                     break;
                 default:
-                    throw new NotSupportedException($"Itemtype {item.ItemType.ToString()} is not supported.");
+                    throw new NotSupportedException($"Itemtype {itemToRender.ItemType.ToString()} is not supported.");
             }
-        }        
+		}
 
-        private void RenderVideo(IGalleryItem item)
+		private void RenderVideo(IGalleryItem itemToRender)
         {
-            LayoutRoot.Post(() => SetDimensions(MainVideoView, item));
+			LayoutRoot.Post(() => { SetDimensions(MainVideoView, itemToRender); });
 			MainImageView.Visibility = ViewStates.Gone;
 			VideoWrapper.Alpha = 0;
 			VideoWrapper.Visibility = ViewStates.Visible;
 			
-            MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(item.Mp4));
+            MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(itemToRender.Mp4));
    //         var controller = new MediaController(Context)
    //		  controller.SetAnchorView(this);
    //         controller.SetMediaPlayer(MainVideoView);
@@ -83,24 +92,24 @@ namespace MonocleGiraffe.Android.Controls
 
         private void RenderImage(IGalleryItem item)
         {
-            var imageService = ImageService.Instance;
-			MainImageView.SetImageResource(global::Android.Resource.Color.Transparent);
+            //var imageService = ImageService.Instance;
+			//MainImageView.SetImageResource(global::Android.Resource.Color.Transparent);
             LayoutRoot.Post(() => SetDimensions(MainImageView, item));
             MainImageView.Visibility = ViewStates.Visible;
 			VideoWrapper.Visibility = ViewStates.Gone;
 			MainVideoView.Visibility = ViewStates.Gone;
             var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
-			imageService
+			ImageService.Instance
 				.LoadUrl(item.Link)
 				.DownSample(width)
 				.Into(MainImageView);
         }
 
-        private void SetDimensions(View view, IGalleryItem item)
+		private void SetDimensions(View view, IGalleryItem itemToRender)
         {
             var layParams = view.LayoutParameters;
-            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
-            var height = (int)Math.Ceiling((item.Height / (double)item.Width) * width);
+            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), itemToRender.Width));
+            var height = (int)Math.Ceiling((itemToRender.Height / (double)itemToRender.Width) * width);
             layParams.Width = width;
             layParams.Height = height;
             view.LayoutParameters = layParams;

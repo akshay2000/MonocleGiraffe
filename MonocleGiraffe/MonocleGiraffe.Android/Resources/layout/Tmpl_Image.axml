@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/DescriptionTextView"
             android:padding="12dp"
-            android:background="#252525" />
+            android:background="#252525"
+            android:textColor="#ffffffff" />
     </LinearLayout>
 </ScrollView>
