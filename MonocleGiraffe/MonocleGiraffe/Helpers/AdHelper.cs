@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MonocleGiraffe.Controls;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,15 @@ namespace MonocleGiraffe.Helpers
             AdDuplex.AdDuplexClient.Initialize(appKey);
         }
 
-        private AdDuplex.AdControl banner;
-        public AdDuplex.AdControl Banner
+        private AdControl banner;
+        public AdControl Banner
         {
             get
             {
                 if (banner == null)
                 {
-                    banner = new AdDuplex.AdControl();
-                    banner.AdUnitId = bannerId;
-                    banner.AppKey = appKey;
+                    banner = new AdControl();
+                    banner.Init(appKey, bannerId);
                 }
                 return banner;
             }

@@ -107,6 +107,13 @@ namespace MonocleGiraffe.Portable.ViewModels
             IsBusy = false;
         }
 
+        RelayCommand closeAdCommand;
+        public RelayCommand CloseAdCommand
+           => closeAdCommand ?? (closeAdCommand = new RelayCommand(() =>
+           {
+               navigationService.NavigateTo(PageKeyHolder.SettingsPageKey);
+           }));
+
         public void Activate(object parameter)
         {
             galleryMetaInfo = (GalleryMetaInfo)Helpers.StateHelper.SessionState[(string)parameter];

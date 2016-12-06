@@ -15,5 +15,6 @@ namespace MonocleGiraffe.Portable.ViewModels
         public const string BrowserPageKey = "BrowserPage";
         public const string EditItemPageKey = "EditItemPage";
         public const string SelfBrowserPageKey = "SelfBrowserPage";
+        public const string SettingsPageKey = "SettingsPage";
     }
 }

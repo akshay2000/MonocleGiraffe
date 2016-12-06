@@ -9,7 +9,6 @@
     xmlns:vm="using:MonocleGiraffe.ViewModels"
     xmlns:selectors="using:MonocleGiraffe.TemplateSelectors"
     xmlns:controls="using:MonocleGiraffe.Controls"
-    xmlns:ad="using:AdDuplex"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=BrowserViewModel}">
 
