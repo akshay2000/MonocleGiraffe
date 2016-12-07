@@ -247,6 +247,7 @@
     <Compile Include="ViewModels\FrontPage\SearchViewModel.cs" />
     <Compile Include="ViewModels\FrontPage\SubredditsViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\ImgurSettingsViewModel.cs" />
     <Compile Include="ViewModels\SplashPageViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryPageViewModel.cs" />

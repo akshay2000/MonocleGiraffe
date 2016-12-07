@@ -234,7 +234,7 @@
                     <TextBlock Grid.Column="1" Text="SETTINGS" FontSize="15" FontWeight="Bold" Margin="12,0"/>
                 </Grid>
             </Pivot.Title>
-            <PivotItem>
+            <PivotItem DataContext="{Binding AppSettings}">
                 <PivotItem.Header>
                     <TextBlock Text="APP" FontSize="15" FontWeight="Bold"/>
                 </PivotItem.Header>

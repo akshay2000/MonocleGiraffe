@@ -18,9 +18,7 @@ using MonocleGiraffe.LibraryImpl;
 namespace MonocleGiraffe.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
-    {
-        private const string IS_VIRAL_ENABLED = "IsViralEnabled";
-        
+    {        
         public SettingsPageViewModel()
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
@@ -35,7 +33,7 @@ namespace MonocleGiraffe.ViewModels
 
         private void Init()
         {
-            IsViralEnabled = Settings.GetValue<bool>(IS_VIRAL_ENABLED, true);
+            PivotIndex = 0;
         }
 
         private int pivotIndex;
@@ -52,24 +50,21 @@ namespace MonocleGiraffe.ViewModels
         private void CreateSubVMIfRequired()
         {
             switch (PivotIndex)
-            {                
+            {
+                case 0:
+                    AppSettings = AppSettings ?? new AppSettingsViewModel();
+                    break;
                 case 1:
                     ImgurSettings = ImgurSettings ?? new ImgurSettingsViewModel();
                     break;
             }
         }
 
+        AppSettingsViewModel appSettings;
+        public AppSettingsViewModel AppSettings { get { return appSettings; } set { Set(ref appSettings, value); } }
+
         ImgurSettingsViewModel imgurSettings;
-        public ImgurSettingsViewModel ImgurSettings { get { return imgurSettings; } set { Set(ref imgurSettings, value); } }
-
-
-        bool isViralEnabled = default(bool);
-        public bool IsViralEnabled { get { return isViralEnabled; } set { Set(ref isViralEnabled, value); } }
-
-        public void ChangeViralEnabled()
-        {
-            Settings.SetValue(IS_VIRAL_ENABLED, IsViralEnabled);
-        }
+        public ImgurSettingsViewModel ImgurSettings { get { return imgurSettings; } set { Set(ref imgurSettings, value); } }        
 
         #region Navigation
 
@@ -107,18 +102,8 @@ namespace MonocleGiraffe.ViewModels
 
         private void InitDesignTime()
         {
-            IsViralEnabled = true;
+            AppSettings = new AppSettingsViewModel();
             ImgurSettings = new ImgurSettingsViewModel();
-        }
-
-        private SettingsHelper settings;
-        public SettingsHelper Settings
-        {
-            get
-            {
-                settings = settings ?? new SettingsHelper();
-                return settings;
-            }
-        }
+        }       
     }
 }
