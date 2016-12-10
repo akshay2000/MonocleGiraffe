@@ -30,7 +30,15 @@ namespace MonocleGiraffe.Pages
         public BrowserPage()
         {
             this.InitializeComponent();
-            AdControl ad = SimpleIoc.Default.GetInstance<AdHelper>().Banner;
+            ConfigureAds();
+        }
+
+        private async void ConfigureAds()
+        {
+            var adHelper = SimpleIoc.Default.GetInstance<AdHelper>();
+            if (!await adHelper.ShowAds())
+                return;
+            AdControl ad = adHelper.Banner;
             ad.CloseTapped += Ad_CloseTapped;
             LayoutRoot.Children.Add(ad);
         }

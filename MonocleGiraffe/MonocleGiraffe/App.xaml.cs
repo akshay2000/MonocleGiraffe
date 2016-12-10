@@ -66,6 +66,7 @@ namespace MonocleGiraffe
                 SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
             SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
             SimpleIoc.Default.Register<RemoteDeviceHelper>();
+            SimpleIoc.Default.Register<AddOnsHelper>();
 
             JObject adConfig = (JObject)JObject.Parse((await GetSecretsString()))["Ad_Config"];
             var adHelper = new AdHelper(adConfig);

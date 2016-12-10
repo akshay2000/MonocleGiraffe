@@ -191,6 +191,7 @@
     <Compile Include="Converters\StateToVisibilityConverter.cs" />
     <Compile Include="Converters\UrlToHtmlConverter.cs" />
     <Compile Include="Converters\ValueComparisonConverter.cs" />
+    <Compile Include="Helpers\AddOnsHelper.cs" />
     <Compile Include="Helpers\AdHelper.cs" />
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\MergedNavigationService.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
     <Compile Include="LibraryImpl\SharingHelper.cs" />
     <Compile Include="LibraryImpl\Vault.cs" />
+    <Compile Include="Models\AddOnItem.cs" />
     <Compile Include="Models\DownloadItem.cs" />
     <Compile Include="Models\UploadItem.cs" />
     <Compile Include="Pages\BrowserPage.xaml.cs">

@@ -1,10 +1,12 @@
-﻿using MonocleGiraffe.Controls;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Controls;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Services.Store;
 
 namespace MonocleGiraffe.Helpers
 {
@@ -32,6 +34,18 @@ namespace MonocleGiraffe.Helpers
                 }
                 return banner;
             }
+        }
+
+        public async Task<bool> ShowAds()
+        {
+            AddOnsHelper addOnsHelper = SimpleIoc.Default.GetInstance<AddOnsHelper>();
+            IReadOnlyDictionary<string, StoreLicense> licenses = await addOnsHelper.GetAddOnLicenses();
+            foreach (var item in licenses)
+            {
+                //if (item.Value.IsActive)
+                    //return false;
+            }
+            return true;
         }
     }
 }
