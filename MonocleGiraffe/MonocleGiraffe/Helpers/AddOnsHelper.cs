@@ -27,15 +27,19 @@ namespace MonocleGiraffe.Helpers
             else
             {
                 List<AddOnItem> ret = new List<AddOnItem>();
-                //IReadOnlyDictionary < string, StoreLicense >
+                IReadOnlyDictionary<string, StoreLicense> licenses = await GetAddOnLicenses();
+
                 foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
                 {
                     AddOnItem addOn = new AddOnItem(item.Value);
-                    //StoreLicense license = 
+                    var matchingPair = licenses.FirstOrDefault(p => p.Key.StartsWith(item.Key));
+                    StoreLicense license = matchingPair.Value;
+                    addOn.IsActive = license?.IsActive ?? false;
+                    ret.Add(addOn);
 
                     // Use members of the product object to access info for the product...
                 }
-                response.Content = queryResult.Products.Values.Select(p => new AddOnItem(p)).ToList();
+                response.Content = ret;
             }
             await GetAddOnLicenses();
             return response;

@@ -25,7 +25,7 @@ namespace MonocleGiraffe.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string FormattedPrice { get; set; }
-        public bool IsPurchased { get; set; }
+        public bool IsActive { get; set; }
 
         public async void Purchase()
         {

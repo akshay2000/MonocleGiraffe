@@ -73,7 +73,7 @@ namespace MonocleGiraffe.ViewModels.Settings
         {
             IsViralEnabled = true;
             AddOns = new ObservableCollection<AddOnItem>();
-            AddOns.Add(new AddOnItem { Title = "Remove Ads for Free", Description = "This add-on removes ads for thirty days. Hey, it is free!", FormattedPrice = "₹ 0.00" });
+            AddOns.Add(new AddOnItem { Title = "Remove Ads for Free", Description = "This add-on removes ads for thirty days. Hey, it is free!", FormattedPrice = "₹ 0.00", IsActive = true });
             AddOns.Add(new AddOnItem { Title = "Support Monocle Giraffe", Description = "This add-on removes ads for thirty days. You also help the Giraffe buy more tuxedos", FormattedPrice = "₹ 100.00" });
         }
     }
