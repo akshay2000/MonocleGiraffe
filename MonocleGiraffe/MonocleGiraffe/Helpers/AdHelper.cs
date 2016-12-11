@@ -42,8 +42,8 @@ namespace MonocleGiraffe.Helpers
             IReadOnlyDictionary<string, StoreLicense> licenses = await addOnsHelper.GetAddOnLicenses();
             foreach (var item in licenses)
             {
-                //if (item.Value.IsActive)
-                    //return false;
+                if (item.Value.IsActive)
+                    return false;
             }
             return true;
         }

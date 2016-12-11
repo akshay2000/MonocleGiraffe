@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonocleGiraffe.Portable.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using Windows.Services.Store;
 
 namespace MonocleGiraffe.Models
 {
-    public class AddOnItem
+    public class AddOnItem : BindableBase
     {
         StoreProduct product;
 
@@ -25,11 +26,24 @@ namespace MonocleGiraffe.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string FormattedPrice { get; set; }
-        public bool IsActive { get; set; }
+
+        private bool isActive;
+        public bool IsActive { get { return isActive; } set { Set(ref isActive, value); } }
+                
 
         public async void Purchase()
         {
             var result = await product.RequestPurchaseAsync();
+            switch (result.Status)
+            {
+                case StorePurchaseStatus.AlreadyPurchased:
+                case StorePurchaseStatus.Succeeded:
+                    IsActive = true;
+                    break;
+                default:
+                    IsActive = false;
+                    break;
+            }
         }
     }
 }

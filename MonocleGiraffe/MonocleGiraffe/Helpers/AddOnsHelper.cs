@@ -35,9 +35,7 @@ namespace MonocleGiraffe.Helpers
                     var matchingPair = licenses.FirstOrDefault(p => p.Key.StartsWith(item.Key));
                     StoreLicense license = matchingPair.Value;
                     addOn.IsActive = license?.IsActive ?? false;
-                    ret.Add(addOn);
-
-                    // Use members of the product object to access info for the product...
+                    ret.Add(addOn);                    
                 }
                 response.Content = ret;
             }
