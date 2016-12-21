@@ -35,6 +35,7 @@ namespace MonocleGiraffe.Helpers
                     var matchingPair = licenses.FirstOrDefault(p => p.Key.StartsWith(item.Key));
                     StoreLicense license = matchingPair.Value;
                     addOn.IsActive = license?.IsActive ?? false;
+                    addOn.ExpiryDate = license?.ExpirationDate ?? default(DateTimeOffset);
                     ret.Add(addOn);                    
                 }
                 response.Content = ret;
