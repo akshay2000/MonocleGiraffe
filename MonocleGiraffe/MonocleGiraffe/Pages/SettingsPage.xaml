@@ -251,6 +251,7 @@
                     <ListView
                         Margin="0,20,0,0"
                         Header="Add-ons"
+                        SelectionMode="None"
                         ItemsSource="{Binding AddOns}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -270,7 +271,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="6"/>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="6" TextWrapping="Wrap"/>
                                     <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding Description}" Margin="6"/>
                                     <TextBlock Grid.Column="1" Text="{Binding FormattedPrice}" Margin="6" TextAlignment="Right"/>
                                     <Button Content="Buy" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="6" Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}">
