@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using MonocleGiraffe.Portable.Interfaces;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XamarinImgur.Helpers;
 using XamarinImgur.Models;
+using static MonocleGiraffe.Portable.Helpers.Initializer;
 
 namespace MonocleGiraffe.Portable.ViewModels
 {
@@ -49,7 +51,7 @@ namespace MonocleGiraffe.Portable.ViewModels
                 return false;
             }
 
-            if (AuthenticationHelper.IsAuthIntended())
+            if (Helpers.Initializer.AuthenticationHelper.IsAuthIntended())
             {
                 bool authSuccess = await ShakeAuthHands();
                 if (!authSuccess)
@@ -84,7 +86,8 @@ namespace MonocleGiraffe.Portable.ViewModels
                 isSuccess = (bool)result["success"];
                 if (!isSuccess)
                 {
-                    await SecretsHelper.RefreshAccessToken();
+                    //TODO: flush http clients here
+                    await Helpers.Initializer.SecretsHelper.RefreshAccessToken();
                     result = await GetUserImageCount();
                     isSuccess = (bool)result["success"];
                     Message = JsonConvert.SerializeObject(result["data"], Formatting.Indented);
@@ -97,17 +100,17 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         private async Task<JObject> GetUserImageCount()
         {
-            string userName = await SecretsHelper.GetUserName();
+            string userName = await Helpers.Initializer.SecretsHelper.GetUserName();
             const string urlPattern = "account/{0}/images/count";
             string url = string.Format(urlPattern, userName);
-            JObject result = await NetworkHelper.ExecuteRequest(url);
+            JObject result = await Helpers.Initializer.NetworkHelper.ExecuteRequest(url);
             return result;
         }
 
         private async Task<bool> ShakeAnonHands()
         {
-            bool wasAuthIntended = AuthenticationHelper.IsAuthIntended();
-            AuthenticationHelper.SetAuthIntention(false);
+            bool wasAuthIntended = Helpers.Initializer.AuthenticationHelper.IsAuthIntended();
+            Helpers.Initializer.AuthenticationHelper.SetAuthIntention(false);
             bool isSuccess = false;
             try
             {
@@ -142,7 +145,7 @@ namespace MonocleGiraffe.Portable.ViewModels
             }
             finally
             {
-                AuthenticationHelper.SetAuthIntention(wasAuthIntended);
+                Helpers.Initializer.AuthenticationHelper.SetAuthIntention(wasAuthIntended);
             }
             return isSuccess;
         }
@@ -150,7 +153,7 @@ namespace MonocleGiraffe.Portable.ViewModels
         private async Task<Response<CreditResult>> GetCredis()
         {
             const string url = "credits";
-            Response<CreditResult> result = await NetworkHelper.GetRequest<CreditResult>(url);
+            Response<CreditResult> result = await Portable.Helpers.Initializer.NetworkHelper.GetRequest<CreditResult>(url);
             return result;
         }
 
@@ -159,7 +162,7 @@ namespace MonocleGiraffe.Portable.ViewModels
             State = BUSY;
             try
             {
-                await SecretsHelper.RefreshSecrets();
+                await Helpers.Initializer.SecretsHelper.RefreshSecrets();
             }
             catch
             {

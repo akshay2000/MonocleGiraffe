@@ -93,13 +93,13 @@ namespace MonocleGiraffe.Portable.ViewModels
 
             if (currentItem is GalleryItem)
             {
-                bool isSuccess = (await XamarinImgur.APIWrappers.Images.DeleteImage(currentItem.Id)).Content;
+                bool isSuccess = (await Helpers.Initializer.Images.DeleteImage(currentItem.Id)).Content;
                 if (isSuccess)
                     (Images as ObservableCollection<GalleryItem>)?.Remove((GalleryItem)currentItem);
             }
             if (currentItem is AlbumItem)
             {
-                bool isSuccess = (await XamarinImgur.APIWrappers.Albums.DeleteAlbum(currentItem.Id)).Content;
+                bool isSuccess = (await Helpers.Initializer.Albums.DeleteAlbum(currentItem.Id)).Content;
                 if (isSuccess)
                     (Images as ObservableCollection<AlbumItem>)?.Remove((AlbumItem)currentItem);
             }

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.Portable.Helpers;
+using static MonocleGiraffe.Portable.Helpers.Initializer;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -101,7 +102,7 @@ namespace MonocleGiraffe.Portable.Models
 
         private async Task LoadAlbumImages()
         {
-            var images = album.Images ?? await Albums.GetImages(album.Id);
+            var images = album.Images ?? await Helpers.Initializer.Albums.GetImages(album.Id);
             AlbumImages = images.Select(i => new GalleryItem(i)).ToList();
         }
 
@@ -137,10 +138,10 @@ namespace MonocleGiraffe.Portable.Models
 
         public async Task<Comment> AddComment(string comment, long? parentId = null)
         {
-            var response = await XamarinImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            var response = await Helpers.Initializer.Comments.CreateComment(comment, Id, parentId);
             if (!response.IsError)
             {
-                var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await SecretsHelper.GetUserName(), Children = new List<Comment>() };
+                var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await SimpleIoc.Default.GetInstance<SecretsHelper>().GetUserName(), Children = new List<Comment>() };
                 return c;
             }
             return null;

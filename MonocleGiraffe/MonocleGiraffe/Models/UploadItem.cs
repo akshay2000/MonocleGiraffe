@@ -85,7 +85,7 @@ namespace MonocleGiraffe.Models
             await Task.Delay(5000);
             Progress = new Progress<HttpProgress>(HandleProgress);
             var base64Image = await GetBase64(file);
-            var response = await Images.UploadImage(base64Image, CTS.Token, Progress, Title, Description);
+            var response = await Portable.Helpers.Initializer.Images.UploadImage(base64Image, CTS.Token, Progress, Title, Description);
             if (response.IsError)
             {
                 if (response.Error is TaskCanceledException)

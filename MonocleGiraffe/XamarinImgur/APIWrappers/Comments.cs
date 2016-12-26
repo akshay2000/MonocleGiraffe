@@ -9,15 +9,22 @@ using System.Threading.Tasks;
 
 namespace XamarinImgur.APIWrappers
 {
-    public static class Comments
+    public class Comments
     {
-        public static async Task<Response<bool>> Vote(long commentId, string vote)
+        private readonly NetworkHelper networkHelper;
+
+        public Comments(NetworkHelper networkHelper)
         {
-            string url = $"comment/{commentId}/vote/{vote}";
-            return await NetworkHelper.PostRequest<bool>(url, new JObject());
+            this.networkHelper = networkHelper;
         }
 
-        public static async Task<Response<long?>> CreateComment(string comment, string imageId, long? parentId = null)
+        public async Task<Response<bool>> Vote(long commentId, string vote)
+        {
+            string url = $"comment/{commentId}/vote/{vote}";
+            return await networkHelper.PostRequest<bool>(url, new JObject());
+        }
+
+        public async Task<Response<long?>> CreateComment(string comment, string imageId, long? parentId = null)
         {
             JObject payload = new JObject();
             payload["image_id"] = imageId;
@@ -25,7 +32,7 @@ namespace XamarinImgur.APIWrappers
             if (parentId != null)
                 payload["parent_id"] = parentId;
             string url = "comment";
-            var response = await NetworkHelper.PostRequest<dynamic>(url, payload);
+            var response = await networkHelper.PostRequest<dynamic>(url, payload);
             Response<long?> ret = new Response<long?> { Content = (long?)((JObject)response.Content)["id"], Error = response.Error, IsError = response.IsError, Message = response.Message };
             return ret;
         }

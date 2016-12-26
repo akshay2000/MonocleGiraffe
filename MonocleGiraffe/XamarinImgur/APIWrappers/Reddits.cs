@@ -11,10 +11,17 @@ namespace XamarinImgur.APIWrappers
 {
     public class Reddits
     {
-        public static async Task<List<Subreddit>> SearchSubreddits(string query)
+        private readonly NetworkHelper networkHelper;
+
+        public Reddits(NetworkHelper networkHelper)
+        {
+            this.networkHelper = networkHelper;
+        }
+
+        public async Task<List<Subreddit>> SearchSubreddits(string query)
         {
             string url = $"https://www.reddit.com/subreddits/search.json?q={query}";
-            JObject result = await NetworkHelper.ExecuteRedditRequest(url);
+            JObject result = await networkHelper.ExecuteRedditRequest(url);
             return result["data"]["children"].ToObject<List<Subreddit>>();
         }
     }

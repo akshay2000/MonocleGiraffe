@@ -10,9 +10,16 @@ using static XamarinImgur.APIWrappers.Enums;
 
 namespace XamarinImgur.APIWrappers
 {
-    public static class Topics
+    public class Topics
     {
-        public static async Task<Response<List<Image>>> GetTopicGallery(int topicId, Sort? sort = null, Window? window = null, int? page = null)
+        private readonly NetworkHelper networkHelper;
+
+        public Topics(NetworkHelper networkHelper)
+        {
+            this.networkHelper = networkHelper;
+        }
+
+        public async Task<Response<List<Image>>> GetTopicGallery(int topicId, Sort? sort = null, Window? window = null, int? page = null)
         {
             //{topicId}/{sort}/{window}/{page}
             string uri = "topics/" + topicId;
@@ -29,10 +36,10 @@ namespace XamarinImgur.APIWrappers
                     }
                 }
             }
-            return await NetworkHelper.GetRequest<List<Image>>(uri);
+            return await networkHelper.GetRequest<List<Image>>(uri);
         }
 
-        public static async Task<Response<List<Image>>> GetTopicGallery(int topicId, Sort? sort = null, int? page = null)
+        public async Task<Response<List<Image>>> GetTopicGallery(int topicId, Sort? sort = null, int? page = null)
         {
             //{topicId}/{sort}/{page}
             string uri = "topics/" + topicId;
@@ -43,13 +50,13 @@ namespace XamarinImgur.APIWrappers
                     uri += "/" + page;
                 }
             }
-            return await NetworkHelper.GetRequest<List<Image>>(uri);
+            return await networkHelper.GetRequest<List<Image>>(uri);
         }
 
-        public static async Task<Response<List<Topic>>> GetDefaultTopics()
+        public async Task<Response<List<Topic>>> GetDefaultTopics()
         {
             string uri = "topics/defaults";
-            return await NetworkHelper.GetRequest<List<Topic>>(uri, true);
+            return await networkHelper.GetRequest<List<Topic>>(uri, true);
         }
     }
 }

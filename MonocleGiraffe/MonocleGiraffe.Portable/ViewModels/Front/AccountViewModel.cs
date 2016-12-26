@@ -32,7 +32,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 #if DEBUG
             UserName = "akshay2000";
 #endif
-            if (AuthenticationHelper.IsAuthIntended())
+            if (Helpers.Initializer.AuthenticationHelper.IsAuthIntended())
             {
                 await Load();
             }
@@ -60,12 +60,12 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         
         private async Task LoadUserData()
         {
-            var userName = await SecretsHelper.GetUserName();
+            var userName = await Helpers.Initializer.SecretsHelper.GetUserName();
             await Task.Delay(1000);
-            Account account = await Accounts.GetAccount(userName);
+            Account account = await Helpers.Initializer.Accounts.GetAccount(userName);
             UserName = account.Url;
             Points = account.Reputation;
-            GalleryProfile galleryProfile = await Accounts.GetGalleryProfile(userName);
+            GalleryProfile galleryProfile = await Helpers.Initializer.Accounts.GetGalleryProfile(userName);
             Trophies = new ObservableCollection<Trophy>(galleryProfile.Trophies);
             await Task.Delay(500);
             await LoadAlbums(userName);
@@ -175,7 +175,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         private async Task LoadAlbums(string userName)
         {
             Albums = new ObservableCollection<AlbumItem>();
-            var albums = await Accounts.GetAlbums(userName);
+            var albums = await Helpers.Initializer.Accounts.GetAlbums(userName);
             foreach (var a in albums)
             {
                 Albums.Add(new AlbumItem(a));
@@ -196,7 +196,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         private async Task LoadImages(string userName)
         {
             Images = new ObservableCollection<GalleryItem>();
-            var images = await Accounts.GetImages(userName);
+            var images = await Helpers.Initializer.Accounts.GetImages(userName);
             foreach (var i in images)
             {
                 Images.Add(new GalleryItem(i));
@@ -217,7 +217,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         private async Task LoadFavourites(string userName)
         {
             Favourites = new ObservableCollection<GalleryItem>();
-            var favourites = await Accounts.GetFavourites(userName);
+            var favourites = await Helpers.Initializer.Accounts.GetFavourites(userName);
             foreach (var i in favourites)
             {
                 Favourites.Add(new GalleryItem(i));

@@ -13,6 +13,7 @@ using XamarinImgur.Helpers;
 using MonocleGiraffe.Helpers;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Portable.ViewModels;
+using XamarinImgur.Interfaces;
 
 namespace MonocleGiraffe
 {
@@ -35,6 +36,8 @@ namespace MonocleGiraffe
         {
             GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Lifecycle", startKind.ToString(), null, 0);
             bool isNewLaunch = args.PreviousExecutionState == ApplicationExecutionState.NotRunning;
+            if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
+                await ConfigureIoc();
             if (isNewLaunch)
             {
                 await InitLibrary();
@@ -48,8 +51,7 @@ namespace MonocleGiraffe
                     navigationParam["url"] = protoArgs.Uri.AbsoluteUri;
             }
             Portable.Helpers.StateHelper.SessionState["LaunchData"] = navigationParam;
-            if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
-                await ConfigureIoc();
+            
             SimpleIoc.Default.GetInstance<GalaSoft.MvvmLight.Views.INavigationService>().NavigateTo(ViewModelLocator.SplashPageKey);
         }
 
@@ -65,32 +67,28 @@ namespace MonocleGiraffe
             if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
                 SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
             SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());
+
             SimpleIoc.Default.Register<RemoteDeviceHelper>();
             SimpleIoc.Default.Register<AddOnsHelper>();
 
-            JObject adConfig = (JObject)JObject.Parse((await GetSecretsString()))["Ad_Config"];
-            var adHelper = new AdHelper(adConfig);
-            SimpleIoc.Default.Register<AdHelper>(() => adHelper);
+            SimpleIoc.Default.Register<IHttpClient, HttpClient>();
+            SimpleIoc.Default.Register<ISecretsProvider, SecretsProvider>(true);
+            SimpleIoc.Default.Register<IVault, Vault>();
+            SimpleIoc.Default.Register<IAuthBroker, AuthBroker>();
+            SimpleIoc.Default.Register<ISettingsHelper, SettingsHelper>();
+            SimpleIoc.Default.Register<AuthenticationHelper>();
+            SimpleIoc.Default.Register<SecretsHelper>();
+            var authHelper = SimpleIoc.Default.GetInstance<AuthenticationHelper>();
+            var secretsHelper = SimpleIoc.Default.GetInstance<SecretsHelper>();
+            SimpleIoc.Default.Register<NetworkHelper>(() => new NetworkHelper(authHelper, () => new HttpClient(), secretsHelper));
+            
+            SimpleIoc.Default.Register<AdHelper>();
         }
 
         private async Task InitLibrary()
         {            
-            string configurationString = await GetSecretsString();
-            Initializer.Init(new AuthBroker(), new Vault(), new SettingsHelper(), configurationString, () => new HttpClient(), false);
+            Initializer.Init(false);
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
-        }
-
-        private string secretsString;
-        private async Task<string> GetSecretsString()
-        {
-            if (secretsString == default(string))
-            {
-                var installationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-                var libFolder = installationFolder;
-                var file = await libFolder.GetFileAsync("Secrets.json");
-                secretsString = await Windows.Storage.FileIO.ReadTextAsync(file);
-            }
-            return secretsString;
-        }
+        }        
     }
 }

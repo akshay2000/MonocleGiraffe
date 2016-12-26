@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using MonocleGiraffe.Portable.Helpers;
 using MonocleGiraffe.Portable.Models;
@@ -124,7 +125,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         private async Task LoadTopics()
         {
-            var topics = (await XamarinImgur.APIWrappers.Topics.GetDefaultTopics()).Content;
+            var topics = (await Helpers.Initializer.Topics.GetDefaultTopics()).Content;
             topics.Insert(0, new Topic { Name = USER_SUB, Description = "Here it begins." });
             topics.Insert(0, new Topic { Name = MOST_VIRAL, Description = "Today's most popular posts." });
             Topics = new ObservableCollection<Topic>(topics);
@@ -321,18 +322,18 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             if (Section == Section.User)
             {
                 bool showViral = Settings.GetValue<bool>("IsViralEnabled", true);
-                gallery = (await Gallery.GetGallery(Section, Sort, (int)page, showViral)).Content;
+                gallery = (await Helpers.Initializer.Gallery.GetGallery(Section, Sort, (int)page, showViral)).Content;
             }
             else
             {
-                gallery = (await Gallery.GetGallery(Section, Sort, (int)page)).Content;
+                gallery = (await Helpers.Initializer.Gallery.GetGallery(Section, Sort, (int)page)).Content;
             }
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
         
         private async Task<List<GalleryItem>> GetTopicGallery(uint page)
         {
-            var gallery = (await Topics.GetTopicGallery(TopicId, Sort, (int)page)).Content;
+            var gallery = (await Helpers.Initializer.Topics.GetTopicGallery(TopicId, Sort, (int)page)).Content;
             return gallery?.Select(i => new GalleryItem(i)).ToList();
         }
         
@@ -340,7 +341,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         {
             get
             {
-                return XamarinImgur.Helpers.Initializer.SettingsHelper;
+                return SimpleIoc.Default.GetInstance<ISettingsHelper>();
             }
         }
     }

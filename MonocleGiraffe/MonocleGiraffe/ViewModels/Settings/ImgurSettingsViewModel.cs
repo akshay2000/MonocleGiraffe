@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using XamarinImgur.APIWrappers;
-using XamarinImgur.Helpers;
 using XamarinImgur.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.ApplicationModel;
+using static MonocleGiraffe.Portable.Helpers.Initializer;
 
 namespace MonocleGiraffe.ViewModels.Settings
 {
@@ -55,10 +55,10 @@ namespace MonocleGiraffe.ViewModels.Settings
         private async Task LoadSettings()
         {
             var userName = await SecretsHelper.GetUserName();
-            Account account = await Accounts.GetAccount(userName);
+            Account account = await Portable.Helpers.Initializer.Accounts.GetAccount(userName);
             Bio = account.Bio;
             await Task.Delay(100);
-            AccountSettings settings = await Accounts.GetAccountSettings(userName);
+            AccountSettings settings = await Portable.Helpers.Initializer.Accounts.GetAccountSettings(userName);
             PublicImages = settings.PublicImages;
             MessagingEnabled = settings.MessagingEnabled;
             AlbumPrivacyIndex = ToIndex(settings.AlbumPrivacy);
@@ -143,7 +143,7 @@ namespace MonocleGiraffe.ViewModels.Settings
             payload["album_privacy"] = ToAlbumPrivacy(AlbumPrivacyIndex);
             payload["show_mature"] = ShowMature;
             payload["newsletter_subscribed"] = SubscribeNewsletter;
-            await Accounts.SaveAccountSettings(await SecretsHelper.GetUserName(), payload);
+            await Portable.Helpers.Initializer.Accounts.SaveAccountSettings(await SecretsHelper.GetUserName(), payload);
             State = AUTHENTICATED;
         }
 

@@ -13,6 +13,7 @@ using MonocleGiraffe.Portable.Helpers;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Portable.ViewModels;
+using static MonocleGiraffe.Portable.Helpers.Initializer;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -191,7 +192,7 @@ namespace MonocleGiraffe.Portable.Models
         private async Task LoadComments()
         {
             IsLoadingComments = true;
-            var response = await Gallery.GetComments(image.Id);
+            var response = await Helpers.Initializer.Gallery.GetComments(image.Id);
             if (response.IsError)
                 IsCommentError = true;
             else
@@ -264,7 +265,7 @@ namespace MonocleGiraffe.Portable.Models
         private async Task<Album> GetAlbum()
         {
             if (album == null)
-                album = await Albums.GetAlbum(image.Id);
+                album = await Helpers.Initializer.Albums.GetAlbum(image.Id);
             return album;
         }
 
@@ -329,7 +330,7 @@ namespace MonocleGiraffe.Portable.Models
             }
             IsDownVoted = false;
             IsUpVoted = !IsUpVoted;
-            await Gallery.Vote(Id, toVote);
+            await Helpers.Initializer.Gallery.Vote(Id, toVote);
         }
 
         public async Task DownVote()
@@ -353,7 +354,7 @@ namespace MonocleGiraffe.Portable.Models
                 Points--;
             }
             IsDownVoted = !IsDownVoted;
-            await Gallery.Vote(Id, toVote);
+            await Helpers.Initializer.Gallery.Vote(Id, toVote);
         }
 
         private void SetFavourite()
@@ -369,9 +370,9 @@ namespace MonocleGiraffe.Portable.Models
            => favourite ?? (favourite = new RelayCommand(async () =>
            {
                if (ItemType == GalleryItemType.Album)
-                   IsFavourited = (await Gallery.FavouriteAlbum(Id)).Content;
+                   IsFavourited = (await Helpers.Initializer.Gallery.FavouriteAlbum(Id)).Content;
                else
-                   IsFavourited = (await Gallery.FavouriteImage(Id)).Content;
+                   IsFavourited = (await Helpers.Initializer.Gallery.FavouriteImage(Id)).Content;
            }));
 
         RelayCommand share;
@@ -417,10 +418,10 @@ namespace MonocleGiraffe.Portable.Models
 
         public async Task<Comment> AddComment(string comment, long? parentId = null)
         {
-            var response = await XamarinImgur.APIWrappers.Comments.CreateComment(comment, Id, parentId);
+            var response = await Helpers.Initializer.Comments.CreateComment(comment, Id, parentId);
             if (!response.IsError)
             {
-                var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await SecretsHelper.GetUserName(), Children = new List<Comment>() };
+                var c = new Comment { Id = response.Content.Value, ImageId = Id, CommentText = comment, Author = await Helpers.Initializer.SecretsHelper.GetUserName(), Children = new List<Comment>() };
                 return c;
             }
             return null;

@@ -202,6 +202,7 @@
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
     <Compile Include="LibraryImpl\RoamingDataHelper.cs" />
+    <Compile Include="LibraryImpl\SecretsProvider.cs" />
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
     <Compile Include="LibraryImpl\SharingHelper.cs" />
     <Compile Include="LibraryImpl\Vault.cs" />
@@ -500,7 +501,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="AdDuplex.Windows10, Version=10.1.0.0">
+    <SDKReference Include="AdDuplex.Windows10, Version=10.1.0.1">
       <Name>AdDuplex SDK for Windows 10 %28XAML%29</Name>
     </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">

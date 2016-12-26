@@ -8,33 +8,40 @@ using Newtonsoft.Json.Linq;
 using XamarinImgur.Helpers;
 
 namespace XamarinImgur.APIWrappers
-{
+{    
     public class Albums
     {
-        public static async Task<Album> GetAlbum(string albumId)
+        private readonly NetworkHelper networkHelper;
+
+        public Albums(NetworkHelper networkHelper)
+        {
+            this.networkHelper = networkHelper;
+        }
+
+        public async Task<Album> GetAlbum(string albumId)
         {
             string uri = "album/" + albumId;
-            JObject response = await NetworkHelper.ExecuteRequest(uri);
+            JObject response = await networkHelper.ExecuteRequest(uri);
             if (response.HasValues)
                 return response["data"].ToObject<Album>();
             else
                 return new Album();
         }
 
-        public static async Task<List<Image>> GetImages(string albumId)
+        public async Task<List<Image>> GetImages(string albumId)
         {
             string uriString = $"album/{albumId}/images";
-            JObject response = await NetworkHelper.ExecuteRequest(uriString);
+            JObject response = await networkHelper.ExecuteRequest(uriString);
             return response["data"].ToObject<List<Image>>();
         }
 
-        public static async Task<Response<bool>> DeleteAlbum(string id)
+        public async Task<Response<bool>> DeleteAlbum(string id)
         {
             string uri = $"album/{id}";
-            return await NetworkHelper.DeleteRequest<bool>(uri);
+            return await networkHelper.DeleteRequest<bool>(uri);
         }
 
-        public static async Task<Response<bool>> UpdateAlbum(string id, string[] ids = null, string title = null, string description = null, string privacy = null, string cover = null)
+        public async Task<Response<bool>> UpdateAlbum(string id, string[] ids = null, string title = null, string description = null, string privacy = null, string cover = null)
         {
             string uri = $"album/{id}";
             JObject payload = new JObject();
@@ -43,7 +50,7 @@ namespace XamarinImgur.APIWrappers
             if (description != null) payload["description"] = description;
             if (privacy != null) payload["privacy"] = privacy;
             if (cover != null) payload[cover] = cover;
-            return await NetworkHelper.PostRequest<bool>(uri, payload);
+            return await networkHelper.PostRequest<bool>(uri, payload);
         }
     }
 }

@@ -156,7 +156,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             if (string.IsNullOrWhiteSpace(QueryText))
                 return;
             Subreddits = new ObservableCollection<SubredditItem>();
-            var subs = await Reddits.SearchSubreddits(query);
+            var subs = await Helpers.Initializer.Reddits.SearchSubreddits(query);
             IEnumerable<string> subscribedSubs = subredditsVM.Subreddits.Select(s => s.Url);
             foreach (var sub in subs)
             {
@@ -232,7 +232,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
-            var images = (await Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page)).Content;
+            var images = (await Helpers.Initializer.Gallery.SearchGallery(Query, Enums.Sort.Viral, (int)page)).Content;
             if (images.Count == 0)
             {
                 hasMore = false;

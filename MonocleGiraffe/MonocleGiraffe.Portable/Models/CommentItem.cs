@@ -2,6 +2,7 @@
 using XamarinImgur.Models;
 using System.Collections.Generic;
 using MonocleGiraffe.Portable.Helpers;
+using static MonocleGiraffe.Portable.Helpers.Initializer;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -93,7 +94,7 @@ namespace MonocleGiraffe.Portable.Models
             }
             IsDownVoted = false;
             IsUpVoted = !IsUpVoted;            
-            await Comments.Vote(Id, toVote);
+            await Helpers.Initializer.Comments.Vote(Id, toVote);
         }
 
         public async void DownVote()
@@ -117,7 +118,7 @@ namespace MonocleGiraffe.Portable.Models
                 Points--;
             }
             IsDownVoted = !IsDownVoted;
-            await Comments.Vote(Id, toVote);
+            await Helpers.Initializer.Comments.Vote(Id, toVote);
         }
 
         public void Share()

@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using XamarinImgur.Helpers;
 using XamarinImgur.Interfaces;
-using static XamarinImgur.Helpers.Initializer;
 
 namespace XamarinImgur.Helpers
 {
     public class SecretsHelper
-    {
-        private static JObject configuration;
+    {        
+        private readonly IVault vault;
+        private readonly ISecretsProvider secretsProvider;
 
         private const string userNameKey = "UserName";
         private const string expiryKey = "Expiry";
@@ -21,14 +21,25 @@ namespace XamarinImgur.Helpers
         private const string accessResource = "AccessToken";
         private const string refreshResource = "RefreshToken";
 
-        public static async Task<JObject> GetConfiguration()
+
+        private ISettingsHelper SettingsHelper { get; set; }
+        private AuthenticationHelper AuthenticationHelper { get; set; }
+        
+
+        public SecretsHelper(ISettingsHelper settingsHelper, AuthenticationHelper authHelper, IVault vault, ISecretsProvider secretsProvider)
         {
-            if (configuration == null)            
-                configuration = JObject.Parse(SecretsJson);            
-            return configuration;
+            SettingsHelper = settingsHelper;
+            AuthenticationHelper = authHelper;
+            this.vault = vault;
+            this.secretsProvider = secretsProvider;
         }
 
-        public static async Task<string> GetAccessToken()
+        public async Task<JObject> GetConfiguration()
+        {
+            return await secretsProvider.GetSecrets();
+        }
+
+        public async Task<string> GetAccessToken()
         {
             string userName = await GetUserName();
             string token;
@@ -52,15 +63,15 @@ namespace XamarinImgur.Helpers
             return token;
         }
 
-        public static async Task RefreshAccessToken()
+        public async Task RefreshAccessToken()
         {
-            NetworkHelper.FlushHttpClients();
+            //TODO: REMOVE THIS LINE NetworkHelper.FlushHttpClients();
             var accessToken = await AuthenticationHelper.RefreshAccessToken(await GetRefreshToken());
             UpdateCredentials(accessToken, await AuthenticationHelper.GetRefreshToken());
             SettingsHelper.SetLocalValue(expiryKey, (await AuthenticationHelper.GetExpiresAt()).ToString());
         }
 
-        public static async Task<string> GetRefreshToken()
+        public async Task<string> GetRefreshToken()
         {
             string userName = await GetUserName();
             string token;
@@ -77,13 +88,13 @@ namespace XamarinImgur.Helpers
             return token;
         }
 
-        private static IVault GetVault()
+        private IVault GetVault()
         {
-            return Vault;
+            return vault;
         }
 
-        private static string userName;
-        public static async Task<string> GetUserName()
+        private string userName;
+        public async Task<string> GetUserName()
         {
             if (userName == null)
                 userName = SettingsHelper.GetLocalValue<string>(userNameKey);
@@ -95,7 +106,7 @@ namespace XamarinImgur.Helpers
             return userName;
         }
 
-        private static void UpdateCredentials(string accessToken = null, string refreshToken = null)
+        private void UpdateCredentials(string accessToken = null, string refreshToken = null)
         {
             if (accessToken != null)
                 GetVault().AddCredential(accessResource, userName, accessToken);
@@ -103,7 +114,7 @@ namespace XamarinImgur.Helpers
                 GetVault().AddCredential(refreshResource, userName, refreshToken);
         }
 
-        public static async Task RefreshSecrets()
+        public async Task RefreshSecrets()
         {
             userName = null;
             SettingsHelper.RemoveLocalValue(userNameKey);

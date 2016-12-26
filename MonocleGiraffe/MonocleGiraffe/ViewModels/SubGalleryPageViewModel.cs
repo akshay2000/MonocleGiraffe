@@ -39,7 +39,7 @@ namespace MonocleGiraffe.ViewModels
                     {
                         galleryMetaInfo = BootStrapper.Current.SessionState["GalleryInfo"] as GalleryMetaInfo;
                         Images = galleryMetaInfo?.Gallery as IncrementalSubredditGallery;
-                        var sub = (await Reddits.SearchSubreddits(Images.Subreddit)).First(s => s.Data.DisplayName == Images.Subreddit);
+                        var sub = (await Portable.Helpers.Initializer.Reddits.SearchSubreddits(Images.Subreddit)).First(s => s.Data.DisplayName == Images.Subreddit);
                         Sub = new SubredditItem(sub);
                     }
                     ImageSelectedIndex = galleryMetaInfo?.SelectedIndex ?? 0;

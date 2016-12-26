@@ -133,7 +133,7 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         protected async override Task<List<GalleryItem>> LoadMoreItemsImplAsync(CancellationToken c, uint page)
         {
-            var gallery = (await Gallery.GetSubreddditGallery(Subreddit, Sort, (int)page)).Content;
+            var gallery = (await Helpers.Initializer.Gallery.GetSubreddditGallery(Subreddit, Sort, (int)page)).Content;
             if (gallery.Count == 0)
             {
                 HasMore = false;

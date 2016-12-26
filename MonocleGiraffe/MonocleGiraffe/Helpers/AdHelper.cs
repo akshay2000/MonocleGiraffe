@@ -7,16 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Services.Store;
+using XamarinImgur.Interfaces;
 
 namespace MonocleGiraffe.Helpers
 {
     public class AdHelper
     {
-        private readonly string appKey;
-        private readonly string bannerId;
+        private string appKey;
+        private string bannerId;
 
-        public AdHelper(JObject config)
+        public AdHelper(ISecretsProvider secretsProvider)
         {
+            Init(secretsProvider);
+        }
+
+        private async void Init(ISecretsProvider secretsProvider)
+        {
+            var allConfig = await secretsProvider.GetSecrets();
+            var config = allConfig["Ad_Config"];
             appKey = (string)config["App_Key"];
             bannerId = (string)config["Banner_Id"];
             AdDuplex.AdDuplexClient.Initialize(appKey);

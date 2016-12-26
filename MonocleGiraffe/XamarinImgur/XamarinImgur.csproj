@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\HttpProgress.cs" />
     <Compile Include="Interfaces\IAuthBroker.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
+    <Compile Include="Interfaces\ISecretsProvider.cs" />
     <Compile Include="Interfaces\ISettingsHelper.cs" />
     <Compile Include="Interfaces\IVault.cs" />
     <Compile Include="Models\Account.cs" />
