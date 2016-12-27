@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Services.Store;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using XamarinImgur.Interfaces;
 
 namespace MonocleGiraffe.Helpers
@@ -40,9 +42,13 @@ namespace MonocleGiraffe.Helpers
                     banner = new AdControl();
                     banner.Init(appKey, bannerId);
                 }
+                if (BannerParent != null)
+                    BannerParent.Children.Remove(banner);
                 return banner;
             }
         }
+
+        public Panel BannerParent { get; set; }
 
         public async Task<bool> ShowAds()
         {

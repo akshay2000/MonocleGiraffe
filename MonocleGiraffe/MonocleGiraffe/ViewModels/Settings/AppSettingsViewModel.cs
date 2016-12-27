@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.Services.Store;
+using XamarinImgur.Interfaces;
 using XamarinImgur.Models;
 
 namespace MonocleGiraffe.ViewModels.Settings
@@ -18,6 +19,8 @@ namespace MonocleGiraffe.ViewModels.Settings
     {
         private const string IS_VIRAL_ENABLED = "IsViralEnabled";
         private readonly StoreContext storeContext = StoreContext.GetDefault();
+
+        private ISettingsHelper Settings { get { return SimpleIoc.Default.GetInstance<ISettingsHelper>(); } }
 
         public AppSettingsViewModel()
         {
@@ -51,17 +54,8 @@ namespace MonocleGiraffe.ViewModels.Settings
             AddOnsHelper helper = SimpleIoc.Default.GetInstance<AddOnsHelper>();
             Response<List<AddOnItem>> response = await helper.GetAllAddOns();
             AddOns = new ObservableCollection<AddOnItem>(response.Content);
-        }
-
-        private SettingsHelper settings;
-        public SettingsHelper Settings
-        {
-            get
-            {
-                settings = settings ?? new SettingsHelper();
-                return settings;
-            }
-        }
+            IsBusy = false;
+        }        
 
         private void Init()
         {

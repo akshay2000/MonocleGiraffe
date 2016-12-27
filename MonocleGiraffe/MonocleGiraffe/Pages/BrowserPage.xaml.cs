@@ -41,6 +41,7 @@ namespace MonocleGiraffe.Pages
             AdControl ad = adHelper.Banner;
             ad.CloseTapped += Ad_CloseTapped;
             LayoutRoot.Children.Add(ad);
+            adHelper.BannerParent = LayoutRoot;
         }
 
         private void Ad_CloseTapped(object sender, RoutedEventArgs e)
