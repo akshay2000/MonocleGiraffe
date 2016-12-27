@@ -64,6 +64,7 @@ namespace MonocleGiraffe
             nav.Configure(ViewModelLocator.SubredditBrowserPageKey, typeof(SubredditBrowserPage));
             nav.Configure(ViewModelLocator.BrowserPageKey, typeof(BrowserPage));
             nav.Configure(ViewModelLocator.SettingsPageKey, typeof(SettingsPage));
+            nav.Configure(ViewModelLocator.EditItemPageKey, typeof(EditItemPage));
             if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
                 SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
             SimpleIoc.Default.Register<IViewModelLocator>(() => ViewModelLocator.GetInstance());

@@ -20,25 +20,14 @@ namespace MonocleGiraffe.ViewModels
         public IDispatcherWrapper Dispatcher { get; set; }
         public IStateItems SessionState { get; set; }
 
-        public TransfersPageViewModel() : base(new DownloadsViewModel())
-        {
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            {
-                InitDesignTime();
-            }
-            else
-            {
-                Init();
-            }
-        }
+        public TransfersPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(new DownloadsViewModel(), new UploadsViewModel(nav))
+        { }
 
-        private void Init()
+        private void Init(GalaSoft.MvvmLight.Views.INavigationService nav)
         {
-            UploadsVM = new UploadsViewModel();
+            //DownloadsVM = new DownloadsViewModel();
+            //UploadsVM = new UploadsViewModel(nav);
         }
-
-        UploadsViewModel uploadsVM = default(UploadsViewModel);
-        public UploadsViewModel UploadsVM { get { return uploadsVM; } set { Set(ref uploadsVM, value); } }
 
         #region Navigation
 
@@ -73,10 +62,10 @@ namespace MonocleGiraffe.ViewModels
 
         #endregion
 
-        private void InitDesignTime()
+        private void InitDesignTime(GalaSoft.MvvmLight.Views.INavigationService nav)
         {
-            DownloadsVM = new DownloadsViewModel();
-            UploadsVM = new UploadsViewModel();
+            //DownloadsVM = new DownloadsViewModel();
+            //UploadsVM = new UploadsViewModel(nav);
         }
     }
 

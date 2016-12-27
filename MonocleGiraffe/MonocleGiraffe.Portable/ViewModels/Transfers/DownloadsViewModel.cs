@@ -4,6 +4,7 @@ using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Transfers
         private Func<string, Task<IDownloadItem>> downloadItemFactory;
         public DownloadsViewModel(Func<string, Task<IDownloadItem>> downloadItemFactory, bool isInDesignMode)
         {
+            Debug.WriteLine("Creating Downloads VM parent");
             this.downloadItemFactory = downloadItemFactory;
             if (isInDesignMode)
             {
@@ -59,7 +61,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Transfers
             List<Task> all = new List<Task>();
             foreach (var d in Downloads)
             {
-                if (d.State != DownloadStates.CANCELED)
+                if (d.State != TransferStates.CANCELED && d.State != TransferStates.SUCCESSFUL)
                     all.Add(d.Cancel());
             }
             await Task.WhenAll(all);

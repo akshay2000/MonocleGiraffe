@@ -37,6 +37,8 @@ namespace MonocleGiraffe.Helpers
             Init();
         }
         
+        public TransfersViewModel TransfersViewModel { get { return SimpleIoc.Default.GetInstance<TransfersPageViewModel>(); } }
+
         public SplashPageViewModel SplashPageViewModel { get { return SimpleIoc.Default.GetInstance<SplashPageViewModel>(); } }
 
         public FrontPageViewModel FrontPageViewModel { get { return SimpleIoc.Default.GetInstance<FrontPageViewModel>(); } }
@@ -44,8 +46,6 @@ namespace MonocleGiraffe.Helpers
         public BrowserViewModel BrowserViewModel { get { return SimpleIoc.Default.GetInstance<BrowserPageViewModel>(); } }
 
         public SubGalleryPageViewModel SubGalleryPageViewModel { get { return SimpleIoc.Default.GetInstance<SubGalleryPageViewModel>(); } }
-
-        public TransfersViewModel TransfersViewModel { get { return SimpleIoc.Default.GetInstance<TransfersPageViewModel>(); } }
 
         public static ViewModelLocator GetInstance()
         {

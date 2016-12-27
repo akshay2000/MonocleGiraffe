@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MonocleGiraffe.Portable.ViewModels.Transfers
 {
-    public class DownloadStates
+    public class TransferStates
     {
+        public const string UPLOADING = "Uploading";
         public const string DOWNLOADING = "Downloading";
         public const string CANCELED = "Canceled";
         public const string SUCCESSFUL = "Successful";

@@ -16,6 +16,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.Helpers;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -142,7 +143,10 @@ namespace MonocleGiraffe.ViewModels
             }
             else
             {
-                Item = (IGalleryItem)BootStrapper.Current.SessionState[(string)parameter];
+                bool t10SessionHasKey = BootStrapper.Current.SessionState.ContainsKey((string)parameter);
+                Item = t10SessionHasKey
+                    ? (IGalleryItem)BootStrapper.Current.SessionState[(string)parameter]
+                    : (IGalleryItem)StateHelper.SessionState[(string)parameter];
                 IsAlbum = Item.ItemType == GalleryItemType.Album;
                 Title = Item.Title;
                 Description = Item.Description;

@@ -1,5 +1,7 @@
 ﻿using MonocleGiraffe.Models;
 using MonocleGiraffe.Pages;
+using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.ViewModels.Transfers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +15,7 @@ using Template10.Common;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Template10.Utils;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
@@ -21,80 +24,25 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MonocleGiraffe.ViewModels.Transfers
 {
-    public class UploadsViewModel : BindableBase
+    public class UploadsViewModel : Portable.ViewModels.Transfers.UploadsViewModel
     {
-        public UploadsViewModel()
-        {
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            {
-                InitDesignTime();
-            }
-            else
-            {
-                Init();
-            }
-        }
-
-        ObservableCollection<UploadItem> uploads = default(ObservableCollection<UploadItem>);
-        public ObservableCollection<UploadItem> Uploads { get { return uploads; } set { Set(ref uploads, value); } }
-
-        SemaphoreSlim sem = new SemaphoreSlim(3);
-
-        public async Task Enqueqe(UploadItem item)
-        {
-            var name = item.File.DisplayName;
-            Debug.WriteLine($"Enqueqed upload {name} at {DateTime.Now}");
-            Uploads.Add(item);
-            await sem.WaitAsync();
-            Debug.WriteLine($"Started upload {name} at {DateTime.Now}");
-            await item.Upload();
-            Debug.WriteLine($"Finished upload {name} at {DateTime.Now}");
-            sem.Release();
-        }
+        public UploadsViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav, DesignMode.DesignModeEnabled)
+        { }
+        
 
         public void UploadTapped(object sender, object args)
         {
             UploadItem clickedItem = (args as ItemClickEventArgs).ClickedItem as UploadItem;
-            if (clickedItem.State != UploadItem.SUCCESSFUL)
-                return;
-            const string key = "ItemToEdit";
-            BootStrapper.Current.SessionState[key] = clickedItem.Response;
-            BootStrapper.Current.NavigationService.Navigate(typeof(EditItemPage), key);
+            UploadTapped(clickedItem);
         }
-
-        DelegateCommand cancelAllCommand;
-        public DelegateCommand CancelAllCommand
-           => cancelAllCommand ?? (cancelAllCommand = new DelegateCommand(() =>
-           {
-               CancelAll();
-           }));
-
-        bool isCancelAllEnabled = default(bool);
-        public bool IsCancelAllEnabled { get { return isCancelAllEnabled; } set { Set(ref isCancelAllEnabled, value); } }
-
-        private void CancelAll()
+        
+        protected override void InitDesignTime()
         {
-            IsCancelAllEnabled = false;
-            foreach (var u in Uploads)
-            {
-                u.Cancel();
-            }
-            IsCancelAllEnabled = true;
-        }
-
-        private void Init()
-        {
-            Uploads = new ObservableCollection<UploadItem>();
-            IsCancelAllEnabled = true;
-        }
-
-        private void InitDesignTime()
-        {
-            Uploads = new ObservableCollection<UploadItem>();
-            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = UploadItem.PENDING, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
-            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = UploadItem.CANCELED, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
-            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = UploadItem.SUCCESSFUL, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
-            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = UploadItem.UPLOADING, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
+            Uploads = new ObservableCollection<IUploadItem>();
+            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = TransferStates.PENDING, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
+            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = TransferStates.CANCELED, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
+            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = TransferStates.SUCCESSFUL, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
+            Uploads.Add(new UploadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = TransferStates.UPLOADING, Image = new BitmapImage(new Uri("http://i.imgur.com/ngYg9yCb.jpg")) });
             IsCancelAllEnabled = true;
         }
     }

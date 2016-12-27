@@ -12,17 +12,12 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using XamarinImgur.Interfaces;
 using MonocleGiraffe.Portable.Models;
+using MonocleGiraffe.Portable.ViewModels.Transfers;
 
 namespace MonocleGiraffe.Models
 {
-    public class UploadItem : BindableBase
-    {
-        public const string UPLOADING = "Uploading";
-        public const string CANCELED = "Canceled";
-        public const string SUCCESSFUL = "Successful";
-        public const string ERROR = "Error";
-        public const string PENDING = "Pending";
-        
+    public class UploadItem : BindableBase, IUploadItem
+    {        
         public string Title { get; set; }
         public string Description { get; set; }
 
@@ -58,7 +53,7 @@ namespace MonocleGiraffe.Models
         string name = default(string);
         public string Name { get { return name; } set { Set(ref name, value); } }   
 
-        string state = PENDING;
+        string state = TransferStates.PENDING;
         public string State { get { return state; } set { Set(ref state, value); } }
 
         GalleryItem response;
@@ -78,9 +73,9 @@ namespace MonocleGiraffe.Models
 
         public async Task Upload()
         {
-            if (State == CANCELED)
+            if (State == TransferStates.CANCELED)
                 return;
-            State = UPLOADING;
+            State = TransferStates.UPLOADING;
             CTS = new CancellationTokenSource();
             await Task.Delay(5000);
             Progress = new Progress<HttpProgress>(HandleProgress);
@@ -90,18 +85,18 @@ namespace MonocleGiraffe.Models
             {
                 if (response.Error is TaskCanceledException)
                 {
-                    State = CANCELED;
+                    State = TransferStates.CANCELED;
                     Message = "Upload was canceled";
                 }
                 else
                 {
-                    State = ERROR;
+                    State = TransferStates.ERROR;
                     Message = string.IsNullOrEmpty(response.Message) ? response?.Error?.Message : response.Message;
                 }
             }
             else
             {
-                State = SUCCESSFUL;
+                State = TransferStates.SUCCESSFUL;
                 Response = new GalleryItem(response.Content);
                 Message = "Tap here to edit";
             }
@@ -131,9 +126,9 @@ namespace MonocleGiraffe.Models
 
         public void Cancel()
         {
-            if (State == CANCELED)
+            if (State == TransferStates.CANCELED)
                 return;
-            State = CANCELED;
+            State = TransferStates.CANCELED;
             CTS?.Cancel();
             Message = "Upload was canceled";
         }
@@ -147,7 +142,7 @@ namespace MonocleGiraffe.Models
 
         private async Task Restart()
         {
-            State = PENDING;
+            State = TransferStates.PENDING;
             Message = string.Empty;
             await Upload();
         }

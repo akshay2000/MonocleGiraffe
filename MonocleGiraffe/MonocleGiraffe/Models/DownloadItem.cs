@@ -55,7 +55,7 @@ namespace MonocleGiraffe.Models
         ulong currentSize = 0;
         public ulong CurrentSize { get { return currentSize; } set { Set(ref currentSize, value); } }
 
-        string state = DownloadStates.PENDING;
+        string state = TransferStates.PENDING;
         public string State { get { return state; } set { Set(ref state, value); } }
 
         private DownloadOperation Operation { get; set; }
@@ -79,7 +79,7 @@ namespace MonocleGiraffe.Models
 
         public async Task Cancel()
         {
-            State = DownloadStates.CANCELED;
+            State = TransferStates.CANCELED;
             CancellationToken.Cancel();
             await File.DeleteAsync();
         }
@@ -93,7 +93,7 @@ namespace MonocleGiraffe.Models
 
         public async Task Restart()
         {
-            State = DownloadStates.PENDING;
+            State = TransferStates.PENDING;
             await Construct();
             await Start();
         }
@@ -106,7 +106,7 @@ namespace MonocleGiraffe.Models
             }
             catch (TaskCanceledException)
             {
-                State = DownloadStates.CANCELED;
+                State = TransferStates.CANCELED;
             }
         }
                
@@ -118,23 +118,23 @@ namespace MonocleGiraffe.Models
             switch (currentProgress.Status)
             {
                 case BackgroundTransferStatus.Canceled:
-                    State = DownloadStates.CANCELED;
+                    State = TransferStates.CANCELED;
                     break;
                 case BackgroundTransferStatus.Completed:
-                    State = DownloadStates.SUCCESSFUL;
+                    State = TransferStates.SUCCESSFUL;
                     break;
                 case BackgroundTransferStatus.Running:
-                    State = DownloadStates.DOWNLOADING;
+                    State = TransferStates.DOWNLOADING;
                     break;
                 case BackgroundTransferStatus.Error:
-                    State = DownloadStates.ERROR;
+                    State = TransferStates.ERROR;
                     break;
                 default:
-                    State = DownloadStates.PAUSED;
+                    State = TransferStates.PAUSED;
                     break;                    
             }
             if (TotalSize == CurrentSize)
-                State = DownloadStates.SUCCESSFUL;
+                State = TransferStates.SUCCESSFUL;
         }
     }
 }
