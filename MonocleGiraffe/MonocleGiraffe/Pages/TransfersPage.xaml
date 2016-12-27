@@ -8,35 +8,47 @@
     xmlns:t10c="using:Template10.Converters"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="MonocleGiraffe.Pages.TransfersPage"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
 
     <Page.Resources>
         <t10c:ValueWhenConverter x:Key="IsIndeterminateConverter" When="Pending" Value="True" Otherwise="False"/>
     </Page.Resources>
 
     <Page.DataContext>
-        <Binding Path="TransfersPageViewModel" Source="{StaticResource Locator}"/>
+        <Binding Path="TransfersViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
 
     <Grid Background="Black">
-        <Pivot Title="TRANSFERS">
-            <PivotItem Header="Downloads" DataContext="{Binding DownloadsVM}">
+        <Pivot Style="{StaticResource CustomPivotStyle}">
+            <Pivot.Title>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <SymbolIcon Symbol="Sort" Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+                    <TextBlock Grid.Column="1" Text="TRANSFERS" FontSize="15" FontWeight="Bold" Margin="12,0"/>
+                </Grid>
+            </Pivot.Title>
+            <PivotItem DataContext="{Binding DownloadsVM}">
+                <PivotItem.Header>
+                    <TextBlock Text="DOWNLOADS" Style="{StaticResource CustomPivoteHeaderTextStyle}"/>
+                </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Button Content="Cancel All" Command="{Binding CancelAllCommand}" IsEnabled="{Binding IsCancelAllEnabled}"/>
-                    <ListBox ItemsSource="{Binding Downloads}" Background="Transparent" Grid.Row="1">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
+                    <ListView ItemsSource="{Binding Downloads}" Background="Transparent" Grid.Row="1" SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                 <Setter Property="Padding" Value="0,6"/>
                                 <Setter Property="Margin" Value="0"/>
                             </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -57,11 +69,14 @@
                                     </Button>
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Uploads" DataContext="{Binding UploadsVM}">
+            <PivotItem DataContext="{Binding UploadsVM}">
+                <PivotItem.Header>
+                    <TextBlock Text="UPLOADS" Style="{StaticResource CustomPivoteHeaderTextStyle}"/>
+                </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>

@@ -16,7 +16,10 @@ namespace MonocleGiraffe.ViewModels.Transfers
     public class DownloadsViewModel : Portable.ViewModels.Transfers.DownloadsViewModel
     {
         public DownloadsViewModel() : base(DownloadItemFactory, DesignMode.DesignModeEnabled)
-        { }
+        {
+            if (DesignMode.DesignModeEnabled)
+                InitDesignTime();
+        }
 
         public static async Task<IDownloadItem> DownloadItemFactory(string url)
         {
@@ -42,6 +45,7 @@ namespace MonocleGiraffe.ViewModels.Transfers
 
         protected override void InitDesignTime()
         {
+            Downloads = new ObservableCollection<IDownloadItem>();
             Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = DownloadStates.PENDING });
             Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = DownloadStates.CANCELED });
             Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = DownloadStates.SUCCESSFUL });
