@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Services.Store;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -50,8 +51,21 @@ namespace MonocleGiraffe.Helpers
 
         public Panel BannerParent { get; set; }
 
+        private bool? isStoreContextTypePresent;
+        private bool IsStoreContextTypePresent
+        {
+            get
+            {
+                if (isStoreContextTypePresent == null)
+                    isStoreContextTypePresent = ApiInformation.IsTypePresent("Windows.Services.Store.StoreContext");
+                return (bool)isStoreContextTypePresent;
+            }                
+        }
+
         public async Task<bool> ShowAds()
         {
+            if (!IsStoreContextTypePresent)
+                return true;
             AddOnsHelper addOnsHelper = SimpleIoc.Default.GetInstance<AddOnsHelper>();
             IReadOnlyDictionary<string, StoreLicense> licenses = await addOnsHelper.GetAddOnLicenses();
             foreach (var item in licenses)

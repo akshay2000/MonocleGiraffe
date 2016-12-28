@@ -78,6 +78,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <ProgressBar IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <TextBlock Text="{Binding NoAddOnsMessage}" TextWrapping="Wrap"/>
                 </StackPanel>
             </PivotItem>
             <PivotItem DataContext="{Binding ImgurSettings}">

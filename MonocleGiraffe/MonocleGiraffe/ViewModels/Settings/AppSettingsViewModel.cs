@@ -18,7 +18,6 @@ namespace MonocleGiraffe.ViewModels.Settings
     public class AppSettingsViewModel : BindableBase
     {
         private const string IS_VIRAL_ENABLED = "IsViralEnabled";
-        private readonly StoreContext storeContext = StoreContext.GetDefault();
 
         private ISettingsHelper Settings { get { return SimpleIoc.Default.GetInstance<ISettingsHelper>(); } }
 
@@ -42,6 +41,9 @@ namespace MonocleGiraffe.ViewModels.Settings
 
         ObservableCollection<AddOnItem> addOns;
         public ObservableCollection<AddOnItem> AddOns { get { return addOns; } set { Set(ref addOns, value); } }
+        
+        string noAddOnsMessage = default(string);
+        public string NoAddOnsMessage { get { return noAddOnsMessage; } set { Set(ref noAddOnsMessage, value); } }
 
         public void ChangeViralEnabled()
         {
@@ -53,7 +55,10 @@ namespace MonocleGiraffe.ViewModels.Settings
             IsBusy = true;
             AddOnsHelper helper = SimpleIoc.Default.GetInstance<AddOnsHelper>();
             Response<List<AddOnItem>> response = await helper.GetAllAddOns();
-            AddOns = new ObservableCollection<AddOnItem>(response.Content);
+            if (!response.IsError && response.Content != null && response.Content.Count == 0)
+                NoAddOnsMessage = "No add-ons are available for your version of Windows. Please upgrade to a newer version.";
+            else
+                AddOns = new ObservableCollection<AddOnItem>(response.Content);
             IsBusy = false;
         }        
 
