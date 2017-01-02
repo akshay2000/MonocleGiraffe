@@ -16,6 +16,8 @@ using System.IO;
 using XamarinImgur.Helpers;
 using MonocleGiraffe.Android.LibraryImpl;
 using GalaSoft.MvvmLight.Views;
+using GalaSoft.MvvmLight.Ioc;
+using XamarinImgur.Interfaces;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -55,10 +57,23 @@ namespace MonocleGiraffe.Android.Activities
             SignInButton.Click += async delegate { await Vm.SignInAndNavigate(); };
         }
 
+		private void ConfigureIoc()
+		{
+			SimpleIoc.Default.Register<IHttpClient, HttpClient>();
+			SimpleIoc.Default.Register<ISecretsProvider>(() => new SecretsProvider(Assets));
+			SimpleIoc.Default.Register<IVault, Vault>();
+			SimpleIoc.Default.Register<IAuthBroker>(() => new AuthBroker(this, SimpleIoc.Default.GetInstance<ISecretsProvider>()));
+			SimpleIoc.Default.Register<ISettingsHelper>(() => new SettingsHelper(this));
+			SimpleIoc.Default.Register<AuthenticationHelper>();
+			SimpleIoc.Default.Register<SecretsHelper>();
+			var authHelper = SimpleIoc.Default.GetInstance<AuthenticationHelper>();
+			var secretsHelper = SimpleIoc.Default.GetInstance<SecretsHelper>();
+			SimpleIoc.Default.Register<NetworkHelper>(() => new NetworkHelper(authHelper, () => new HttpClient(), secretsHelper));
+		}
+
         private void Init()
         {
-            string secrets = LoadSecretsFile();
-            Initializer.Init(new AuthBroker(this), new Vault(), new SettingsHelper(this), secrets, () => new HttpClient(), false);
+            ConfigureIoc();
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
         }
 
@@ -66,19 +81,19 @@ namespace MonocleGiraffe.Android.Activities
         {
             const string authUrl = "https://api.imgur.com/oauth2/authorize";
             const string callback = "http://localhost:8080/MonocleGiraffeAndroid";
-            var result = Initializer.AuthBroker.AuthenticateAsync(new Uri(authUrl), new Uri(callback));
+			var result = SimpleIoc.Default.GetInstance<IAuthBroker>().AuthenticateAsync(new Uri(authUrl), new Uri(callback));
         }
 
-        private string LoadSecretsFile()
-        {
-            string content;
-            AssetManager assets = this.Assets;
-            using (StreamReader sr = new StreamReader(assets.Open("Secrets.json")))
-            {
-                content = sr.ReadToEnd();
-            }
-            return content;
-        }
+        //private string LoadSecretsFile()
+        //{
+        //    string content;
+        //    AssetManager assets = this.Assets;
+        //    using (StreamReader sr = new StreamReader(assets.Open("Secrets.json")))
+        //    {
+        //        content = sr.ReadToEnd();
+        //    }
+        //    return content;
+        //}
 
         protected override void OnDestroy()
         {

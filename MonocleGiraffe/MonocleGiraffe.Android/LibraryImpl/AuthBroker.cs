@@ -18,9 +18,12 @@ namespace MonocleGiraffe.Android.LibraryImpl
     public class AuthBroker : IAuthBroker
     {
         private Context context;
-        public AuthBroker(Context context)
+		private ISecretsProvider secretsProvider;
+
+		public AuthBroker(Context context, ISecretsProvider secretsProvider)
         {
             this.context = context;
+			this.secretsProvider = secretsProvider;
         }
 
         public async Task<AuthResult> AuthenticateAsync(Uri requestUri, Uri callbackUri)
@@ -39,7 +42,7 @@ namespace MonocleGiraffe.Android.LibraryImpl
         private async Task<WebRedirectAuthenticator> BuildAuthenticator(Uri requestUri, Uri callbackUri)
         {
             Uri accessTokenUri = new Uri("https://api.imgur.com/oauth2/token");
-            var config = await SecretsHelper.GetConfiguration();
+			var config = await secretsProvider.GetSecrets();
             string clientId = (string)config["Client_Id"];
             string clientSecret = (string)config["Client_Secret"];
             var auth = new OAuth2Authenticator(clientId, clientSecret, "", requestUri, callbackUri, accessTokenUri);
