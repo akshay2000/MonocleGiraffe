@@ -11,6 +11,11 @@ namespace MonocleGiraffe.Android
 {
     public static class App
     {
+        static App()
+        {
+
+        }
+
         private static ViewModelLocator locator;
 
         public static ViewModelLocator Locator

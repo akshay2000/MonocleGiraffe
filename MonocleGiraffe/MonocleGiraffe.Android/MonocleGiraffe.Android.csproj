@@ -176,6 +176,7 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
+    <Compile Include="LibraryImpl\SecretsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Secrets.json">
