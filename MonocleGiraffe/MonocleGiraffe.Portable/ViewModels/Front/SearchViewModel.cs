@@ -99,6 +99,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         public void SubredditTapped(SubredditItem item)
         {
             subredditsVM.GoToSub.Execute(item);
+            AzureHelper.Instance.UpsertItem(item);
         }
 
         public RelayCommand<SubredditItem> ToggleFavorite => subredditsVM.ToggleFavorite;
@@ -157,7 +158,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
                 return;
             Subreddits = new ObservableCollection<SubredditItem>();
             var subs = await Helpers.Initializer.Reddits.SearchSubreddits(query);
-            IEnumerable<string> subscribedSubs = subredditsVM.Subreddits.Select(s => s.Url);
+            IEnumerable<string> subscribedSubs = subredditsVM.UserSubreddits.Select(s => s.Url);
             foreach (var sub in subs)
             {
                 SubredditItem si = new SubredditItem(sub);
