@@ -55,7 +55,9 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         private async Task LoadPopularSubreddits()
         {
-            PopularState = BUSY;
+			if (PopularState == BUSY)
+				return;
+            PopularState = BUSY;            
             List<AzureSubredditItem> populars = (await AzureHelper.Instance.GetTopN(10)).Content;
             if (populars.Count == 0)
             {
@@ -85,6 +87,8 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         private const string subredditsFileName = "subreddits.json";
         public async Task LoadUserSubreddits()
         {
+			if (UserState == BUSY)
+				return;
             UserState = BUSY;
             string jsonString = await RoamingDataHelper.GetText(subredditsFileName);
             var subredditsList = JArray.Parse(jsonString).ToObject<List<SubredditItem>>();

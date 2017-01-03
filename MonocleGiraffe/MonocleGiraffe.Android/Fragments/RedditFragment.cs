@@ -16,7 +16,7 @@ using MonocleGiraffe.Portable.Models;
 
 namespace MonocleGiraffe.Android.Fragments
 {
-    public class RedditFragment : global::Android.Support.V4.App.Fragment
+	public partial class RedditFragment : global::Android.Support.V4.App.Fragment
     {
         private readonly List<Binding> bindings = new List<Binding>();
         public override void OnCreate(Bundle savedInstanceState)
@@ -35,8 +35,23 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            SubreddisListView.Adapter = Vm.SubredditsVM.UserSubreddits.GetAdapter(GetSubredditView);
-            SubreddisListView.ItemClick += SubreddisListView_ItemClick;
+			//User Subreddits
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.UserSubreddits)
+			             .WhenSourceChanges(() => UserSubreddisListView.Adapter = Vm.SubredditsVM.UserSubreddits.GetAdapter(GetSubredditView)));
+            UserSubreddisListView.ItemClick += SubreddisListView_ItemClick;
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.UserState, () => NoUserRedditsView.Visibility)
+						 .ConvertSourceToTarget((s) => s == "Empty" ? ViewStates.Visible : ViewStates.Gone));
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.UserState, () => UserSubreddisListView.Visibility)
+						 .ConvertSourceToTarget((s) => s == "Done" ? ViewStates.Visible : ViewStates.Gone));
+
+			//Popular Subreddits
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.PopularSubreddits)
+			             .WhenSourceChanges(() => PopularSubreddisListView.Adapter = Vm.SubredditsVM.PopularSubreddits.GetAdapter(GetSubredditView)));
+			PopularSubreddisListView.ItemClick += SubreddisListView_ItemClick;
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.PopularState, () => NoPopRedditsView.Visibility)
+						 .ConvertSourceToTarget((s) => s == "Empty" ? ViewStates.Visible : ViewStates.Gone));
+			bindings.Add(this.SetBinding(() => Vm.SubredditsVM.PopularState, () => PopularSubreddisListView.Visibility)
+						 .ConvertSourceToTarget((s) => s == "Done" ? ViewStates.Visible : ViewStates.Gone));
         }
 
         private void SubreddisListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -57,18 +72,10 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnDestroy();
             bindings.ForEach((b) => b.Detach());
+			UserSubreddisListView.ItemClick -= SubreddisListView_ItemClick;
+			PopularSubreddisListView.ItemClick -= SubreddisListView_ItemClick;
         }
 
-        public FrontViewModel Vm { get { return App.Locator.Front; } }        
-
-        private ListView subreddisListView;
-        public ListView SubreddisListView
-        {
-            get
-            {
-                subreddisListView = subreddisListView ?? View.FindViewById<ListView>(Resource.Id.reddits_list);
-                return subreddisListView;
-            }
-        }
+        public FrontViewModel Vm { get { return App.Locator.Front; } }
     }
 }

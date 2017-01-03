@@ -7,6 +7,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reddits_header"
+        android:text="YOUR SUBREDDITS"
+        android:textSize="17.0sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_marginLeft="16.0dp"
+        android:layout_marginRight="16.0dp"
+        android:layout_marginTop="14.0dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NoUserReddits"
+        android:text="Your bookmarked Subreddits will appear here."
+        android:layout_marginLeft="16.0dp"
+        android:layout_marginRight="16.0dp" />
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/reddits_list"
+        android:layout_marginTop="20.0dp"
+        android:divider="@null" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pop_reddits_header"
         android:text="POPULAR SUBREDDITS"
         android:textSize="17.0sp"
         android:textStyle="bold"
@@ -14,12 +40,19 @@
         android:layout_marginLeft="16.0dp"
         android:layout_marginRight="16.0dp"
         android:layout_marginTop="14.0dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NoPopReddits"
+        android:text="Popular Subreddis will appear here. Go to next pane to search through Subreddits."
+        android:layout_marginLeft="16.0dp"
+        android:layout_marginRight="16.0dp" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/reddits_list"
+        android:id="@+id/pop_reddits_list"
         android:layout_marginTop="20.0dp"
         android:divider="@null" />
 </LinearLayout>

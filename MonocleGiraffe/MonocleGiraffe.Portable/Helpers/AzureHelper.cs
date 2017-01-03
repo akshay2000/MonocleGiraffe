@@ -2,6 +2,7 @@
 using MonocleGiraffe.Portable.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace MonocleGiraffe.Portable.Helpers
 
         public async Task<Response<List<AzureSubredditItem>>> GetTopN(int n)
         {
+            Debug.WriteLine("Hey!");
             Response<List<AzureSubredditItem>> response = new Response<List<AzureSubredditItem>>();
             try
             {
