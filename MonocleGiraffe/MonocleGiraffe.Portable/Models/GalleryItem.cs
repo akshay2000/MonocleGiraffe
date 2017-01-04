@@ -246,8 +246,15 @@ namespace MonocleGiraffe.Portable.Models
             string thumbnailId;
             if (image.IsAlbum)
             {
-                var album = await GetAlbum();
-                thumbnailId = album?.Cover;
+                if (string.IsNullOrEmpty(image.Cover))
+                {
+                    var album = await GetAlbum();
+                    thumbnailId = album?.Cover;
+                }
+                else
+                {
+                    thumbnailId = image.Cover;
+                }
             }
             else
             {

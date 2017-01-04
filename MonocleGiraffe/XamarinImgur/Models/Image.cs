@@ -18,6 +18,9 @@ namespace XamarinImgur.Models
         [JsonProperty("description")]
         public string Description { get; set; }
 
+        [JsonProperty("cover")]
+        public string Cover { get; set; }
+
         [JsonProperty("datetime")]
         public int Datetime { get; set; }
 
