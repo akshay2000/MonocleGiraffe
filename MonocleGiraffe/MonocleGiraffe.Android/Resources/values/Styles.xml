@@ -28,5 +28,11 @@
 	
 	<style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 	</style>
+
+	<style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+<!--	    <item name="android:textSize">14sp</item>-->
+	    <item name="android:textColor">#ffffff</item>
+	    <item name="textAllCaps">true</item>
+	</style>
   
 </resources>

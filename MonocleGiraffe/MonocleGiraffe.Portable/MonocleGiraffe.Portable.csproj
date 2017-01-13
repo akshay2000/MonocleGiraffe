@@ -69,12 +69,14 @@
     <Compile Include="ViewModels\IViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageKeyHolder.cs" />
+    <Compile Include="ViewModels\Settings\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\SplashViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryViewModel.cs" />
     <Compile Include="ViewModels\TransfersViewModel.cs" />
     <Compile Include="ViewModels\Transfers\TransferStates.cs" />
     <Compile Include="ViewModels\Transfers\DownloadsViewModel.cs" />
     <Compile Include="ViewModels\Transfers\UploadsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">

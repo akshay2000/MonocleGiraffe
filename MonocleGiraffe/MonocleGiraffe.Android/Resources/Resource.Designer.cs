@@ -2221,6 +2221,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00b3
 			public const int SettingsMenuItem = 2131361971;
 			
+			// aapt resource value: 0x7f0a009f
+			public const int ShowViralSwitch = 2131361951;
+			
 			// aapt resource value: 0x7f0a00a5
 			public const int SignInButton = 2131361957;
 			
@@ -2638,9 +2641,6 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0052
 			public const int textSpacerNoButtons = 2131361874;
 			
-			// aapt resource value: 0x7f0a009f
-			public const int textView1 = 2131361951;
-			
 			// aapt resource value: 0x7f0a007e
 			public const int text_input_password_toggle = 2131361918;
 			
@@ -2908,34 +2908,37 @@ namespace MonocleGiraffe.Android
 			public const int Settings = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int Splash = 2130968636;
+			public const int Settings_App = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int SubGallery = 2130968637;
+			public const int Splash = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int support_simple_spinner_dropdown_item = 2130968638;
+			public const int SubGallery = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int Tmpl_Album = 2130968639;
+			public const int support_simple_spinner_dropdown_item = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int Tmpl_GalleryThumbnail = 2130968640;
+			public const int Tmpl_Album = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int Tmpl_Image = 2130968641;
+			public const int Tmpl_GalleryThumbnail = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int Tmpl_Item_Album = 2130968642;
+			public const int Tmpl_Image = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int Tmpl_SubredditItem = 2130968643;
+			public const int Tmpl_Item_Album = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int Tmpl_SubredditResult = 2130968644;
+			public const int Tmpl_SubredditItem = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int Tmpl_SubredditThumbnail = 2130968645;
+			public const int Tmpl_SubredditResult = 2130968645;
+			
+			// aapt resource value: 0x7f040046
+			public const int Tmpl_SubredditThumbnail = 2130968646;
 			
 			static Layout()
 			{
@@ -3706,6 +3709,9 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f0b016c
 			public const int SecondaryText = 2131427692;
+			
+			// aapt resource value: 0x7f0b016e
+			public const int TabTextAppearance = 2131427694;
 			
 			// aapt resource value: 0x7f0b016a
 			public const int TabsStyle = 2131427690;

@@ -33,12 +33,6 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <Debugger>Xamarin</Debugger>
-    <BundleAssemblies>False</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AotAssemblies>False</AotAssemblies>
-    <EnableLLVM>False</EnableLLVM>
-    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
-    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>
@@ -185,6 +179,7 @@
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="LibraryImpl\SecretsProvider.cs" />
+    <Compile Include="Fragments\AppSettingsFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Secrets.json">
@@ -255,6 +250,7 @@
     <AndroidResource Include="Resources\menu\main_menu.xml" />
     <AndroidResource Include="Resources\drawable\refresh.xml" />
     <AndroidResource Include="Resources\layout\Settings.axml" />
+    <AndroidResource Include="Resources\layout\Settings_App.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

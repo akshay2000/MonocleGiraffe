@@ -5,50 +5,21 @@ using MonocleGiraffe.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template10.Mvvm;
-using Windows.Services.Store;
-using XamarinImgur.Interfaces;
+using Windows.ApplicationModel;
 using XamarinImgur.Models;
 
 namespace MonocleGiraffe.ViewModels.Settings
 {
-    public class AppSettingsViewModel : BindableBase
+    public class AppSettingsViewModel : Portable.ViewModels.Settings.AppSettingsViewModel
     {
-        private const string IS_VIRAL_ENABLED = "IsViralEnabled";
-
-        private ISettingsHelper Settings { get { return SimpleIoc.Default.GetInstance<ISettingsHelper>(); } }
-
-        public AppSettingsViewModel()
-        {
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            {
-                InitDesignTime();
-            }
-            else
-            {
-                Init();
-            }
-        }
-
-        bool isViralEnabled = default(bool);
-        public bool IsViralEnabled { get { return isViralEnabled; } set { Set(ref isViralEnabled, value); } }
+        public AppSettingsViewModel() : base(DesignMode.DesignModeEnabled)
+        { }
         
-        bool isBusy = default(bool);
-        public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
-
         ObservableCollection<AddOnItem> addOns;
         public ObservableCollection<AddOnItem> AddOns { get { return addOns; } set { Set(ref addOns, value); } }
         
         string noAddOnsMessage = default(string);
-        public string NoAddOnsMessage { get { return noAddOnsMessage; } set { Set(ref noAddOnsMessage, value); } }
-
-        public void ChangeViralEnabled()
-        {
-            Settings.SetValue(IS_VIRAL_ENABLED, IsViralEnabled);
-        }
+        public string NoAddOnsMessage { get { return noAddOnsMessage; } set { Set(ref noAddOnsMessage, value); } }        
 
         private async void LoadAddOns()
         {
@@ -60,15 +31,9 @@ namespace MonocleGiraffe.ViewModels.Settings
             else
                 AddOns = new ObservableCollection<AddOnItem>(response.Content);
             IsBusy = false;
-        }        
-
-        private void Init()
-        {
-            IsViralEnabled = Settings.GetValue<bool>(IS_VIRAL_ENABLED, false);
-            LoadAddOns();
         }
 
-        private void InitDesignTime()
+        protected override void InitDesignTime()
         {
             IsViralEnabled = true;
             AddOns = new ObservableCollection<AddOnItem>();
