@@ -69,6 +69,7 @@
     <Compile Include="ViewModels\IViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageKeyHolder.cs" />
+    <Compile Include="ViewModels\Settings\ImgurSettingsViewModel.cs" />
     <Compile Include="ViewModels\SplashViewModel.cs" />
     <Compile Include="ViewModels\SubGalleryViewModel.cs" />
     <Compile Include="ViewModels\TransfersViewModel.cs" />
