@@ -19,5 +19,15 @@ namespace MonocleGiraffe.Portable.ViewModels
 				return appSettingsViewModel;
 			}
 		}
-	}
+
+        private ImgurSettingsViewModel imgurSettingsViewModel;
+        public ImgurSettingsViewModel ImgurSettingsViewModel
+        {
+            get
+            {
+                imgurSettingsViewModel = imgurSettingsViewModel ?? new ImgurSettingsViewModel(IsInDesignMode);
+                return imgurSettingsViewModel;
+            }
+        }
+    }
 }

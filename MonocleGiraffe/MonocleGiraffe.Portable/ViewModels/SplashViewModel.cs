@@ -87,6 +87,7 @@ namespace MonocleGiraffe.Portable.ViewModels
                 if (!isSuccess)
                 {
                     //TODO: flush http clients here
+                    SimpleIoc.Default.GetInstance<NetworkHelper>().FlushHttpClients();
                     await Helpers.Initializer.SecretsHelper.RefreshAccessToken();
                     result = await GetUserImageCount();
                     isSuccess = (bool)result["success"];

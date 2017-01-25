@@ -15,6 +15,7 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using MonocleGiraffe.Android.Fragments;
 
 namespace MonocleGiraffe.Android
 {
@@ -88,12 +89,12 @@ namespace MonocleGiraffe.Android
 			}
 		}
 
-		private AppSettingsFragment imgurSettingsFragment;
-		private AppSettingsFragment ImgurSettingsFragment
+		private ImgurSettingsFragment imgurSettingsFragment;
+		private ImgurSettingsFragment ImgurSettingsFragment
 		{
 			get
 			{
-				imgurSettingsFragment = imgurSettingsFragment ?? new AppSettingsFragment();
+				imgurSettingsFragment = imgurSettingsFragment ?? new ImgurSettingsFragment();
 				return imgurSettingsFragment;
 			}
 		}

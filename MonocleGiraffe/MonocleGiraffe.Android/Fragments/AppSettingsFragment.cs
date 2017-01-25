@@ -14,7 +14,7 @@ using Android.Widget;
 using GalaSoft.MvvmLight.Helpers;
 using MonocleGiraffe.Portable.ViewModels.Settings;
 
-namespace MonocleGiraffe.Android
+namespace MonocleGiraffe.Android.Fragments
 {
 	public class AppSettingsFragment : global::Android.Support.V4.App.Fragment
 	{

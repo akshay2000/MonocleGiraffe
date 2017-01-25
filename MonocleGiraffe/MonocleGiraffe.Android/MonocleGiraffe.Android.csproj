@@ -159,6 +159,8 @@
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BrowserItemFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
+    <Compile Include="Fragments\ImgurSettingsFragment.cs" />
+    <Compile Include="Fragments\ImgurSettingsFragment.ui.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchFragment.ui.cs" />
@@ -251,6 +253,9 @@
     <AndroidResource Include="Resources\drawable\refresh.xml" />
     <AndroidResource Include="Resources\layout\Settings.axml" />
     <AndroidResource Include="Resources\layout\Settings_App.axml" />
+    <AndroidResource Include="Resources\layout\Settings_Imgur.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -258,7 +263,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
