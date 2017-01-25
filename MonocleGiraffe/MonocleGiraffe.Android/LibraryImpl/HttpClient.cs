@@ -31,12 +31,13 @@ namespace MonocleGiraffe.Android.LibraryImpl
 
         public async Task<string> PostAsync(Uri uri, string content, CancellationToken ct, IProgress<HttpProgress> progress)
         {
-            var httpContent = new StringContent(content);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             if (progress != null)
                 progress.Report(new HttpProgress { BytesSent = 0, TotalBytesToSend = 100, Stage = HttpProgressStage.SendingContent });            
             var r = await Client.PostAsync(uri, httpContent, ct);
             string ret = await r.Content.ReadAsStringAsync();
-            progress.Report(new HttpProgress { BytesSent = 100, TotalBytesToSend = 100, Stage = HttpProgressStage.None });
+            if(progress != null)
+                progress.Report(new HttpProgress { BytesSent = 100, TotalBytesToSend = 100, Stage = HttpProgressStage.None });
             return ret;
         }
 

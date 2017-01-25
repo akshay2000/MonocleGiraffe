@@ -13,7 +13,7 @@ namespace XamarinImgur.Helpers
     public class AuthenticationHelper
     {
         private const string authUrlPattern = "https://api.imgur.com/oauth2/authorize?response_type=token&client_id={0}&state=yo";
-        private const string callback = "http://localhost:8080/MonocleGiraffe";
+        private const string callback = "http://localhost:8080/MonocleGiraffeDev";
 
         private Dictionary<string, string> authResult;
         private const string userNameKey = "account_username";
