@@ -2147,14 +2147,17 @@ namespace MonocleGiraffe.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0a00b8
-			public const int AddButton = 2131361976;
+			// aapt resource value: 0x7f0a00ba
+			public const int AddButton = 2131361978;
 			
 			// aapt resource value: 0x7f0a00a4
 			public const int AlbumPrivacySpinner = 2131361956;
 			
-			// aapt resource value: 0x7f0a00b0
-			public const int AlbumRecyclerView = 2131361968;
+			// aapt resource value: 0x7f0a00b2
+			public const int AlbumRecyclerView = 2131361970;
+			
+			// aapt resource value: 0x7f0a00af
+			public const int AppBar = 2131361967;
 			
 			// aapt resource value: 0x7f0a00a0
 			public const int AuthLayout = 2131361952;
@@ -2168,17 +2171,17 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00ab
 			public const int ButtonWrapper = 2131361963;
 			
-			// aapt resource value: 0x7f0a00b9
-			public const int CheckButton = 2131361977;
-			
-			// aapt resource value: 0x7f0a00b3
-			public const int CommentsTextView = 2131361971;
+			// aapt resource value: 0x7f0a00bb
+			public const int CheckButton = 2131361979;
 			
 			// aapt resource value: 0x7f0a00b5
-			public const int DescriptionTextView = 2131361973;
+			public const int CommentsTextView = 2131361973;
 			
-			// aapt resource value: 0x7f0a00bb
-			public const int DownloadsMenuItem = 2131361979;
+			// aapt resource value: 0x7f0a00b7
+			public const int DescriptionTextView = 2131361975;
+			
+			// aapt resource value: 0x7f0a00bd
+			public const int DownloadsMenuItem = 2131361981;
 			
 			// aapt resource value: 0x7f0a008f
 			public const int EditText = 2131361935;
@@ -2186,8 +2189,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00a3
 			public const int EnableMessagingSwitch = 2131361955;
 			
-			// aapt resource value: 0x7f0a00bc
-			public const int FeedbackMenuItem = 2131361980;
+			// aapt resource value: 0x7f0a00be
+			public const int FeedbackMenuItem = 2131361982;
 			
 			// aapt resource value: 0x7f0a0085
 			public const int GalleryRecyclerView = 2131361925;
@@ -2207,8 +2210,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0090
 			public const int LogInButton = 2131361936;
 			
-			// aapt resource value: 0x7f0a00b4
-			public const int MainImage = 2131361972;
+			// aapt resource value: 0x7f0a00b6
+			public const int MainImage = 2131361974;
 			
 			// aapt resource value: 0x7f0a0073
 			public const int MainImageView = 2131361907;
@@ -2255,8 +2258,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00a6
 			public const int SaveSettingsButton = 2131361958;
 			
-			// aapt resource value: 0x7f0a00ba
-			public const int SettingsMenuItem = 2131361978;
+			// aapt resource value: 0x7f0a00bc
+			public const int SettingsMenuItem = 2131361980;
 			
 			// aapt resource value: 0x7f0a009f
 			public const int ShowViralSwitch = 2131361951;
@@ -2267,11 +2270,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00ad
 			public const int SubGalleryRecyclerView = 2131361965;
 			
-			// aapt resource value: 0x7f0a00af
-			public const int SubTitleTextView = 2131361967;
+			// aapt resource value: 0x7f0a00b1
+			public const int SubTitleTextView = 2131361969;
 			
-			// aapt resource value: 0x7f0a00b6
-			public const int SubtitleTextView = 2131361974;
+			// aapt resource value: 0x7f0a00b8
+			public const int SubtitleTextView = 2131361976;
 			
 			// aapt resource value: 0x7f0a0074
 			public const int TabIcon = 2131361908;
@@ -2282,20 +2285,20 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0091
 			public const int TextView = 2131361937;
 			
-			// aapt resource value: 0x7f0a00b1
-			public const int Thumbnail = 2131361969;
+			// aapt resource value: 0x7f0a00b3
+			public const int Thumbnail = 2131361971;
 			
-			// aapt resource value: 0x7f0a00ae
-			public const int TitleTextView = 2131361966;
+			// aapt resource value: 0x7f0a00b0
+			public const int TitleTextView = 2131361968;
 			
-			// aapt resource value: 0x7f0a00b7
-			public const int ToggleContainer = 2131361975;
+			// aapt resource value: 0x7f0a00b9
+			public const int ToggleContainer = 2131361977;
 			
 			// aapt resource value: 0x7f0a0084
 			public const int TopicsSpinner = 2131361924;
 			
-			// aapt resource value: 0x7f0a00b2
-			public const int UpsTextView = 2131361970;
+			// aapt resource value: 0x7f0a00b4
+			public const int UpsTextView = 2131361972;
 			
 			// aapt resource value: 0x7f0a0083
 			public const int UserNameTextView = 2131361923;
@@ -2515,6 +2518,9 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f0a0046
 			public const int list_item = 2131361862;
+			
+			// aapt resource value: 0x7f0a00ae
+			public const int main_content = 2131361966;
 			
 			// aapt resource value: 0x7f0a0095
 			public const int media_actions = 2131361941;
