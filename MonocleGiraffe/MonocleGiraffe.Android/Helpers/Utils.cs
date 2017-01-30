@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Content.Res;
 using Android.Util;
+using Android.Text;
 
 namespace MonocleGiraffe.Android.Helpers
 {
@@ -28,13 +29,41 @@ namespace MonocleGiraffe.Android.Helpers
             return px;
         }
 
+        private static int? accentColor;
         public static int GetAccentColor(Context context)
         {
-            var typedValue = new TypedValue();
-            TypedArray a = context.ObtainStyledAttributes(typedValue.Data, new int[] { Resource.Attribute.colorAccent });
-            int color = a.GetColor(0, 0);
-            a.Recycle();
-            return color;
+            if (accentColor == null)
+            {
+                var typedValue = new TypedValue();
+                TypedArray a = context.ObtainStyledAttributes(typedValue.Data, new int[] { Resource.Attribute.colorAccent });
+                accentColor = a.GetColor(0, 0);
+                a.Recycle();
+            }
+            return accentColor ?? -44462;
+        }
+
+        public static string GetAccentColorHex(Context context)
+        {
+            return $"#{GetAccentColor(context).ToString("X").Substring(2)}";
+        }
+
+        public static ISpanned FromHtml(string source)
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+                return Html.FromHtml(source, FromHtmlOptions.ModeLegacy);
+            else
+#pragma warning disable 612, 618
+                return Html.FromHtml(source);
+#pragma warning restore 612, 618
+        }
+
+        public static void SetPaddingForStatusBar(Activity activity, View itemToPad)
+        {
+            int barHeight = 0;
+            int resourceId = activity.Resources.GetIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0)
+                barHeight = activity.Resources.GetDimensionPixelSize(resourceId);
+            itemToPad.SetPadding(itemToPad.Left, itemToPad.PaddingTop+ barHeight, itemToPad.PaddingRight, itemToPad.PaddingBottom);
         }
     }
 }

@@ -18,7 +18,8 @@ using MonocleGiraffe.Android.Controls;
 using MonocleGiraffe.Android.Activities;
 using Android.Support.V7.Widget;
 using GalaSoft.MvvmLight.Helpers;
-using Android.Text;
+using MonocleGiraffe.Android.Helpers;
+using Android.Support.Design.Widget;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -67,7 +68,8 @@ namespace MonocleGiraffe.Android.Fragments
         private void RenderHeader(IGalleryItem item)
         {
             Title.Text = item.Title;
-            SubTitle.SetText(Html.FromHtml($"by <font color='#528ACA'>{item.UploaderName}</font> • {item.Ups} points"), TextView.BufferType.Spannable);
+            string color = Utils.GetAccentColorHex(Activity);
+            SubTitle.SetText(Utils.FromHtml($"by <b><font color='{color}'>{item.UploaderName}</font></b> • {item.Ups} points"), TextView.BufferType.Spannable);
         }
 
         private void RenderImage(IGalleryItem item)
@@ -86,6 +88,8 @@ namespace MonocleGiraffe.Android.Fragments
         private void RenderAlbum(IGalleryItem item)
         {
             Item = item;
+            //Utils.SetPaddingForStatusBar(Activity, AppBarLayout);
+            //Utils.SetPaddingForStatusBar(Activity, View.FindViewById<View>(Resource.Id.ButtonsBar));
             Title.Text = item.Title;
             AlbumRecyclerView.SetLayoutManager(new PrefetchLinearLayoutManager(Context));
             bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
@@ -127,6 +131,18 @@ namespace MonocleGiraffe.Android.Fragments
         }
 
         #region Views
+
+        private AppBarLayout appBarLayout;
+        public AppBarLayout AppBarLayout
+        {
+            get
+            {
+                if (!isAlbum)
+                    return null;
+                appBarLayout = appBarLayout ?? View.FindViewById<AppBarLayout>(Resource.Id.AppBar);
+                return appBarLayout;
+            }
+        }
 
         private ImageControl mainImage;
         public ImageControl MainImage

@@ -20,6 +20,7 @@ using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Microsoft.Practices.ServiceLocation;
 using MonocleGiraffe.Portable.ViewModels;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -45,6 +46,9 @@ namespace MonocleGiraffe.Android.Activities
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             
             SetContentView(Resource.Layout.Front);
+
+            //Utils.SetPaddingForStatusBar(this, MainToolbar);
+
             pagerAdapter = new FrontPagerAdapter(SupportFragmentManager);
             var pager = FindViewById<ViewPager>(Resource.Id.MainPager);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.Tabs);
