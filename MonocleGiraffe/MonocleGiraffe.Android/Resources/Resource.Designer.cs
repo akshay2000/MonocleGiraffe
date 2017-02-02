@@ -2150,29 +2150,29 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00bb
 			public const int AddButton = 2131361979;
 			
-			// aapt resource value: 0x7f0a00a4
-			public const int AlbumPrivacySpinner = 2131361956;
+			// aapt resource value: 0x7f0a00a8
+			public const int AlbumPrivacySpinner = 2131361960;
 			
 			// aapt resource value: 0x7f0a00b3
 			public const int AlbumRecyclerView = 2131361971;
 			
-			// aapt resource value: 0x7f0a00af
-			public const int AppBar = 2131361967;
+			// aapt resource value: 0x7f0a008f
+			public const int AppBar = 2131361935;
 			
-			// aapt resource value: 0x7f0a00a0
-			public const int AuthLayout = 2131361952;
+			// aapt resource value: 0x7f0a00a4
+			public const int AuthLayout = 2131361956;
 			
-			// aapt resource value: 0x7f0a00a1
-			public const int BioEditText = 2131361953;
+			// aapt resource value: 0x7f0a00a5
+			public const int BioEditText = 2131361957;
 			
 			// aapt resource value: 0x7f0a006f
 			public const int BrowserPager = 2131361903;
 			
-			// aapt resource value: 0x7f0a00ab
-			public const int ButtonWrapper = 2131361963;
+			// aapt resource value: 0x7f0a00af
+			public const int ButtonWrapper = 2131361967;
 			
-			// aapt resource value: 0x7f0a00b2
-			public const int ButtonsBar = 2131361970;
+			// aapt resource value: 0x7f0a0092
+			public const int ButtonsBar = 2131361938;
 			
 			// aapt resource value: 0x7f0a00bc
 			public const int CheckButton = 2131361980;
@@ -2186,11 +2186,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00be
 			public const int DownloadsMenuItem = 2131361982;
 			
-			// aapt resource value: 0x7f0a008f
-			public const int EditText = 2131361935;
+			// aapt resource value: 0x7f0a0093
+			public const int EditText = 2131361939;
 			
-			// aapt resource value: 0x7f0a00a3
-			public const int EnableMessagingSwitch = 2131361955;
+			// aapt resource value: 0x7f0a00a7
+			public const int EnableMessagingSwitch = 2131361959;
 			
 			// aapt resource value: 0x7f0a00bf
 			public const int FeedbackMenuItem = 2131361983;
@@ -2204,14 +2204,14 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0082
 			public const int HelloTextView = 2131361922;
 			
-			// aapt resource value: 0x7f0a00a2
-			public const int ImagePublicSwitch = 2131361954;
+			// aapt resource value: 0x7f0a00a6
+			public const int ImagePublicSwitch = 2131361958;
 			
 			// aapt resource value: 0x7f0a0070
 			public const int LayoutRoot = 2131361904;
 			
-			// aapt resource value: 0x7f0a0090
-			public const int LogInButton = 2131361936;
+			// aapt resource value: 0x7f0a0094
+			public const int LogInButton = 2131361940;
 			
 			// aapt resource value: 0x7f0a00b7
 			public const int MainImage = 2131361975;
@@ -2228,11 +2228,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0072
 			public const int MainVideoView = 2131361906;
 			
-			// aapt resource value: 0x7f0a00a5
-			public const int MatureContentSwitch = 2131361957;
+			// aapt resource value: 0x7f0a00a9
+			public const int MatureContentSwitch = 2131361961;
 			
-			// aapt resource value: 0x7f0a00aa
-			public const int MessageTextView = 2131361962;
+			// aapt resource value: 0x7f0a00ae
+			public const int MessageTextView = 2131361966;
 			
 			// aapt resource value: 0x7f0a0089
 			public const int PostsButton = 2131361929;
@@ -2240,8 +2240,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a008c
 			public const int ProgressBar = 2131361932;
 			
-			// aapt resource value: 0x7f0a00a9
-			public const int ProgressRing = 2131361961;
+			// aapt resource value: 0x7f0a00ad
+			public const int ProgressRing = 2131361965;
 			
 			// aapt resource value: 0x7f0a008b
 			public const int QueryEditText = 2131361931;
@@ -2255,26 +2255,26 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a008e
 			public const int ResultsRecyclerView = 2131361934;
 			
-			// aapt resource value: 0x7f0a00ac
-			public const int RetryButton = 2131361964;
+			// aapt resource value: 0x7f0a00b0
+			public const int RetryButton = 2131361968;
 			
-			// aapt resource value: 0x7f0a00a6
-			public const int SaveSettingsButton = 2131361958;
+			// aapt resource value: 0x7f0a00aa
+			public const int SaveSettingsButton = 2131361962;
 			
 			// aapt resource value: 0x7f0a00bd
 			public const int SettingsMenuItem = 2131361981;
 			
-			// aapt resource value: 0x7f0a009f
-			public const int ShowViralSwitch = 2131361951;
+			// aapt resource value: 0x7f0a00a3
+			public const int ShowViralSwitch = 2131361955;
 			
-			// aapt resource value: 0x7f0a00a7
-			public const int SignInButton = 2131361959;
-			
-			// aapt resource value: 0x7f0a00ad
-			public const int SubGalleryRecyclerView = 2131361965;
+			// aapt resource value: 0x7f0a00ab
+			public const int SignInButton = 2131361963;
 			
 			// aapt resource value: 0x7f0a00b1
-			public const int SubTitleTextView = 2131361969;
+			public const int SubGalleryRecyclerView = 2131361969;
+			
+			// aapt resource value: 0x7f0a0091
+			public const int SubTitleTextView = 2131361937;
 			
 			// aapt resource value: 0x7f0a00b9
 			public const int SubtitleTextView = 2131361977;
@@ -2285,14 +2285,14 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0080
 			public const int Tabs = 2131361920;
 			
-			// aapt resource value: 0x7f0a0091
-			public const int TextView = 2131361937;
+			// aapt resource value: 0x7f0a0095
+			public const int TextView = 2131361941;
 			
 			// aapt resource value: 0x7f0a00b4
 			public const int Thumbnail = 2131361972;
 			
-			// aapt resource value: 0x7f0a00b0
-			public const int TitleTextView = 2131361968;
+			// aapt resource value: 0x7f0a0090
+			public const int TitleTextView = 2131361936;
 			
 			// aapt resource value: 0x7f0a00ba
 			public const int ToggleContainer = 2131361978;
@@ -2309,11 +2309,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0071
 			public const int VideoWrapper = 2131361905;
 			
-			// aapt resource value: 0x7f0a00a8
-			public const int Wrapper = 2131361960;
+			// aapt resource value: 0x7f0a00ac
+			public const int Wrapper = 2131361964;
 			
-			// aapt resource value: 0x7f0a0092
-			public const int action0 = 2131361938;
+			// aapt resource value: 0x7f0a0096
+			public const int action0 = 2131361942;
 			
 			// aapt resource value: 0x7f0a0060
 			public const int action_bar = 2131361888;
@@ -2339,8 +2339,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0061
 			public const int action_context_bar = 2131361889;
 			
-			// aapt resource value: 0x7f0a0096
-			public const int action_divider = 2131361942;
+			// aapt resource value: 0x7f0a009a
+			public const int action_divider = 2131361946;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int action_menu_divider = 2131361795;
@@ -2390,8 +2390,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0049
 			public const int buttonPanel = 2131361865;
 			
-			// aapt resource value: 0x7f0a0093
-			public const int cancel_action = 2131361939;
+			// aapt resource value: 0x7f0a0097
+			public const int cancel_action = 2131361943;
 			
 			// aapt resource value: 0x7f0a002e
 			public const int center = 2131361838;
@@ -2405,8 +2405,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0057
 			public const int checkbox = 2131361879;
 			
-			// aapt resource value: 0x7f0a0099
-			public const int chronometer = 2131361945;
+			// aapt resource value: 0x7f0a009d
+			public const int chronometer = 2131361949;
 			
 			// aapt resource value: 0x7f0a0037
 			public const int clip_horizontal = 2131361847;
@@ -2456,8 +2456,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a001f
 			public const int end = 2131361823;
 			
-			// aapt resource value: 0x7f0a009e
-			public const int end_padder = 2131361950;
+			// aapt resource value: 0x7f0a00a2
+			public const int end_padder = 2131361954;
 			
 			// aapt resource value: 0x7f0a0028
 			public const int enterAlways = 2131361832;
@@ -2501,8 +2501,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0044
 			public const int image = 2131361860;
 			
-			// aapt resource value: 0x7f0a009d
-			public const int info = 2131361949;
+			// aapt resource value: 0x7f0a00a1
+			public const int info = 2131361953;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int item_touch_helper_previous_elevation = 2131361792;
@@ -2510,11 +2510,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0032
 			public const int left = 2131361842;
 			
-			// aapt resource value: 0x7f0a0097
-			public const int line1 = 2131361943;
-			
 			// aapt resource value: 0x7f0a009b
-			public const int line3 = 2131361947;
+			public const int line1 = 2131361947;
+			
+			// aapt resource value: 0x7f0a009f
+			public const int line3 = 2131361951;
 			
 			// aapt resource value: 0x7f0a000e
 			public const int listMode = 2131361806;
@@ -2522,11 +2522,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0046
 			public const int list_item = 2131361862;
 			
-			// aapt resource value: 0x7f0a00ae
-			public const int main_content = 2131361966;
+			// aapt resource value: 0x7f0a00b2
+			public const int main_content = 2131361970;
 			
-			// aapt resource value: 0x7f0a0095
-			public const int media_actions = 2131361941;
+			// aapt resource value: 0x7f0a0099
+			public const int media_actions = 2131361945;
 			
 			// aapt resource value: 0x7f0a0020
 			public const int middle = 2131361824;
@@ -2666,8 +2666,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0034
 			public const int start = 2131361844;
 			
-			// aapt resource value: 0x7f0a0094
-			public const int status_bar_latest_event_content = 2131361940;
+			// aapt resource value: 0x7f0a0098
+			public const int status_bar_latest_event_content = 2131361944;
 			
 			// aapt resource value: 0x7f0a005a
 			public const int submenuarrow = 2131361882;
@@ -2678,11 +2678,11 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0010
 			public const int tabMode = 2131361808;
 			
-			// aapt resource value: 0x7f0a009c
-			public const int text = 2131361948;
+			// aapt resource value: 0x7f0a00a0
+			public const int text = 2131361952;
 			
-			// aapt resource value: 0x7f0a009a
-			public const int text2 = 2131361946;
+			// aapt resource value: 0x7f0a009e
+			public const int text2 = 2131361950;
 			
 			// aapt resource value: 0x7f0a0052
 			public const int textSpacerNoButtons = 2131361874;
@@ -2690,8 +2690,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a007e
 			public const int text_input_password_toggle = 2131361918;
 			
-			// aapt resource value: 0x7f0a0098
-			public const int time = 2131361944;
+			// aapt resource value: 0x7f0a009c
+			public const int time = 2131361948;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int title = 2131361864;
@@ -2915,79 +2915,82 @@ namespace MonocleGiraffe.Android
 			public const int Front_Search = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int Main = 2130968623;
+			public const int Incl_BrowserTitle = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int notification_media_action = 2130968624;
+			public const int Main = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int notification_media_cancel_action = 2130968625;
+			public const int notification_media_action = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int notification_template_big_media = 2130968626;
+			public const int notification_media_cancel_action = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int notification_template_big_media_narrow = 2130968627;
+			public const int notification_template_big_media = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int notification_template_lines = 2130968628;
+			public const int notification_template_big_media_narrow = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int notification_template_media = 2130968629;
+			public const int notification_template_lines = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int notification_template_part_chronometer = 2130968630;
+			public const int notification_template_media = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int notification_template_part_time = 2130968631;
+			public const int notification_template_part_chronometer = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int select_dialog_item_material = 2130968632;
+			public const int notification_template_part_time = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int select_dialog_multichoice_material = 2130968633;
+			public const int select_dialog_item_material = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_singlechoice_material = 2130968634;
+			public const int select_dialog_multichoice_material = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int Settings = 2130968635;
+			public const int select_dialog_singlechoice_material = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int Settings_App = 2130968636;
+			public const int Settings = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int Settings_Imgur = 2130968637;
+			public const int Settings_App = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int Splash = 2130968638;
+			public const int Settings_Imgur = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int SubGallery = 2130968639;
+			public const int Splash = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int support_simple_spinner_dropdown_item = 2130968640;
+			public const int SubGallery = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int Tmpl_Album = 2130968641;
+			public const int support_simple_spinner_dropdown_item = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int Tmpl_GalleryThumbnail = 2130968642;
+			public const int Tmpl_Album = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int Tmpl_Image = 2130968643;
+			public const int Tmpl_GalleryThumbnail = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int Tmpl_Item_Album = 2130968644;
+			public const int Tmpl_Image = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int Tmpl_SubredditItem = 2130968645;
+			public const int Tmpl_Item_Album = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int Tmpl_SubredditResult = 2130968646;
+			public const int Tmpl_SubredditItem = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int Tmpl_SubredditThumbnail = 2130968647;
+			public const int Tmpl_SubredditResult = 2130968647;
+			
+			// aapt resource value: 0x7f040048
+			public const int Tmpl_SubredditThumbnail = 2130968648;
 			
 			static Layout()
 			{
