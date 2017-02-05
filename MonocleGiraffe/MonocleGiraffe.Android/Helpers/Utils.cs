@@ -17,6 +17,15 @@ namespace MonocleGiraffe.Android.Helpers
 {
     public static class Utils
     {
+        public static int CalculateColumnCount(int reqestedWidth, int availableWidth)
+        {
+            int minorCount = Math.Max(1, availableWidth / reqestedWidth);
+            int majorWidth = availableWidth / minorCount;
+            int minorWidth = availableWidth / (minorCount + 1);
+            int ret = Math.Abs(minorWidth - reqestedWidth) < Math.Abs(majorWidth - reqestedWidth) ? minorCount + 1 : minorCount;
+            return ret;
+        }
+
         public static int PxToDp(int px, Resources res)
         {
             int dp = (int)Math.Round(px / res.DisplayMetrics.Density);

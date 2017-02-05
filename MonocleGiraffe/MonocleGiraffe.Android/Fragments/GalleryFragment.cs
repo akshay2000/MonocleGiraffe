@@ -148,10 +148,13 @@ namespace MonocleGiraffe.Android.Fragments
     {
         private int ColumnWidth { get; set; }
         private Context Context { get; set; }
+        private Dictionary<int, int> widthToColumnCount;
+
         public AutoFitStaggeredLayoutManager(int columnWidth, int orientation, Context context) : base (1, orientation)
         {
             ColumnWidth = columnWidth;
             Context = context;
+            widthToColumnCount = new Dictionary<int, int>();
         }
 
         private int oldWidth = 0;
@@ -164,8 +167,9 @@ namespace MonocleGiraffe.Android.Fragments
                 oldWidth = width;
                 int totalWidth = width - PaddingRight - PaddingLeft;
                 int totalWidthInDp = Utils.PxToDp(totalWidth, Context.Resources);
-                int spanCount = Math.Max(1, totalWidthInDp / ColumnWidth);
-                SpanCount = spanCount;
+                if (!widthToColumnCount.ContainsKey(totalWidthInDp))
+                    widthToColumnCount[totalWidthInDp] = Utils.CalculateColumnCount(ColumnWidth, totalWidthInDp);
+                SpanCount = widthToColumnCount[totalWidthInDp];
             }
             base.OnMeasure(recycler, state, widthSpec, heightSpec);
         }        
