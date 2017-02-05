@@ -4089,6 +4089,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0b016e
 			public const int ToolbarTheme = 2131427694;
 			
+			// aapt resource value: 0x7f0b0170
+			public const int VoteButtonStyle = 2131427696;
+			
 			// aapt resource value: 0x7f0b0107
 			public const int Widget_AppCompat_ActionBar = 2131427591;
 			

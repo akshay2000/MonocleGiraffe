@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        layout="@layout/Incl_BrowserTitle" />
+        layout="@layout/Incl_BrowserTitle" /> 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#ff00ff">
         <monoclegiraffe.android.controls.ImageControl
             android:id="@+id/MainImage"
             android:layout_width="match_parent"
@@ -21,11 +23,12 @@
         <TextView
             android:text="Text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/DescriptionTextView"
+            android:minHeight="25dp"
             android:padding="12dp"
             android:background="#252525"
-            android:textColor="#ffffffff" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+            android:textColor="#ffffff" />
+      </LinearLayout>
+    </android.support.v4.widget.NestedScrollView> 
 </android.support.design.widget.CoordinatorLayout>

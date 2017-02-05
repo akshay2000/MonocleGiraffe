@@ -26,7 +26,9 @@ namespace MonocleGiraffe.Android.Fragments
 {
     public class BrowserItemFragment : global::Android.Support.V4.App.Fragment
     {
-        private IGalleryItem item;
+        private IGalleryItem Item { get; set; }
+        public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
+
         private bool isAlbum;
         private List<Binding> bindings = new List<Binding>();
 
@@ -45,8 +47,8 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnCreate(savedInstanceState);
             var position = Arguments.GetInt(POSITION_ARG);
-            item = (Activity as BrowserActivity)?.Vm.Images.ElementAt(position);
-            isAlbum = item.ItemType == GalleryItemType.Album;
+            Item = (Activity as BrowserActivity)?.Vm.Images.ElementAt(position);
+            isAlbum = Item.ItemType == GalleryItemType.Album;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,11 +59,11 @@ namespace MonocleGiraffe.Android.Fragments
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
-            RenderHeader(item);
+            RenderHeader(Item);
             if (isAlbum)
-                RenderAlbum(item);
+                RenderAlbum(Item);
             else
-                RenderImage(item);
+                RenderImage(Item);
             BindVotes();
             base.OnViewCreated(view, savedInstanceState);
             AnalyticsHelper.SendView("BrowserItem");
@@ -96,24 +98,21 @@ namespace MonocleGiraffe.Android.Fragments
         }
 
         private void RenderImage(IGalleryItem item)
-        {           
-            MainImage.RenderContent(item);
+        {
             var hasDescription = !string.IsNullOrEmpty(item.Description);
-            var descView = Description;
+            //var descView = Description;
             if (hasDescription)
-                descView.Text = item.Description;
+                Description.Text = item.Description;
             else
-                descView.Visibility = ViewStates.Gone;
+                Description.Visibility = ViewStates.Gone;
+            MainImage.RenderContent(item);
+            
         }
-
-        public IGalleryItem Item { get; set; }
-        public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
 
         private void RenderAlbum(IGalleryItem item)
         {
-            Item = item;
             Title.Text = item.Title;
-            AlbumRecyclerView.SetLayoutManager(new PrefetchLinearLayoutManager(Context));
+            AlbumRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
         }
 
@@ -121,7 +120,7 @@ namespace MonocleGiraffe.Android.Fragments
         {
             if (Item.AlbumImages == null)
                 return;
-            var adapter = Item.AlbumImages.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            var adapter = Item.AlbumImages.Take(2).ToList().GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
             AlbumRecyclerView.SetAdapter(adapter);
         }
         
