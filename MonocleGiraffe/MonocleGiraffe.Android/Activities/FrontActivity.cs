@@ -74,13 +74,13 @@ namespace MonocleGiraffe.Android.Activities
             AnalyticsHelper.SendView(title);            
         }
 
-		public override bool OnCreateOptionsMenu(IMenu menu)
-		{
-			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
-			return true;
-		}
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.main_menu, menu);
+            return true;
+        }
 
-		public override bool OnOptionsItemSelected(IMenuItem item)
+        public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			var itemId = item.ItemId;
 			switch (itemId)

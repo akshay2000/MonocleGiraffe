@@ -20,6 +20,7 @@ using Android.Support.V7.Widget;
 using GalaSoft.MvvmLight.Helpers;
 using MonocleGiraffe.Android.Helpers;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -61,8 +62,30 @@ namespace MonocleGiraffe.Android.Fragments
                 RenderAlbum(item);
             else
                 RenderImage(item);
+            BindVotes();
             base.OnViewCreated(view, savedInstanceState);
             AnalyticsHelper.SendView("BrowserItem");
+        }
+
+        private void BindVotes()
+        {
+            if (GalleryItem == null)
+                return;
+            bindings.Add(this.SetBinding(() => GalleryItem.IsUpVoted)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsUpVoted, UpvoteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Upvote)))));
+            UpvoteButton.SetCommand("Click", GalleryItem.VoteCommand, "up");
+            bindings.Add(this.SetBinding(() => GalleryItem.IsDownVoted)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsDownVoted, DownvoteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Downvote)))));
+            DownvoteButton.SetCommand("Click", GalleryItem.VoteCommand, "down");
+            bindings.Add(this.SetBinding(() => GalleryItem.IsFavourited)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsFavourited, FavoriteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Favorite)))));
+            FavoriteButton.SetCommand("Click", GalleryItem.Favourite);
+        }
+
+        private void SetColor(bool state, ImageView image, global::Android.Graphics.Color color)
+        {
+            var toSet = state ? color : new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Veto));
+            image.SetColorFilter(toSet);
         }
 
         private void RenderHeader(IGalleryItem item)
@@ -84,12 +107,11 @@ namespace MonocleGiraffe.Android.Fragments
         }
 
         public IGalleryItem Item { get; set; }
+        public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
 
         private void RenderAlbum(IGalleryItem item)
         {
             Item = item;
-            //Utils.SetPaddingForStatusBar(Activity, AppBarLayout);
-            //Utils.SetPaddingForStatusBar(Activity, View.FindViewById<View>(Resource.Id.ButtonsBar));
             Title.Text = item.Title;
             AlbumRecyclerView.SetLayoutManager(new PrefetchLinearLayoutManager(Context));
             bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
@@ -193,6 +215,36 @@ namespace MonocleGiraffe.Android.Fragments
             {
                 description = description ?? View.FindViewById<TextView>(Resource.Id.DescriptionTextView);
                 return description;
+            }
+        }
+
+        private ImageView upvoteButton;
+        public ImageView UpvoteButton
+        {
+            get
+            {
+                upvoteButton = upvoteButton ?? View.FindViewById<ImageView>(Resource.Id.UpvoteButton);
+                return upvoteButton;
+            }
+        }
+
+        private ImageView downButton;
+        public ImageView DownvoteButton
+        {
+            get
+            {
+                downButton = downButton ?? View.FindViewById<ImageView>(Resource.Id.DownvoteButton);
+                return downButton;
+            }
+        }
+
+        private ImageView favoriteButton;
+        public ImageView FavoriteButton
+        {
+            get
+            {
+                favoriteButton = favoriteButton ?? View.FindViewById<ImageView>(Resource.Id.FavoriteButton);
+                return favoriteButton;
             }
         }
 
