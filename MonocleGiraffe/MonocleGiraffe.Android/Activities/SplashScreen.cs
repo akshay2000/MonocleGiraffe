@@ -18,6 +18,8 @@ using MonocleGiraffe.Android.LibraryImpl;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Ioc;
 using XamarinImgur.Interfaces;
+using FFImageLoading;
+using Xamarin.Android.Net;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -74,6 +76,7 @@ namespace MonocleGiraffe.Android.Activities
         private void Init()
         {
             ConfigureIoc();
+            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
         }
 

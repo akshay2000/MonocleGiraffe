@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using XamarinImgur.Interfaces;
 using System.Net.Http;
+using Xamarin.Android.Net;
 
 namespace MonocleGiraffe.Android.LibraryImpl
 {
@@ -51,7 +52,7 @@ namespace MonocleGiraffe.Android.LibraryImpl
         {
             get
             {
-                client = client ?? new System.Net.Http.HttpClient();
+                client = client ?? new System.Net.Http.HttpClient(new AndroidClientHandler());
                 return client;
             }
         }
