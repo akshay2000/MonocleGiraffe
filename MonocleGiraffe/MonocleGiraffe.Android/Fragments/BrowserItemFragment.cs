@@ -21,6 +21,7 @@ using GalaSoft.MvvmLight.Helpers;
 using MonocleGiraffe.Android.Helpers;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
+using System.Collections.ObjectModel;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -120,7 +121,12 @@ namespace MonocleGiraffe.Android.Fragments
         {
             if (Item.AlbumImages == null)
                 return;
-            var adapter = Item.AlbumImages.Take(2).ToList().GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            var bindableCollection = new ObservableCollection<GalleryItem>();
+            var adapter = bindableCollection
+                .GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            AlbumRecyclerView.ClearOnScrollListeners();
+            var scrollListener = new AlbumScrollListener(Item.AlbumImages, bindableCollection);
+            AlbumRecyclerView.AddOnScrollListener(scrollListener);
             AlbumRecyclerView.SetAdapter(adapter);
         }
         

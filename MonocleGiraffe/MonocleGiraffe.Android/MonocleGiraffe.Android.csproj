@@ -164,6 +164,8 @@
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchFragment.ui.cs" />
+    <Compile Include="Helpers\AlbumAdapter.cs" />
+    <Compile Include="Helpers\AlbumScrollListener.cs" />
     <Compile Include="Helpers\FontManager.cs" />
     <Compile Include="Helpers\ScrollListener.cs" />
     <Compile Include="Helpers\Utils.cs" />
