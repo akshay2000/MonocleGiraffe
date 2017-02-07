@@ -115,18 +115,6 @@ namespace MonocleGiraffe.Android.Controls
             view.LayoutParameters = layParams;
         }
 
-        //private int PxToDp(int px)
-        //{
-        //    int dp = (int)Math.Round(px / Resources.DisplayMetrics.Density);
-        //    return dp;
-        //}
-
-        //private int DpToPx(int dp)
-        //{
-        //    int px = (int)Math.Round(dp * Resources.DisplayMetrics.Density + 0.5f);
-        //    return px;
-        //}
-
 		#region UI
 
         private ImageViewAsync mainImageView;
