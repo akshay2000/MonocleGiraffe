@@ -7,6 +7,10 @@
   <color name="Accent">#1eec88</color>
   <color name="TabUnselected">#151515</color>
   <color name="TabSelected">#ffffff</color>
+  <color name="Upvote">#91DC5A</color>
+  <color name="Downvote">#D80027</color>
+  <color name="Favorite">#000ed8</color>
+  <color name="Veto">#fff</color>
 
   <!--Teal Red-->
   <color name="primary">#009688</color>

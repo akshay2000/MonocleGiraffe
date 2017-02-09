@@ -15,6 +15,7 @@ namespace MonocleGiraffe.Android.LibraryImpl
     public static class InstanceManager
     {
         private static HttpClient client;
+        [Obsolete("Use DI or something")]
         public static HttpClient Client
         {
             get
@@ -24,6 +25,7 @@ namespace MonocleGiraffe.Android.LibraryImpl
             }
         }
 
+        [Obsolete("Use DI or something")]
         public static SettingsHelper SettingsHelper { get; set; }
     }
 }

@@ -158,7 +158,8 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
                 return;
             Subreddits = new ObservableCollection<SubredditItem>();
             var subs = await Helpers.Initializer.Reddits.SearchSubreddits(query);
-            IEnumerable<string> subscribedSubs = subredditsVM.UserSubreddits.Select(s => s.Url);
+            IEnumerable<string> subscribedSubs = subredditsVM.UserSubreddits?.Select(s => s.Url);
+            subscribedSubs = subscribedSubs ?? new List<string>();
             foreach (var sub in subs)
             {
                 SubredditItem si = new SubredditItem(sub);

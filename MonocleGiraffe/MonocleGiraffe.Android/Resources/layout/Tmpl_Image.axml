@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical"
+    android:layout_height="match_parent">
+    <include
+        layout="@layout/Incl_BrowserTitle" />
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#252525">
-            <TextView
-                android:id="@+id/TitleTextView"
+            android:layout_height="wrap_content">
+            <monoclegiraffe.android.controls.ImageControl
+                android:id="@+id/MainImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:layout_gravity="center" />
+            <TextView
+                android:text="Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/DescriptionTextView"
+                android:padding="12dp"
+                android:background="#252525"
                 android:textColor="#ffffff" />
-            <TextView
-                android:id="@+id/SubTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:textColor="#959595"
-                android:text="by akshay2000 • 10241 points" />
         </LinearLayout>
-        <monoclegiraffe.android.controls.ImageControl
-            android:id="@+id/MainImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-        <TextView
-            android:text="Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/DescriptionTextView"
-            android:padding="12dp"
-            android:background="#252525"
-            android:textColor="#ffffffff" />
-    </LinearLayout>
-</ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using XamarinImgur.Interfaces;
 using Android.Preferences;
+using Android.Util;
 
 namespace MonocleGiraffe.Android.LibraryImpl
 {
@@ -32,12 +33,20 @@ namespace MonocleGiraffe.Android.LibraryImpl
         {
             object ret = null;
             Type type = typeof(T);
-            if (type == typeof(int))
-                ret = Preferences.GetInt(key, (int)defaultValue);
-            else if (type == typeof(string))
-                ret = Preferences.GetString(key, (string)defaultValue);
-            else if (type == typeof(bool))
-                ret = Preferences.GetBoolean(key, (bool)defaultValue);
+            try
+            {
+                if (type == typeof(int))
+                    ret = Preferences.GetInt(key, (int)defaultValue);
+                else if (type == typeof(string))
+                    ret = Preferences.GetString(key, (string)defaultValue);
+                else if (type == typeof(bool))
+                    ret = Preferences.GetBoolean(key, (bool)defaultValue);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error("Settings", e.StackTrace);
+                ret = defaultValue;
+            }
             return (T)ret;
         }
 

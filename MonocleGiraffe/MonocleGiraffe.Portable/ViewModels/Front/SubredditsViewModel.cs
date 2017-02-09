@@ -95,6 +95,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             if (subredditsList.Count == 0)
             {
                 UserState = EMPTY;
+                UserSubreddits = new ObservableCollection<SubredditItem>();
             }
             else
             {
@@ -118,6 +119,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         public async Task AddSubreddit(SubredditItem subreddit)
         {
             subreddit.IsFavorited = true;
+            UserSubreddits = UserSubreddits ?? new ObservableCollection<SubredditItem>();
             UserSubreddits.Insert(0, subreddit);
             await SaveSubreddits();
         }

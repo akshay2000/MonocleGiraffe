@@ -19,7 +19,7 @@ Clone this repo. It contains code for the app. It also contains code for for C# 
 Place a file called `Secrets.json` at root of your Windows project and add the content above. You will need Visual Studio 2015 with latest copy of Windows SDK tools installed to build this project.
 
 ###Android App
-Create a file called `Secrets.json` inside `Assets` directory with the content above. You will need Visual Studio 2015 with latest Xamarin Andorid installed and configured. Alternatively, you may also use Xamarin Studio, but I haven't tasted it personally.
+Create a file called `Secrets.json` inside `Assets` directory with the content above. You will need Visual Studio 2015 with latest Xamarin Andorid installed and configured. Alternatively, you may also use Xamarin Studio, but I haven't tested it personally.
 
 ##I have a better design!
-That's great. We have separate repository for design templates and resources. Please make a pull request in [this](https://github.com/akshay2000/MonocleGiraffeDesign) repository. All design input is welcome - especially for Android.
+That's great. We have a separate repository for design templates and resources. Please make a pull request in [this](https://github.com/akshay2000/MonocleGiraffeDesign) repository. All design input is welcome - especially for Android.

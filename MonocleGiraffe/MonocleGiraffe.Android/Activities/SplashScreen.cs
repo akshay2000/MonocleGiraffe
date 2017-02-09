@@ -18,6 +18,8 @@ using MonocleGiraffe.Android.LibraryImpl;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Ioc;
 using XamarinImgur.Interfaces;
+using FFImageLoading;
+using Xamarin.Android.Net;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -61,7 +63,7 @@ namespace MonocleGiraffe.Android.Activities
 		{
 			SimpleIoc.Default.Register<IHttpClient, HttpClient>();
 			SimpleIoc.Default.Register<ISecretsProvider>(() => new SecretsProvider(Assets));
-			SimpleIoc.Default.Register<IVault, Vault>();
+			SimpleIoc.Default.Register<IVault>(() => new Vault(this));
 			SimpleIoc.Default.Register<IAuthBroker>(() => new AuthBroker(this, SimpleIoc.Default.GetInstance<ISecretsProvider>()));
 			SimpleIoc.Default.Register<ISettingsHelper>(() => new SettingsHelper(this));
 			SimpleIoc.Default.Register<AuthenticationHelper>();
@@ -74,26 +76,9 @@ namespace MonocleGiraffe.Android.Activities
         private void Init()
         {
             ConfigureIoc();
+            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
         }
-
-        private void LogInButton_Click(object sender, EventArgs e)
-        {
-            const string authUrl = "https://api.imgur.com/oauth2/authorize";
-            const string callback = "http://localhost:8080/MonocleGiraffeAndroid";
-			var result = SimpleIoc.Default.GetInstance<IAuthBroker>().AuthenticateAsync(new Uri(authUrl), new Uri(callback));
-        }
-
-        //private string LoadSecretsFile()
-        //{
-        //    string content;
-        //    AssetManager assets = this.Assets;
-        //    using (StreamReader sr = new StreamReader(assets.Open("Secrets.json")))
-        //    {
-        //        content = sr.ReadToEnd();
-        //    }
-        //    return content;
-        //}
 
         protected override void OnDestroy()
         {

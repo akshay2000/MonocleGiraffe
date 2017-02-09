@@ -10,11 +10,13 @@ using MonocleGiraffe.Android.Fragments;
 using MonocleGiraffe.Portable.Models;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
+using Android.Views;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Activities
 {
     [Activity(Label = "BrowserActivity")]
-    public class BrowserActivity : FragmentActivity
+    public class BrowserActivity : global::Android.Support.V7.App.AppCompatActivity
     {
         private PagerAdapter adapter;
 
@@ -30,6 +32,9 @@ namespace MonocleGiraffe.Android.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+
             SetContentView(Resource.Layout.Browser);
             var param = Nav.GetAndRemoveParameter(Intent) ?? "GalleryInfo";
             Vm.Activate(param);

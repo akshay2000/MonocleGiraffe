@@ -9,11 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Util;
+using static MonocleGiraffe.Android.Helpers.Utils;
 using MonocleGiraffe.Portable.Models;
 using FFImageLoading.Views;
 using FFImageLoading;
 using Android.Media;
+using Android.Util;
 
 namespace MonocleGiraffe.Android.Controls
 {
@@ -71,8 +72,8 @@ namespace MonocleGiraffe.Android.Controls
 
 		private void RenderVideo(IGalleryItem itemToRender)
         {
-			LayoutRoot.Post(() => { SetDimensions(MainVideoView, itemToRender); });
 			MainImageView.Visibility = ViewStates.Gone;
+			LayoutRoot.Post(() => { SetDimensions(MainVideoView, itemToRender); });
 			VideoWrapper.Alpha = 0;
 			VideoWrapper.Visibility = ViewStates.Visible;
 			
@@ -92,13 +93,12 @@ namespace MonocleGiraffe.Android.Controls
 
         private void RenderImage(IGalleryItem item)
         {
-            //var imageService = ImageService.Instance;
-			//MainImageView.SetImageResource(global::Android.Resource.Color.Transparent);
+			MainImageView.SetImageResource(global::Android.Resource.Color.Transparent);
             LayoutRoot.Post(() => SetDimensions(MainImageView, item));
             MainImageView.Visibility = ViewStates.Visible;
 			VideoWrapper.Visibility = ViewStates.Gone;
 			MainVideoView.Visibility = ViewStates.Gone;
-            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), item.Width));
+            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width, Resources), item.Width), Resources);
 			ImageService.Instance
 				.LoadUrl(item.Link)
 				.DownSample(width)
@@ -108,23 +108,11 @@ namespace MonocleGiraffe.Android.Controls
 		private void SetDimensions(View view, IGalleryItem itemToRender)
         {
             var layParams = view.LayoutParameters;
-            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width), itemToRender.Width));
+            var width = DpToPx(Math.Min(PxToDp(LayoutRoot.Width, Resources), itemToRender.Width), Resources);
             var height = (int)Math.Ceiling((itemToRender.Height / (double)itemToRender.Width) * width);
             layParams.Width = width;
             layParams.Height = height;
             view.LayoutParameters = layParams;
-        }
-
-        private int PxToDp(int px)
-        {
-            int dp = (int)Math.Round(px / Resources.DisplayMetrics.Density);
-            return dp;
-        }
-
-        private int DpToPx(int dp)
-        {
-            int px = (int)Math.Round(dp * Resources.DisplayMetrics.Density + 0.5f);
-            return px;
         }
 
 		#region UI

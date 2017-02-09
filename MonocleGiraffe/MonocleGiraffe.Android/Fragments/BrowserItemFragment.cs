@@ -18,13 +18,18 @@ using MonocleGiraffe.Android.Controls;
 using MonocleGiraffe.Android.Activities;
 using Android.Support.V7.Widget;
 using GalaSoft.MvvmLight.Helpers;
-using Android.Text;
+using MonocleGiraffe.Android.Helpers;
+using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
+using System.Collections.ObjectModel;
 
 namespace MonocleGiraffe.Android.Fragments
 {
     public class BrowserItemFragment : global::Android.Support.V4.App.Fragment
     {
-        private IGalleryItem item;
+        private IGalleryItem Item { get; set; }
+        public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
+
         private bool isAlbum;
         private List<Binding> bindings = new List<Binding>();
 
@@ -43,8 +48,8 @@ namespace MonocleGiraffe.Android.Fragments
         {
             base.OnCreate(savedInstanceState);
             var position = Arguments.GetInt(POSITION_ARG);
-            item = (Activity as BrowserActivity)?.Vm.Images.ElementAt(position);
-            isAlbum = item.ItemType == GalleryItemType.Album;
+            Item = (Activity as BrowserActivity)?.Vm.Images.ElementAt(position);
+            isAlbum = Item.ItemType == GalleryItemType.Album;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -55,39 +60,60 @@ namespace MonocleGiraffe.Android.Fragments
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
-            RenderHeader(item);
+            RenderHeader(Item);
             if (isAlbum)
-                RenderAlbum(item);
+                RenderAlbum(Item);
             else
-                RenderImage(item);
+                RenderImage(Item);
+            BindVotes();
             base.OnViewCreated(view, savedInstanceState);
             AnalyticsHelper.SendView("BrowserItem");
+        }
+
+        private void BindVotes()
+        {
+            if (GalleryItem == null)
+                return;
+            bindings.Add(this.SetBinding(() => GalleryItem.IsUpVoted)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsUpVoted, UpvoteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Upvote)))));
+            UpvoteButton.SetCommand("Click", GalleryItem.VoteCommand, "up");
+            bindings.Add(this.SetBinding(() => GalleryItem.IsDownVoted)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsDownVoted, DownvoteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Downvote)))));
+            DownvoteButton.SetCommand("Click", GalleryItem.VoteCommand, "down");
+            bindings.Add(this.SetBinding(() => GalleryItem.IsFavourited)
+                .WhenSourceChanges(() => SetColor(GalleryItem.IsFavourited, FavoriteButton, new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Favorite)))));
+            FavoriteButton.SetCommand("Click", GalleryItem.Favourite);
+        }
+
+        private void SetColor(bool state, ImageView image, global::Android.Graphics.Color color)
+        {
+            var toSet = state ? color : new global::Android.Graphics.Color(ContextCompat.GetColor(Activity, Resource.Color.Veto));
+            image.SetColorFilter(toSet);
         }
 
         private void RenderHeader(IGalleryItem item)
         {
             Title.Text = item.Title;
-            SubTitle.SetText(Html.FromHtml($"by <font color='#528ACA'>{item.UploaderName}</font> • {item.Ups} points"), TextView.BufferType.Spannable);
+            string color = Utils.GetAccentColorHex(Activity);
+            SubTitle.SetText(Utils.FromHtml($"by <b><font color='{color}'>{item.UploaderName}</font></b> • {item.Ups} points"), TextView.BufferType.Spannable);
         }
 
         private void RenderImage(IGalleryItem item)
-        {           
-            MainImage.RenderContent(item);
+        {
             var hasDescription = !string.IsNullOrEmpty(item.Description);
-            var descView = Description;
+            //var descView = Description;
             if (hasDescription)
-                descView.Text = item.Description;
+                Description.Text = item.Description;
             else
-                descView.Visibility = ViewStates.Gone;
+                Description.Visibility = ViewStates.Gone;
+            MainImage.RenderContent(item);
+            
         }
-
-        public IGalleryItem Item { get; set; }
 
         private void RenderAlbum(IGalleryItem item)
         {
-            Item = item;
             Title.Text = item.Title;
-            AlbumRecyclerView.SetLayoutManager(new PrefetchLinearLayoutManager(Context));
+            AlbumRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             bindings.Add(this.SetBinding(() => Item.AlbumImages).WhenSourceChanges(UpdateAlbumAdapter));
         }
 
@@ -95,7 +121,12 @@ namespace MonocleGiraffe.Android.Fragments
         {
             if (Item.AlbumImages == null)
                 return;
-            var adapter = Item.AlbumImages.GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            var bindableCollection = new ObservableCollection<GalleryItem>();
+            var adapter = bindableCollection
+                .GetRecyclerAdapter(BindViewHolder, Resource.Layout.Tmpl_Item_Album);
+            AlbumRecyclerView.ClearOnScrollListeners();
+            var scrollListener = new AlbumScrollListener(Item.AlbumImages, bindableCollection);
+            AlbumRecyclerView.AddOnScrollListener(scrollListener);
             AlbumRecyclerView.SetAdapter(adapter);
         }
         
@@ -127,6 +158,18 @@ namespace MonocleGiraffe.Android.Fragments
         }
 
         #region Views
+
+        private AppBarLayout appBarLayout;
+        public AppBarLayout AppBarLayout
+        {
+            get
+            {
+                if (!isAlbum)
+                    return null;
+                appBarLayout = appBarLayout ?? View.FindViewById<AppBarLayout>(Resource.Id.AppBar);
+                return appBarLayout;
+            }
+        }
 
         private ImageControl mainImage;
         public ImageControl MainImage
@@ -177,6 +220,36 @@ namespace MonocleGiraffe.Android.Fragments
             {
                 description = description ?? View.FindViewById<TextView>(Resource.Id.DescriptionTextView);
                 return description;
+            }
+        }
+
+        private ImageView upvoteButton;
+        public ImageView UpvoteButton
+        {
+            get
+            {
+                upvoteButton = upvoteButton ?? View.FindViewById<ImageView>(Resource.Id.UpvoteButton);
+                return upvoteButton;
+            }
+        }
+
+        private ImageView downButton;
+        public ImageView DownvoteButton
+        {
+            get
+            {
+                downButton = downButton ?? View.FindViewById<ImageView>(Resource.Id.DownvoteButton);
+                return downButton;
+            }
+        }
+
+        private ImageView favoriteButton;
+        public ImageView FavoriteButton
+        {
+            get
+            {
+                favoriteButton = favoriteButton ?? View.FindViewById<ImageView>(Resource.Id.FavoriteButton);
+                return favoriteButton;
             }
         }
 

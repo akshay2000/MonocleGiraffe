@@ -19,6 +19,7 @@ namespace MonocleGiraffe.Android.Controls
     {
         private int ColumnWidth { get; set; }
         private Context Context { get; set; }
+        private Dictionary<int, int> widthToColumnCount = new Dictionary<int, int>();
 
         public GridAutofitLayoutManager(Context context, int columnWidth) : base(context, 1)
         {
@@ -42,8 +43,9 @@ namespace MonocleGiraffe.Android.Controls
                 oldWidth = width;
                 int totalWidth = width - PaddingRight - PaddingLeft;
                 int totalWidthInDp = Utils.PxToDp(totalWidth, Context.Resources);
-                int spanCount = Math.Max(1, totalWidthInDp / ColumnWidth);
-                SpanCount = spanCount;
+                if (!widthToColumnCount.ContainsKey(totalWidthInDp))
+                    widthToColumnCount[totalWidthInDp] = Utils.CalculateColumnCount(ColumnWidth, totalWidthInDp);
+                SpanCount = widthToColumnCount[totalWidthInDp];
             }
             base.OnMeasure(recycler, state, widthSpec, heightSpec);
         }

@@ -139,7 +139,7 @@ namespace XamarinImgur.Helpers
             return new Uri(finalUrl);
         }
 
-        internal void FlushHttpClients()
+        public void FlushHttpClients()
         {
             httpClient = authHttpClient = null;
         }

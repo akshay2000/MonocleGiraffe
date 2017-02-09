@@ -165,13 +165,19 @@ namespace MonocleGiraffe.Portable.Models
             set { Set(ref albumImages, value); }
         }
 
+        private bool isLoadingAlbum;
         private async Task LoadAlbumImages()
         {
+            if (isLoadingAlbum)
+                return;
+
+            isLoadingAlbum = true;
             if (image.IsAlbum)
             {
                 var album = await GetAlbum();
                 AlbumImages = album?.Images?.Select(i => new GalleryItem(i)).ToList();
             }
+            isLoadingAlbum = false;
         }
         
         bool isCommentError = default(bool);

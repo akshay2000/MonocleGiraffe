@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/AppBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <LinearLayout
+        android:orientation="vertical"
+        app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:minHeight="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/TitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#ffffff" />
+        <TextView
+            android:id="@+id/SubTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textColor="#ffffff"
+            android:text="by akshay2000 • 10241 points" />
+        <LinearLayout
+            android:id="@+id/ButtonsBar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="36px"
+            android:paddingRight="36px">
+            <ImageView
+                android:id="@+id/UpvoteButton"
+                app:srcCompat="@drawable/upvote"
+                style="@style/VoteButtonStyle"/>
+            <ImageView
+                android:id="@+id/DownvoteButton"
+                app:srcCompat="@drawable/downvote"
+                style="@style/VoteButtonStyle"/>
+            <ImageView
+                android:id="@+id/FavoriteButton"
+                app:srcCompat="@drawable/heart"
+                style="@style/VoteButtonStyle"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.AppBarLayout>

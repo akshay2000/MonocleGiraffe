@@ -6,4 +6,10 @@
   <string name="Log_In">Log In</string>
   <string name="ApplicationName">MonocleGiraffe.Android</string>
   <string name="TF_Material">MaterialIcons-Regular.ttf</string>
+
+  <string-array name="AlbumPrivacyItems">
+    <item>Public</item>
+    <item>Hidden</item>
+    <item>Secret</item>
+  </string-array>
 </resources>

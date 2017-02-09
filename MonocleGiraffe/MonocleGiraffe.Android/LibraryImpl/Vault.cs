@@ -10,25 +10,49 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using XamarinImgur.Interfaces;
+using Xamarin.Auth;
+using MonocleGiraffe.Android.Activities;
 
 namespace MonocleGiraffe.Android.LibraryImpl
 {
     public class Vault : IVault
     {
+        private const string PasswordKey = "Password";
+
+        private Context context;
+
+        public Vault(Context context)
+        {
+            this.context = context;
+        }
+
         public void AddCredential(string resource, string userName, string password)
         {
-            InstanceManager.SettingsHelper.SetLocalValue($"{resource};{userName}", password);
+            Dictionary<string, string> props = new Dictionary<string, string>();
+            props[PasswordKey] = password;
+            Account account = new Account(userName, props);
+            BackingStore.Save(account, resource);
+            //InstanceManager.SettingsHelper.SetLocalValue($"{resource};{userName}", password);
         }
 
         public bool Contains(string resource, string userName)
         {
-            string password = InstanceManager.SettingsHelper.GetLocalValue<string>($"{resource};{userName}", string.Empty);
-            return password != string.Empty;
+            return BackingStore.FindAccountsForService(resource).Where(a => a.Username == userName).Count() > 0;
         }
 
         public string RetrievePassword(string resource, string userName)
         {
-            return InstanceManager.SettingsHelper.GetLocalValue<string>($"{resource};{userName}", string.Empty);
+            return BackingStore.FindAccountsForService(resource).Where(a => a.Username == userName).First()?.Properties[PasswordKey];
+        }
+
+        private AccountStore backingStore;
+        public AccountStore BackingStore
+        {
+            get
+            {
+                backingStore = backingStore ?? AccountStore.Create(context);
+                return backingStore;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using XamarinImgur.Interfaces;
 using System.Net.Http;
+using Xamarin.Android.Net;
 
 namespace MonocleGiraffe.Android.LibraryImpl
 {
@@ -31,12 +32,13 @@ namespace MonocleGiraffe.Android.LibraryImpl
 
         public async Task<string> PostAsync(Uri uri, string content, CancellationToken ct, IProgress<HttpProgress> progress)
         {
-            var httpContent = new StringContent(content);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             if (progress != null)
                 progress.Report(new HttpProgress { BytesSent = 0, TotalBytesToSend = 100, Stage = HttpProgressStage.SendingContent });            
             var r = await Client.PostAsync(uri, httpContent, ct);
             string ret = await r.Content.ReadAsStringAsync();
-            progress.Report(new HttpProgress { BytesSent = 100, TotalBytesToSend = 100, Stage = HttpProgressStage.None });
+            if(progress != null)
+                progress.Report(new HttpProgress { BytesSent = 100, TotalBytesToSend = 100, Stage = HttpProgressStage.None });
             return ret;
         }
 
@@ -50,7 +52,7 @@ namespace MonocleGiraffe.Android.LibraryImpl
         {
             get
             {
-                client = client ?? new System.Net.Http.HttpClient();
+                client = client ?? new System.Net.Http.HttpClient(new AndroidClientHandler());
                 return client;
             }
         }

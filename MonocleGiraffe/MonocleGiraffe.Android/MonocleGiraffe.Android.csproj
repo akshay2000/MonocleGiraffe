@@ -50,6 +50,14 @@
     <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FFImageLoading, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.6\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FFImageLoading.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.6\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\monoandroid1\GalaSoft.MvvmLight.dll</HintPath>
       <Private>True</Private>
@@ -154,12 +162,6 @@
     <Reference Include="Xamarin.GooglePlayServices.Analytics">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Analytics.29.0.0.2\lib\MonoAndroid41\Xamarin.GooglePlayServices.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="FFImageLoading">
-      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.5\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Platform">
-      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.5\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\BrowserActivity.cs" />
@@ -173,9 +175,13 @@
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BrowserItemFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
+    <Compile Include="Fragments\ImgurSettingsFragment.cs" />
+    <Compile Include="Fragments\ImgurSettingsFragment.ui.cs" />
     <Compile Include="Fragments\RedditFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchFragment.ui.cs" />
+    <Compile Include="Helpers\AlbumAdapter.cs" />
+    <Compile Include="Helpers\AlbumScrollListener.cs" />
     <Compile Include="Helpers\FontManager.cs" />
     <Compile Include="Helpers\ScrollListener.cs" />
     <Compile Include="Helpers\Utils.cs" />
@@ -193,6 +199,7 @@
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="LibraryImpl\SecretsProvider.cs" />
+    <Compile Include="Fragments\AppSettingsFragment.cs" />
     <Compile Include="Fragments\RedditFragment.ui.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +271,13 @@
     <AndroidResource Include="Resources\menu\main_menu.xml" />
     <AndroidResource Include="Resources\drawable\refresh.xml" />
     <AndroidResource Include="Resources\layout\Settings.axml" />
+    <AndroidResource Include="Resources\layout\Settings_App.axml" />
+    <AndroidResource Include="Resources\layout\Settings_Imgur.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Incl_BrowserTitle.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -271,7 +285,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
@@ -333,8 +349,21 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\check.xml" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v21\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v19\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\upvote.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\downvote.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\heart.xml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonocleGiraffe.Portable\MonocleGiraffe.Portable.csproj">
       <Project>{5CD309E9-78AC-4CED-81B9-49A36C0B6D03}</Project>
