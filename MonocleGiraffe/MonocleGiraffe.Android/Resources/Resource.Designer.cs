@@ -2342,6 +2342,9 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0083
 			public const int UserNameTextView = 2131361923;
 			
+			// aapt resource value: 0x7f0a0088
+			public const int UserSubs = 2131361928;
+			
 			// aapt resource value: 0x7f0a0071
 			public const int VideoWrapper = 2131361905;
 			
@@ -2611,9 +2614,6 @@ namespace MonocleGiraffe.Android
 			
 			// aapt resource value: 0x7f0a0086
 			public const int reddits_header = 2131361926;
-			
-			// aapt resource value: 0x7f0a0088
-			public const int reddits_list = 2131361928;
 			
 			// aapt resource value: 0x7f0a0033
 			public const int right = 2131361843;

@@ -54,6 +54,11 @@ namespace MonocleGiraffe.Android.Fragments
 						 .ConvertSourceToTarget((s) => s == "Done" ? ViewStates.Visible : ViewStates.Gone));
         }
 
+        private void SetVisibility(View view, string state, string requiredState)
+        {
+            view.Visibility = state == requiredState ? ViewStates.Visible : ViewStates.Gone;
+        }
+
         private void SubreddisListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var clickedItem = Vm.SubredditsVM.UserSubreddits[e.Position];

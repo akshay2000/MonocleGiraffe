@@ -20,7 +20,7 @@ namespace MonocleGiraffe.Android.Fragments
 		{
 			get
 			{
-				userSubreddisListView = userSubreddisListView ?? View.FindViewById<ListView>(Resource.Id.reddits_list);
+				userSubreddisListView = userSubreddisListView ?? View.FindViewById<ListView>(Resource.Id.UserSubs);
 				return userSubreddisListView;
 			}
 		}

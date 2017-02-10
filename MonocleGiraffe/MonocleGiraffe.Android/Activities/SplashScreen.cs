@@ -20,6 +20,10 @@ using GalaSoft.MvvmLight.Ioc;
 using XamarinImgur.Interfaces;
 using FFImageLoading;
 using Xamarin.Android.Net;
+using Android.Support.V4.Content;
+using Android;
+using Android.Support.V4.App;
+using Android.Content.PM;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -75,9 +79,24 @@ namespace MonocleGiraffe.Android.Activities
 
         private void Init()
         {
+            HandlePermissions();
             ConfigureIoc();
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
+        }
+
+        private void HandlePermissions()
+        {
+            var permission = ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage);
+            if (permission != global::Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 2);
+            }
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected override void OnDestroy()

@@ -193,8 +193,8 @@
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
     <Compile Include="LibraryImpl\SharingHelper.cs" />
     <Compile Include="LibraryImpl\Vault.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />

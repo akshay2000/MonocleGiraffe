@@ -3,6 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +30,16 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/reddits_list"
+        android:layout_height="wrap_content"
+        android:id="@+id/UserSubs"
         android:layout_marginTop="20.0dp"
         android:divider="@null" />
+    </LinearLayout>
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,8 +62,9 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/pop_reddits_list"
         android:layout_marginTop="20.0dp"
         android:divider="@null" />
+  </LinearLayout>
 </LinearLayout>
