@@ -16,6 +16,13 @@ namespace MonocleGiraffe.Android.LibraryImpl
 {
     public class SharingHelper : ISharingHelper
     {
+        private Context context;
+
+        public SharingHelper(Context context)
+        {
+            this.context = context;
+        }
+
         public void ShareComment(CommentViewModel comment)
         {
             throw new NotImplementedException();
@@ -23,7 +30,12 @@ namespace MonocleGiraffe.Android.LibraryImpl
 
         public void ShareItem(IGalleryItem item)
         {
-            throw new NotImplementedException();
+            Intent sendIntent = new Intent();
+            sendIntent.SetAction(Intent.ActionSend);
+            sendIntent.PutExtra(Intent.ExtraTitle, item.Title ?? "Sharing from Monocle Giraffe");
+            sendIntent.PutExtra(Intent.ExtraText, item.Link);
+            sendIntent.SetType("text/plain");
+            context.StartActivity(sendIntent);
         }
     }
 }

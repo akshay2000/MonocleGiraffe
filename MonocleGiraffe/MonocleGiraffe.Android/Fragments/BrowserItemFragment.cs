@@ -66,6 +66,7 @@ namespace MonocleGiraffe.Android.Fragments
             else
                 RenderImage(Item);
             BindVotes();
+            ShareButton.SetCommand("Click", Item.ShareCommand);
             base.OnViewCreated(view, savedInstanceState);
             AnalyticsHelper.SendView("BrowserItem");
         }
@@ -250,6 +251,16 @@ namespace MonocleGiraffe.Android.Fragments
             {
                 favoriteButton = favoriteButton ?? View.FindViewById<ImageView>(Resource.Id.FavoriteButton);
                 return favoriteButton;
+            }
+        }
+
+        private FloatingActionButton shareButton;
+        public FloatingActionButton ShareButton
+        {
+            get
+            {
+                shareButton = shareButton ?? View.FindViewById<FloatingActionButton>(Resource.Id.ShareButton);
+                return shareButton;
             }
         }
 

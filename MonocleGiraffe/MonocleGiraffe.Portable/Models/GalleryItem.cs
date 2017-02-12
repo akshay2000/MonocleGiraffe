@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Portable.ViewModels;
 using static MonocleGiraffe.Portable.Helpers.Initializer;
+using System.Windows.Input;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -389,7 +390,7 @@ namespace MonocleGiraffe.Portable.Models
            }));
 
         RelayCommand share;
-        public RelayCommand ShareCommand
+        public ICommand ShareCommand
            => share ?? (share = new RelayCommand(() =>
            {
                Helpers.Initializer.SharingHelper.ShareItem(this);

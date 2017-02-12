@@ -77,7 +77,7 @@ namespace MonocleGiraffe.Android.Activities
         {
             ConfigureIoc();
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
-            Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
+            Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(ApplicationContext), new ClipboardHelper());
         }
 
         protected override void OnDestroy()
