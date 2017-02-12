@@ -35,7 +35,9 @@ namespace MonocleGiraffe.Portable.Helpers
             try
             {
                 var result = await Table
+                    .Where(e => !e.IsMature)
                     .OrderByDescending(e => e.Votes)
+                    .Take(10)
                     .ToListAsync();
                 response.Content = result;
             }
