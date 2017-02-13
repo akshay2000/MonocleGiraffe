@@ -61,6 +61,8 @@ namespace MonocleGiraffe.Android.Activities
 
 		private void ConfigureIoc()
 		{
+            if (SimpleIoc.Default.IsRegistered<IHttpClient>())
+                return;
 			SimpleIoc.Default.Register<IHttpClient, HttpClient>();
 			SimpleIoc.Default.Register<ISecretsProvider>(() => new SecretsProvider(Assets));
 			SimpleIoc.Default.Register<IVault>(() => new Vault(this));
