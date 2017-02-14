@@ -158,6 +158,7 @@
     <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BrowserItemFragment.cs" />
+    <Compile Include="Fragments\BrowserSheetFragment.cs" />
     <Compile Include="Fragments\GalleryFragment.cs" />
     <Compile Include="Fragments\ImgurSettingsFragment.cs" />
     <Compile Include="Fragments\ImgurSettingsFragment.ui.cs" />
@@ -259,6 +260,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Incl_BrowserTitle.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Sheet_Browser.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

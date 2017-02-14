@@ -15,9 +15,17 @@ namespace MonocleGiraffe.Android.LibraryImpl
 {
     public class ClipboardHelper : IClipboardHelper
     {
+        Context context;
+        public ClipboardHelper(Context context)
+        {
+            this.context = context;
+        }
+
         public void Clip(string text)
         {
             Console.WriteLine($"Clip called with text: {text}");
+            Toast toast = Toast.MakeText(context, "Copied to clipboard", ToastLength.Short);
+            toast.Show();
         }
     }
 }
