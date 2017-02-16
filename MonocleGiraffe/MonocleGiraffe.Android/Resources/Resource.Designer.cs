@@ -2207,9 +2207,6 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a00be
 			public const int DescriptionTextView = 2131361982;
 			
-			// aapt resource value: 0x7f0a00c4
-			public const int DownloadsMenuItem = 2131361988;
-			
 			// aapt resource value: 0x7f0a0094
 			public const int DownvoteButton = 2131361940;
 			
@@ -2222,8 +2219,8 @@ namespace MonocleGiraffe.Android
 			// aapt resource value: 0x7f0a0095
 			public const int FavoriteButton = 2131361941;
 			
-			// aapt resource value: 0x7f0a00c5
-			public const int FeedbackMenuItem = 2131361989;
+			// aapt resource value: 0x7f0a00c4
+			public const int FeedbackMenuItem = 2131361988;
 			
 			// aapt resource value: 0x7f0a0085
 			public const int GalleryRecyclerView = 2131361925;

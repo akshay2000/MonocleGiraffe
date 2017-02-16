@@ -27,7 +27,8 @@ namespace MonocleGiraffe.Android.Fragments
         private const string Share = "Share";
         private const string CopyLink = "Copy Link";
 
-        private readonly string[] menuItems = new string[] { Save, Share, CopyLink };
+        //TODO: Add Save option here after downloads are implemented
+        private readonly string[] menuItems = new string[] { Share, CopyLink };
 
         public override void SetupDialog(Dialog dialog, int style)
         {

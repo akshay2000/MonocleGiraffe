@@ -6,12 +6,13 @@
         app:showAsAction="never"
         android:title="Settings">
     </item>
-    <item
+  <!--TODO: Uncomment this after downloads are implemented-->
+    <!--<item
         android:id="@+id/DownloadsMenuItem"
         android:icon="@drawable/refresh"
         app:showAsAction="never"
         android:title="Downloads">
-    </item>
+    </item>-->
     <item
         android:id="@+id/FeedbackMenuItem"
         android:icon="@drawable/refresh"
