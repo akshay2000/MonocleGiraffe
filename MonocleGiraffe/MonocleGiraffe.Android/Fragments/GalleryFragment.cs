@@ -18,6 +18,7 @@ using MonocleGiraffe.Portable.ViewModels.Front;
 using FFImageLoading.Views;
 using FFImageLoading;
 using MonocleGiraffe.Android.Helpers;
+using Android.Support.V4.Widget;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -42,9 +43,13 @@ namespace MonocleGiraffe.Android.Fragments
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
 			bindings.Add(this.SetBinding(() => Vm.Topics).WhenSourceChanges(BindTopics));
 
+            SwipeView.Refresh += (s, e) => Vm.Reload();
+
+            bindings.Add(this.SetBinding(() => Vm.Images.IsBusy, () => SwipeView.Refreshing));
+
 			TopicsSpinner.ItemSelected += TopicsSpinner_ItemSelected;
-        }
-        
+        }        
+
         private void BindCollection()
         {
 			var layoutManager = new AutoFitStaggeredLayoutManager(180, StaggeredGridLayoutManager.Vertical, Context);
@@ -130,6 +135,16 @@ namespace MonocleGiraffe.Android.Fragments
 				return topicsSpinner;
 			}
 		}
+
+        private SwipeRefreshLayout swipeView;
+        public SwipeRefreshLayout SwipeView
+        {
+            get
+            {
+                swipeView = swipeView ?? View.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeView);
+                return swipeView;
+            }
+        }
 
         public override void OnDestroyView()
         {

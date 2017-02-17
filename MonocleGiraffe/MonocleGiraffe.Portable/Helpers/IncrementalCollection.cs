@@ -50,7 +50,7 @@ namespace MonocleGiraffe.Portable.Helpers
             IsBusy = true;
             for (int i = 0; i < count; i++)
             {
-                if (moreItems == null || moreItems.Count == ConsumedItemsIndex)
+                if (moreItems == null || moreItems.Count == 0 || moreItems.Count == ConsumedItemsIndex)
                 {
                     Page++;
                     moreItems = await LoadMoreItemsImplAsync(c, Page - 1);
