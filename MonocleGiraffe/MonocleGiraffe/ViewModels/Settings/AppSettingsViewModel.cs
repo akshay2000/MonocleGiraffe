@@ -16,7 +16,16 @@ namespace MonocleGiraffe.ViewModels.Settings
         { }
         
         ObservableCollection<AddOnItem> addOns;
-        public ObservableCollection<AddOnItem> AddOns { get { return addOns; } set { Set(ref addOns, value); } }
+        public ObservableCollection<AddOnItem> AddOns
+        {
+            get
+            {
+                if (addOns == null || addOns.Count == 0)
+                    LoadAddOns();
+                return addOns;
+            }
+            set { Set(ref addOns, value); }
+        }
         
         string noAddOnsMessage = default(string);
         public string NoAddOnsMessage { get { return noAddOnsMessage; } set { Set(ref noAddOnsMessage, value); } }        
