@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -15,13 +14,16 @@ using FFImageLoading.Views;
 using FFImageLoading;
 using Android.Media;
 using Android.Util;
+using MonocleGiraffe.Android.Fragments;
+using Android.Support.V4.App;
+using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Android.LibraryImpl;
+using MonocleGiraffe.Portable.Interfaces;
 
 namespace MonocleGiraffe.Android.Controls
 {
     public class ImageControl : FrameLayout
     {
-       // GestureDetector detector;
-
         public ImageControl(Context context) : base(context)
         {
             Initialize();
@@ -44,18 +46,36 @@ namespace MonocleGiraffe.Android.Controls
         private void Initialize()
         {
             Inflate(Context, Resource.Layout.Ctrl_Image, this);
-			//LayoutRoot.LongClick += (sender, args) => { 
-			//	global::Android.Util.Log.Info("ImageControl", "Long pressed");
-			//	var menu = new PopupMenu(Context, this);
-			//	menu.Inflate(Resource.Menu.main_menu);
-			//	menu.Show();
-			//};
+            LayoutRoot.LongClick += LayoutRoot_LongClick;
         }
 
-		private IGalleryItem item;
-
-		public void RenderContent(IGalleryItem itemToRender)
+        private void LayoutRoot_LongClick(object sender, LongClickEventArgs e)
         {
+            BrowserSheetFragment f = new BrowserSheetFragment();
+            f.Show(fragmentManager, f.Tag);
+            f.MenuTapped += (s, a) =>
+            {
+                switch (a)
+                {
+                    case BrowserSheetFragment.MenuItem.Save:
+                        break;
+                    case BrowserSheetFragment.MenuItem.Share:
+                        Portable.Helpers.Initializer.SharingHelper.ShareItem(item);
+                        break;
+                    case BrowserSheetFragment.MenuItem.CopyLink:
+                        Portable.Helpers.Initializer.ClipboardHelper.Clip(item.Link);                       
+                        break;
+                }
+                f.Dismiss();
+            };
+
+        }
+
+        private IGalleryItem item;
+        private FragmentManager fragmentManager;
+		public void RenderContent(IGalleryItem itemToRender, FragmentManager fragmentManager)
+        {
+            this.fragmentManager = fragmentManager;
 			item = itemToRender;
             switch (itemToRender.ItemType)
             {
@@ -78,10 +98,6 @@ namespace MonocleGiraffe.Android.Controls
 			VideoWrapper.Visibility = ViewStates.Visible;
 			
             MainVideoView.SetVideoURI(global::Android.Net.Uri.Parse(itemToRender.Mp4));
-   //         var controller = new MediaController(Context)
-   //		  controller.SetAnchorView(this);
-   //         controller.SetMediaPlayer(MainVideoView);
-   //         MainVideoView.SetMediaController(controller);
 			MainVideoView.Prepared += (sender, e) =>
 			{
 				var mp = sender as MediaPlayer;
@@ -157,24 +173,6 @@ namespace MonocleGiraffe.Android.Controls
 			}
 		}
 
-		#endregion
-
-        //private class GestureListener : GestureDetector.SimpleOnGestureListener
-        //{
-        //    VideoView view;
-        //    public GestureListener(VideoView view)
-        //    {
-        //        this.view = view;
-        //    }
-
-        //    public override bool OnSingleTapConfirmed(MotionEvent e)
-        //    {
-        //        if (view.IsPlaying)
-        //            view.Pause();
-        //        else
-        //            view.Start();
-        //        return true;
-        //    }
-        //}
+		#endregion        
     }
 }

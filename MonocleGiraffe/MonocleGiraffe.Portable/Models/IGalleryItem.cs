@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -44,6 +45,8 @@ namespace MonocleGiraffe.Portable.Models
         string Thumbnail { get; set; }
 
         string BigThumbnail { get; set; }
+
+        ICommand ShareCommand { get; }
 
         Task<Comment> AddComment(string comment, long? parentId = null);
     }

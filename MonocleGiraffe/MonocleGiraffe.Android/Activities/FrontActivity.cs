@@ -88,8 +88,9 @@ namespace MonocleGiraffe.Android.Activities
 				case Resource.Id.SettingsMenuItem:
 					StartActivity(new Intent(this, typeof(SettingsActivity)));
 					break;
-				case Resource.Id.DownloadsMenuItem:
-					break;
+                    //TODO: Uncomment this after downloads are implemented
+				//case Resource.Id.DownloadsMenuItem:
+				//	break;
 				case Resource.Id.FeedbackMenuItem:
 					LaunchFeedbackEmail();
 					break;

@@ -22,6 +22,7 @@ using MonocleGiraffe.Android.Helpers;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using System.Collections.ObjectModel;
+using Android.Support.V7.App;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -29,6 +30,7 @@ namespace MonocleGiraffe.Android.Fragments
     {
         private IGalleryItem Item { get; set; }
         public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
+        private global::Android.Support.V4.App.FragmentManager FragmentManager { get { return (Activity as AppCompatActivity).SupportFragmentManager; } }
 
         private bool isAlbum;
         private List<Binding> bindings = new List<Binding>();
@@ -66,6 +68,7 @@ namespace MonocleGiraffe.Android.Fragments
             else
                 RenderImage(Item);
             BindVotes();
+            ShareButton.SetCommand("Click", Item.ShareCommand);
             base.OnViewCreated(view, savedInstanceState);
             AnalyticsHelper.SendView("BrowserItem");
         }
@@ -106,8 +109,7 @@ namespace MonocleGiraffe.Android.Fragments
                 Description.Text = item.Description;
             else
                 Description.Visibility = ViewStates.Gone;
-            MainImage.RenderContent(item);
-            
+            MainImage.RenderContent(item, FragmentManager);            
         }
 
         private void RenderAlbum(IGalleryItem item)
@@ -141,7 +143,7 @@ namespace MonocleGiraffe.Android.Fragments
 
             var image = holder.FindCachedViewById<ImageControl>(Resource.Id.MainImage);
 			//this.Activity.RegisterForContextMenu(image);
-            image.RenderContent(item);
+            image.RenderContent(item, FragmentManager);
 
             var hasDescription = !string.IsNullOrEmpty(item.Description);
             var descView = holder.FindCachedViewById<TextView>(Resource.Id.DescriptionTextView);
@@ -250,6 +252,16 @@ namespace MonocleGiraffe.Android.Fragments
             {
                 favoriteButton = favoriteButton ?? View.FindViewById<ImageView>(Resource.Id.FavoriteButton);
                 return favoriteButton;
+            }
+        }
+
+        private FloatingActionButton shareButton;
+        public FloatingActionButton ShareButton
+        {
+            get
+            {
+                shareButton = shareButton ?? View.FindViewById<FloatingActionButton>(Resource.Id.ShareButton);
+                return shareButton;
             }
         }
 

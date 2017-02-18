@@ -65,6 +65,8 @@ namespace MonocleGiraffe.Android.Activities
 
 		private void ConfigureIoc()
 		{
+            if (SimpleIoc.Default.IsRegistered<IHttpClient>())
+                return;
 			SimpleIoc.Default.Register<IHttpClient, HttpClient>();
 			SimpleIoc.Default.Register<ISecretsProvider>(() => new SecretsProvider(Assets));
 			SimpleIoc.Default.Register<IVault>(() => new Vault(this));
@@ -82,7 +84,7 @@ namespace MonocleGiraffe.Android.Activities
             HandlePermissions();
             ConfigureIoc();
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
-            Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
+            Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(ApplicationContext), new ClipboardHelper(ApplicationContext));
         }
 
         private void HandlePermissions()

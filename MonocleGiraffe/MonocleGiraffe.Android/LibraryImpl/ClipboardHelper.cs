@@ -15,9 +15,19 @@ namespace MonocleGiraffe.Android.LibraryImpl
 {
     public class ClipboardHelper : IClipboardHelper
     {
+        Context context;
+        public ClipboardHelper(Context context)
+        {
+            this.context = context;
+        }
+
         public void Clip(string text)
         {
-            Console.WriteLine($"Clip called with text: {text}");
+            ClipboardManager clipboardManager = (ClipboardManager)context.GetSystemService(Context.ClipboardService);
+            ClipData data = ClipData.NewPlainText("Text from Monocle Giraffe", text);
+            clipboardManager.PrimaryClip = data;
+            Toast toast = Toast.MakeText(context, "Copied to clipboard", ToastLength.Short);
+            toast.Show();
         }
     }
 }

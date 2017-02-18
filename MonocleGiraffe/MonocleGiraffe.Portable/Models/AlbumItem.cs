@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using MonocleGiraffe.Portable.Helpers;
 using static MonocleGiraffe.Portable.Helpers.Initializer;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 
 namespace MonocleGiraffe.Portable.Models
 {
@@ -99,6 +101,13 @@ namespace MonocleGiraffe.Portable.Models
                 Set(ref albumImages, value);
             }
         }
+
+        RelayCommand share;
+        public ICommand ShareCommand
+           => share ?? (share = new RelayCommand(() =>
+           {
+               Helpers.Initializer.SharingHelper.ShareItem(this);
+           }));
 
         private async Task LoadAlbumImages()
         {
