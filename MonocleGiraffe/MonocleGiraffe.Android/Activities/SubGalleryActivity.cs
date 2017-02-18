@@ -19,11 +19,13 @@ using FFImageLoading.Views;
 using FFImageLoading;
 using MonocleGiraffe.Android.Controls;
 using MonocleGiraffe.Android.Helpers;
+using Android.Support.V7.App;
+using Android.Support.V4.Widget;
 
 namespace MonocleGiraffe.Android.Activities
 {
     [Activity(Label = "SubGalleryActivity")]
-    public class SubGalleryActivity : Activity
+    public class SubGalleryActivity : AppCompatActivity
     {
         private readonly List<Binding> bindings = new List<Binding>();
         private ObservableRecyclerAdapter<GalleryItem, CachingViewHolder> adapter;
@@ -42,9 +44,18 @@ namespace MonocleGiraffe.Android.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SubGallery);
+
+            SetSupportActionBar(MainToolbar);
+
             layoutManager = new GridAutofitLayoutManager(this, 120);
             SubGalleryRecyclerView.SetLayoutManager(layoutManager);
+
+            SwipeView.SetCommand("Refresh", Vm.RefreshCommand);
+
             bindings.Add(this.SetBinding(() => Vm.Images).WhenSourceChanges(BindCollection));
+            bindings.Add(this.SetBinding(() => Vm.Sub.Title, () => SupportActionBar.Title));
+            bindings.Add(this.SetBinding(() => Vm.Images.IsBusy, () => SwipeView.Refreshing));
+
             var param = Nav.GetAndRemoveParameter<string>(Intent);
             Vm.Activate(param);
             AnalyticsHelper.SendView("SubredditGallery");
@@ -97,6 +108,26 @@ namespace MonocleGiraffe.Android.Activities
             {
                 subGalleryRecyclerView = subGalleryRecyclerView ?? FindViewById<RecyclerView>(Resource.Id.SubGalleryRecyclerView);
                 return subGalleryRecyclerView;
+            }
+        }
+
+        private global::Android.Support.V7.Widget.Toolbar mainToolbar;
+        public global::Android.Support.V7.Widget.Toolbar MainToolbar
+        {
+            get
+            {
+                mainToolbar = mainToolbar ?? FindViewById<global::Android.Support.V7.Widget.Toolbar>(Resource.Id.MainToolbar);
+                return mainToolbar;
+            }
+        }
+
+        private SwipeRefreshLayout swipeView;
+        public SwipeRefreshLayout SwipeView
+        {
+            get
+            {
+                swipeView = swipeView ?? FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeView);
+                return swipeView;
             }
         }
     }
