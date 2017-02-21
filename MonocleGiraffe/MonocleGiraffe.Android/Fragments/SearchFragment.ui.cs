@@ -65,13 +65,33 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
-        private ProgressBar progressBar;
-        private ProgressBar ProgressBar
+        private ProgressBar redditsProgress;
+        private ProgressBar RedditsProgress
         {
             get
             {
-                progressBar = progressBar ?? View.FindViewById<ProgressBar>(Resource.Id.ProgressBar);
-                return progressBar;
+                redditsProgress = redditsProgress ?? View.FindViewById<ProgressBar>(Resource.Id.RedditsProgress);
+                return redditsProgress;
+            }
+        }
+
+        private ProgressBar postsProgress;
+        private ProgressBar PostsProgress
+        {
+            get
+            {
+                postsProgress = postsProgress ?? View.FindViewById<ProgressBar>(Resource.Id.PostsProgress);
+                return postsProgress;
+            }
+        }
+
+        private ProgressBar gifsProgress;
+        private ProgressBar GifsProgress
+        {
+            get
+            {
+                gifsProgress = gifsProgress ?? View.FindViewById<ProgressBar>(Resource.Id.GifsProgress);
+                return gifsProgress;
             }
         }
     }

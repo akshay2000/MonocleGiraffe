@@ -51,8 +51,8 @@ namespace MonocleGiraffe.Android.Fragments
             QueryEditText.TextChanged += delegate { };
 
             bindings.Add(this.SetBinding(() => Vm.IsLoading,
-                () => ProgressBar.Visibility, BindingMode.OneWay)
-                .ConvertSourceToTarget(flag => flag ? ViewStates.Visible : ViewStates.Gone));
+                () => RedditsProgress.Visibility, BindingMode.OneWay)
+                .ConvertSourceToTarget(BoolToViewState));
 
             RedditsButton.Click += TypeButton_Click;
             PostsButton.Click += TypeButton_Click;
@@ -61,6 +61,8 @@ namespace MonocleGiraffe.Android.Fragments
             QueryEditText.EditorAction += QueryEditText_EditorAction;
             QueryEditText.KeyPress += QueryEditText_KeyPress;
         }
+
+        private ViewStates BoolToViewState(bool flag) => flag ? ViewStates.Visible : ViewStates.Gone;
 
         private void QueryEditText_KeyPress(object sender, View.KeyEventArgs e)
         {
@@ -93,8 +95,14 @@ namespace MonocleGiraffe.Android.Fragments
             return new ColorDrawable(new Color(ret));
         }
 
+        Binding<bool, ViewStates> postsProgressBinding;
+        Binding<bool, ViewStates> gifsProgressBinding;
+
         private void RefreshUI()
         {
+            postsProgressBinding?.Detach();
+            gifsProgressBinding?.Detach();
+
             ResultsView.ClearOnScrollListeners();
 			QueryEditText.ClearFocus();
             if (Vm.IsReddit)
@@ -110,6 +118,8 @@ namespace MonocleGiraffe.Android.Fragments
                 var adapter = Vm.Posts.GetRecyclerAdapter(BindPostView, Resource.Layout.Tmpl_GalleryThumbnail, PostItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Posts));
+
+                postsProgressBinding = this.SetBinding(() => Vm.Posts.IsBusy, () => RedditsProgress.Visibility, BindingMode.OneWay).ConvertSourceToTarget(BoolToViewState);
             }
             else if (Vm.IsGifs)
             {
@@ -117,6 +127,8 @@ namespace MonocleGiraffe.Android.Fragments
                 var adapter = Vm.Gifs.GetRecyclerAdapter(BindGifView, Resource.Layout.Tmpl_SubredditThumbnail, GifItemClick);
                 ResultsView.SetAdapter(adapter);
                 ResultsView.AddOnScrollListener(new ScrollListener(Vm.Gifs));
+
+                gifsProgressBinding = this.SetBinding(() => Vm.Gifs.IsBusy, () => RedditsProgress.Visibility, BindingMode.OneWay).ConvertSourceToTarget(BoolToViewState);
             }
         }
 
@@ -195,6 +207,8 @@ namespace MonocleGiraffe.Android.Fragments
         public override void OnDestroy()
         {
             base.OnDestroy();
+            postsProgressBinding?.Detach();
+            gifsProgressBinding?.Detach();
             bindings.ForEach((b) => b.Detach());
         }
 
