@@ -369,6 +369,9 @@
     <AndroidResource Include="Resources\drawable\heart.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\share.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MonocleGiraffe.Portable\MonocleGiraffe.Portable.csproj">
       <Project>{5CD309E9-78AC-4CED-81B9-49A36C0B6D03}</Project>
       <Name>MonocleGiraffe.Portable</Name>
@@ -377,9 +380,6 @@
       <Project>{F4FF4407-03D4-4667-A2B4-AC7CC347DA54}</Project>
       <Name>XamarinImgur</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\share.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

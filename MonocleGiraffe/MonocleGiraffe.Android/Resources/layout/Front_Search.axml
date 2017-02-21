@@ -70,14 +70,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:textSize="17sp"
-        android:layout_marginTop="6dp" />
-    <ProgressBar
-        android:id="@+id/ProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_margin="16dp"
-        android:indeterminateOnly="true" />
+        android:layout_marginTop="6dp" />    
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -91,5 +84,23 @@
             android:id="@+id/ResultsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/RedditsProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+        <ProgressBar
+            android:id="@+id/PostsProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+        <ProgressBar
+            android:id="@+id/GifsProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>        
     </FrameLayout>
 </LinearLayout>
