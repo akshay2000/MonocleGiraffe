@@ -36,7 +36,7 @@
         app:layout_anchor="@id/ScrollView"
         android:layout_gravity="bottom|right"
         app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/share"
+        app:srcCompat="@drawable/share"
         android:layout_margin="16dp"
         android:clickable="true"/>
 </android.support.design.widget.CoordinatorLayout>
