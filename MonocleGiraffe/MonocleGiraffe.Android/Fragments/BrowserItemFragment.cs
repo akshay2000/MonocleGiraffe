@@ -30,7 +30,7 @@ namespace MonocleGiraffe.Android.Fragments
     {
         private IGalleryItem Item { get; set; }
         public GalleryItem GalleryItem { get { return Item as GalleryItem; } }
-        private global::Android.Support.V4.App.FragmentManager FragmentManager { get { return (Activity as AppCompatActivity).SupportFragmentManager; } }
+        private global::Android.Support.V4.App.FragmentManager InFragmentManager { get { return (Activity as AppCompatActivity).SupportFragmentManager; } }
 
         private bool isAlbum;
         private List<Binding> bindings = new List<Binding>();
@@ -109,7 +109,7 @@ namespace MonocleGiraffe.Android.Fragments
                 Description.Text = item.Description;
             else
                 Description.Visibility = ViewStates.Gone;
-            MainImage.RenderContent(item, FragmentManager);            
+            MainImage.RenderContent(item, InFragmentManager);            
         }
 
         private void RenderAlbum(IGalleryItem item)
@@ -143,7 +143,7 @@ namespace MonocleGiraffe.Android.Fragments
 
             var image = holder.FindCachedViewById<ImageControl>(Resource.Id.MainImage);
 			//this.Activity.RegisterForContextMenu(image);
-            image.RenderContent(item, FragmentManager);
+            image.RenderContent(item, InFragmentManager);
 
             var hasDescription = !string.IsNullOrEmpty(item.Description);
             var descView = holder.FindCachedViewById<TextView>(Resource.Id.DescriptionTextView);

@@ -52,6 +52,7 @@
     <Compile Include="Interfaces\ISharingHelper.cs" />
     <Compile Include="Models\AlbumItem.cs" />
     <Compile Include="Models\CommentItem.cs" />
+    <Compile Include="Models\DownloadItem.cs" />
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\GalleryMetaInfo.cs" />
     <Compile Include="Models\IDownloadItem.cs" />

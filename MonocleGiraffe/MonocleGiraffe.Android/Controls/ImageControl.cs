@@ -19,6 +19,7 @@ using Android.Support.V4.App;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Android.LibraryImpl;
 using MonocleGiraffe.Portable.Interfaces;
+using MonocleGiraffe.Android.ViewModels;
 
 namespace MonocleGiraffe.Android.Controls
 {
@@ -53,11 +54,20 @@ namespace MonocleGiraffe.Android.Controls
         {
             BrowserSheetFragment f = new BrowserSheetFragment();
             f.Show(fragmentManager, f.Tag);
-            f.MenuTapped += (s, a) =>
+            f.MenuTapped += async (s, a) =>
             {
                 switch (a)
                 {
                     case BrowserSheetFragment.MenuItem.Save:
+                        switch (item.ItemType)
+                        {
+                            case GalleryItemType.Animation:
+                                await App.Locator.Transfers.DownloadsVM.StartDownload(item.Mp4);
+                                break;
+                            case GalleryItemType.Image:
+                                await App.Locator.Transfers.DownloadsVM.StartDownload(item.Link);
+                                break;
+                        }
                         break;
                     case BrowserSheetFragment.MenuItem.Share:
                         Portable.Helpers.Initializer.SharingHelper.ShareItem(item);

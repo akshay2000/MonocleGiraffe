@@ -27,8 +27,7 @@ namespace MonocleGiraffe.Android.Fragments
         private const string Share = "Share";
         private const string CopyLink = "Copy Link";
 
-        //TODO: Add Save option here after downloads are implemented
-        private readonly string[] menuItems = new string[] { Share, CopyLink };
+        private readonly string[] menuItems = new string[] { Save, Share, CopyLink };
 
         public override void SetupDialog(Dialog dialog, int style)
         {
@@ -55,6 +54,8 @@ namespace MonocleGiraffe.Android.Fragments
             switch (selectedEntry)
             {
                 case Save:
+                    Toast toast = Toast.MakeText(Context, "Saving", ToastLength.Short);
+                    toast.Show();
                     item = MenuItem.Save;
                     break;
                 case Share:

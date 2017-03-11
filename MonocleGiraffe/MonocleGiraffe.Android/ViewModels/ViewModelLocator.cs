@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using Android.Content;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -49,6 +50,7 @@ namespace MonocleGiraffe.Android.ViewModels
             SimpleIoc.Default.Register<BrowserViewModel>();
             SimpleIoc.Default.Register<SplashViewModel>();
 			SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<TransfersViewModel>(() => new TransfersViewModel(new Transfers.DownloadsViewModel(SimpleIoc.Default.GetInstance<Context>()), null));
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
@@ -62,6 +64,8 @@ namespace MonocleGiraffe.Android.ViewModels
         public SplashViewModel Splash { get { return ServiceLocator.Current.GetInstance<SplashViewModel>(); } }
 
 		public SettingsViewModel Settings { get { return ServiceLocator.Current.GetInstance<SettingsViewModel>(); } }
+
+        public TransfersViewModel Transfers { get { return ServiceLocator.Current.GetInstance<TransfersViewModel>(); } }
         
         public static void Cleanup()
         {

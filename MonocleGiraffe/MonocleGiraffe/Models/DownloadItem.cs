@@ -12,7 +12,7 @@ using Windows.Storage;
 
 namespace MonocleGiraffe.Models
 {
-    public class DownloadItem : BindableBase, IDownloadItem
+    public class DownloadItem : Portable.Models.DownloadItem
     {
         public static async Task<DownloadItem> Create(BackgroundDownloader b, string url)
         {
@@ -44,19 +44,7 @@ namespace MonocleGiraffe.Models
             Operation = op ?? Downloader.CreateDownload(new Uri(Url), file);
             Progress = new Progress<DownloadOperation>(HandleProgress);
             CancellationToken = new CancellationTokenSource();
-        }
-
-        string name = default(string);
-        public string Name { get { return name; } set { Set(ref name, value); } }
-
-        ulong totalSize = 100;
-        public ulong TotalSize { get { return totalSize; } set { Set(ref totalSize, value); } }
-
-        ulong currentSize = 0;
-        public ulong CurrentSize { get { return currentSize; } set { Set(ref currentSize, value); } }
-
-        string state = TransferStates.PENDING;
-        public string State { get { return state; } set { Set(ref state, value); } }
+        }        
 
         private DownloadOperation Operation { get; set; }
         private Progress<DownloadOperation> Progress { get; set; }
@@ -77,7 +65,7 @@ namespace MonocleGiraffe.Models
                await Cancel();
            }));
 
-        public async Task Cancel()
+        public override async Task Cancel()
         {
             State = TransferStates.CANCELED;
             CancellationToken.Cancel();
@@ -98,7 +86,7 @@ namespace MonocleGiraffe.Models
             await Start();
         }
 
-        public async Task Start()
+        public override async Task Start()
         {
             try
             {

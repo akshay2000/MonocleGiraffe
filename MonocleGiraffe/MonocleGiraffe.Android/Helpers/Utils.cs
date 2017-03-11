@@ -12,6 +12,8 @@ using Android.Widget;
 using Android.Content.Res;
 using Android.Util;
 using Android.Text;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace MonocleGiraffe.Android.Helpers
 {
@@ -73,6 +75,17 @@ namespace MonocleGiraffe.Android.Helpers
             if (resourceId > 0)
                 barHeight = activity.Resources.GetDimensionPixelSize(resourceId);
             itemToPad.SetPadding(itemToPad.Left, itemToPad.PaddingTop+ barHeight, itemToPad.PaddingRight, itemToPad.PaddingBottom);
+        }
+
+        public static async Task CopyFileAsync(string sourcePath, string destinationPath)
+        {
+            using (Stream source = File.OpenRead(sourcePath))
+            {
+                using (Stream destination = File.Create(destinationPath))
+                {
+                    await source.CopyToAsync(destination);
+                }
+            }
         }
     }
 }

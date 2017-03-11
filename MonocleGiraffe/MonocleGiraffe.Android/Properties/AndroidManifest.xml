@@ -3,6 +3,7 @@
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="24" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<application android:label="Monocle Giraffe" android:theme="@style/Theme.AppTheme" android:icon="@mipmap/ic_launcher">

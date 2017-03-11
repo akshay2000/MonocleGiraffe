@@ -20,6 +20,9 @@ using GalaSoft.MvvmLight.Ioc;
 using XamarinImgur.Interfaces;
 using FFImageLoading;
 using Xamarin.Android.Net;
+using Android.Support.V4.Content;
+using Android;
+using Android.Support.V4.App;
 
 namespace MonocleGiraffe.Android.Activities
 {
@@ -70,6 +73,8 @@ namespace MonocleGiraffe.Android.Activities
 			SimpleIoc.Default.Register<ISettingsHelper>(() => new SettingsHelper(this));
 			SimpleIoc.Default.Register<AuthenticationHelper>();
 			SimpleIoc.Default.Register<SecretsHelper>();
+
+            SimpleIoc.Default.Register<Context>(() => ApplicationContext);
 			var authHelper = SimpleIoc.Default.GetInstance<AuthenticationHelper>();
 			var secretsHelper = SimpleIoc.Default.GetInstance<SecretsHelper>();
 			SimpleIoc.Default.Register<NetworkHelper>(() => new NetworkHelper(authHelper, () => new HttpClient(), secretsHelper));
@@ -77,9 +82,19 @@ namespace MonocleGiraffe.Android.Activities
 
         private void Init()
         {
+            HandlePermissions();
             ConfigureIoc();
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration() { HttpClient = new System.Net.Http.HttpClient(new AndroidClientHandler()) });
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(ApplicationContext), new ClipboardHelper(ApplicationContext));
+        }
+
+        private void HandlePermissions()
+        {
+            var permission = ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage);
+            if (permission != global::Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 2);
+            }
         }
 
         protected override void OnDestroy()

@@ -20,7 +20,7 @@ namespace MonocleGiraffe.ViewModels.Transfers
 
         public static async Task<IDownloadItem> DownloadItemFactory(string url)
         {
-            return await DownloadItem.Create(Downloader, url);
+            return await Models.DownloadItem.Create(Downloader, url);
         }
 
         private static BackgroundDownloader downloader;
@@ -37,16 +37,16 @@ namespace MonocleGiraffe.ViewModels.Transfers
         {
             IReadOnlyList<DownloadOperation> oldDownloads = await BackgroundDownloader.GetCurrentDownloadsAsync();
             foreach (var d in oldDownloads)
-                Downloads.Add(await DownloadItem.Create(d));
+                Downloads.Add(await Models.DownloadItem.Create(d));
         }
 
         protected override void InitDesignTime()
         {
             Downloads = new ObservableCollection<IDownloadItem>();
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = TransferStates.PENDING });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = TransferStates.CANCELED });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = TransferStates.SUCCESSFUL });
-            Downloads.Add(new DownloadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = TransferStates.DOWNLOADING });
+            Downloads.Add(new Models.DownloadItem { TotalSize = 100, CurrentSize = 50, Name = "Unhand me woman", State = TransferStates.PENDING });
+            Downloads.Add(new Models.DownloadItem { TotalSize = 100, CurrentSize = 70, Name = "Learn Python for Real", State = TransferStates.CANCELED });
+            Downloads.Add(new Models.DownloadItem { TotalSize = 100, CurrentSize = 20, Name = "The full story", State = TransferStates.SUCCESSFUL });
+            Downloads.Add(new Models.DownloadItem { TotalSize = 100, CurrentSize = 90, Name = "Goodbye EU", State = TransferStates.DOWNLOADING });
         }
     }
 }
