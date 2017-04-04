@@ -11,5 +11,6 @@ namespace XamarinImgur.Interfaces
         string RetrievePassword(string resource, string userName);
         bool Contains(string resource, string userName);
         void AddCredential(string resource, string userName, string password);
+        void RemoveCredential(string resource, string userName);
     }
 }

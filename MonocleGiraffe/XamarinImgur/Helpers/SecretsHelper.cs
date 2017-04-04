@@ -39,6 +39,15 @@ namespace XamarinImgur.Helpers
             return await secretsProvider.GetSecrets();
         }
 
+        public async Task FlushSecrets()
+        {
+            string userName = await GetUserName();
+            SettingsHelper.RemoveLocalValue(userNameKey);
+            SettingsHelper.RemoveLocalValue(expiryKey);
+            vault.RemoveCredential(accessResource, userName);
+            vault.RemoveCredential(refreshResource, userName);
+        }
+
         public async Task<string> GetAccessToken()
         {
             string userName = await GetUserName();

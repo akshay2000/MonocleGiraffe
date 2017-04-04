@@ -11,6 +11,8 @@ using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.Portable.Helpers;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using MonocleGiraffe.Portable.ViewModels.Settings;
 
 namespace MonocleGiraffe.Portable.ViewModels.Front
 {
@@ -32,6 +34,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 #if DEBUG
             UserName = "akshay2000";
 #endif
+            Messenger.Default.Register<NotificationMessage>(this, HandleMessege);
             if (Helpers.Initializer.AuthenticationHelper.IsAuthIntended())
             {
                 await Load();
@@ -42,7 +45,21 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         private const string NOT_AUTHENTICATED = "NotAuthenticated";
         private const string BUSY = "Busy";
         string state = NOT_AUTHENTICATED;
-        public string State { get { return state; } set { Set(ref state, value); } }
+        public string State { get { return state; } set { Set(ref state, value); OnPropertyChanged("IsBusy"); } }
+
+        public async void HandleMessege(NotificationMessage message)
+        {
+            string payload = message.Notification;
+            switch (payload)
+            {
+                case ImgurSettingsViewModel.SIGN_IN:
+                    await Load();
+                    break;
+                case ImgurSettingsViewModel.SIGN_OUT:
+                    State = NOT_AUTHENTICATED;
+                    break;
+            }
+        }
 
         private async Task Load()
         {
@@ -80,21 +97,14 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         {
             await Init();
         }
-
-        public bool IsBusy
-        {
-            get
-            {
-                return State == BUSY;
-            }
-        }
-
+        
         RelayCommand signInCommand;
         public RelayCommand SignInCommand
            => signInCommand ?? (signInCommand = new RelayCommand(async () =>
            {
                await Load();
-           }, () => !IsBusy));
+               Messenger.Default.Send(new NotificationMessage(ImgurSettingsViewModel.SIGN_IN));
+           }));
 
 
         RelayCommand<string> viewAllCommand;

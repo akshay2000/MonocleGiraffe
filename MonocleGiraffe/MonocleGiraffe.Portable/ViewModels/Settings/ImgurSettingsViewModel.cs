@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using MonocleGiraffe.Portable.Helpers;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,6 +14,9 @@ namespace MonocleGiraffe.Portable.ViewModels.Settings
 {
     public class ImgurSettingsViewModel : BindableBase
     {
+        public const string SIGN_IN = "SignIn";
+        public const string SIGN_OUT = "SignOut";
+
         public ImgurSettingsViewModel(bool isInDesignMode)
         {
             if (isInDesignMode)
@@ -32,6 +36,21 @@ namespace MonocleGiraffe.Portable.ViewModels.Settings
         {
             if (AuthenticationHelper.IsAuthIntended())
                 await Load();
+            Messenger.Default.Register<NotificationMessage>(this, HandleMessege);
+        }
+
+        private async void HandleMessege(NotificationMessage message)
+        {
+            string payload = message.Notification;
+            switch(payload)
+            {
+                case SIGN_IN:
+                    await Load();
+                    break;
+                case SIGN_OUT:
+                    State = NOT_AUTHENTICATED;
+                    break;
+            }
         }
 
         private async Task Load()
@@ -122,6 +141,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Settings
            => signInCommand ?? (signInCommand = new RelayCommand(async () =>
            {
                await Load();
+               Messenger.Default.Send(new NotificationMessage(SIGN_IN));
            }));
 
         RelayCommand saveCommand;
@@ -129,6 +149,14 @@ namespace MonocleGiraffe.Portable.ViewModels.Settings
            => saveCommand ?? (saveCommand = new RelayCommand(async () =>
            {
                await Save();
+           }));
+
+        RelayCommand signOutCommand;
+        public RelayCommand SignOutCommand
+           => signOutCommand ?? (signOutCommand = new RelayCommand(async () =>
+           {
+               Messenger.Default.Send(new NotificationMessage(SIGN_OUT));
+               await SignOut();
            }));
 
         private async Task Save()
@@ -143,6 +171,14 @@ namespace MonocleGiraffe.Portable.ViewModels.Settings
             payload["newsletter_subscribed"] = SubscribeNewsletter;
             await Accounts.SaveAccountSettings(await SecretsHelper.GetUserName(), payload);
             State = AUTHENTICATED;
+        }
+
+        private async Task SignOut()
+        {
+            State = BUSY;
+            AuthenticationHelper.SetAuthIntention(false);
+            await SecretsHelper.FlushSecrets();
+            State = NOT_AUTHENTICATED;
         }
 
         private void InitDesignTime()

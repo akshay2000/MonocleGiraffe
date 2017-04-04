@@ -33,6 +33,11 @@ namespace MonocleGiraffe.LibraryImpl
             return CurrentVault.Retrieve(resource, userName).Password;
         }
 
+        public void RemoveCredential(string resource, string userName)
+        {
+            CurrentVault.Remove(CurrentVault.Retrieve(resource, userName));
+        }
+
         private PasswordVault currentVault;
         public PasswordVault CurrentVault
         {

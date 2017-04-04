@@ -117,6 +117,10 @@
                             Content="Save Settings"
                             Margin="0,12"
                             Command="{Binding SaveCommand}"/>
+                        <Button
+                            Content="Sign Out"
+                            Margin="0,12"
+                            Command="{Binding SignOutCommand}"/>
                     </StackPanel>
                     <Border Background="Black" Visibility="{Binding State, ConverterParameter=NotAuthenticated, Converter={StaticResource StateToVisibilityConverter}}" >
                         <Button Content="Sign In" HorizontalAlignment="Center" Command="{Binding SignInCommand}"/>

@@ -13,7 +13,9 @@ namespace MonocleGiraffe.ViewModels.Settings
     public class AppSettingsViewModel : Portable.ViewModels.Settings.AppSettingsViewModel
     {
         public AppSettingsViewModel() : base(DesignMode.DesignModeEnabled)
-        { }
+        {
+            LoadAddOns();
+        }
         
         ObservableCollection<AddOnItem> addOns;
         public ObservableCollection<AddOnItem> AddOns { get { return addOns; } set { Set(ref addOns, value); } }
