@@ -60,6 +60,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         
         private async Task LoadUserData()
         {
+            Helpers.Initializer.AuthenticationHelper.SetAuthIntention(true);
             var userName = await Helpers.Initializer.SecretsHelper.GetUserName();
             await Task.Delay(1000);
             Account account = await Helpers.Initializer.Accounts.GetAccount(userName);
