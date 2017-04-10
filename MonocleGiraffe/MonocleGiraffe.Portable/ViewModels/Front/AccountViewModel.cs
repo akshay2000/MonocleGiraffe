@@ -31,9 +31,6 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
 
         private async Task Init()
         {
-#if DEBUG
-            UserName = "akshay2000";
-#endif
             Messenger.Default.Register<NotificationMessage>(this, HandleMessege);
             if (Helpers.Initializer.AuthenticationHelper.IsAuthIntended())
             {

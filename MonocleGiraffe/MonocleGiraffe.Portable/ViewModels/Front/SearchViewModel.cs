@@ -9,6 +9,9 @@ using MonocleGiraffe.Portable.Helpers;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
+using GalaSoft.MvvmLight.Ioc;
+using XamarinImgur.Interfaces;
+using MonocleGiraffe.Portable.ViewModels.Settings;
 
 namespace MonocleGiraffe.Portable.ViewModels.Front
 {
@@ -31,7 +34,6 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             this.subredditsVM = subredditsVM;
             IsReddit = true;
         }
-
 
         bool isLoading = default(bool);
         public bool IsLoading { get { return isLoading; } set { Set(ref isLoading, value); } }
@@ -142,6 +144,12 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             }
         }        
 
+        private bool GetIsMatureEnabled()
+        {
+            return SimpleIoc.Default.GetInstance<ISettingsHelper>()
+                .GetValue<bool>(AppSettingsViewModel.IS_MATURE_ENABLED, false);
+        }
+
         #region Reddit
 
         private ObservableCollection<SubredditItem> subreddits;
@@ -158,8 +166,11 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             Subreddits = new ObservableCollection<SubredditItem>();
             var subs = await Helpers.Initializer.Reddits.SearchSubreddits(query);
             IEnumerable<string> subscribedSubs = subredditsVM.Subreddits.Select(s => s.Url);
+            bool filterMature = !GetIsMatureEnabled();
             foreach (var sub in subs)
             {
+                if (filterMature && (sub.Data.Over18 ?? false))
+                    continue;
                 SubredditItem si = new SubredditItem(sub);
                 si.IsFavorited = subscribedSubs.Contains(si.Url);
                 Subreddits.Add(si);

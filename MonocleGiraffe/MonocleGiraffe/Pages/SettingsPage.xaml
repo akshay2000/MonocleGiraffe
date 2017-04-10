@@ -39,6 +39,15 @@
                             </Core:EventTriggerBehavior>
                         </Interactivity:Interaction.Behaviors>
                     </ToggleSwitch>
+                    <ToggleSwitch
+						Header="Show mature Subreddits"
+						IsOn="{Binding IsMatureEnabled, Mode=TwoWay}">
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="Toggled">
+                                <Core:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="ChangeMatureEnabled"/>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </ToggleSwitch>
                     <ListView
                         Margin="0,20,0,0"
                         Header="Add-ons"
