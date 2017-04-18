@@ -69,7 +69,7 @@ namespace MonocleGiraffe.Android.Activities
 			SimpleIoc.Default.Register<IHttpClient, HttpClient>();
 			SimpleIoc.Default.Register<ISecretsProvider>(() => new SecretsProvider(Assets));
 			SimpleIoc.Default.Register<IVault>(() => new Vault(this));
-			SimpleIoc.Default.Register<IAuthBroker>(() => new AuthBroker(this, SimpleIoc.Default.GetInstance<ISecretsProvider>()));
+			SimpleIoc.Default.Register<IAuthBroker>(() => new AuthBroker(this, SimpleIoc.Default.GetInstance<ISecretsProvider>(), SimpleIoc.Default.GetInstance<IHttpClient>()));
 			SimpleIoc.Default.Register<ISettingsHelper>(() => new SettingsHelper(this));
 			SimpleIoc.Default.Register<AuthenticationHelper>();
 			SimpleIoc.Default.Register<SecretsHelper>();

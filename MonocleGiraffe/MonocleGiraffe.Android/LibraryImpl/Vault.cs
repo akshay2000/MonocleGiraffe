@@ -32,7 +32,6 @@ namespace MonocleGiraffe.Android.LibraryImpl
             props[PasswordKey] = password;
             Account account = new Account(userName, props);
             BackingStore.Save(account, resource);
-            //InstanceManager.SettingsHelper.SetLocalValue($"{resource};{userName}", password);
         }
 
         public bool Contains(string resource, string userName)
@@ -43,6 +42,13 @@ namespace MonocleGiraffe.Android.LibraryImpl
         public string RetrievePassword(string resource, string userName)
         {
             return BackingStore.FindAccountsForService(resource).Where(a => a.Username == userName).First()?.Properties[PasswordKey];
+        }
+
+        public void RemoveCredential(string resource, string userName)
+        {
+            var account = BackingStore.FindAccountsForService(resource).Where(a => a.Username == userName).First();
+            if (account != null)
+                BackingStore.Delete(account, resource);
         }
 
         private AccountStore backingStore;
