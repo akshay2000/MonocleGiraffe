@@ -37,10 +37,15 @@ namespace MonocleGiraffe.Android.Fragments
 		{
 			base.OnActivityCreated(savedInstanceState);
 			bindings.Add(this.SetBinding(() => Vm.IsViralEnabled, () => ShowViralSwitch.Checked, BindingMode.TwoWay));
+			bindings.Add(this.SetBinding(() => Vm.IsMatureEnabled, () => ShowMatureSwitch.Checked, BindingMode.TwoWay));
 			ShowViralSwitch.CheckedChange += (sender, e) =>
 			{
 				Vm.ChangeViralEnabled();
-			}; //+= delegate { Vm.ChangeViralEnabled(); };
+			};
+			ShowMatureSwitch.CheckedChange += (sender, e) =>
+			{
+				Vm.ChangeMatureEnabled();
+			};
 		}
 
 		private Switch showViralSwitch;
@@ -50,6 +55,16 @@ namespace MonocleGiraffe.Android.Fragments
 			{
 				showViralSwitch = showViralSwitch ?? Activity.FindViewById<Switch>(Resource.Id.ShowViralSwitch);
 				return showViralSwitch;
+			}
+		}
+
+		private Switch showMatureSwitch;
+		public Switch ShowMatureSwitch
+		{
+			get
+			{
+				showMatureSwitch = showMatureSwitch ?? Activity.FindViewById<Switch>(Resource.Id.ShowMatureSwitch);
+				return showMatureSwitch;
 			}
 		}
 
