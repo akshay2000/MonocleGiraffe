@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp">
+    android:minHeight="25px">
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -15,61 +14,73 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:id="@+id/AuthLayout"
-        android:visibility="gone">
-        <android.support.design.widget.TextInputLayout
-            android:minWidth="25px"
-            android:minHeight="25px"
+        android:visibility="gone"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+      <android.support.design.widget.TextInputLayout
+          android:minWidth="25px"
+          android:minHeight="25px"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp">
+        <EditText
+            android:id="@+id/BioEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp">
-            <EditText
-                android:id="@+id/BioEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Bio"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImagePublicSwitch"
-            android:text="Make images public"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp" />
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/EnableMessagingSwitch"
-            android:text="Enable messaging"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp" />
-        <TextView
-            android:text="Album privacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/AlbumPrivacySpinner"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp" />
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/MatureContentSwitch"
-            android:text="Show mature content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp" />
-        <Button
-            android:text="Save Settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/SaveSettingsButton"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp" />
+            android:hint="Bio"
+            android:inputType="text" />
+      </android.support.design.widget.TextInputLayout>
+      <Switch
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/ImagePublicSwitch"
+          android:text="Make images public"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
+      <Switch
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/EnableMessagingSwitch"
+          android:text="Enable messaging"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
+      <TextView
+          android:text="Album privacy"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp" />
+      <Spinner
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/AlbumPrivacySpinner"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
+      <Switch
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/MatureContentSwitch"
+          android:text="Show mature content"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
+      <Button
+          android:text="Save Settings"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/SaveSettingsButton"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
+      <Button
+          android:text="Sign Out"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/SignOutButton"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="12dp" />
     </LinearLayout>
+  </ScrollView>
     <Button
         android:text="Sign In"
         android:layout_width="match_parent"

@@ -84,6 +84,16 @@ namespace MonocleGiraffe.Android.Fragments
             }
         }
 
+        private Button signOutButton;
+        public Button SignOutButton
+        {
+            get
+            {
+                signOutButton = signOutButton ?? Activity.FindViewById<Button>(Resource.Id.SignOutButton);
+                return signOutButton;
+            }
+        }
+
         private Button signInButton;
         public Button SignInButton
         {

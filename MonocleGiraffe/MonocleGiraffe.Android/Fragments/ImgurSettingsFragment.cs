@@ -49,7 +49,8 @@ namespace MonocleGiraffe.Android.Fragments
             AlbumPrivacySpinner.ItemSelected += AlbumPrivacySpinner_ItemSelected;
             bindings.Add(this.SetBinding(() => Vm.ShowMature, () => MatureContentSwitch.Checked, BindingMode.TwoWay));
             SignInButton.SetCommand("Click", Vm.SignInCommand);
-            SaveSettingsButton . SetCommand("Click", Vm.SaveCommand);
+            SaveSettingsButton.SetCommand("Click", Vm.SaveCommand);
+            SignOutButton.SetCommand("Click", Vm.SignOutCommand);
         }
 
         private void AlbumPrivacySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
