@@ -23,6 +23,9 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using System.Collections.ObjectModel;
 using Android.Support.V7.App;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using XamarinImgur.Models;
 
 namespace MonocleGiraffe.Android.Fragments
 {
@@ -36,6 +39,7 @@ namespace MonocleGiraffe.Android.Fragments
         private List<Binding> bindings = new List<Binding>();
 
         public const string POSITION_ARG = "position";
+        public const string DUMMY = "dummy";
 
         public static BrowserItemFragment NewInstance(int position)
         {
@@ -266,35 +270,5 @@ namespace MonocleGiraffe.Android.Fragments
         }
 
         #endregion
-    }
-
-	class PrefetchLinearLayoutManager : LinearLayoutManager
-	{
-		private Context context;
-		private int? prefetchSize;
-
-		public PrefetchLinearLayoutManager(Context context, int? prefetchSize = null) : base(context)
-		{
-			this.context = context;
-			this.prefetchSize = prefetchSize;
-		}
-
-		public PrefetchLinearLayoutManager(IntPtr i, JniHandleOwnership o) : base(i, o)
-		{ }
-
-		public PrefetchLinearLayoutManager(Context context, IAttributeSet a, int i1, int i2) : base(context, a, i1, i2)
-		{ 
-			this.context = context;
-		}
-
-		public PrefetchLinearLayoutManager(Context context, int orientation, bool isReverse) : base(context, orientation, isReverse)
-		{
-			this.context = context;
-		}
-
-		protected override int GetExtraLayoutSpace(RecyclerView.State state)
-		{
-			return prefetchSize ?? 1920 * 2;
-		}
-	}
+    }    
 }

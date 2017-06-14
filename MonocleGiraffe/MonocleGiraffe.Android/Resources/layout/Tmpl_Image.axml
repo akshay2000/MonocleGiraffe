@@ -27,6 +27,9 @@
                 android:padding="12dp"
                 android:background="#252525"
                 android:textColor="#ffffff" />
+          <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="88dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton

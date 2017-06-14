@@ -40,6 +40,14 @@ namespace MonocleGiraffe.Android.Helpers
             return px;
         }
 
+        private const int albumFooterHeightDp = 88;
+        private static int? albumFooterHeightPx;
+        public static int GetAlbumFooterHeight(Resources resources)
+        {
+            albumFooterHeightPx = albumFooterHeightPx ?? DpToPx(albumFooterHeightDp, resources);
+            return albumFooterHeightPx.Value;
+        }
+
         private static int? accentColor;
         public static int GetAccentColor(Context context)
         {

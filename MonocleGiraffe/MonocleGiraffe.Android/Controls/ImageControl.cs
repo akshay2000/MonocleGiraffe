@@ -20,6 +20,7 @@ using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Android.LibraryImpl;
 using MonocleGiraffe.Portable.Interfaces;
 using MonocleGiraffe.Android.ViewModels;
+using MonocleGiraffe.Android.Helpers;
 
 namespace MonocleGiraffe.Android.Controls
 {
@@ -52,6 +53,8 @@ namespace MonocleGiraffe.Android.Controls
 
         private void LayoutRoot_LongClick(object sender, LongClickEventArgs e)
         {
+            if (item.Id == BrowserItemFragment.DUMMY)
+                return;
             BrowserSheetFragment f = new BrowserSheetFragment();
             f.Show(fragmentManager, f.Tag);
             f.MenuTapped += async (s, a) =>
@@ -87,6 +90,11 @@ namespace MonocleGiraffe.Android.Controls
         {
             this.fragmentManager = fragmentManager;
 			item = itemToRender;
+            if (item.Id == BrowserItemFragment.DUMMY)
+            {
+                RenderDummy();
+                return;
+            }
             switch (itemToRender.ItemType)
             {
                 case GalleryItemType.Animation:
@@ -129,6 +137,14 @@ namespace MonocleGiraffe.Android.Controls
 				.LoadUrl(item.Link)
 				.DownSample(width)
 				.Into(MainImageView);
+        }
+
+        private void RenderDummy()
+        {
+            var height = Utils.GetAlbumFooterHeight(Resources);
+            MarginLayoutParams mParams = new MarginLayoutParams(0, height);
+            LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(mParams);
+            LayoutParameters = lParams;
         }
 
 		private void SetDimensions(View view, IGalleryItem itemToRender)
