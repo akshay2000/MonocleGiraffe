@@ -51,6 +51,8 @@ namespace MonocleGiraffe.ViewModels
                 (SimpleIoc.Default.GetInstance<IViewModelLocator>().BrowserViewModel as BrowserPageViewModel).State = state;
             }
 
+            await new TileManager().UpdateTile();
+
             if ((bool)param["isNewLaunch"])
                 await base.ShakeHandsAndNavigate();
             else
