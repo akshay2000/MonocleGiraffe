@@ -1,4 +1,6 @@
-﻿using MonocleGiraffe.Portable.Models;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,14 @@ namespace MonocleGiraffe.Pages
         {
             this.InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+        }
+
+        private SubGalleryPageViewModel Vm
+        {
+            get
+            {
+                return (SubGalleryPageViewModel)DataContext;
+            }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -73,6 +83,8 @@ namespace MonocleGiraffe.Pages
                 {
                     bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(rect, placement);
                     ToggleAppBarButton(!isPinned);
+                    var tileManager = SimpleIoc.Default.GetInstance<TileManager>();
+                    tileManager.UpdateRedditTile(tileId, Vm.Images);
                 }
 
                 //Phone

@@ -80,6 +80,7 @@ namespace MonocleGiraffe
             SimpleIoc.Default.Register<ISettingsHelper, SettingsHelper>();
             SimpleIoc.Default.Register<AuthenticationHelper>();
             SimpleIoc.Default.Register<SecretsHelper>();
+            SimpleIoc.Default.Register<TileManager>();
             var authHelper = SimpleIoc.Default.GetInstance<AuthenticationHelper>();
             var secretsHelper = SimpleIoc.Default.GetInstance<SecretsHelper>();
             SimpleIoc.Default.Register<NetworkHelper>(() => new NetworkHelper(authHelper, () => new HttpClient(), secretsHelper));
