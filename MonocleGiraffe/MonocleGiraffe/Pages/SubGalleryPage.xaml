@@ -26,6 +26,7 @@
                     </AppBarButton.Flyout>
                 </AppBarButton>
                 <AppBarButton Icon="Sync" Label="Refresh" Command="{Binding RefreshCommand}"/>
+                <AppBarButton x:Name="TogglePinButton" Click="TogglePinButton_Click" DataContext="{Binding Sub}" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
