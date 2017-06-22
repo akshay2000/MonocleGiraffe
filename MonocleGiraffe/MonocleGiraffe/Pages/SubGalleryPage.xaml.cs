@@ -62,7 +62,6 @@ namespace MonocleGiraffe.Pages
             string tileId = subreddit.Url;
             if (SecondaryTile.Exists(tileId))
             {
-                // Unpin
                 SecondaryTile secondaryTile = new SecondaryTile(tileId);
                 Windows.UI.Popups.Placement placement = Windows.UI.Popups.Placement.Above;
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(rect, placement);
@@ -77,21 +76,31 @@ namespace MonocleGiraffe.Pages
 
                 SecondaryTile secondaryTile = new SecondaryTile(tileId, displayName, tileId, logo, newTileDesiredSize);
 
+                secondaryTile.VisualElements.Square71x71Logo = new Uri("ms-appx:///Assets/Square71x71Logo.png");
+                secondaryTile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
+                secondaryTile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/Square310x310Logo.png");
+                secondaryTile.VisualElements.Square44x44Logo = new Uri("ms-appx:///Assets/Square44x44Logo.png");
+
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = true;
+                secondaryTile.VisualElements.ShowNameOnSquare310x310Logo = true;
+                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = true;
+
                 Windows.UI.Popups.Placement placement = Windows.UI.Popups.Placement.Above;
+                var tileManager = SimpleIoc.Default.GetInstance<TileManager>();
                 if (!(Windows.Foundation.Metadata.ApiInformation.IsTypePresent(("Windows.Phone.UI.Input.HardwareButtons"))))
                 {
                     bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(rect, placement);
                     ToggleAppBarButton(!isPinned);
-                    var tileManager = SimpleIoc.Default.GetInstance<TileManager>();
-                    tileManager.UpdateRedditTile(tileId, Vm.Images);
                 }
 
                 //Phone
                 if ((Windows.Foundation.Metadata.ApiInformation.IsTypePresent(("Windows.Phone.UI.Input.HardwareButtons"))))
                 {
-                    await secondaryTile.RequestCreateAsync();
+                    //tileManager.ScheduleRedditTileUpdate(tileId, Vm.Images);
+                    bool isPinned = await secondaryTile.RequestCreateAsync();
+                    ToggleAppBarButton(!isPinned);                    
                 }
+                tileManager.UpdateRedditTile(tileId, Vm.Images);
             }
         }
 

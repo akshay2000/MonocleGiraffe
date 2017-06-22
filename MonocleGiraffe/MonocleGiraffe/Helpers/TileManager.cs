@@ -13,40 +13,7 @@ namespace MonocleGiraffe.Helpers
 {
     public class TileManager
     {
-        public async Task UpdateTile()
-        {
-            var t = await Portable.Helpers.Initializer.Gallery.GetSubreddditGallery("earthporn", XamarinImgur.APIWrappers.Enums.Sort.Time, 0);
-            if (t.IsError)
-                return;
-            var images = t.Content;
-            var tileImages = images
-                .Select(ToThumbnail)
-                .Select(i => new TileBasicImage() { Source = i })
-                .Take(9);
-
-            var photosContent = new TileBindingContentPhotos();
-
-            foreach(var tileBasicImage in tileImages)
-            {
-                photosContent.Images.Add(tileBasicImage);
-            }
-
-            TileContent content = new TileContent()
-            {
-                Visual = new TileVisual()
-                {
-                    TileMedium = new TileBinding() { Content = photosContent },
-                    TileWide = new TileBinding { Content = photosContent },
-                    TileLarge = new TileBinding { Content = photosContent }
-                }
-            };
-
-            TileNotification tileNotification = new TileNotification(content.GetXml());
-            tileNotification.ExpirationTime = DateTimeOffset.UtcNow.AddDays(1);
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
-        }
-
-        public void UpdateRedditTile(string tileId, IList<GalleryItem> images)
+        private TileContent GetTileContent(string tileId, IList<GalleryItem> images)
         {
             var tileImages = images
                 .Select(i => i.Thumbnail)
@@ -69,9 +36,21 @@ namespace MonocleGiraffe.Helpers
                     TileLarge = new TileBinding { Content = photosContent }
                 }
             };
+            return content;
+        }
 
+        public void ScheduleRedditTileUpdate(string tileId, IList<GalleryItem> images)
+        {
+            TileContent content = GetTileContent(tileId, images);
+            var dueTime = DateTime.Now.AddSeconds(5);
+            var futureTile = new Windows.UI.Notifications.ScheduledTileNotification(content.GetXml(), dueTime);
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId).AddToSchedule(futureTile);
+        }
+
+        public void UpdateRedditTile(string tileId, IList<GalleryItem> images)
+        {
+            TileContent content = GetTileContent(tileId, images);
             TileNotification tileNotification = new TileNotification(content.GetXml());
-            tileNotification.ExpirationTime = DateTimeOffset.UtcNow.AddDays(1);
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId).Update(tileNotification);
         }
 
