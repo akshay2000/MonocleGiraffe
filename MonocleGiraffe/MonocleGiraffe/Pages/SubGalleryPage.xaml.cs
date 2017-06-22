@@ -70,11 +70,11 @@ namespace MonocleGiraffe.Pages
             else
             {
                 string displayName = $"/r/{subreddit.Url}";
-                string tileActivationArguments = tileId;
+                string tileActivationArguments = $"subreddit://{tileId}";
                 Uri logo = new Uri("ms-appx:///Assets/Square150x150Logo.png");
                 TileSize newTileDesiredSize = TileSize.Square150x150;
 
-                SecondaryTile secondaryTile = new SecondaryTile(tileId, displayName, tileId, logo, newTileDesiredSize);
+                SecondaryTile secondaryTile = new SecondaryTile(tileId, displayName, tileActivationArguments, logo, newTileDesiredSize);
 
                 secondaryTile.VisualElements.Square71x71Logo = new Uri("ms-appx:///Assets/Square71x71Logo.png");
                 secondaryTile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");

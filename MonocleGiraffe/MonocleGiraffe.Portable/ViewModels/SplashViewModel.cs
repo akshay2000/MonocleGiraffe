@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using MonocleGiraffe.Portable.Helpers;
 using MonocleGiraffe.Portable.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,7 +19,7 @@ namespace MonocleGiraffe.Portable.ViewModels
     public class SplashViewModel : ViewModelBase, INavigable
     {
         protected INavigationService nav;
-        protected bool isUrlLaunch = false;
+        protected LaunchType launchType;
 
         public SplashViewModel(INavigationService navigationService)
         {
@@ -193,10 +194,18 @@ namespace MonocleGiraffe.Portable.ViewModels
 
         public virtual async Task Navigate()
         {
-            if (isUrlLaunch)
-                nav.NavigateTo(PageKeyHolder.BrowserPageKey);
-            else
-                nav.NavigateTo(PageKeyHolder.FrontPageKey);
+            switch (launchType)
+            {
+                case LaunchType.Url:
+                    nav.NavigateTo(PageKeyHolder.BrowserPageKey);
+                    break;
+                case LaunchType.SecondaryTile:
+                    //TODO: Go to Subreddit gallery
+                case LaunchType.AppTile:
+                default:
+                    nav.NavigateTo(PageKeyHolder.FrontPageKey);
+                    break;
+            }
         }
 
         public void Activate(object parameter)

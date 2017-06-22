@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Helpers;
+using MonocleGiraffe.Portable.Helpers;
 
 namespace MonocleGiraffe.ViewModels
 {
@@ -31,30 +32,46 @@ namespace MonocleGiraffe.ViewModels
         {
             (nav as MergedNavigationService).Clear();
             JObject param = (JObject)Portable.Helpers.StateHelper.SessionState["LaunchData"];
+            Portable.Helpers.StateHelper.SessionState.Remove("LaunchData");
+            launchType = param["launchType"].ToObject<LaunchType>();
 
-            if (param["url"] == null)
+            switch (launchType)
             {
-                isUrlLaunch = false;
-            }
-            else
-            {
-                isUrlLaunch = true;
-                string url = (string)param["url"];
-                var query = Uri.UnescapeDataString(new Uri(url).Query);
-                query = query.StartsWith("?") ? query.Substring(1) : query;
-                string[] frags = query.Split('&');
-                foreach (var frag in frags)
-                {
-                    string[] splits = frag.Split('=');
-                    state.Add(splits[0], splits[1]);
-                }
-                (SimpleIoc.Default.GetInstance<IViewModelLocator>().BrowserViewModel as BrowserPageViewModel).State = state;
-            }
+                case LaunchType.Url:
+                    HandleUrl(param, state);                     
+                    break;
+                case LaunchType.SecondaryTile:
+                    HandleSecondaryTile(param);
+                    break;
+                case LaunchType.AppTile:
+                default:
+                    break;
+            }          
 
             if ((bool)param["isNewLaunch"])
                 await base.ShakeHandsAndNavigate();
             else
                 await Navigate();
+        }
+
+        private void HandleSecondaryTile(JObject param)
+        {
+            string subreddit = ((string)param["tileArgs"]).Substring(12);
+            //TODO: Populate Subreddit gallery args
+        }
+
+        private void HandleUrl(JObject param, IDictionary<string, object> state)
+        {
+            string url = (string)param["url"];
+            var query = Uri.UnescapeDataString(new Uri(url).Query);
+            query = query.StartsWith("?") ? query.Substring(1) : query;
+            string[] frags = query.Split('&');
+            foreach (var frag in frags)
+            {
+                string[] splits = frag.Split('=');
+                state.Add(splits[0], splits[1]);
+            }
+            (SimpleIoc.Default.GetInstance<IViewModelLocator>().BrowserViewModel as BrowserPageViewModel).State = state;
         }
 
         public new async void ShakeHandsAndNavigate()

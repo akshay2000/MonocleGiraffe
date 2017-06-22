@@ -14,6 +14,7 @@ using MonocleGiraffe.Helpers;
 using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Portable.ViewModels;
 using XamarinImgur.Interfaces;
+using MonocleGiraffe.Portable.Helpers;
 
 namespace MonocleGiraffe
 {
@@ -43,12 +44,27 @@ namespace MonocleGiraffe
                 await InitLibrary();
             }
             JObject navigationParam = new JObject();
+            const string launchType = "launchType";
+            navigationParam[launchType] = LaunchType.AppTile.ToString();
             navigationParam["isNewLaunch"] = isNewLaunch;
             if (args is ProtocolActivatedEventArgs)
             {
                 var protoArgs = args as ProtocolActivatedEventArgs;
                 if (args.Kind == ActivationKind.Protocol)
+                {
                     navigationParam["url"] = protoArgs.Uri.AbsoluteUri;
+                    navigationParam[launchType] = LaunchType.Url.ToString();
+                }
+            }
+
+            if(args is LaunchActivatedEventArgs)
+            {
+                var launchArgs = args as LaunchActivatedEventArgs;
+                if (!string.IsNullOrEmpty(launchArgs.Arguments))
+                {
+                    navigationParam["tileArgs"] = launchArgs.Arguments;
+                    navigationParam[launchType] = LaunchType.SecondaryTile.ToString();
+                }
             }
             Portable.Helpers.StateHelper.SessionState["LaunchData"] = navigationParam;
             
@@ -89,8 +105,8 @@ namespace MonocleGiraffe
         }
 
         private async Task InitLibrary()
-        {            
-            Initializer.Init(false);
+        {
+            XamarinImgur.Helpers.Initializer.Init(false);
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
         }        
     }
