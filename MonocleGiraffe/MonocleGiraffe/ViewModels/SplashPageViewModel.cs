@@ -56,8 +56,10 @@ namespace MonocleGiraffe.ViewModels
 
         private void HandleSecondaryTile(JObject param)
         {
-            string subreddit = ((string)param["tileArgs"]).Substring(12);
-            //TODO: Populate Subreddit gallery args
+            string subredditUrl = ((string)param["tileArgs"]).Substring(12);
+            Dictionary<string, object> state = new Dictionary<string, object>();
+            state["subredditUrl"] = subredditUrl;
+            (SimpleIoc.Default.GetInstance<IViewModelLocator>().SubGalleryViewModel as SubGalleryPageViewModel).State = state;
         }
 
         private void HandleUrl(JObject param, IDictionary<string, object> state)

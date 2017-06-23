@@ -11,5 +11,7 @@ namespace MonocleGiraffe.Portable.ViewModels
         TransfersViewModel TransfersViewModel { get; } 
 
         BrowserViewModel BrowserViewModel { get; }
+
+        SubGalleryViewModel SubGalleryViewModel { get; }
     }
 }

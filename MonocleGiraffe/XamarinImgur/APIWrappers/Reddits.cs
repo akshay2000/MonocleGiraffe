@@ -24,5 +24,12 @@ namespace XamarinImgur.APIWrappers
             JObject result = await networkHelper.ExecuteRedditRequest(url);
             return result["data"]["children"].ToObject<List<Subreddit>>();
         }
+
+        public async Task<Subreddit> GetSubreddit(string idUrl)
+        {
+            string url = $"https://www.reddit.com/r/{idUrl}/about.json";
+            JObject result = await networkHelper.ExecuteRedditRequest(url);
+            return result.ToObject<Subreddit>();
+        }
     }
 }

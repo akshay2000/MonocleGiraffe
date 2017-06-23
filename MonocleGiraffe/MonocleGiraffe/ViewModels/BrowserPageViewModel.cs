@@ -23,7 +23,7 @@ namespace MonocleGiraffe.ViewModels
 
         public IDictionary<string, object> State { get; set; }
 
-        public async Task RestoreState(IDictionary<string, object> state)
+        private async Task RestoreState(IDictionary<string, object> state)
         {
             string imagesJson = (string)state["images"];
             string type = (string)state["type"];

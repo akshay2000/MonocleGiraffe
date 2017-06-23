@@ -12,7 +12,7 @@
     xmlns:ext="using:MonocleGiraffe.Controls.Extensions"
     mc:Ignorable="d"
     x:Name="PageRoot"
-    DataContext="{Binding Source={StaticResource Locator}, Path=SubGalleryPageViewModel}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=SubGalleryViewModel}">
 
     <Page.BottomAppBar>
         <CommandBar>

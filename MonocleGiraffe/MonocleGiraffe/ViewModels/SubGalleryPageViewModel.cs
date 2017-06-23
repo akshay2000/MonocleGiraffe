@@ -1,4 +1,5 @@
-﻿using MonocleGiraffe.Portable.Models;
+﻿using MonocleGiraffe.Portable.Helpers;
+using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.Portable.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,14 +23,37 @@ namespace MonocleGiraffe.ViewModels
         public IDispatcherWrapper Dispatcher { get; set; }
         public IStateItems SessionState { get; set; }
 
-        public SubGalleryPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav) { }
-        public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public IDictionary<string, object> State { get; set; }
+
+        private async Task RestoreState(IDictionary<string, object> state)
         {
-            if (state.Any())
+            if (state["subredditUrl"] == null)
             {
                 Sub = JsonConvert.DeserializeObject<SubredditItem>((string)state["sub"]);
                 Images = IncrementalSubredditGallery.fromJson((string)state["images"]);
                 state.Clear();
+            }
+            else
+            {
+                string subUrl = (string)state["subredditUrl"];
+                var sub = await Initializer.Reddits.GetSubreddit(subUrl);
+                Sub = new SubredditItem(sub);
+                Images = new IncrementalSubredditGallery(subUrl, Enums.Sort.Time);
+            }
+        }
+
+        public SubGalleryPageViewModel(GalaSoft.MvvmLight.Views.INavigationService nav) : base(nav) { }
+        public async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        {
+            IsBusy = true;
+            if (State != null && State.Any())
+            {
+                await RestoreState(State);
+                State = null;
+            }
+            else if (state.Any())
+            {
+                await RestoreState(state);
             }
             else
             {
@@ -39,7 +63,7 @@ namespace MonocleGiraffe.ViewModels
                     {
                         galleryMetaInfo = BootStrapper.Current.SessionState["GalleryInfo"] as GalleryMetaInfo;
                         Images = galleryMetaInfo?.Gallery as IncrementalSubredditGallery;
-                        var sub = (await Portable.Helpers.Initializer.Reddits.SearchSubreddits(Images.Subreddit)).First(s => s.Data.DisplayName == Images.Subreddit);
+                        var sub = await Initializer.Reddits.GetSubreddit(Images.Subreddit);
                         Sub = new SubredditItem(sub);
                     }
                     ImageSelectedIndex = galleryMetaInfo?.SelectedIndex ?? 0;
@@ -50,6 +74,7 @@ namespace MonocleGiraffe.ViewModels
                 }
             }
             await Task.CompletedTask;
+            IsBusy = false;
         }
 
         public async Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)

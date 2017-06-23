@@ -31,6 +31,9 @@ namespace MonocleGiraffe.Portable.ViewModels
             }
         }
 
+        bool isBusy;
+        public bool IsBusy { get { return isBusy; } set { Set(ref isBusy, value); } }
+
         IncrementalSubredditGallery images = default(IncrementalSubredditGallery);
         public IncrementalSubredditGallery Images { get { return images; } set { Set(ref images, value); } }
 

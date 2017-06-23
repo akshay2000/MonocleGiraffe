@@ -200,7 +200,8 @@ namespace MonocleGiraffe.Portable.ViewModels
                     nav.NavigateTo(PageKeyHolder.BrowserPageKey);
                     break;
                 case LaunchType.SecondaryTile:
-                    //TODO: Go to Subreddit gallery
+                    nav.NavigateTo(PageKeyHolder.SubGalleryPageKey);
+                    break;                        
                 case LaunchType.AppTile:
                 default:
                     nav.NavigateTo(PageKeyHolder.FrontPageKey);

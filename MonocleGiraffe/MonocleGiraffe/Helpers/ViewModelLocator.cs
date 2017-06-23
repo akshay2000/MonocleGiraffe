@@ -45,7 +45,7 @@ namespace MonocleGiraffe.Helpers
 
         public BrowserViewModel BrowserViewModel { get { return SimpleIoc.Default.GetInstance<BrowserPageViewModel>(); } }
 
-        public SubGalleryPageViewModel SubGalleryPageViewModel { get { return SimpleIoc.Default.GetInstance<SubGalleryPageViewModel>(); } }
+        public SubGalleryViewModel SubGalleryViewModel { get { return SimpleIoc.Default.GetInstance<SubGalleryPageViewModel>(); } }
 
         public static ViewModelLocator GetInstance()
         {
