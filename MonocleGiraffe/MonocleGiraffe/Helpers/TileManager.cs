@@ -43,7 +43,7 @@ namespace MonocleGiraffe.Helpers
         {
             TileContent content = GetTileContent(tileId, images);
             var dueTime = DateTime.Now.AddSeconds(5);
-            var futureTile = new Windows.UI.Notifications.ScheduledTileNotification(content.GetXml(), dueTime);
+            var futureTile = new ScheduledTileNotification(content.GetXml(), dueTime);
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId).AddToSchedule(futureTile);
         }
 
@@ -52,13 +52,6 @@ namespace MonocleGiraffe.Helpers
             TileContent content = GetTileContent(tileId, images);
             TileNotification tileNotification = new TileNotification(content.GetXml());
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId).Update(tileNotification);
-        }
-
-        private string ToThumbnail(Image image)
-        {
-            const string baseUrl = "http://i.imgur.com/";
-            string thumbnailId = image.IsAlbum ? image.Cover : image.Id;
-            return baseUrl + thumbnailId + "b.jpg";            
-        }
+        }        
     }
 }

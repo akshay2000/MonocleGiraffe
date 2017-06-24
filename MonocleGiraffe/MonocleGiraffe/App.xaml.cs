@@ -15,6 +15,7 @@ using GalaSoft.MvvmLight.Ioc;
 using MonocleGiraffe.Portable.ViewModels;
 using XamarinImgur.Interfaces;
 using MonocleGiraffe.Portable.Helpers;
+using Windows.ApplicationModel.Background;
 
 namespace MonocleGiraffe
 {
@@ -42,6 +43,7 @@ namespace MonocleGiraffe
             if (isNewLaunch)
             {
                 await InitLibrary();
+                RegisterBackgroundTask();
             }
             JObject navigationParam = new JObject();
             const string launchType = "launchType";
@@ -108,6 +110,31 @@ namespace MonocleGiraffe
         {
             XamarinImgur.Helpers.Initializer.Init(false);
             Portable.Helpers.Initializer.Init(new RoamingDataHelper(), new SharingHelper(), new ClipboardHelper());
-        }        
+        }
+
+        private async void RegisterBackgroundTask()
+        {
+            const string taskName = "TileUpdateTask";
+            const string taskEntryPoint = "BackgroundTasks.TileUpdateTask";
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == taskName)                
+                    return;                
+            }
+
+            var requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            bool shouldRegister = requestStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy || requestStatus == BackgroundAccessStatus.AlwaysAllowed;
+            if (!shouldRegister)
+                return;
+
+            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder();
+            taskBuilder.Name = taskName;
+            taskBuilder.TaskEntryPoint = taskEntryPoint;
+            taskBuilder.SetTrigger(new TimeTrigger(15, false));
+            taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+            var registration = taskBuilder.Register();
+        }
     }
 }

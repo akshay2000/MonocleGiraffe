@@ -492,6 +492,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundTasks\BackgroundTasks.csproj">
+      <Project>{90326a45-7784-4afa-af69-fd4dd75592a6}</Project>
+      <Name>BackgroundTasks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonocleGiraffe.Portable\MonocleGiraffe.Portable.csproj">
       <Project>{5cd309e9-78ac-4ced-81b9-49a36c0b6d03}</Project>
       <Name>MonocleGiraffe.Portable</Name>
