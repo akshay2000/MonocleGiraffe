@@ -58,6 +58,6 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Gray"/>
-        <Image x:Name="Thumbnail" Source="{Binding SmallThumbnail}" Width="104" Stretch="UniformToFill"/>
+        <Image x:Name="Thumbnail" Source="{Binding SmallThumbnail}" Stretch="UniformToFill"/>
     </Grid>
 </UserControl>
