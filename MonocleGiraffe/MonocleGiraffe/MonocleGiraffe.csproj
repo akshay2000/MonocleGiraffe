@@ -17,8 +17,8 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>MonocleGiraffe_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>EFB210FB8CF77294A2E8604FAAAAE3C11B2C7B4B</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>MonocleGiraffe_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>D9C02F759D9245350F31420C784FBF6EF65F329A</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -100,6 +100,7 @@
     </Content>
     <Content Include="Assets\DummyImage.png" />
     <Content Include="Assets\Fonts\Icons8.ttf" />
+    <None Include="MonocleGiraffe_StoreKey.pfx" />
     <None Include="project.json" />
     <Content Include="Secrets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -364,13 +364,13 @@
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
+    <MainPackageIdentityName>51231akshay2000.XBMCAssist</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.BeautifulWallpaper</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.Bullets</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.ColorsToDo</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.LinuxCheatsheet</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.Remembrall</MainPackageIdentityName>
-    <MainPackageIdentityName>51231akshay2000.XBMCAssist</MainPackageIdentityName>
     <MainPackageIdentityName>51231akshay2000.XBMCAssistRemote</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4QCVH" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH4QCVH" />
 </StoreAssociation>
