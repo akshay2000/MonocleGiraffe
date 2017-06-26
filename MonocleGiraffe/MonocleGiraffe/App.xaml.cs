@@ -132,7 +132,7 @@ namespace MonocleGiraffe
             BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder();
             taskBuilder.Name = taskName;
             taskBuilder.TaskEntryPoint = taskEntryPoint;
-            taskBuilder.SetTrigger(new TimeTrigger(15, false));
+            taskBuilder.SetTrigger(new TimeTrigger(90, false));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
             var registration = taskBuilder.Register();
         }

@@ -38,17 +38,25 @@ namespace MonocleGiraffe.Pages
         {
             get
             {
-                return (SubGalleryPageViewModel)DataContext;
+                return DataContext as SubGalleryPageViewModel;
             }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await Task.Delay(100);
-            var sub = (DataContext as SubGalleryPageViewModel).Sub;
-            string tileId = sub.Url;
+            ToggleAppBarButton(true);
+            if (Vm == null)
+                await Task.Delay(100);
+            Vm.PropertyChanged += Vm_PropertyChanged;
+        }
+        
+        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "Sub") return;
+            string tileId = Vm.Sub.Url;
             ToggleAppBarButton(!SecondaryTile.Exists(tileId));
+            Vm.PropertyChanged -= Vm_PropertyChanged;
         }
 
         public void ScrollMe(object sender, object parameter)

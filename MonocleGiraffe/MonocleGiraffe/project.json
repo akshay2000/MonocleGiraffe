@@ -3,7 +3,7 @@
     "AdDuplexWin10": "10.1.1.1",
     "GoogleAnalyticsSDK": "1.3.1",
     "HockeySDK.UWP": "4.1.6",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "Microsoft.Toolkit.Uwp.Notifications": "1.4.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "MvvmLight": "5.3.0",
