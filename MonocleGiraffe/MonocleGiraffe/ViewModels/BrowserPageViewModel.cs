@@ -31,7 +31,7 @@ namespace MonocleGiraffe.ViewModels
 
             IEnumerable<IGalleryItem> collection = null;
             if (type == typeof(IncrementalGallery).Name) collection = IncrementalGallery.fromJson(imagesJson);
-            if (type == typeof(IncrementalSubredditGallery).Name) collection = (IEnumerable<IGalleryItem>)IncrementalSubredditGallery.fromJson(imagesJson);
+            if (type == typeof(IncrementalSubredditGallery).Name) collection = (IEnumerable<IGalleryItem>)IncrementalSubredditGallery.FromJson(imagesJson);
 
             if (collection != null && collection is ISupportIncrementalLoading)
             {

@@ -30,7 +30,7 @@ namespace MonocleGiraffe.ViewModels
             if (state["subredditUrl"] == null)
             {
                 Sub = JsonConvert.DeserializeObject<SubredditItem>((string)state["sub"]);
-                Images = IncrementalSubredditGallery.fromJson((string)state["images"]);
+                Images = IncrementalSubredditGallery.FromJson((string)state["images"]);
                 state.Clear();
             }
             else
@@ -131,7 +131,7 @@ namespace MonocleGiraffe.ViewModels
             return new LoadMoreItemsResult { Count = count };
         }
 
-        public static IncrementalSubredditGallery fromJson(string s)
+        public static IncrementalSubredditGallery FromJson(string s)
         {
             JObject o = JObject.Parse(s);
             Enums.Sort sort = JsonConvert.DeserializeObject<Enums.Sort>((string)o["sort"]);
