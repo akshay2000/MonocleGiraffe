@@ -16,6 +16,8 @@ using MonocleGiraffe.Portable.ViewModels;
 using XamarinImgur.Interfaces;
 using MonocleGiraffe.Portable.Helpers;
 using Windows.ApplicationModel.Background;
+using Windows.UI.Xaml.Media;
+using Windows.Foundation.Metadata;
 
 namespace MonocleGiraffe
 {
@@ -37,6 +39,7 @@ namespace MonocleGiraffe
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Lifecycle", startKind.ToString(), null, 0);
+            SetAdaptiveAcrylicBrush();
             bool isNewLaunch = args.PreviousExecutionState == ApplicationExecutionState.NotRunning;
             if (!SimpleIoc.Default.IsRegistered<GalaSoft.MvvmLight.Views.INavigationService>())
                 await ConfigureIoc();
@@ -71,6 +74,19 @@ namespace MonocleGiraffe
             Portable.Helpers.StateHelper.SessionState["LaunchData"] = navigationParam;
             
             SimpleIoc.Default.GetInstance<GalaSoft.MvvmLight.Views.INavigationService>().NavigateTo(ViewModelLocator.SplashPageKey);
+        }
+
+        private void SetAdaptiveAcrylicBrush()
+        {
+            const string adaptiveBrush = "AdaptiveAcrylicBrush";
+            if (!Current.Resources.ContainsKey(adaptiveBrush))
+            {
+                Current.Resources[adaptiveBrush] = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 37, 37, 37));
+                if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
+                {
+                    Current.Resources[adaptiveBrush] = Current.Resources["SystemControlChromeHighAcrylicWindowMediumBrush"];
+                }
+            }
         }
 
         private async Task ConfigureIoc()

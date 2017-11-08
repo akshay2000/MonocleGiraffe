@@ -1106,7 +1106,7 @@
                                                     <!--<ContentControl.Clip>
                                                         <RectangleGeometry x:Name="HeaderClipperGeometry"/>
                                                     </ContentControl.Clip>-->
-                                                    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+                                                    <Grid Background="{StaticResource AdaptiveAcrylicBrush}">
                                                         <PivotHeaderPanel x:Name="StaticHeader" Visibility="Collapsed"/>
                                                         <PivotHeaderPanel x:Name="Header">
                                                             <PivotHeaderPanel.RenderTransform>
