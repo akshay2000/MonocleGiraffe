@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Header-->
-        <Grid Margin="12">
+        <Grid Padding="12" Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>

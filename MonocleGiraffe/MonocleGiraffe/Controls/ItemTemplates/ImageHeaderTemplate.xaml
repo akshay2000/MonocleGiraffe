@@ -15,7 +15,7 @@
         </ControlTemplate>
     </UserControl.Resources>
 
-    <Grid Background="#FF252525">
+    <Grid Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidhStateGroup">
                 <VisualState x:Name="NarrowState">

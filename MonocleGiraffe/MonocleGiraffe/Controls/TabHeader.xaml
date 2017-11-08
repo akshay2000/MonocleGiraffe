@@ -23,14 +23,14 @@
                 </VisualState>
                 <VisualState x:Name="UnselectedPointerOver">
                     <VisualState.Setters>
-                        <Setter Target="LayoutRoot.(Control.Background)" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
+                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="SelectedPointerOver">
                     <VisualState.Setters>
                         <Setter Target="UnderScore.(UIElement.Opacity)" Value="1"/>
                         <Setter Target="PathWrapper.(Control.Foreground)" Value="{StaticResource AppThemeBrush}"/>
-                        <Setter Target="LayoutRoot.(Control.Background)" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
+                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
                     </VisualState.Setters>
                 </VisualState>                
             </VisualStateGroup>
