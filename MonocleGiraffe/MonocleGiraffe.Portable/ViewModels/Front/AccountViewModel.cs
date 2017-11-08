@@ -143,12 +143,23 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
         }
 
         #region User
-
+        
         private string userName;
         public string UserName
         {
             get { return userName; }
-            set { Set(ref userName, value); }
+            set
+            {
+                Set(ref userName, value);
+                Avatar = $"https://imgur.com/user/{userName}/avatar?maxwidth=155";
+            }
+        }
+
+        private string avatar;
+        public string Avatar
+        {
+            get { return avatar; }
+            set { Set(ref avatar, value); }
         }
 
         private long points;

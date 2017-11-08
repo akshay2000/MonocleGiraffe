@@ -574,7 +574,9 @@
                         <StackPanel Margin="0,0,12,0">
                             <!--#region User info-->
                             <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                <Border Height="24" Width="24" Background="{StaticResource AppThemeBrush}" CornerRadius="12"/>
+                                <Border Height="50" Width="50" CornerRadius="25" Background="#FF252525">
+                                    <Image Source="{Binding Avatar}"/>
+                                </Border>
                                 <TextBlock Text="HELLO" FontWeight="Bold" Margin="8,0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <TextBlock Text="{Binding UserName}" FontSize="36" FontWeight="Light"/>
