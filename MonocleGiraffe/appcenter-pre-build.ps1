@@ -8,3 +8,5 @@
 	`"Banner_Id`": `"$env:ADDUPLEX_BANNER_ID`"
   }
 }" | Out-File -FilePath .\MonocleGiraffe\MonocleGiraffe\Secrets.json
+Copy-Item .\MonocleGiraffe\MonocleGiraffe\Secrets.json .\MonocleGiraffe\MonocleGiraffe.Android\Assets\Secrets.json
+"{}" | Out-File -FilePath .\MonocleGiraffe\MonocleGiraffe.Android\Assets\Analytics.json
