@@ -1,5 +1,4 @@
-﻿Write-Output
-"{
+﻿"{
   `"Client_Id`": `"$env:CLIENT_ID`",
   `"Mashape_Key`": `"$env:MASHAPE_KEY`",
   `"Client_Secret`": `"$env:CLIENT_SECRET`",
