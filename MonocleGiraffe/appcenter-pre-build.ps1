@@ -7,5 +7,4 @@
 	`"App_Key`": `"$env:ADDUPLEX_APP_KEY`",
 	`"Banner_Id`": `"$env:ADDUPLEX_BANNER_ID`"
   }
-}" | Out-File -FilePath .\MonocleGiraffe\Secrets.json
-ls .\MonocleGiraffe
+}" | Out-File -FilePath .\MonocleGiraffe\MonocleGiraffe\Secrets.json
