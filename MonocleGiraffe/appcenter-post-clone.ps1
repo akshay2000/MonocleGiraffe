@@ -12,7 +12,7 @@
 Write-Output "Operating from source directory $env:APPCENTER_SOURCE_DIRECTORY"
 
 $inPath = '.\MonocleGiraffe\MonocleGiraffe.sln'
-$lines = Get-Content -Path .\input.txt
+$lines = Get-Content -Path $inPath
 Clear-Content $inPath
 $uid = "undefined"
 for ($i = 0; $i -lt $lines.Count; $i++) {
