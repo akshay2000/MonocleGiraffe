@@ -2,11 +2,11 @@
 
 namespace XamarinImgur.Models
 {
-    public class Data
+    public class Subreddit
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-                
+
         [JsonProperty("display_name")]
         public string DisplayName { get; set; }
 
@@ -18,21 +18,11 @@ namespace XamarinImgur.Models
 
         [JsonProperty("subscribers")]
         public int? Subscribers { get; set; }
-        
+
         [JsonProperty("name")]
         public string Name { get; set; }
-        
+
         [JsonProperty("url")]
-        public string Url { get; set; }       
-    }
-
-    public class Subreddit
-    {
-
-        [JsonProperty("kind")]
-        public string Kind { get; set; }
-
-        [JsonProperty("data")]
-        public Data Data { get; set; }
+        public string Url { get; set; }        
     }
 }

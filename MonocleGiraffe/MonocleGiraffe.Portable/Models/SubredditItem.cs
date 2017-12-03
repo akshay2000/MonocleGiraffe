@@ -16,11 +16,10 @@ namespace MonocleGiraffe.Portable.Models
 
         public SubredditItem(Subreddit subreddit)
         {
-            var data = subreddit.Data;
-            Url = data.DisplayName;
-            Title = data.Title;
-            Subscribers = data.Subscribers ?? 0;      
-            IsMature = data.Over18 ?? false;
+            Url = subreddit.DisplayName;
+            Title = subreddit.Title;
+            Subscribers = subreddit.Subscribers ?? 0;      
+            IsMature = subreddit.Over18 ?? false;
         }
 
         private string url;

@@ -20,9 +20,9 @@ namespace XamarinImgur.APIWrappers
 
         public async Task<List<Subreddit>> SearchSubreddits(string query)
         {
-            string url = $"https://www.reddit.com/subreddits/search.json?q={query}";
-            JObject result = await networkHelper.ExecuteRedditRequest(url);
-            return result["data"]["children"].ToObject<List<Subreddit>>();
+            string url = $"http://redditwrapper.azurewebsites.net/api/SubredditSearch?query={query}";
+            JObject result = await networkHelper.ExecuteRedditWrapperRequest(url);
+            return result["subreddits"].ToObject<List<Subreddit>>();
         }
 
         public async Task<Subreddit> GetSubreddit(string idUrl)

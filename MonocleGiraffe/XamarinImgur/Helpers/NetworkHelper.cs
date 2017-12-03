@@ -181,6 +181,34 @@ namespace XamarinImgur.Helpers
 
         #region Reddit
 
+        public async Task<JObject> ExecuteRedditWrapperRequest(string url)
+        {
+            string code = (string) (await secretsHelper.GetConfiguration())["Reddit_Wrapper_Code"];
+            string authUrl = url + $"&code={code}";
+            IHttpClient httpClient = GetRedditWrapperClient();
+            string response = "{}";
+            try
+            {
+                response = await httpClient.GetAsync(new Uri(authUrl));
+            }
+            catch
+            {
+                Debug.WriteLine("Netwrok Error!");
+            }
+            JObject responseJson = JObject.Parse(response);
+            return responseJson;
+        }
+
+        private IHttpClient redditWrapperClient;
+        private IHttpClient GetRedditWrapperClient()
+        {
+            if (redditWrapperClient == null)
+            {
+                redditWrapperClient = httpClientFactory.Invoke();
+            }
+            return redditWrapperClient;
+        }
+
         public async Task<JObject> ExecuteRedditRequest(string url)
         {
             IHttpClient httpClient = GetRedditClient();

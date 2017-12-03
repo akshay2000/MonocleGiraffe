@@ -169,7 +169,7 @@ namespace MonocleGiraffe.Portable.ViewModels.Front
             bool filterMature = !GetIsMatureEnabled();
             foreach (var sub in subs)
             {
-                if (filterMature && (sub.Data.Over18 ?? false))
+                if (filterMature && (sub.Over18 ?? false))
                     continue;
                 SubredditItem si = new SubredditItem(sub);
                 si.IsFavorited = subscribedSubs.Contains(si.Url);
