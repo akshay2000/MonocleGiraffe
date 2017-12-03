@@ -2,6 +2,7 @@
   `"Client_Id`": `"$env:CLIENT_ID`",
   `"Mashape_Key`": `"$env:MASHAPE_KEY`",
   `"Client_Secret`": `"$env:CLIENT_SECRET`",
+  `"Reddit_Wrapper_Code`": `"$env:REDDIT_WRAPPER_CODE`",
   `"Ad_Config`" :
   {
 	`"App_Key`": `"$env:ADDUPLEX_APP_KEY`",
