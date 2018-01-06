@@ -203,6 +203,7 @@
     <Compile Include="LibraryImpl\AuthBroker.cs" />
     <Compile Include="LibraryImpl\ClipboardHelper.cs" />
     <Compile Include="LibraryImpl\HttpClient.cs" />
+    <Compile Include="LibraryImpl\HttpClientOld.cs" />
     <Compile Include="LibraryImpl\RoamingDataHelper.cs" />
     <Compile Include="LibraryImpl\SecretsProvider.cs" />
     <Compile Include="LibraryImpl\SettingsHelper.cs" />
