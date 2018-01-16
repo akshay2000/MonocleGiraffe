@@ -110,7 +110,10 @@ namespace MonocleGiraffe.ViewModels
     public class IncrementalSubredditGallery : Portable.ViewModels.IncrementalSubredditGallery, ISupportIncrementalLoading
     {
         public IncrementalSubredditGallery(string subreddit, Enums.Sort sort)
-            : base(subreddit, sort) { }
+            : base(subreddit, sort)
+        {
+            Init();
+        }
 
         public bool HasMoreItems
         {
@@ -118,6 +121,12 @@ namespace MonocleGiraffe.ViewModels
             {
                 return HasMore;
             }
+        }
+
+        private async void Init()
+        {
+            if (!IsBusy)
+                await LoadMoreAsync(60);
         }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)

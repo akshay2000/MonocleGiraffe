@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="51231akshay2000.MonocleGiraffe" Publisher="CN=7852A096-2C96-409A-ADB9-A5DB5C0144D3" Version="1.1.15.0" />
+  <Identity Name="51231akshay2000.MonocleGiraffe" Publisher="CN=7852A096-2C96-409A-ADB9-A5DB5C0144D3" Version="1.1.16.0" />
   <mp:PhoneIdentity PhoneProductId="0843ff54-2bc7-4152-aed6-ef45b36312ec" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Monocle Giraffe</DisplayName>
@@ -26,16 +26,16 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="transparent" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="imgur">
-            <uap:DisplayName>Monocle Giraffe</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTasks.TileUpdateTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="imgur">
+            <uap:DisplayName>Monocle Giraffe</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
