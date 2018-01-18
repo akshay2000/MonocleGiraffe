@@ -115,11 +115,14 @@ namespace MonocleGiraffe
             SimpleIoc.Default.Register<AuthenticationHelper>();
             SimpleIoc.Default.Register<SecretsHelper>();
             SimpleIoc.Default.Register<TileManager>();
+            SimpleIoc.Default.Register<RatingsReviewsHelper>();
             var authHelper = SimpleIoc.Default.GetInstance<AuthenticationHelper>();
             var secretsHelper = SimpleIoc.Default.GetInstance<SecretsHelper>();
             SimpleIoc.Default.Register<NetworkHelper>(() => new NetworkHelper(authHelper, () => new HttpClient(), secretsHelper));
             
             SimpleIoc.Default.Register<AdHelper>();
+
+            HandleRatings();
         }
 
         private async Task InitLibrary()
@@ -151,6 +154,13 @@ namespace MonocleGiraffe
             taskBuilder.SetTrigger(new TimeTrigger(90, false));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
             var registration = taskBuilder.Register();
+        }
+
+        private async void HandleRatings()
+        {
+            var ratingsHelper = SimpleIoc.Default.GetInstance<RatingsReviewsHelper>();
+            ratingsHelper.IncrementLaunchCount();
+            await ratingsHelper.ShowDialogIfNeeded();
         }
     }
 }

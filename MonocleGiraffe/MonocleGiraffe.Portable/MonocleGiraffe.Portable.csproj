@@ -46,6 +46,7 @@
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\Initializer.cs" />
     <Compile Include="Helpers\LaunchType.cs" />
+    <Compile Include="Helpers\ReviewsHelper.cs" />
     <Compile Include="Helpers\StateHelper.cs" />
     <Compile Include="Interfaces\IClipboardHelper.cs" />
     <Compile Include="Interfaces\INavigable.cs" />

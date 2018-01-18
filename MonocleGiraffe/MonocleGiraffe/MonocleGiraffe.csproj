@@ -197,6 +197,7 @@
     <Compile Include="Helpers\IncrementalCollection.cs" />
     <Compile Include="Helpers\MergedNavigationService.cs" />
     <Compile Include="Helpers\NotifyBase.cs" />
+    <Compile Include="Helpers\RatingsReviewsHelper.cs" />
     <Compile Include="Helpers\RemoteDeviceHelper.cs" />
     <Compile Include="Helpers\TileManager.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />

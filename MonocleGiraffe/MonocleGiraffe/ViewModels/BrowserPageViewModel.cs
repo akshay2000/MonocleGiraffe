@@ -1,5 +1,6 @@
 ﻿using MonocleGiraffe.Portable.Models;
 using MonocleGiraffe.ViewModels.FrontPage;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Services.NavigationService;
+using Windows.Services.Store;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 
@@ -54,7 +56,7 @@ namespace MonocleGiraffe.ViewModels
             else
                 Activate(parameter);
             IsBusy = false;
-        }
+        }       
 
         public Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
