@@ -20,6 +20,8 @@ namespace MonocleGiraffe.Portable.Helpers
         }
              
         protected abstract Task<bool> ShowRatingReviewDialog();
+        protected abstract void PreDialogHook();
+        protected abstract void PostDialogHook(bool isRated);
 
         public void IncrementLaunchCount()
         {
@@ -30,11 +32,15 @@ namespace MonocleGiraffe.Portable.Helpers
 
         public async Task ShowDialogIfNeeded()
         {
-            if (ShouldShowDialog()) {
+            if (ShouldShowDialog())
+            {
+                PreDialogHook();
                 bool isRated = await ShowRatingReviewDialog();
+                PostDialogHook(isRated);
                 settingsHelper.SetLocalValue(IsRatedKey, isRated);                
             }
         }
+
 
         private bool ShouldShowDialog()
         {

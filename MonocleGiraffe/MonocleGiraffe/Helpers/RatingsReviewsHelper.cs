@@ -14,6 +14,17 @@ namespace MonocleGiraffe.Helpers
     {
         public RatingsReviewsHelper(ISettingsHelper settingsHelper) : base(settingsHelper) { }
 
+        protected override void PostDialogHook(bool isRated)
+        {
+            var yesNo = isRated ? "Yes" : "No";
+            GoogleAnalytics.EasyTracker.GetTracker().SendView($"RatingsDialog{yesNo}");
+        }
+
+        protected override void PreDialogHook()
+        {
+            GoogleAnalytics.EasyTracker.GetTracker().SendView("RatingsDialog");
+        }
+
         protected override async Task<bool> ShowRatingReviewDialog()
         {
             StoreSendRequestResult result = await StoreRequestHelper.SendRequestAsync(StoreContext.GetDefault(), 16, String.Empty);
