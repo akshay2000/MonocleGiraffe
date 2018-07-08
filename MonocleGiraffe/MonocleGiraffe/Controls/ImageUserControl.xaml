@@ -21,7 +21,19 @@
                 <MenuFlyoutItem Text="Save" Command="{Binding SaveCommand}"/>
             </MenuFlyout>
         </FlyoutBase.AttachedFlyout>        
-        <MediaElement MinHeight="{Binding Height}" MinWidth="{Binding Width}" Source="{Binding Mp4}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}" IsLooping="True"/>
+        <MediaElement x:Name="VideoElement" MinHeight="{Binding Height}" MinWidth="{Binding Width}" Source="{Binding Mp4}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}" IsLooping="True" IsMuted="True"/>
         <Image Source="{Binding Link}" Height="{Binding Height}" Width="{Binding Width}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
+        <ToggleButton
+            x:Name="MuteButton"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top" 
+            IsChecked="True"
+            Checked="MuteButton_Toggled"
+            Unchecked="MuteButton_Toggled"
+            Visibility="{Binding HasSound, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ToggleButton.Content>
+                <SymbolIcon Symbol="Mute"/>
+            </ToggleButton.Content>
+        </ToggleButton>
     </Grid>
 </UserControl>

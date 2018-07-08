@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MonocleGiraffe.Portable.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -42,6 +44,12 @@ namespace MonocleGiraffe.Controls
             var targetElement = sender as FrameworkElement;
             MenuFlyout flyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(targetElement);
             flyout.ShowAt(targetElement, e.GetPosition(targetElement));          
+        }
+
+        private void MuteButton_Toggled(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
+            VideoElement.IsMuted = button.IsChecked ?? true;
         }
     }
 }

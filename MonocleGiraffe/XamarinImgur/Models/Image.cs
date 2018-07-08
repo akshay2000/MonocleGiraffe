@@ -95,5 +95,8 @@ namespace XamarinImgur.Models
 
         [JsonProperty("is_album")]
         public bool IsAlbum { get; set; }
+
+        [JsonProperty("has_sound")]
+        public bool HasSound { get; set; }
     }
 }

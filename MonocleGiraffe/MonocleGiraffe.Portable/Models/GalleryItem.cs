@@ -137,6 +137,11 @@ namespace MonocleGiraffe.Portable.Models
             get { return image.Animated; }
         }
 
+        public bool HasSound
+        {
+            get { return image.HasSound; }
+        }
+
         public double BigThumbRatio
         {
             get
