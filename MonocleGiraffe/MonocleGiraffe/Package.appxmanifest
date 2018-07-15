@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="51231akshay2000.MonocleGiraffe" Publisher="CN=7852A096-2C96-409A-ADB9-A5DB5C0144D3" Version="1.1.20.0" />
+  <Identity Name="51231akshay2000.MonocleGiraffe" Publisher="CN=7852A096-2C96-409A-ADB9-A5DB5C0144D3" Version="1.1.21.0" />
   <mp:PhoneIdentity PhoneProductId="262824f1-7722-4413-afed-0a4dddf73c66" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Monocle Giraffe</DisplayName>

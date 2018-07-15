@@ -18,7 +18,7 @@
             <MenuFlyout>
                 <MenuFlyoutItem Text="Copy Link" Command="{Binding CopyLinkCommand}"/>
                 <MenuFlyoutItem Text="Share" Command="{Binding ShareCommand}"/>
-                <MenuFlyoutItem Text="Save" Command="{Binding SaveCommand}"/>
+                <!--<MenuFlyoutItem Text="Save" Command="{Binding SaveCommand}"/>-->
             </MenuFlyout>
         </FlyoutBase.AttachedFlyout>        
         <MediaElement x:Name="VideoElement" MinHeight="{Binding Height}" MinWidth="{Binding Width}" Source="{Binding Mp4}" Visibility="{Binding IsAnimated, Converter={StaticResource BoolToVisibilityConverter}}" IsLooping="True" IsMuted="True"/>

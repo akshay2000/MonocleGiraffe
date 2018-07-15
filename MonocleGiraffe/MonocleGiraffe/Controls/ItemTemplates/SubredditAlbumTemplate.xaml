@@ -98,7 +98,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
+
         <DataTemplate x:Key="ImageItemTemplate">
             <Grid Margin="0,4">
                 <Grid.RowDefinitions>
@@ -124,14 +124,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>      
+        </Grid.RowDefinitions>
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <!--Header-->
             <Grid Padding="12" Background="#FF252525">
                 <Grid.RowDefinitions>
@@ -174,7 +174,7 @@
                 </AppBarButton.Icon>
             </AppBarButton>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Download" Command="{Binding SaveCommand}"/>
+                <!--<AppBarButton Label="Download" Command="{Binding SaveCommand}"/>-->
                 <AppBarButton x:Name="OpenRemoteButton" Visibility="{x:Bind IsRemoteAvailable, Converter={StaticResource BoolToVisibilityConverter}}" Label="Open on other device" Click="OpenRemoteButton_Click" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
